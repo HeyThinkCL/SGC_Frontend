@@ -71,12 +71,12 @@
   </div>
 </div>
 
-<app-by-tipo-ensenanza [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 1"></app-by-tipo-ensenanza>
-<app-by-grado [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 2"></app-by-grado>
-<app-by-curso [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 3"></app-by-curso>
-<app-by-alumno [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 4"></app-by-alumno>
+<app-by-tipo-ensenanza [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 'fTipoEnsenanza'"></app-by-tipo-ensenanza>
+<app-by-grado [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 'fGrado'"></app-by-grado>
+<app-by-curso [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 'fCurso'"></app-by-curso>
+<app-by-alumno [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 'fAlumno'"></app-by-alumno>
 
-<div class="row" *ngIf="docsId.length > 0">
+<div class="row" *ngIf="(docsId.length > 0)||optionId">
   <div class="col-md-10 col-md-offset-1">
     <button class="btn btn-block btn-outline-success"
             [disabled]="(subjectsId.length == 0)||(docsId.length == 0)"
