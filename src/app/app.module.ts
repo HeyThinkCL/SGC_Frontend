@@ -13,6 +13,7 @@ import { FilterCursoProf } from './pipes/filter-curso-prof.pipe';
 import { CalcPromedio } from './pipes/calc-promedio.pipe';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { AbbreviatePipe } from './pipes/abbreviate.pipe'
+import {FilterTablePipe} from "./pipes/filter-table.pipe";
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -69,6 +70,10 @@ import { CrearProfesorComponent } from './components/libros/profesor/crear-profe
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { InformesComponent } from './components/documentos/informes/informes.component';
 import { CertificadosComponent } from './components/documentos/certificados/certificados.component';
+import { ByTipoEnsenanzaComponent } from './components/documentos/filtros/by-tipo-ensenanza/by-tipo-ensenanza.component';
+import { ByGradoComponent } from './components/documentos/filtros/by-grado/by-grado.component';
+import { ByCursoComponent } from './components/documentos/filtros/by-curso/by-curso.component';
+import { ByAlumnoComponent } from './components/documentos/filtros/by-alumno/by-alumno.component';
 
 //Servicios
 import { MatriculaService } from "./services/sistema/ficha/matricula.service";
@@ -79,10 +84,6 @@ import {AsignaturasService} from "./services/libros/asignaturas.service";
 import {NotasService} from "./services/libros/notas.service";
 import {AnotacionesService} from './services/libros/anotaciones.service';
 import {DpaService} from './services/sistema/dpa.service';
-import { ByTipoEnsenanzaComponent } from './components/documentos/filtros/by-tipo-ensenanza/by-tipo-ensenanza.component';
-import { ByGradoComponent } from './components/documentos/filtros/by-grado/by-grado.component';
-import { ByCursoComponent } from './components/documentos/filtros/by-curso/by-curso.component';
-import { ByAlumnoComponent } from './components/documentos/filtros/by-alumno/by-alumno.component';
 
 
 
@@ -124,14 +125,15 @@ import { ByAlumnoComponent } from './components/documentos/filtros/by-alumno/by-
     DocumentosComponent,
     InformesComponent,
     CertificadosComponent,
-    FilterCursoProf,
-    CalcPromedio,
-    TruncateTextPipe,
-    AbbreviatePipe,
     ByTipoEnsenanzaComponent,
     ByGradoComponent,
     ByCursoComponent,
     ByAlumnoComponent,
+    FilterCursoProf,
+    CalcPromedio,
+    TruncateTextPipe,
+    AbbreviatePipe,
+    FilterTablePipe,
   ],
   imports: [
     BrowserModule,

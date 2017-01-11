@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CertificadosComponent implements OnInit {
 
-  certificados = [
+  docs = [
     {'id':'cMatricula','nombre':'Certificado Matricula'},
     {'id':'cAlumnoRegular','nombre':'Certificado Alumno Regular'},
     {'id':'cInscripcion','nombre':'Certificado de Inscripción'},
@@ -22,7 +22,7 @@ export class CertificadosComponent implements OnInit {
     {'id':'fTipoEnsenanza','nombre':'Por Tipo de Enseñanza','icon':'icon-institution'},
     {'id':'fGrado','nombre':'Por Grado','icon':'icon-mortar-board'},
     {'id':'fCurso','nombre':'Por Curso','icon':'icon-users'},
-    {'id':'fNombre','nombre':'Por Alumno','icon':'icon-user'},
+    {'id':'fAlumno','nombre':'Por Alumno','icon':'icon-user'},
   ];
 
   docsId: string[] = [];
@@ -34,7 +34,7 @@ export class CertificadosComponent implements OnInit {
   ngOnInit() {
   }
 
-  setCertificado(id: string){
+  setDocumento(id: string){
     if(this.include(this.docsId,id)){
       this.docsId.splice(this.docsId.indexOf(id),1);
     } else {

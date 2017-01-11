@@ -22,18 +22,18 @@
     </div>
   </div>
   <div class="col-md-12">
-    <div class="col-sm-3" *ngFor="let cert of certificados">
-      <div class="card" (click)="setCertificado(cert.id)">
+    <div class="col-sm-3" *ngFor="let doc of docs">
+      <div class="card" (click)="setDocumento(doc.id)">
         <div class="card-body">
           <div class="media">
             <div class="media-middle media-left">
               <span class="circle sq-36"
-                [ngClass]="{'bg-info': include(docsId,cert.id), 'bg-info-inverse': !(include(docsId,cert.id))}">
+                [ngClass]="{'bg-info': include(docsId,doc.id), 'bg-info-inverse': !(include(docsId,doc.id))}">
                 <span class="icon icon-file-o"></span>
               </span>
             </div>
             <div class="media-middle media-body">
-              <h4 class="media-heading fw-l">{{cert.nombre}}</h4>
+              <h4 class="media-heading fw-l">{{doc.nombre}}</h4>
             </div>
           </div>
         </div>
