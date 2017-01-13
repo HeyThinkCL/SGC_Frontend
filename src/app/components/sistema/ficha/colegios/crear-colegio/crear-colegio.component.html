@@ -14,19 +14,52 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-2">Dirección</label>
-          <div class="col-sm-6">
-            <input id="form-control-2" class="form-control" type="text" [(ngModel)]="colegio.direccion">
+          <label class="col-sm-2 control-label" for="form-control-2">Razón Social</label>
+          <div class="col-sm-3">
+            <input id="form-control-2" class="form-control" type="text" [(ngModel)]="colegio.razon_social">
           </div>
-          <label class="col-sm-2 control-label" for="form-control-3">N°</label>
-          <div class="col-sm-2">
-            <input id="form-control-3" class="form-control" type="text" [(ngModel)]="colegio.numeracion">
+          <label class="col-sm-2 control-label" for="form-control-3">Resolución</label>
+          <div class="col-sm-5">
+            <input id="form-control-3" class="form-control" type="text" [(ngModel)]="colegio.resolucion">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-4">Región</label>
+          <label class="col-sm-2 control-label" for="form-control-4">RBD</label>
+          <div class="col-sm-2">
+            <input id="form-control-4" class="form-control" type="number" [(ngModel)]="colegio.rbd">
+          </div>
+          <label class="col-sm-2 control-label" for="form-control-5">Dependencia</label>
+          <div class="col-sm-6">
+            <input id="form-control-5" class="form-control" type="text" [(ngModel)]="colegio.dependencia">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="form-control-6">RUT</label>
+          <div class="col-sm-2">
+            <input id="form-control-6" class="form-control" type="number" [(ngModel)]="colegio.rut">
+          </div>
+          <div class="col-sm-1">
+            <input id="form-control-7" class="form-control" type="text" maxlength="1" [(ngModel)]="colegio.dv">
+          </div>
+          <label class="col-sm-1 control-label" for="form-control-8">Área</label>
+          <div class="col-sm-6">
+            <input id="form-control-8" class="form-control" type="text" [(ngModel)]="colegio.area">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="form-control-9">Dirección</label>
+          <div class="col-sm-6">
+            <input id="form-control-9" class="form-control" type="text" [(ngModel)]="colegio.direccion">
+          </div>
+          <label class="col-sm-2 control-label" for="form-control-10">Num.</label>
+          <div class="col-sm-2">
+            <input id="form-control-10" class="form-control" type="text" [(ngModel)]="colegio.numeracion">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="form-control-11">Región</label>
           <div class="col-sm-4">
-            <select id="form-control-4"
+            <select id="form-control-11"
                     class="form-control"
                     type="text"
                     [(ngModel)]="colegio.region"
@@ -35,9 +68,9 @@
                       value="{{region.nombre}}">{{region.nombre}}</option>
             </select>
           </div>
-          <label class="col-sm-2 control-label" for="form-control-5">Provincia</label>
+          <label class="col-sm-2 control-label" for="form-control-12">Provincia</label>
           <div class="col-sm-4">
-            <select id="form-control-5"
+            <select id="form-control-12"
                     class="form-control"
                     type="text"
                     [(ngModel)]="colegio.provincia"
@@ -48,9 +81,9 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-7">Comuna</label>
+          <label class="col-sm-2 control-label" for="form-control-13">Comuna</label>
           <div class="col-sm-4">
-            <select id="form-control-7"
+            <select id="form-control-13"
                     class="form-control"
                     type="text"
                     [(ngModel)]="colegio.comuna"
@@ -60,47 +93,47 @@
             </select>
           </div>
 
-          <label class="col-sm-2 control-label" for="form-control-8">Departamento Provincial</label>
+          <label class="col-sm-2 control-label" for="form-control-14">Departamento Provincial</label>
           <div class="col-sm-4">
-            <input id="form-control-8" class="form-control" type="text" [(ngModel)]="colegio.depto_prov">
+            <input id="form-control-14" class="form-control" type="text" [(ngModel)]="colegio.depto_prov">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-9">Teléfono</label>
+          <label class="col-sm-2 control-label" for="form-control-15">Teléfono</label>
+          <div class="col-sm-4">
+            <input id="form-control-15" class="form-control" type="text" [(ngModel)]="colegio.telefono">
+          </div>
+          <label class="col-sm-2 control-label" for="form-control-16">Celular</label>
+          <div class="col-sm-4">
+            <input id="form-control-16" class="form-control" type="text" [(ngModel)]="colegio.celular">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="form-control-17">Fax</label>
           <div class="col-sm-3">
-            <input id="form-control-9" class="form-control" type="text" [(ngModel)]="colegio.telefono">
+            <input id="form-control-17" class="form-control" type="text" [(ngModel)]="colegio.fax">
           </div>
-          <label class="col-sm-2 control-label" for="form-control-10">Web</label>
+          <label class="col-sm-2 control-label" for="form-control-18">Web</label>
           <div class="col-sm-5">
-            <input id="form-control-10" class="form-control" type="text" [(ngModel)]="colegio.web">
+            <input id="form-control-18" class="form-control" type="text" [(ngModel)]="colegio.web">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-11">Email</label>
+          <label class="col-sm-2 control-label" for="form-control-19">Mail</label>
           <div class="col-sm-10">
-            <input id="form-control-11" class="form-control" type="text" [(ngModel)]="colegio.mail">
+            <input id="form-control-19" class="form-control" data-inputmask="'alias': 'email'" type="text" [(ngModel)]="colegio.mail">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-12">Sostenedor</label>
+          <label class="col-sm-2 control-label" for="form-control-20">Sostenedor</label>
           <div class="col-sm-10">
-            <input id="form-control-12" class="form-control" type="text" [(ngModel)]="colegio.sostenedor">
+            <input id="form-control-20" class="form-control" type="text" [(ngModel)]="colegio.sostenedor">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-13">Director</label>
+          <label class="col-sm-2 control-label" for="form-control-21">Director</label>
           <div class="col-sm-10">
-            <input id="form-control-13" class="form-control" type="text" [(ngModel)]="colegio.director">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-14">RBD</label>
-          <div class="col-sm-2">
-            <input id="form-control-14" class="form-control" type="text" [(ngModel)]="colegio.rbd">
-          </div>
-          <label class="col-sm-2 control-label" for="form-control-15">Dependencia</label>
-          <div class="col-sm-6">
-            <input id="form-control-15" class="form-control" type="text" [(ngModel)]="colegio.dependencia">
+            <input id="form-control-21" class="form-control" type="text" [(ngModel)]="colegio.director">
           </div>
         </div>
       </div>
