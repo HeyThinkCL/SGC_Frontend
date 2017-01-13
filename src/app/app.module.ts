@@ -70,6 +70,7 @@ import { CrearProfesorComponent } from './components/libros/profesor/crear-profe
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { InformesComponent } from './components/documentos/informes/informes.component';
 import { CertificadosComponent } from './components/documentos/certificados/certificados.component';
+import { CitacionesComponent } from './components/documentos/citaciones/citaciones.component';
 import { ByTipoEnsenanzaComponent } from './components/documentos/filtros/by-tipo-ensenanza/by-tipo-ensenanza.component';
 import { ByGradoComponent } from './components/documentos/filtros/by-grado/by-grado.component';
 import { ByCursoComponent } from './components/documentos/filtros/by-curso/by-curso.component';
@@ -134,6 +135,7 @@ import {DpaService} from './services/sistema/dpa.service';
     TruncateTextPipe,
     AbbreviatePipe,
     FilterTablePipe,
+    CitacionesComponent,
   ],
   imports: [
     BrowserModule,

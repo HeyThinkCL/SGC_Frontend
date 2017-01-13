@@ -57,6 +57,7 @@ import { CrearProfesorComponent } from './components/libros/profesor/crear-profe
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { InformesComponent } from './components/documentos/informes/informes.component';
 import { CertificadosComponent } from './components/documentos/certificados/certificados.component';
+import { CitacionesComponent } from './components/documentos/citaciones/citaciones.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -127,6 +128,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'informes', pathMatch: 'full' },
       { path: 'informes', component: InformesComponent },
       { path: 'certificados', component: CertificadosComponent },
+      { path: 'citaciones', component: CitacionesComponent },
     ]
   },
 ];

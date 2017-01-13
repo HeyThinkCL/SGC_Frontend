@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-informes',
-  templateUrl: './informes.component.html',
-  styleUrls: ['./informes.component.css']
+  selector: 'app-citaciones',
+  templateUrl: './citaciones.component.html',
+  styleUrls: ['./citaciones.component.css']
 })
-export class InformesComponent implements OnInit {
+export class CitacionesComponent implements OnInit {
 
   docs = [
-    {'id':'iNotas','nombre':'Informe de Notas'},
-    {'id':'iAsistencia','nombre':'Informe de Asistencia'},
+    {'id':'citApoderados','nombre':'Citación para Apoderados'},
+    {'id':'citReunion','nombre':'Citación a Reunión'},
   ];
 
   options = [
