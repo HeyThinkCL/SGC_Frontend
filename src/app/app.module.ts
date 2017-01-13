@@ -85,6 +85,10 @@ import {AsignaturasService} from "./services/libros/asignaturas.service";
 import {NotasService} from "./services/libros/notas.service";
 import {AnotacionesService} from './services/libros/anotaciones.service';
 import {DpaService} from './services/sistema/dpa.service';
+import { PostulacionesComponent } from './components/sistema/ficha/postulaciones/postulaciones.component';
+import { CrearPostulacionComponent } from './components/sistema/ficha/postulaciones/crear-postulacion/crear-postulacion.component';
+import { PostulacionDetailComponent } from './components/sistema/ficha/postulaciones/postulacion-detail/postulacion-detail.component';
+import { VerPostulacionesComponent } from './components/sistema/ficha/postulaciones/ver-postulaciones/ver-postulaciones.component';
 
 
 
@@ -136,6 +140,10 @@ import {DpaService} from './services/sistema/dpa.service';
     AbbreviatePipe,
     FilterTablePipe,
     CitacionesComponent,
+    PostulacionesComponent,
+    CrearPostulacionComponent,
+    PostulacionDetailComponent,
+    VerPostulacionesComponent,
   ],
   imports: [
     BrowserModule,

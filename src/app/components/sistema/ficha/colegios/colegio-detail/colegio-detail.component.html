@@ -1,6 +1,6 @@
 <div class="title-bar">
-  <h1 class="title-bar title">Ver Colegio</h1>
-  <h3 class="title bar description">{{colegio.nombre}}</h3>
+  <h1 class="title-bar description">Ver Colegio</h1>
+  <h3 class="title bar title">{{colegio.nombre}}</h3>
 
 </div>
 <div class="row">
@@ -8,83 +8,116 @@
     <div class="demo-form-wrapper">
       <div class="form form-horizontal">
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-1">Nombre del Establecimiento</label>
-          <div class="col-sm-10">
-            <input id="form-control-1" class="form-control" type="text" [(ngModel)]="colegio.nombre" readonly>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-2">Dirección</label>
-          <div class="col-sm-6">
-            <input id="form-control-2" class="form-control" type="text" [(ngModel)]="colegio.direccion" readonly>
-          </div>
-          <label class="col-sm-2 control-label" for="form-control-3">N°</label>
-          <div class="col-sm-2">
-            <input id="form-control-3" class="form-control" type="text" [(ngModel)]="colegio.numeracion" readonly>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-4">Región</label>
-          <div class="col-sm-4">
-            <input id="form-control-4" class="form-control" type="text" [(ngModel)]="colegio.region" readonly>
-          </div>
-          <label class="col-sm-2 control-label" for="form-control-5">Provincia</label>
-          <div class="col-sm-4">
-            <input id="form-control-5" class="form-control" type="text" [(ngModel)]="colegio.provincia" readonly>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-6">Localidad</label>
-          <div class="col-sm-4">
-            <input id="form-control-6" class="form-control" type="text" [(ngModel)]="colegio.localidad" readonly>
-          </div>
-          <label class="col-sm-2 control-label" for="form-control-7">Comuna</label>
-          <div class="col-sm-4">
-            <input id="form-control-7" class="form-control" type="text" [(ngModel)]="colegio.comuna" readonly>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-8">Departamento Provincial</label>
-          <div class="col-sm-10">
-            <input id="form-control-8" class="form-control" type="text" [(ngModel)]="colegio.depto_prov" readonly>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-9">Teléfono</label>
+          <label class="col-sm-2 control-label" for="form-control-2">Razón Social</label>
           <div class="col-sm-3">
-            <input id="form-control-9" class="form-control" type="text" [(ngModel)]="colegio.telefono" readonly>
+            <input id="form-control-2" class="form-control" type="text" [(ngModel)]="colegio.razon_social" readonly>
           </div>
-          <label class="col-sm-2 control-label" for="form-control-10">Web</label>
+          <label class="col-sm-2 control-label" for="form-control-3">Resolución</label>
           <div class="col-sm-5">
-            <input id="form-control-10" class="form-control" type="text" [(ngModel)]="colegio.web" readonly>
+            <input id="form-control-3" class="form-control" type="text" [(ngModel)]="colegio.resolucion" readonly>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-11">Email</label>
-          <div class="col-sm-10">
-            <input id="form-control-11" class="form-control" type="text" [(ngModel)]="colegio.mail" readonly>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-12">Sostenedor</label>
-          <div class="col-sm-10">
-            <input id="form-control-12" class="form-control" type="text" [(ngModel)]="colegio.sostenedor" readonly>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-13">Director</label>
-          <div class="col-sm-10">
-            <input id="form-control-13" class="form-control" type="text" [(ngModel)]="colegio.director" readonly>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-14">RBD</label>
+          <label class="col-sm-2 control-label" for="form-control-4">RBD</label>
           <div class="col-sm-2">
-            <input id="form-control-14" class="form-control" type="text" [(ngModel)]="colegio.rbd" readonly>
+            <input id="form-control-4" class="form-control" type="text" [(ngModel)]="colegio.rbd" readonly>
           </div>
-          <label class="col-sm-2 control-label" for="form-control-15">Dependencia</label>
+          <label class="col-sm-2 control-label" for="form-control-5">Dependencia</label>
           <div class="col-sm-6">
-            <input id="form-control-15" class="form-control" type="text" [(ngModel)]="colegio.dependencia" readonly>
+            <input id="form-control-5" class="form-control" type="text" [(ngModel)]="colegio.dependencia" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="form-control-6">Rut</label>
+          <div class="col-sm-2">
+            <input id="form-control-6" class="form-control" type="text" [(ngModel)]="colegio.rut" readonly>
+          </div>
+          <div class="col-sm-1">
+            <input id="form-control-7" class="form-control" type="text" maxlength="1" [(ngModel)]="colegio.dv" readonly>
+          </div>
+          <label class="col-sm-1 control-label" for="form-control-8">Área</label>
+          <div class="col-sm-4">
+            <input id="form-control-8" class="form-control" type="text" [(ngModel)]="colegio.area" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="form-control-9">Dirección</label>
+          <div class="col-sm-6">
+            <input id="form-control-9" class="form-control" type="text" [(ngModel)]="colegio.direccion" readonly>
+          </div>
+          <label class="col-sm-2 control-label" for="form-control-10">Num.</label>
+          <div class="col-sm-2">
+            <input id="form-control-10" class="form-control" type="text" [(ngModel)]="colegio.numeracion" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="form-control-11">Región</label>
+          <div class="col-sm-4">
+            <input id="form-control-11"
+                    class="form-control"
+                    type="text"
+                    [(ngModel)]="colegio.region"
+                    readonly>
+          </div>
+          <label class="col-sm-2 control-label" for="form-control-12">Provincia</label>
+          <div class="col-sm-4">
+            <input id="form-control-12"
+                    class="form-control"
+                    type="text"
+                    [(ngModel)]="colegio.provincia"
+                    readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="form-control-13">Comuna</label>
+          <div class="col-sm-4">
+            <input id="form-control-13"
+                    class="form-control"
+                    type="text"
+                    [(ngModel)]="colegio.comuna"
+                    readonly>
+          </div>
+          <label class="col-sm-2 control-label" for="form-control-14">Departamento Provincial</label>
+          <div class="col-sm-4">
+            <input id="form-control-14" class="form-control" type="text" [(ngModel)]="colegio.depto_prov" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="form-control-15">Teléfono</label>
+          <div class="col-sm-4">
+            <input id="form-control-15" class="form-control" type="text" [(ngModel)]="colegio.telefono" readonly>
+          </div>
+          <label class="col-sm-2 control-label" for="form-control-16">Celular</label>
+          <div class="col-sm-4">
+            <input id="form-control-16" class="form-control" type="text" [(ngModel)]="colegio.celular" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="form-control-17">Fax</label>
+          <div class="col-sm-3">
+            <input id="form-control-17" class="form-control" type="text" [(ngModel)]="colegio.fax" readonly>
+          </div>
+          <label class="col-sm-2 control-label" for="form-control-18">Web</label>
+          <div class="col-sm-5">
+            <input id="form-control-18" class="form-control" type="text" [(ngModel)]="colegio.web" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="form-control-19">Mail</label>
+          <div class="col-sm-10">
+            <input id="form-control-19" class="form-control" type="text" [(ngModel)]="colegio.mail" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="form-control-20">Sostenedor</label>
+          <div class="col-sm-10">
+            <input id="form-control-20" class="form-control" type="text" [(ngModel)]="colegio.sostenedor" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="form-control-21">Director</label>
+          <div class="col-sm-10">
+            <input id="form-control-21" class="form-control" type="text" [(ngModel)]="colegio.director" readonly>
           </div>
         </div>
       </div>
