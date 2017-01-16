@@ -4,6 +4,7 @@ import { Location }       from '@angular/common';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { ColegiosService } from '../../../../../services/sistema/ficha/colegios.service';
+import { DpaService } from '../../../../../services/sistema/dpa.service';
 import { Colegio } from '../colegio';
 
 @Component({
@@ -12,8 +13,8 @@ import { Colegio } from '../colegio';
   styleUrls: ['editar-colegio.component.css']
 })
 export class EditarColegioComponent implements OnInit {
-  @ViewChild('modal')
-  modal: ModalComponent;
+  @ViewChild('modal') modal: ModalComponent;
+  @ViewChild('warning') warningModal: ModalComponent;
 
   id: number;
   private sub: any;
@@ -21,32 +22,27 @@ export class EditarColegioComponent implements OnInit {
   selectedColegio: Colegio;
   colegio: Colegio;
 
-  regiones: {val: number, nom: string}[] = [
-    {"val":1,"nom":"Tarapacá"},
-    {"val":2,"nom":"Antofagasta"},
-    {"val":3,"nom":"Atacama"},
-    {"val":4,"nom":"Coquimbo"},
-    {"val":5,"nom":"Valparaíso"},
-    {"val":6,"nom":"O'Higgins"},
-    {"val":7,"nom":"Maule"},
-    {"val":8,"nom":"Bío Bío"},
-    {"val":9,"nom":"Araucanía"},
-    {"val":10,"nom":"Los Lagos"},
-    {"val":11,"nom":"Aisén"},
-    {"val":12,"nom":"Magallanes"},
-    {"val":14,"nom":"Los Ríos"},
-    {"val":15,"nom":"Arica y Parinacota"},
-    {"val":16,"nom":"Metropolitana de Santiago"},
-  ];
+  regiones = [];
+  provincias = [];
+  comunas = [];
+
+  selectedRegion: any;
+  selectedProvincia: any;
+  selectedComuna: any;
 
   constructor(
       private route: ActivatedRoute,
       private location: Location,
       private colegiosService: ColegiosService,
+      private dpaService: DpaService,
   ) { }
 
   ngOnInit() {
     window.scrollTo(0,0);
+
+    if(window.innerWidth < 785){
+      this.warningModalOpen();
+    }
     this.selectedColegio = new Colegio();
     this.colegio = new Colegio();
 
@@ -57,6 +53,22 @@ export class EditarColegioComponent implements OnInit {
       .subscribe((colegio) => {
         this.colegio = colegio;
         this.selectedColegio = JSON.parse(JSON.stringify(colegio));
+    });
+
+    this.dpaService.getRegiones().subscribe(res => {
+      this.regiones = res;
+      this.selectedRegion = this.regiones.find(reg => reg.nombre == this.selectedColegio.region);
+      this.dpaService.getProvinciasByRegionId(this.selectedRegion.codigo).subscribe(res => {
+        this.provincias = res;
+        this.selectedProvincia = this.provincias.find(prov => prov.nombre == this.selectedColegio.provincia);
+        this.dpaService.getComunasByProvinciaIdRegionId(this.selectedProvincia.codigo).subscribe(res => {
+          this.comunas = res;
+          this.selectedComuna = this.comunas.find(com => com.nombre == this.selectedColegio.comuna);
+          this.dpaService.getDeptoProvincialbyComunaId(this.selectedComuna.codigo).subscribe(res => {
+            this.colegio.depto_prov = res.depto;
+          });
+        });
+      });
     });
   }
 
@@ -73,10 +85,44 @@ export class EditarColegioComponent implements OnInit {
     this.goBack();
   }
 
+  warningModalOpen(): void {
+    this.warningModal.open('lg');
+  }
+
+  warningModalClose(): void {
+    this.goBack();
+  }
+
   saveColegio(): void {
     this.colegiosService.updateColegio(this.colegio).subscribe((res) => {
       this.selectedColegio = JSON.parse(JSON.stringify(res));
       this.modalOpen();
+    });
+  }
+
+  setRegion(region: string){
+    this.colegio.provincia = null;
+    this.colegio.comuna = null;
+    this.colegio.depto_prov = null;
+    this.selectedRegion = this.regiones.find(reg => reg.nombre == region);
+    this.dpaService.getProvinciasByRegionId(this.selectedRegion.codigo).subscribe(res => {
+      this.provincias = res;
+    });
+  };
+
+  setProvincia(provincia: string){
+    this.colegio.comuna = null;
+    this.colegio.depto_prov = null;
+    this.selectedProvincia = this.provincias.find(prov => prov.nombre == provincia);
+    this.dpaService.getComunasByProvinciaIdRegionId(this.selectedProvincia.codigo).subscribe(res => {
+      this.comunas = res;
+    });
+  };
+
+  setComuna(comuna: string){
+    this.selectedComuna = this.comunas.find(com => com.nombre == comuna);
+    this.dpaService.getDeptoProvincialbyComunaId(this.selectedComuna.codigo).subscribe(res => {
+      this.colegio.depto_prov = res.depto;
     });
   }
 }

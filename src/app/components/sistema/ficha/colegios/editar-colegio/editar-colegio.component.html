@@ -17,13 +17,13 @@
         <div class="md-form-group">
           <div class="md-label-static">
             <label class="col-sm-2 md-control-label" for="form-control-2"><b>Razón Social:</b> {{selectedColegio.razon_social}}</label>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
               <input id="form-control-2" class="form-control" type="text" [(ngModel)]="colegio.razon_social"  >
             </div>
           </div>
           <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-3"><b>Resolución</b> {{selectedColegio.resolucion}}</label>
-            <div class="col-sm-5">
+            <label class="col-sm-2 col-sm-offset-4 md-control-label" for="form-control-3"><b>Resolución</b> {{selectedColegio.resolucion}}</label>
+            <div class="col-sm-6">
               <input id="form-control-3" class="form-control" type="text" [(ngModel)]="colegio.resolucion"  >
             </div>
           </div>
@@ -32,14 +32,14 @@
           <div class="md-label-static">
 
             <label class="col-sm-2 md-control-label" for="form-control-4"><b>RBD:</b> {{selectedColegio.rbd}}</label>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
               <input id="form-control-4" class="form-control" type="text" [(ngModel)]="colegio.rbd"  >
             </div>
           </div>
           <div class="md-label-static">
 
-            <label class="col-sm-2 md-control-label" for="form-control-5"><b>Dependencia:</b> {{selectedColegio.dependencia}}</label>
-            <div class="col-sm-6">
+            <label class="col-sm-2 col-sm-offset-4 md-control-label" for="form-control-5"><b>Dependencia:</b> {{selectedColegio.dependencia}}</label>
+            <div class="col-sm-7">
               <input id="form-control-5" class="form-control" type="text" [(ngModel)]="colegio.dependencia"  >
             </div>
           </div>
@@ -57,8 +57,8 @@
           </div>
           <div class="md-label-static">
 
-            <label class="col-sm-1  md-control-label" for="form-control-8"><b>Área:</b> {{selectedColegio.area}}</label>
-            <div class="col-sm-4">
+            <label class="col-sm-1 col-sm-offset-3 md-control-label" for="form-control-8"><b>Área:</b> {{selectedColegio.area}}</label>
+            <div class="col-sm-6">
               <input id="form-control-8" class="form-control" type="text" [(ngModel)]="colegio.area"  >
             </div>
           </div>
@@ -67,14 +67,14 @@
           <div class="md-label-static">
 
             <label class="col-sm-2  md-control-label" for="form-control-9"><b>Dirección:</b> {{selectedColegio.direccion}}</label>
-            <div class="col-sm-6">
+            <div class="col-sm-7">
               <input id="form-control-9" class="form-control" type="text" [(ngModel)]="colegio.direccion"  >
             </div>
           </div>
           <div class="md-label-static">
 
-            <label class="col-sm-2  md-control-label" for="form-control-10"><b>Num.:</b> {{selectedColegio.numeracion}}</label>
-            <div class="col-sm-2">
+            <label class="col-sm-2 col-sm-offset-7 md-control-label" for="form-control-10"><b>Num.:</b> {{selectedColegio.numeracion}}</label>
+            <div class="col-sm-3">
               <input id="form-control-10" class="form-control" type="text" [(ngModel)]="colegio.numeracion"  >
             </div>
           </div>
@@ -83,23 +83,30 @@
           <div class="md-label-static">
 
             <label class="col-sm-2  md-control-label" for="form-control-11"><b>Región:</b> {{selectedColegio.region}}</label>
-            <div class="col-sm-4">
-              <input id="form-control-11"
-                     class="form-control"
-                     type="text"
-                     [(ngModel)]="colegio.region"
-              >
+            <div class="col-sm-5">
+              <select id="form-control-11"
+                      class="form-control"
+                      type="text"
+                      [(ngModel)]="colegio.region"
+                      (ngModelChange)="setRegion(colegio.region)">
+                <option *ngFor="let region of regiones"
+                        value="{{region.nombre}}">{{region.nombre}}</option>
+              </select>
             </div>
           </div>
           <div class="md-label-static">
 
-            <label class="col-sm-2  md-control-label" for="form-control-12"><b>Provincia:</b> {{selectedColegio.provincia}}</label>
-            <div class="col-sm-4">
-              <input id="form-control-12"
-                     class="form-control"
-                     type="text"
-                     [(ngModel)]="colegio.provincia"
-              >
+            <label class="col-sm-2 col-sm-offset-5 md-control-label" for="form-control-12"><b>Provincia:</b> {{selectedColegio.provincia}}</label>
+            <div class="col-sm-5">
+              <select id="form-control-12"
+                      class="form-control"
+                      type="text"
+                      [(ngModel)]="colegio.provincia"
+                      (ngModelChange)="setProvincia(colegio.provincia)"
+                      [disabled]="!(this.colegio.region)">
+                <option *ngFor="let provincia of provincias"
+                        value="{{provincia.nombre}}">{{provincia.nombre}}</option>
+              </select>
             </div>
           </div>
         </div>
@@ -107,18 +114,22 @@
           <div class="md-label-static">
 
             <label class="col-sm-2  md-control-label" for="form-control-13"><b>Comuna:</b> {{selectedColegio.comuna}}</label>
-            <div class="col-sm-4">
-              <input id="form-control-13"
-                     class="form-control"
-                     type="text"
-                     [(ngModel)]="colegio.comuna"
-              >
+            <div class="col-sm-5">
+              <select id="form-control-13"
+                      class="form-control"
+                      type="text"
+                      [(ngModel)]="colegio.comuna"
+                      (ngModelChange)="setComuna(colegio.comuna)"
+                      [disabled]="!(this.colegio.provincia)">
+                <option *ngFor="let comuna of comunas"
+                        value="{{comuna.nombre}}">{{comuna.nombre}}</option>
+              </select>
             </div>
           </div>
           <div class="md-label-static">
-            <label class="col-sm-2  md-control-label" for="form-control-14"><b>Departamento Provincial:</b> {{selectedColegio.depto_prov}}</label>
-            <div class="col-sm-4">
-              <input id="form-control-14" class="form-control" type="text" [(ngModel)]="colegio.depto_prov"  >
+            <label class="col-sm-2 col-sm-offset-5 md-control-label" for="form-control-14"><b>Departamento Provincial:</b> {{selectedColegio.depto_prov}}</label>
+            <div class="col-sm-5">
+              <input id="form-control-14" class="form-control" type="text" [(ngModel)]="colegio.depto_prov" readonly>
             </div>
           </div>
         </div>
@@ -126,14 +137,14 @@
           <div class="md-label-static">
 
             <label class="col-sm-2  md-control-label" for="form-control-15"><b>Telefono:</b> {{selectedColegio.telefono}}</label>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
               <input id="form-control-15" class="form-control" type="text" [(ngModel)]="colegio.telefono"  >
             </div>
           </div>
           <div class="md-label-static">
 
-            <label class="col-sm-2  md-control-label" for="form-control-16"><b>Celular:</b> {{selectedColegio.celular}}</label>
-            <div class="col-sm-4">
+            <label class="col-sm-2 col-sm-offset-5 md-control-label" for="form-control-16"><b>Celular:</b> {{selectedColegio.celular}}</label>
+            <div class="col-sm-5">
               <input id="form-control-16" class="form-control" type="text" [(ngModel)]="colegio.celular"  >
             </div>
           </div>
@@ -141,13 +152,13 @@
         <div class="md-form-group">
           <div class="md-label-static">
             <label class="col-sm-2  md-control-label" for="form-control-17"><b>Fax:</b> {{selectedColegio.fax}}</label>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
               <input id="form-control-17" class="form-control" type="text" [(ngModel)]="colegio.fax"  >
             </div>
           </div>
           <div class="md-label-static">
-            <label class="col-sm-2  md-control-label" for="form-control-18"><b>Web:</b> {{selectedColegio.web}}</label>
-            <div class="col-sm-5">
+            <label class="col-sm-2 col-sm-offset-4 md-control-label" for="form-control-18"><b>Web:</b> {{selectedColegio.web}}</label>
+            <div class="col-sm-6">
               <input id="form-control-18" class="form-control" type="text" [(ngModel)]="colegio.web"  >
             </div>
           </div>
@@ -155,7 +166,7 @@
         <div class="md-form-group">
           <div class="md-label-static">
 
-            <label class="col-sm-2  md-control-label" for="form-control-19"><b>Mail:</b> {{selectedColegio.mail}}</label>
+            <label class="col-sm-2 md-control-label" for="form-control-19"><b>Mail:</b> {{selectedColegio.mail}}</label>
             <div class="col-sm-10">
               <input id="form-control-19" class="form-control" type="text" [(ngModel)]="colegio.mail"  >
             </div>
@@ -213,4 +224,16 @@
     </div>
   </div>
 </div>
+
+<modal [animation]="true" [backdrop]="'static'" [keyboard]="false" (onClose)="warningModalClose()" #warning>
+  <modal-header [show-close]="false">
+    <h4 class="modal-title">Ventana muy pequeña.</h4>
+  </modal-header>
+  <modal-body class="modal-content">
+    <p class="card-text">Necesita una ventana más grande para editar el colegio. Intente abriendo aplicación en el navegador de un computador de escritorio o laptop.</p>
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-default" (click)="goBack()">Volver</button>
+  </modal-footer>
+</modal>
 
