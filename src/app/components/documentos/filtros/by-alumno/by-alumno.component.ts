@@ -10,9 +10,10 @@ export class ByAlumnoComponent implements OnInit {
   @Output() onSelect = new EventEmitter<any>();
 
   alumnos = [
-    {'id':'1','nombre':'Ivan','apellido_paterno':'Arenas','apellido_materno':'Sands','rut':'1111111','dv':'1'},
-    {'id':'2','nombre':'Don','apellido_paterno':'Carter','apellido_materno':'Mailman','rut':'2222222','dv':'2'},
-    {'id':'3','nombre':'Richard','apellido_paterno':'Gere','apellido_materno':'Gere','rut':'3333333','dv':'3'},
+    {'id':'1','nombre':'Ivan','apellido_paterno':'Arenas','apellido_materno':'Sands','rut':1111111,'dv':'1'},
+    {'id':'2','nombre':'Don','apellido_paterno':'Carter','apellido_materno':'Mailman','rut':2222222,'dv':'2'},
+    {'id':'3','nombre':'Richard','apellido_paterno':'Gere','apellido_materno':'Gere','rut':3333333,'dv':'3'},
+    {'id':'4','nombre':'Marcelo','apellido_paterno':'Compa','apellido_materno':'Rini','rut':1433233,'dv':'k'},
   ];
 
   public disabledSelect: boolean;
@@ -20,6 +21,7 @@ export class ByAlumnoComponent implements OnInit {
   selectedHolder = [];
 
   filterData = '';
+  filterKeys = ['nombre','apellido_paterno','apellido_materno','rut'];
 
   constructor() { }
 

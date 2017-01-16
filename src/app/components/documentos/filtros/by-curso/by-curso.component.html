@@ -36,7 +36,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let curso of cursos | filterArray: filterData"
+            <tr *ngFor="let curso of cursos | filterArray: filterData: filterKeys"
                 (click)="selectCurso(curso.curso.id)" [ngClass]="{'bg-info':include(selected,curso.curso.id)}">
               <td>{{curso.curso.grado}}</td>
               <td>{{curso.curso.curso}}</td>
