@@ -62,24 +62,29 @@ export class CrearColegioComponent implements OnInit {
   }
 
   setRegion(region: string){
-    this.colegio.provincia = '';
-    this.colegio.comuna = '';
+    this.colegio.provincia = null;
+    this.colegio.comuna = null;
+    this.colegio.depto_prov = null;
     this.selectedRegion = this.regiones.find(reg => reg.nombre == region);
-    this.dpaService.getProvinciasByRegionId(this.selectedRegion.id).subscribe(res => {
+    this.dpaService.getProvinciasByRegionId(this.selectedRegion.codigo).subscribe(res => {
       this.provincias = res;
     });
   };
 
   setProvincia(provincia: string){
-    this.colegio.comuna = '';
+    this.colegio.comuna = null;
+    this.colegio.depto_prov = null;
     this.selectedProvincia = this.provincias.find(prov => prov.nombre == provincia);
-    this.dpaService.getComunasByProvinciaIdRegionId(this.selectedProvincia.id).subscribe(res => {
+    this.dpaService.getComunasByProvinciaIdRegionId(this.selectedProvincia.codigo).subscribe(res => {
       this.comunas = res;
     });
   };
 
   setComuna(comuna: string){
     this.selectedComuna = this.comunas.find(com => com.nombre == comuna);
+    this.dpaService.getDeptoProvincialbyComunaId(this.selectedComuna.codigo).subscribe(res => {
+      this.colegio.depto_prov = res.depto;
+    });
   }
 
   goBack(): void {

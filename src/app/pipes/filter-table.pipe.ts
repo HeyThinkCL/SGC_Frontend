@@ -39,27 +39,3 @@ export class FilterTablePipe implements PipeTransform {
     }
   }
 }
-/*
-transform(value, args) {
-  if (!args[0]) {
-    return value;
-  } else if (value) {
-    return value.filter(item => {
-      for (let key in item) {
-        if ((typeof item[key] === 'string' || item[key] instanceof String) &&
-          (item[key].toLowerCase().indexOf(args[0].toLowerCase()) !== -1)) {
-          return true;
-        } else if ((typeof item[key] === 'object' || item[key] instanceof  Object)){
-          let deepItem = item[key];
-          for (let deepKey in deepItem){
-            if ((typeof deepItem[deepKey] === 'string' || deepItem[deepKey] instanceof String) &&
-              (deepItem[deepKey].toLowerCase().indexOf(args[0].toLowerCase()) !== -1)) {
-              return true;
-            }
-          }
-        }
-      }
-      return false;
-    });
-  }
-}*/

@@ -34,7 +34,15 @@ export class DpaService {
   }
 
   getComunasByProvinciaIdRegionId(provinciaId: string): Observable<any> {
-    const url =`${this.dpaUrl}/provincias/${provinciaId}/comunas?geolocation=false`;
+    const url =`${this.dpaUrl}/provincias/${provinciaId}/comunas`;
+
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
+  }
+
+  getDeptoProvincialbyComunaId(comunaId: string): Observable<any> {
+    const url =`${this.dpaUrl}/comunas/${comunaId}/depto_prov`;
 
     return this.http.get(url)
       .map(res => res.json())
