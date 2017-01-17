@@ -26,17 +26,22 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 //Sistema
 ////Colegios
-import { ColegiosComponent } from './components/sistema/ficha/colegios/colegios.component';
-import { CrearColegioComponent } from './components/sistema/ficha/colegios/crear-colegio/crear-colegio.component';
-import { EditarColegioComponent } from './components/sistema/ficha/colegios/editar-colegio/editar-colegio.component';
-import { VerColegioComponent } from './components/sistema/ficha/colegios/ver-colegio/ver-colegio.component';
-import { ColegioDetailComponent } from './components/sistema/ficha/colegios/colegio-detail/colegio-detail.component';
+import { ColegiosComponent } from './components/sistema/colegios/colegios.component';
+import { CrearColegioComponent } from './components/sistema/colegios/crear-colegio/crear-colegio.component';
+import { EditarColegioComponent } from './components/sistema/colegios/editar-colegio/editar-colegio.component';
+import { VerColegioComponent } from './components/sistema/colegios/ver-colegio/ver-colegio.component';
+import { ColegioDetailComponent } from './components/sistema/colegios/colegio-detail/colegio-detail.component';
 ////Matriculas
-import { MatriculaComponent } from './components/sistema/ficha/matricula/matricula.component';
-import { CrearMatriculaComponent } from './components/sistema/ficha/matricula/crear-matricula/crear-matricula.component';
-import { EditarMatriculaComponent } from './components/sistema/ficha/matricula/editar-matricula/editar-matricula.component';
-import { VerMatriculaComponent } from './components/sistema/ficha/matricula/ver-matricula/ver-matricula.component';
-import { MatriculaDetailComponent } from './components/sistema/ficha/matricula/matricula-detail/matricula-detail.component';
+import { MatriculaComponent } from './components/sistema/matricula/matricula.component';
+import { CrearMatriculaComponent } from './components/sistema/matricula/crear-matricula/crear-matricula.component';
+import { EditarMatriculaComponent } from './components/sistema/matricula/editar-matricula/editar-matricula.component';
+import { VerMatriculaComponent } from './components/sistema/matricula/ver-matricula/ver-matricula.component';
+import { MatriculaDetailComponent } from './components/sistema/matricula/matricula-detail/matricula-detail.component';
+////Postulaciones
+import { PostulacionesComponent } from './components/sistema/postulaciones/postulaciones.component';
+import { CrearPostulacionComponent } from './components/sistema/postulaciones/crear-postulacion/crear-postulacion.component';
+import { PostulacionDetailComponent } from './components/sistema/postulaciones/postulacion-detail/postulacion-detail.component';
+import { VerPostulacionesComponent } from './components/sistema/postulaciones/ver-postulaciones/ver-postulaciones.component';
 
 //Libros
 import { CursosComponent } from './components/libros/cursos/cursos.component';
@@ -85,10 +90,10 @@ import {AsignaturasService} from "./services/libros/asignaturas.service";
 import {NotasService} from "./services/libros/notas.service";
 import {AnotacionesService} from './services/libros/anotaciones.service';
 import {DpaService} from './services/sistema/dpa.service';
-import { PostulacionesComponent } from './components/sistema/ficha/postulaciones/postulaciones.component';
-import { CrearPostulacionComponent } from './components/sistema/ficha/postulaciones/crear-postulacion/crear-postulacion.component';
-import { PostulacionDetailComponent } from './components/sistema/ficha/postulaciones/postulacion-detail/postulacion-detail.component';
-import { VerPostulacionesComponent } from './components/sistema/ficha/postulaciones/ver-postulaciones/ver-postulaciones.component';
+import { PostulacionesAceptadasComponent } from './components/sistema/postulaciones/ver-postulaciones/postulaciones-aceptadas/postulaciones-aceptadas.component';
+import { PostulacionesRechazadasComponent } from './components/sistema/postulaciones/ver-postulaciones/postulaciones-rechazadas/postulaciones-rechazadas.component';
+import { PostulacionesEsperaComponent } from './components/sistema/postulaciones/ver-postulaciones/postulaciones-espera/postulaciones-espera.component';
+
 
 
 
@@ -144,6 +149,9 @@ import { VerPostulacionesComponent } from './components/sistema/ficha/postulacio
     CrearPostulacionComponent,
     PostulacionDetailComponent,
     VerPostulacionesComponent,
+    PostulacionesAceptadasComponent,
+    PostulacionesRechazadasComponent,
+    PostulacionesEsperaComponent,
   ],
   imports: [
     BrowserModule,

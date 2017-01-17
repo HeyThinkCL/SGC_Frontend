@@ -13,17 +13,22 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 //Sistema
 ////Colegios
-import { ColegiosComponent } from './components/sistema/ficha/colegios/colegios.component';
-import { CrearColegioComponent } from './components/sistema/ficha/colegios/crear-colegio/crear-colegio.component';
-import { EditarColegioComponent } from './components/sistema/ficha/colegios/editar-colegio/editar-colegio.component';
-import { VerColegioComponent } from './components/sistema/ficha/colegios/ver-colegio/ver-colegio.component';
-import { ColegioDetailComponent } from './components/sistema/ficha/colegios/colegio-detail/colegio-detail.component';
+import { ColegiosComponent } from './components/sistema/colegios/colegios.component';
+import { CrearColegioComponent } from './components/sistema/colegios/crear-colegio/crear-colegio.component';
+import { EditarColegioComponent } from './components/sistema/colegios/editar-colegio/editar-colegio.component';
+import { VerColegioComponent } from './components/sistema/colegios/ver-colegio/ver-colegio.component';
+import { ColegioDetailComponent } from './components/sistema/colegios/colegio-detail/colegio-detail.component';
 ////Matriculas
-import { MatriculaComponent } from './components/sistema/ficha/matricula/matricula.component';
-import { CrearMatriculaComponent } from './components/sistema/ficha/matricula/crear-matricula/crear-matricula.component';
-import { EditarMatriculaComponent } from './components/sistema/ficha/matricula/editar-matricula/editar-matricula.component';
-import { VerMatriculaComponent } from './components/sistema/ficha/matricula/ver-matricula/ver-matricula.component';
-import { MatriculaDetailComponent } from './components/sistema/ficha/matricula/matricula-detail/matricula-detail.component';
+import { MatriculaComponent } from './components/sistema/matricula/matricula.component';
+import { CrearMatriculaComponent } from './components/sistema/matricula/crear-matricula/crear-matricula.component';
+import { EditarMatriculaComponent } from './components/sistema/matricula/editar-matricula/editar-matricula.component';
+import { VerMatriculaComponent } from './components/sistema/matricula/ver-matricula/ver-matricula.component';
+import { MatriculaDetailComponent } from './components/sistema/matricula/matricula-detail/matricula-detail.component';
+////Postulaciones
+import { PostulacionesComponent } from './components/sistema/postulaciones/postulaciones.component';
+import { CrearPostulacionComponent } from './components/sistema/postulaciones/crear-postulacion/crear-postulacion.component';
+import { PostulacionDetailComponent } from './components/sistema/postulaciones/postulacion-detail/postulacion-detail.component';
+import { VerPostulacionesComponent } from './components/sistema/postulaciones/ver-postulaciones/ver-postulaciones.component';
 
 //Libros
 import { CursosComponent } from './components/libros/cursos/cursos.component';
@@ -64,23 +69,32 @@ const routes: Routes = [
 
   { path: 'dashboard', component: DashboardComponent },
 
-	{ path: 'sistema/ficha/colegios',  component: ColegiosComponent,
+	{ path: 'sistema/colegios',  component: ColegiosComponent,
     children: [
-      { path: '', redirectTo: 'ver-colegios', pathMatch: 'full' },
-      { path: 'ver-colegios',  component: VerColegioComponent },
-      { path: 'ver-colegios/:id',  component: ColegioDetailComponent },
-      { path: 'crear-colegio',  component: CrearColegioComponent },
-      { path: 'editar-colegio/:id',  component: EditarColegioComponent },
+      { path: '', redirectTo: 'ver', pathMatch: 'full' },
+      { path: 'ver',  component: VerColegioComponent },
+      { path: 'ver/:id',  component: ColegioDetailComponent },
+      { path: 'crear',  component: CrearColegioComponent },
+      { path: 'editar/:id',  component: EditarColegioComponent },
     ]
 	},
 
-  { path: 'sistema/ficha/matriculas',  component: MatriculaComponent,
+  { path: 'sistema/matriculas',  component: MatriculaComponent,
     children: [
       { path: '', redirectTo: 'ver-matriculas', pathMatch: 'full'},
       { path: 'ver-matriculas',  component: VerMatriculaComponent },
       { path: 'ver-matriculas/:id',  component: MatriculaDetailComponent },
-      { path: 'crear-matricula',  component: CrearMatriculaComponent },
+      { path: 'crear',  component: CrearMatriculaComponent },
       { path: 'editar-matricula/:id',  component: EditarMatriculaComponent },
+    ]
+  },
+
+  { path: 'sistema/postulaciones',  component: PostulacionesComponent,
+    children: [
+      { path: '', redirectTo: 'ver', pathMatch: 'full'},
+      { path: 'ver',  component: VerPostulacionesComponent },
+      { path: 'ver/:id',  component: PostulacionDetailComponent },
+      { path: 'crear',  component: CrearPostulacionComponent },
     ]
   },
 

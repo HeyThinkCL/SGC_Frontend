@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from "rxjs";
 
-import { Matricula } from '../../../components/sistema/ficha/matricula/matricula';
+import { Matricula } from '../../../components/sistema/matricula/matricula';
 
 import * as globalVar from '../../../globals';
 

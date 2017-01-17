@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from "rxjs";
 
-import { Colegio } from '../../../components/sistema/ficha/colegios/colegio'
+import { Colegio } from '../../../components/sistema/colegios/colegio'
 
 import * as globalVar from '../../../globals';
 
