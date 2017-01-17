@@ -39,9 +39,13 @@ import { VerMatriculaComponent } from './components/sistema/matricula/ver-matric
 import { MatriculaDetailComponent } from './components/sistema/matricula/matricula-detail/matricula-detail.component';
 ////Postulaciones
 import { PostulacionesComponent } from './components/sistema/postulaciones/postulaciones.component';
-import { CrearPostulacionComponent } from './components/sistema/postulaciones/crear-postulacion/crear-postulacion.component';
-import { PostulacionDetailComponent } from './components/sistema/postulaciones/postulacion-detail/postulacion-detail.component';
 import { VerPostulacionesComponent } from './components/sistema/postulaciones/ver-postulaciones/ver-postulaciones.component';
+import { PostulacionDetailComponent } from './components/sistema/postulaciones/postulacion-detail/postulacion-detail.component';
+import { CrearPostulacionComponent } from './components/sistema/postulaciones/crear-postulacion/crear-postulacion.component';
+import { ModificarPostulacionComponent } from './components/sistema/postulaciones/modificar-postulacion/modificar-postulacion.component';
+import { PostulacionesAceptadasComponent } from './components/sistema/postulaciones/postulaciones-aceptadas/postulaciones-aceptadas.component';
+import { PostulacionesRechazadasComponent } from './components/sistema/postulaciones/postulaciones-rechazadas/postulaciones-rechazadas.component';
+import { PostulacionesEsperaComponent } from './components/sistema/postulaciones/postulaciones-espera/postulaciones-espera.component';
 
 //Libros
 import { CursosComponent } from './components/libros/cursos/cursos.component';
@@ -90,9 +94,7 @@ import {AsignaturasService} from "./services/libros/asignaturas.service";
 import {NotasService} from "./services/libros/notas.service";
 import {AnotacionesService} from './services/libros/anotaciones.service';
 import {DpaService} from './services/sistema/dpa.service';
-import { PostulacionesAceptadasComponent } from './components/sistema/postulaciones/ver-postulaciones/postulaciones-aceptadas/postulaciones-aceptadas.component';
-import { PostulacionesRechazadasComponent } from './components/sistema/postulaciones/ver-postulaciones/postulaciones-rechazadas/postulaciones-rechazadas.component';
-import { PostulacionesEsperaComponent } from './components/sistema/postulaciones/ver-postulaciones/postulaciones-espera/postulaciones-espera.component';
+
 
 
 
@@ -152,6 +154,7 @@ import { PostulacionesEsperaComponent } from './components/sistema/postulaciones
     PostulacionesAceptadasComponent,
     PostulacionesRechazadasComponent,
     PostulacionesEsperaComponent,
+    ModificarPostulacionComponent,
   ],
   imports: [
     BrowserModule,

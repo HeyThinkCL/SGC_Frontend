@@ -11,15 +11,15 @@
         <div class="form-group">
           <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-1">Nombre</label>
           <div class="col-sm-3">
-            <input class="form-control" type="text" id="form-control-1" [(ngModel)]="matricula.nombre">
+            <input class="form-control" type="text" id="form-control-1" [(ngModel)]="postulante.nombre">
           </div>
           <label class="col-sm-1 control-label"for="form-control-2">Apellidos</label>
           <div class="col-sm-3">
-            <input class="form-control" type="text" id="form-control-2" [(ngModel)]="matricula.apellidos">
+            <input class="form-control" type="text" id="form-control-2" [(ngModel)]="postulante.apellidos">
           </div>
           <label class="col-sm-1 control-label" for="form-control-3">Sexo</label>
           <div class="col-sm-2">
-            <select class="custom-select" type="text" id="form-control-3" [(ngModel)]="matricula.sexo">
+            <select class="custom-select" type="text" id="form-control-3" [(ngModel)]="postulante.sexo">
               <option value="" selected="selected"></option>
               <option value="M">M</option>
               <option value="F">F</option>
@@ -30,50 +30,50 @@
           <label class="col-sm-2 control-label" for="form-control-6">Fecha Nacimiento</label>
           <div class="col-sm-4">
             <div class="input-with-icon">
-              <input class="form-control" id="form-control-6" type="text" [(ngModel)]="matricula.fecha_nac" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
+              <input class="form-control" id="form-control-6" type="text" [(ngModel)]="postulante.fecha_nac" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
               <span class="icon icon-calendar input-icon"></span>
             </div>
           </div>
           <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-4">Rut</label>
           <div class="col-sm-3">
-            <input class="form-control" type="text" id="form-control-4" [(ngModel)]="matricula.rut">
+            <input class="form-control" type="text" id="form-control-4" [(ngModel)]="postulante.rut">
           </div>
           <div class="col-sm-1">
-            <input class="form-control" type="text" id="form-control-5" [(ngModel)]="matricula.dv">
+            <input class="form-control" type="text" id="form-control-5" [(ngModel)]="postulante.dv">
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label" for="form-control-10">Teléfono Fijo</label>
           <div class="col-sm-4">
-            <input id="form-control-10" class="form-control" type="text" [(ngModel)]="matricula.fono_casa">
+            <input id="form-control-10" class="form-control" type="text" [(ngModel)]="postulante.fono_casa">
           </div>
           <label class="col-sm-2 control-label" for="form-control-11">Teléfono Móvil</label>
           <div class="col-sm-4">
-            <input id="form-control-11" class="form-control" type="text" [(ngModel)]="matricula.fono_movil">
+            <input id="form-control-11" class="form-control" type="text" [(ngModel)]="postulante.fono_movil">
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label" for="form-control-12">Nacionalidad</label>
           <div class="col-sm-5">
-            <input id="form-control-12" class="form-control" type="text" [(ngModel)]="matricula.nacionalidad">
+            <input id="form-control-12" class="form-control" type="text" [(ngModel)]="postulante.nacionalidad">
           </div>
           <label class="col-sm-2 control-label" for="form-control-13">Estado Matricula</label>
           <div class="col-sm-3">
-            <input id="form-control-13" class="form-control" type="text" [(ngModel)]="matricula.estado">
+            <input id="form-control-13" class="form-control" type="text" [(ngModel)]="postulante.estado">
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label" for="form-control-15">Dirección</label>
           <div class="col-sm-3">
-            <input id="form-control-15" class="form-control" type="text" [(ngModel)]="matricula.direccion">
+            <input id="form-control-15" class="form-control" type="text" [(ngModel)]="postulante.direccion">
           </div>
           <label class="col-sm-1 control-label" for="form-control-16">N°</label>
           <div class="col-sm-2">
-            <input id="form-control-16" class="form-control" type="text" [(ngModel)]="matricula.numeracion">
+            <input id="form-control-16" class="form-control" type="text" [(ngModel)]="postulante.numeracion">
           </div>
           <label class="col-sm-1 control-label" for="form-control-14">Comuna</label>
           <div class="col-sm-3">
-            <input id="form-control-14" class="form-control" type="text" [(ngModel)]="matricula.comuna">
+            <input id="form-control-14" class="form-control" type="text" [(ngModel)]="postulante.comuna">
           </div>
         </div>
       </div>
@@ -83,13 +83,13 @@
 
 <div class="row">
   <div class="col-md-8 col-md-offset-1">
-    <div class="demo-form-wrapper">
+    <div class="card demo-form-wrapper">
       <div class="form form-horizontal">
         <div class="form-group">
           <h3 class="title">Padre</h3>
           <div class="checkbox">
             <label>
-              <input type="checkbox" value="{{padre.selected}}" [(ngModel)]="padre.selected" (ngModelChange)="onChange(padre,madre)"> Apoderado
+              <input type="checkbox" class="custom-control-primary" value="{{padre.selected}}" [(ngModel)]="padre.selected" (ngModelChange)="onChange(padre,madre)"> Apoderado
             </label>
           </div>
         </div>
@@ -189,7 +189,7 @@
           <h3 class="title">Madre</h3>
           <div class="checkbox">
             <label>
-              <input type="checkbox" value="{{madre.selected}}" [(ngModel)]="madre.selected" (ngModelChange)="onChange(madre,padre)"> Apoderado
+              <input type="checkbox" class="custom-control-primary" value="{{madre.selected}}" [(ngModel)]="madre.selected" (ngModelChange)="onChange(madre,padre)"> Apoderado
             </label>
           </div>
         </div>
