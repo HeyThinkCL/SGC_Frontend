@@ -39,10 +39,11 @@ import { VerMatriculaComponent } from './components/sistema/matricula/ver-matric
 import { MatriculaDetailComponent } from './components/sistema/matricula/matricula-detail/matricula-detail.component';
 ////Postulaciones
 import { PostulacionesComponent } from './components/sistema/postulaciones/postulaciones.component';
-import { VerPostulacionesComponent } from './components/sistema/postulaciones/ver-postulaciones/ver-postulaciones.component';
 import { PostulacionDetailComponent } from './components/sistema/postulaciones/postulacion-detail/postulacion-detail.component';
 import { CrearPostulacionComponent } from './components/sistema/postulaciones/crear-postulacion/crear-postulacion.component';
 import { ModificarPostulacionComponent } from './components/sistema/postulaciones/modificar-postulacion/modificar-postulacion.component';
+import { PostulacionesDashboardComponent } from './components/sistema/postulaciones/postulaciones-dashboard/postulaciones-dashboard.component';
+import { VerPostulacionesComponent } from './components/sistema/postulaciones/ver-postulaciones/ver-postulaciones.component';
 import { PostulacionesAceptadasComponent } from './components/sistema/postulaciones/postulaciones-aceptadas/postulaciones-aceptadas.component';
 import { PostulacionesRechazadasComponent } from './components/sistema/postulaciones/postulaciones-rechazadas/postulaciones-rechazadas.component';
 import { PostulacionesEsperaComponent } from './components/sistema/postulaciones/postulaciones-espera/postulaciones-espera.component';
@@ -97,6 +98,7 @@ import {DpaService} from './services/sistema/dpa.service';
 import {EtniasService} from './services/sistema/etnias.service';
 import {PostulacionesService} from './services/sistema/postulaciones.service';
 import {ApoderadosService} from './services/sistema/apoderados.service';
+
 
 
 
@@ -158,6 +160,7 @@ import {ApoderadosService} from './services/sistema/apoderados.service';
     PostulacionesRechazadasComponent,
     PostulacionesEsperaComponent,
     ModificarPostulacionComponent,
+    PostulacionesDashboardComponent,
   ],
   imports: [
     BrowserModule,

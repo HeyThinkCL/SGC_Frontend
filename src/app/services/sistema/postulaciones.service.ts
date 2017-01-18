@@ -10,7 +10,7 @@ export class PostulacionesService {
     return [[Http]]
   }
 
-  private matriculasUrl = globalVar.apiUrl+'/alumnos';
+  private alumnosUrl = globalVar.apiUrl+'/alumnos';
 
   constructor( private http: Http) { }
 
@@ -18,8 +18,36 @@ export class PostulacionesService {
 
   createPostulacion(postulacion: any): Observable<any>{
     return this.http
-      .post(this.matriculasUrl, JSON.stringify(postulacion), {headers: this.headers})
+      .post(this.alumnosUrl, JSON.stringify(postulacion), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Alumno'));
+  }
+
+  getPostulaciones(): Observable<any>{
+    const url:string = `${this.alumnosUrl}/postulantes`;
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
+  }
+
+  getAceptadas(): Observable<any>{
+    const url:string = `${this.alumnosUrl}/aceptados`;
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
+  }
+
+  getListaEspera(): Observable<any>{
+    const url:string = `${this.alumnosUrl}/lista_espera`;
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
+  }
+
+  getRechazadas(): Observable<any>{
+    const url:string = `${this.alumnosUrl}/rechazados`;
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 }

@@ -26,13 +26,15 @@ import { VerMatriculaComponent } from './components/sistema/matricula/ver-matric
 import { MatriculaDetailComponent } from './components/sistema/matricula/matricula-detail/matricula-detail.component';
 ////Postulaciones
 import { PostulacionesComponent } from './components/sistema/postulaciones/postulaciones.component';
-import { VerPostulacionesComponent } from './components/sistema/postulaciones/ver-postulaciones/ver-postulaciones.component';
 import { PostulacionDetailComponent } from './components/sistema/postulaciones/postulacion-detail/postulacion-detail.component';
 import { CrearPostulacionComponent } from './components/sistema/postulaciones/crear-postulacion/crear-postulacion.component';
 import { ModificarPostulacionComponent } from './components/sistema/postulaciones/modificar-postulacion/modificar-postulacion.component';
+import { PostulacionesDashboardComponent } from './components/sistema/postulaciones/postulaciones-dashboard/postulaciones-dashboard.component';
+import { VerPostulacionesComponent } from './components/sistema/postulaciones/ver-postulaciones/ver-postulaciones.component';
 import { PostulacionesAceptadasComponent } from './components/sistema/postulaciones/postulaciones-aceptadas/postulaciones-aceptadas.component';
 import { PostulacionesRechazadasComponent } from './components/sistema/postulaciones/postulaciones-rechazadas/postulaciones-rechazadas.component';
 import { PostulacionesEsperaComponent } from './components/sistema/postulaciones/postulaciones-espera/postulaciones-espera.component';
+
 //Libros
 import { CursosComponent } from './components/libros/cursos/cursos.component';
 import { CrearCursoComponent } from './components/libros/cursos/crear-curso/crear-curso.component';
@@ -94,14 +96,15 @@ const routes: Routes = [
 
   { path: 'sistema/postulaciones',  component: PostulacionesComponent,
     children: [
-      { path: '', redirectTo: 'ver', pathMatch: 'full'},
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+      { path: 'dashboard', component: PostulacionesDashboardComponent },
       { path: 'ver',  component: VerPostulacionesComponent },
       { path: 'aceptadas', component: PostulacionesAceptadasComponent },
       { path: 'rechazadas', component: PostulacionesRechazadasComponent },
       { path: 'espera', component: PostulacionesEsperaComponent },
       { path: 'ver/:id',  component: PostulacionDetailComponent },
       { path: 'crear',  component: CrearPostulacionComponent },
-      { path: 'editar/:id',  component: PostulacionDetailComponent },
+      { path: 'editar/:id',  component: ModificarPostulacionComponent },
     ]
   },
 
