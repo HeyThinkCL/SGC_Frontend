@@ -1,26 +1,44 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, trigger, transition, style, animate } from '@angular/core';
 import { Location } from '@angular/common';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { Select2OptionData } from 'ng2-select2';
+
+import { PostulacionesService } from '../../../../services/sistema/postulaciones.service'
+import { ApoderadosService } from '../../../../services/sistema/apoderados.service'
+import { EtniasService } from '../../../../services/sistema/etnias.service'
 
 import * as globalVars from '../../../../globals';
 
 @Component({
   selector: 'app-crear-postulacion',
   templateUrl: 'crear-postulacion.component.html',
-  styleUrls: ['crear-postulacion.component.css']
+  styleUrls: ['crear-postulacion.component.css'],
+  animations: [
+    trigger(
+      'fade', [
+        transition(':enter', [
+          style({transform: 'translateY(100%)', opacity: 0}),
+          animate('150ms', style({transform: 'translateY(0)', opacity: 1}))
+        ]),
+        transition(':leave', [
+          style({transform: 'translateY(0)', 'opacity': 1}),
+          animate('150ms', style({transform: 'translateY(100%)', opacity: 0}))
+        ])
+      ]
+    )
+  ],
 })
 export class CrearPostulacionComponent implements OnInit {
   @ViewChild('modal')
   modal: ModalComponent;
 
   //etnias select2
-  public selectEtniaData: Array<Select2OptionData>;
+  public selectEtniaData: Array<Select2OptionData> = [];
   public selectEtniaOptions: Select2Options;
 
-  //nacionalidades
-  filterNacionalidadKeys = ['nombre'];
-  countries = [{'nombre':'','flag':''}];
+  //nacionalidades select2
+  public selectNacionalidadData: Array<Select2OptionData> = [];
+  public selectNacionalidadOptions: Select2Options;
 
   private postulante: Postulante;
   private padre: Apoderado;
@@ -29,6 +47,9 @@ export class CrearPostulacionComponent implements OnInit {
 
   constructor(
     private location: Location,
+    private etniasService: EtniasService,
+    private postulacionesService: PostulacionesService,
+    private apoderadosService: ApoderadosService,
   ) { }
 
   ngOnInit() {
@@ -37,22 +58,42 @@ export class CrearPostulacionComponent implements OnInit {
     this.madre = new Apoderado(false,true,false);
     this.apoderado = new Apoderado(false,false,true);
 
-    this.selectEtniaData = [
-      {
-        id: ' ',
-        text: 'Ninguna'
-      },
-      {
-        id: 'opt2',
-        text: 'Options 2'
-      },
-    ];
+    this.selectEtniaData = [{
+      id:' ',
+      text:'Ninguna'
+    }];
+
+    this.etniasService.getEtnias().subscribe(etnias => {
+      this.selectEtniaData.pop();
+      this.selectEtniaData = [{
+        id:' ',
+        text:'Ninguna'
+      }];
+      for (let etnia of etnias){
+        this.selectEtniaData.push({
+          id: etnia.etnia,
+          text: etnia.etnia,
+        })
+      }
+      this.selectEtniaData = JSON.parse(JSON.stringify(this.selectEtniaData));
+    });
 
     this.selectEtniaOptions = {
       closeOnSelect: true,
       placeholder: 'Seleccionar Etnia',
     };
-    this.countries = globalVars.countriesArray;
+
+    for (let country of globalVars.countriesArray){
+      this.selectNacionalidadData.push({
+        id:country.nombre,
+        text: country.nombre,
+      })
+    }
+
+    this.selectNacionalidadOptions = {
+      closeOnSelect: true,
+      placeholder: 'Seleccionar Nacionalidad',
+    };
 /*    for(let country of globalVars.countriesArray){
       if(country.translations.es){
         this.countries.push({'nombre':country.translations.es,
@@ -62,7 +103,7 @@ export class CrearPostulacionComponent implements OnInit {
           'flag':'flag-icon-'+country.alpha2Code.toLowerCase()})
       }
     }*/
-    // console.log(this.countries);
+
   }
   goBack(): void {
     this.location.back();
@@ -85,10 +126,6 @@ export class CrearPostulacionComponent implements OnInit {
     }
   }
 
-  selectEtniaChanged(e: any){
-    this.postulante.etnia = e.value;
-  }
-
   modalOpen(): void {
     this.modal.open();
   }
@@ -96,6 +133,17 @@ export class CrearPostulacionComponent implements OnInit {
   modalClose(): void {
     this.modal.close();
     this.goBack();
+  }
+
+  savePostulante(){
+    this.postulacionesService.createPostulacion(this.postulante).subscribe(postulante => {
+      this.apoderadosService.createApoderado(postulante.id,this.padre).subscribe();
+      this.apoderadosService.createApoderado(postulante.id,this.madre).subscribe();
+      if(!this.padre.apoderado && !this.madre.apoderado){
+        this.apoderadosService.createApoderado(postulante.id,this.apoderado).subscribe()
+      }
+      this.modalOpen();
+    })
   }
 
 }

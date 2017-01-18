@@ -55,24 +55,30 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" for="form-control-8">Nacionalidad</label>
               <div class="col-sm-3">
+                <select2 id="form-control-8"
+                         [data]="selectNacionalidadData"
+                         [width]="185"
+                         [options]="selectNacionalidadOptions"
+                         (valueChanged)="postulante.nacionalidad = $event.value"></select2>
                 <!--<input id="form-control-8" class="form-control" type="text" [(ngModel)]="postulante.nacionalidad">-->
-                <input id="form-control-8"
+<!--                <input id="form-control-8"
                         class="form-control"
                         type="text"
                         list="countries"
                         [(ngModel)]="postulante.nacionalidad">
                 <datalist id="countries">
                   <option class="list-group-item" *ngFor="let country of countries | filterArray:postulante.nacionalidad:filterNacionalidadKeys">{{country.nombre}}</option>
-                </datalist>
+                </datalist>-->
               </div>
               <label class="col-sm-1 control-label" for="form-control-9">Etnia</label>
               <div class="col-sm-2">
                 <!--<input id="form-control-9" class="form-control" type="text" [(ngModel)]="postulante.etnia">-->
                 <select2 id="form-control-9"
                          [data]="selectEtniaData"
+                         *ngIf="selectEtniaData.length > 0"
                          [width]="150"
                          [options]="selectEtniaOptions"
-                         (valueChanged)="selectEtniaChanged($event)"></select2>
+                         (valueChanged)="postulante.etnia = $event.value"></select2>
               </div>
               <label class="col-sm-2 control-label" for="form-control-10">Pasaporte</label>
               <div class="col-sm-2">
@@ -223,7 +229,11 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" for="form-control-24">Nacionalidad</label>
               <div class="col-sm-5">
-                <input id="form-control-24" class="form-control" type="text" [(ngModel)]="padre.usuario.nacionalidad">
+                <select2 id="form-control-24"
+                         [data]="selectNacionalidadData"
+                         [width]="350"
+                         [options]="selectNacionalidadOptions"
+                         (valueChanged)="padre.usuario.nacionalidad = $event.value"></select2>
               </div>
               <label class="col-sm-2 control-label" for="form-control-25">Estado Civil</label>
               <div class="col-sm-3">
@@ -324,7 +334,11 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" for="form-control-38">Nacionalidad</label>
               <div class="col-sm-5">
-                <input id="form-control-38" class="form-control" type="text" [(ngModel)]="madre.usuario.nacionalidad">
+                <select2 id="form-control-38"
+                         [data]="selectNacionalidadData"
+                         [width]="350"
+                         [options]="selectNacionalidadOptions"
+                         (valueChanged)="madre.usuario.nacionalidad = $event.value"></select2>
               </div>
               <label class="col-sm-2 control-label" for="form-control-39">Estado Civil</label>
               <div class="col-sm-3">
@@ -348,7 +362,7 @@
   </div>
 </div>
 
-<div class="row" *ngIf="!padre.apoderado && !madre.apoderado">
+<div class="row" *ngIf="!padre.apoderado && !madre.apoderado" [@fade]="!padre.apoderado && !madre.apoderado">
   <div class="col-md-9 col-md-offset-1">
     <div class="card">
       <div class="card-header">
@@ -416,7 +430,11 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" for="form-control-53">Nacionalidad</label>
               <div class="col-sm-5">
-                <input id="form-control-53" class="form-control" type="text" [(ngModel)]="apoderado.usuario.nacionalidad">
+                <select2 id="form-control-53"
+                         [data]="selectNacionalidadData"
+                         [width]="350"
+                         [options]="selectNacionalidadOptions"
+                         (valueChanged)="apoderado.usuario.nacionalidad = $event.value"></select2>
               </div>
               <label class="col-sm-2 control-label" for="form-control-54">Estado Civil</label>
               <div class="col-sm-3">
@@ -448,7 +466,7 @@
           <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
         </div>
         <div class="col-sm-8">
-          <button class="btn btn-primary btn-block" (click)="saveMatricula()">Guardar</button>
+          <button class="btn btn-primary btn-block" (click)="savePostulante()">Guardar</button>
 
           <modal [animation]="true" #modal>
             <modal-header [show-close]="true">

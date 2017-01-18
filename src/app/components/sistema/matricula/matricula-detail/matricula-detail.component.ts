@@ -4,7 +4,7 @@ import { Location }       from '@angular/common';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { Matricula, Apoderado } from '../matricula';
-import { MatriculaService } from '../../../../services/sistema/ficha/matricula.service';
+import { MatriculaService } from '../../../../services/sistema/matricula.service';
 
 @Component({
   selector: 'app-matricula-detail',

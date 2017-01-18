@@ -86,14 +86,17 @@ import { ByCursoComponent } from './components/documentos/filtros/by-curso/by-cu
 import { ByAlumnoComponent } from './components/documentos/filtros/by-alumno/by-alumno.component';
 
 //Servicios
-import { MatriculaService } from "./services/sistema/ficha/matricula.service";
-import {ColegiosService } from './services/sistema/ficha/colegios.service';
+import { MatriculaService } from "./services/sistema/matricula.service";
+import {ColegiosService } from './services/sistema/colegios.service';
 import {CursosService} from "./services/libros/cursos.service";
 import {ProfesoresService} from "./services/libros/profesores.service";
 import {AsignaturasService} from "./services/libros/asignaturas.service";
 import {NotasService} from "./services/libros/notas.service";
 import {AnotacionesService} from './services/libros/anotaciones.service';
 import {DpaService} from './services/sistema/dpa.service';
+import {EtniasService} from './services/sistema/etnias.service';
+import {PostulacionesService} from './services/sistema/postulaciones.service';
+import {ApoderadosService} from './services/sistema/apoderados.service';
 
 
 
@@ -166,8 +169,11 @@ import {DpaService} from './services/sistema/dpa.service';
   ],
   providers: [
     DpaService,
+    EtniasService,
     ColegiosService,
     MatriculaService,
+    PostulacionesService,
+    ApoderadosService,
     CursosService,
     ProfesoresService,
     AsignaturasService,

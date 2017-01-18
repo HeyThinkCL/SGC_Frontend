@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
-import { MatriculaService } from '../../../../services/sistema/ficha/matricula.service';
+import { MatriculaService } from '../../../../services/sistema/matricula.service';
 
 @Component({
   selector: 'app-ver-matricula',

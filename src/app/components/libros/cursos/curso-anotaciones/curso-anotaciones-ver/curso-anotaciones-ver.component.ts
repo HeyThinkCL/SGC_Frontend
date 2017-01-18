@@ -5,7 +5,7 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { CursosService } from '../../../../../services/libros/cursos.service';
 import { ProfesoresService } from '../../../../../services/libros/profesores.service';
-import { MatriculaService } from '../../../../../services/sistema/ficha/matricula.service';
+import { MatriculaService } from '../../../../../services/sistema/matricula.service';
 
 @Component({
   selector: 'app-curso-anotaciones-ver',

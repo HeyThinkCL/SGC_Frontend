@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Location }       from '@angular/common';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
-import { ColegiosService } from '../../../../services/sistema/ficha/colegios.service';
+import { ColegiosService } from '../../../../services/sistema/colegios.service';
 import { DpaService } from '../../../../services/sistema/dpa.service';
 import { Colegio } from '../colegio';
 
