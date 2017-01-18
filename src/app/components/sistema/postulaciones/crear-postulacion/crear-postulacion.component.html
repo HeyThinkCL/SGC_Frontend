@@ -69,9 +69,9 @@
               <div class="col-sm-2">
                 <!--<input id="form-control-9" class="form-control" type="text" [(ngModel)]="postulante.etnia">-->
                 <select2 id="form-control-9"
-                         [data]="selectData"
+                         [data]="selectEtniaData"
                          [width]="150"
-                         [options]="selectOptions"
+                         [options]="selectEtniaOptions"
                          (valueChanged)="selectEtniaChanged($event)"></select2>
               </div>
               <label class="col-sm-2 control-label" for="form-control-10">Pasaporte</label>
@@ -348,7 +348,7 @@
   </div>
 </div>
 
-<div class="row fadeInDown fadeOutUp" *ngIf="!padre.apoderado && !madre.apoderado">
+<div class="row" *ngIf="!padre.apoderado && !madre.apoderado">
   <div class="col-md-9 col-md-offset-1">
     <div class="card">
       <div class="card-header">

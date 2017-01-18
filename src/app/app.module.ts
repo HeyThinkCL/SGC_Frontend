@@ -94,7 +94,6 @@ import {AsignaturasService} from "./services/libros/asignaturas.service";
 import {NotasService} from "./services/libros/notas.service";
 import {AnotacionesService} from './services/libros/anotaciones.service';
 import {DpaService} from './services/sistema/dpa.service';
-import {CountriesService} from "./services/sistema/countries.service";
 
 
 
@@ -167,7 +166,6 @@ import {CountriesService} from "./services/sistema/countries.service";
   ],
   providers: [
     DpaService,
-    CountriesService,
     ColegiosService,
     MatriculaService,
     CursosService,
