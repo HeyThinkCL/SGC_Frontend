@@ -38,17 +38,13 @@ export class CrearPostulacionComponent implements OnInit {
     else if ( changed.apoderado && other.apoderado ) {
       other.apoderado = false;
       this.apoderado = JSON.parse(JSON.stringify(changed));
-      this.apoderado.apoderado = false;
     }
     else if ( changed.apoderado && !other.apoderado ) {
       this.apoderado = JSON.parse(JSON.stringify(changed));
-      this.apoderado.apoderado = false;
     }
     else if ( !changed.apoderado && other.apoderado ){
       this.apoderado = JSON.parse(JSON.stringify(other));
-      this.apoderado.apoderado = false;
     }
-    console.log(this.apoderado);
   }
 
   modalOpen(): void {

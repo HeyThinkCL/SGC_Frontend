@@ -5,8 +5,8 @@ certificados
 	asistencia
 	traslado
 	ranking 4°Medios
-  accidente escolar
-  permiso de salida
+  	accidente escolar
+  	permiso de salida
 
 informes
 	Dinámico
@@ -39,4 +39,8 @@ informes
 	comparación promedios
 	alumnos pendientes y eximidos
 	control de asignaturas
+
+citaciones
+	apoderados
+	reunion
 
