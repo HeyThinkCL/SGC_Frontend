@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { Select2OptionData } from 'ng2-select2';
+
+import { CountriesService } from '../../../../services/sistema/countries.service';
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-crear-postulacion',
@@ -11,6 +15,14 @@ export class CrearPostulacionComponent implements OnInit {
   @ViewChild('modal')
   modal: ModalComponent;
 
+  //etnias select2
+  public selectEtniaData: Array<Select2OptionData>;
+  public selectEtniaOptions: Select2Options;
+
+  //nacionalidades
+  filterNacionalidadKeys = ['nombre'];
+  countries = [{'nombre':'','flag':''}];
+
   private postulante: Postulante;
   private padre: Apoderado;
   private madre: Apoderado;
@@ -18,6 +30,7 @@ export class CrearPostulacionComponent implements OnInit {
 
   constructor(
     private location: Location,
+    private countriesService: CountriesService,
   ) { }
 
   ngOnInit() {
@@ -25,6 +38,34 @@ export class CrearPostulacionComponent implements OnInit {
     this.padre = new Apoderado(true,false,false);
     this.madre = new Apoderado(false,true,false);
     this.apoderado = new Apoderado(false,false,true);
+
+    this.selectEtniaData = [
+      {
+        id: ' ',
+        text: 'Ninguna'
+      },
+      {
+        id: 'opt2',
+        text: 'Options 2'
+      },
+    ];
+
+    this.selectEtniaOptions = {
+      closeOnSelect: true,
+      placeholder: 'Seleccionar Etnia',
+    };
+
+    this.countriesService.getCountries().subscribe(res => {
+      for(let country of res){
+        if(country.translations.es){
+          this.countries.push({'nombre':country.translations.es,
+            'flag':'flag-icon'+country.alpha2Code.toLowerCase()})
+        } else {
+          this.countries.push({'nombre':country.name,
+            'flag':'flag-icon'+country.alpha2Code.toLowerCase()})
+        }
+      }
+    });
   }
   goBack(): void {
     this.location.back();
@@ -47,6 +88,10 @@ export class CrearPostulacionComponent implements OnInit {
     }
   }
 
+  selectEtniaChanged(e: any){
+    this.postulante.etnia = e.value;
+  }
+
   modalOpen(): void {
     this.modal.open();
   }
@@ -55,7 +100,6 @@ export class CrearPostulacionComponent implements OnInit {
     this.modal.close();
     this.goBack();
   }
-
 
 }
 

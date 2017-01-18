@@ -55,11 +55,24 @@
             <div class="form-group">
               <label class="col-sm-2 control-label" for="form-control-8">Nacionalidad</label>
               <div class="col-sm-3">
-                <input id="form-control-8" class="form-control" type="text" [(ngModel)]="postulante.nacionalidad">
+                <!--<input id="form-control-8" class="form-control" type="text" [(ngModel)]="postulante.nacionalidad">-->
+                <input id="form-control-8"
+                        class="form-control"
+                        type="text"
+                        list="countries"
+                        [(ngModel)]="postulante.nacionalidad">
+                <datalist id="countries">
+                  <option class="list-group-item" *ngFor="let country of countries | filterArray:postulante.nacionalidad:filterNacionalidadKeys">{{country.nombre}}</option>
+                </datalist>
               </div>
               <label class="col-sm-1 control-label" for="form-control-9">Etnia</label>
               <div class="col-sm-2">
-                <input id="form-control-9" class="form-control" type="text" [(ngModel)]="postulante.etnia">
+                <!--<input id="form-control-9" class="form-control" type="text" [(ngModel)]="postulante.etnia">-->
+                <select2 id="form-control-9"
+                         [data]="selectData"
+                         [width]="150"
+                         [options]="selectOptions"
+                         (valueChanged)="selectEtniaChanged($event)"></select2>
               </div>
               <label class="col-sm-2 control-label" for="form-control-10">Pasaporte</label>
               <div class="col-sm-2">
@@ -335,7 +348,7 @@
   </div>
 </div>
 
-<div class="row" *ngIf="!padre.apoderado && !madre.apoderado">
+<div class="row fadeInDown fadeOutUp" *ngIf="!padre.apoderado && !madre.apoderado">
   <div class="col-md-9 col-md-offset-1">
     <div class="card">
       <div class="card-header">
@@ -428,10 +441,10 @@
 </div>
 
 <div class="row">
-  <div class="col-md-8 col-md-offset-1">
+  <div class="col-md-9 col-md-offset-1">
     <div class="form form-horizontal">
       <div class="form-group">
-        <div class="col-sm-2 col-sm-offset-2">
+        <div class="col-sm-4">
           <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
         </div>
         <div class="col-sm-8">
