@@ -24,4 +24,11 @@ export class ApoderadosService {
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Apoderadoo'));
   }
+
+  getApoderadoById(apoderadoId: number): Observable<any>{
+    const url = `${this.apoderadosUrl}/${apoderadoId}`;
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
+  }
 }

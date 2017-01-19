@@ -19,12 +19,6 @@ export class ColegiosService {
     this.http=http;
   }
 
-/*  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
-  }
-*/
-
   private headers = new Headers({'Content-Type': 'application/json'});
 
   getColegios(): Observable<Colegio[]> {

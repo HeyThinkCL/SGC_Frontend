@@ -1,8 +1,7 @@
-{{filter}}
 <div class="table-responsive">
   <table class="table table-middle table-bordered">
     <thead>
-    <tr>
+    <tr class="bg-default">
       <th>Nombre</th>
       <th>Rut</th>
       <th>Fecha de Nacimiento</th>
@@ -15,7 +14,7 @@
     <tbody>
     <tr *ngFor="let postulacion of postulaciones | filterArray:filterData:filterKeys"
         (click)="selectAlumno(postulacion?.id)"
-        [ngClass]="{'bg-default':include(selected,postulacion?.id)}">
+        [ngClass]="{'bg-info-inverse':include(selected,postulacion?.id)}">
       <td>
 	                <span class="icon-with-child m-r">
 	                  <img class="circle" width="36" height="36" src="assets/img/3975409957.jpg">
@@ -41,13 +40,13 @@
       <td>
         <div class="btn-toolbar pull-right">
           <div class="btn-group btn-group-sm">
-            <a class="btn btn-primary btn-sm" [routerLink]="['./',postulacion.id]">
+            <a class="btn btn-primary btn-sm" [routerLink]="['../ver',postulacion.id]">
               <span class="icon icon-eye icon-fw"></span>
             </a>
             <a class="btn btn-primary btn-sm" [routerLink]="['../editar',postulacion.id]">
               <span class="icon icon-pencil-square-o icon-fw"></span>
             </a>
-            <button class="btn btn-danger btn-sm" (click)="deleteModalOpen(postulacion.id)">
+            <button class="btn btn-danger btn-sm" (click)="deleteModalOpen(postulacion.id)" [disabled]="include(selected,postulacion.id)">
               <span class="icon icon-times icon-fw"></span>
             </button>
           </div>
@@ -57,3 +56,16 @@
     </tbody>
   </table>
 </div>
+
+<modal [animation]="true" #deleteModal>
+  <modal-header [show-close]="true">
+    <h4 class="modal-title">Eliminar Postulación.</h4>
+  </modal-header>
+  <modal-body>
+    Haga click en Ok para eliminar la postulación seleccionada.
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="deleteModalDismiss()">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="deleteModalClose(postulacionToDelete_id)">Ok</button>
+  </modal-footer>
+</modal>

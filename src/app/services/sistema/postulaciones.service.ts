@@ -23,6 +23,12 @@ export class PostulacionesService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Alumno'));
   }
 
+  getAllPostulaciones(): Observable<any>{
+    return this.http.get(this.alumnosUrl)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
+  }
+
   getPostulaciones(): Observable<any>{
     const url:string = `${this.alumnosUrl}/postulantes`;
     return this.http.get(url)
@@ -49,5 +55,18 @@ export class PostulacionesService {
     return this.http.get(url)
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
+  }
+
+  getPostulante(postulanteId: any): Observable<any>{
+    return this.getAllPostulaciones()
+      .map(postulante => postulante.find(postulante => postulante.id == postulanteId));
+  }
+
+  updatePostulante(postulante: any): Observable<any>{
+    const url = `${this.alumnosUrl}/${postulante.id}`;
+    return this.http
+      .put(url, JSON.stringify(postulante), {headers: this.headers})
+      .map(() => postulante)
+      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Postulante'));
   }
 }

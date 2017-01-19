@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angu
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { PostulacionesService } from '../../../../services/sistema/postulaciones.service';
+import { MatriculaService } from '../../../../services/sistema/matricula.service';
 
 @Component({
   selector: 'app-ver-postulaciones',
@@ -13,9 +14,7 @@ export class VerPostulacionesComponent implements OnInit {
   @Output() onSelect = new EventEmitter<any>();
   @ViewChild('deleteModal') deleteModal: ModalComponent;
 
-  private postulaciones = [
-    {"id":1},
-  ];
+  private postulaciones = [];
   postulacionToDelete_id: number;
   selected = [];
 
@@ -23,6 +22,7 @@ export class VerPostulacionesComponent implements OnInit {
 
   constructor(
     private postulacionesService: PostulacionesService,
+    private matriculaService: MatriculaService,
   ) { }
 
   ngOnInit() {
@@ -38,30 +38,54 @@ export class VerPostulacionesComponent implements OnInit {
     } else {
       this.selected.push(id);
     }
-    // this.emitSelection();
+    this.emitSelection();
   }
 
-  include(arr,obj) {
-    return (arr.indexOf(obj) != -1);
-  }
+
 
   emitSelection(){
-    this.onSelect.emit(this.selected);
+    let selectedPostulaciones = [];
+    for(let postulacionId of this.selected){
+      selectedPostulaciones.push(this.postulaciones.find(postulacion => postulacion.id == postulacionId))
+    }
+    this.onSelect.emit(selectedPostulaciones);
   }
 
   //modals
   deleteModalOpen(id: number): void {
+    console.log(id);
     this.deleteModal.open();
     this.postulacionToDelete_id = id;
   }
 
   deleteModalClose(id: number): void {
-    console.log(id)
+    this.deletePostulacion(id);
   }
 
   deleteModalDismiss(): void {
     this.deleteModal.dismiss();
   }
 
+  deletePostulacion(id: number){
+    this.matriculaService.deleteMatricula(id).subscribe(() => {
+      let index = this.indexOfObj(id);
+      this.postulaciones.splice(index,1);
+      this.deleteModal.close();
+      this.postulacionToDelete_id = null;
+    });
+  }
+
+  indexOfObj(id: number): number {
+    for (let i = 0; i < this.postulaciones.length; i++) {
+      if ( this.postulaciones[i].id == id) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  include(arr,obj) {
+    return (arr.indexOf(obj) != -1);
+  }
 
 }

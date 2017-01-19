@@ -20,7 +20,8 @@ export class ColegioDetailComponent implements OnInit {
 
   colegio: Colegio;
 
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
               private router: Router,
               private location: Location,
               private colegiosService: ColegiosService,) {

@@ -24,21 +24,42 @@
       <div class="panel-heading">
         <div class="row gutter-xs">
           <div clasS="col-md-3">
-            <button class="btn btn-block btn-outline-default">Sin Resolver</button>
+            <button class="btn btn-block btn-outline-default"
+                    (click)="selectedTable = 'tSinResolver'"
+                    [ngClass]="{'active':selectedTable == 'tSinResolver'}">Sin Resolver</button>
           </div>
           <div clasS="col-md-3">
-            <button class="btn btn-block btn-outline-success">Aceptadas</button>
+            <button class="btn btn-block btn-outline-success"
+                    (click)="selectedTable = 'tAceptadas'"
+                    [ngClass]="{'active':selectedTable == 'tAceptadas'}">Aceptadas</button>
           </div>
           <div clasS="col-md-3">
-            <button class="btn btn-block btn-outline-info">Lista de Espera</button>
+            <button class="btn btn-block btn-outline-info"
+                    (click)="selectedTable = 'tListaEspera'"
+                    [ngClass]="{'active':selectedTable == 'tListaEspera'}">Lista de Espera</button>
           </div>
           <div clasS="col-md-3">
-            <button class="btn btn-block btn-outline-warning">Rechazadas</button>
+            <button class="btn btn-block btn-outline-warning"
+                    (click)="selectedTable = 'tRechazadas'"
+                    [ngClass]="{'active':selectedTable == 'tRechazadas'}">Rechazadas</button>
           </div>
         </div>
       </div>
-      <div class="panel-body">
-        <app-ver-postulaciones [filter]="filterData"></app-ver-postulaciones>
+      <div class="panel-body" *ngIf="selectedTable == 'tSinResolver'">
+        <app-ver-postulaciones  [filter]="filterData"
+                                (onSelect)="onSelectSubjects($event)"></app-ver-postulaciones>
+      </div>
+      <div class="panel-body" *ngIf="selectedTable == 'tAceptadas'">
+        <app-postulaciones-aceptadas [filter]="filterData"
+                                     (onSelect)="onSelectSubjects($event)"></app-postulaciones-aceptadas>
+      </div>
+      <div class="panel-body" *ngIf="selectedTable == 'tListaEspera'" >
+        <app-postulaciones-espera [filter]="filterData"
+                                  (onSelect)="onSelectSubjects($event)"></app-postulaciones-espera>
+      </div>
+      <div class="panel-body" *ngIf="selectedTable == 'tRechazadas'">
+        <app-postulaciones-rechazadas [filter]="filterData"
+                                      (onSelect)="onSelectSubjects($event)" ></app-postulaciones-rechazadas>
       </div>
     </div>
   </div>
@@ -47,16 +68,23 @@
   <div class="col-md-12">
     <div class="row">
       <div class="col-md-3">
-        <button class="btn btn-block btn-danger"><span class="icon icon-fw btn-icon icon-close"></span> Eliminar</button>
+        <button class="btn btn-block btn-danger"
+                [disabled]="subjects.length==0"><span class="icon icon-fw btn-icon icon-close"></span> Eliminar</button>
       </div>
       <div class="col-md-3">
-        <button class="btn btn-block btn-success"><span class="icon icon-fw btn-icon icon-check"></span> Aceptar</button>
+        <button class="btn btn-block btn-success"
+                (click)="aceptarSelected()"
+                [disabled]="subjects.length==0 || selectedTable == 'tAceptadas'"><span class="icon icon-fw btn-icon icon-check"></span> Aceptar</button>
       </div>
       <div class="col-md-3">
-        <button class="btn btn-block btn-info"><span class="icon icon-fw btn-icon icon-list-alt"></span> A Lista de Espera</button>
+        <button class="btn btn-block btn-info"
+                (click)="moverAListaEsperaSelected()"
+                [disabled]="subjects.length==0 || selectedTable == 'tListaEspera'"><span class="icon icon-fw btn-icon icon-list-alt"></span> A Lista de Espera</button>
       </div>
       <div class="col-md-3">
-        <button class="btn btn-block btn-warning"><span class="icon icon-fw btn-icon icon-frown-o"></span> Rechazar</button>
+        <button class="btn btn-block btn-warning"
+                (click)="rechazarSelected()"
+                [disabled]="subjects.length==0 || selectedTable == 'tRechazadas'"><span class="icon icon-fw btn-icon icon-frown-o"></span> Rechazar</button>
       </div>
     </div>
   </div>
