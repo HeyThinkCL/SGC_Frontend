@@ -1,79 +1,29 @@
 <div class="title-bar">
-  <h1 class="title-bar title">Crear Alumno</h1>
+  <h1 class="title-bar title">Crear Matricula</h1>
   <p class="title bar description"></p>
-
 </div>
 
 <div class="row">
-  <div class="col-md-8 col-md-offset-1">
-    <div class="demo-form-wrapper">
-      <div class="form form-horizontal">
-        <div class="form-group">
-          <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-1">Nombre</label>
-          <div class="col-sm-3">
-            <input class="form-control" type="text" id="form-control-1" [(ngModel)]="postulante.nombre">
-          </div>
-          <label class="col-sm-1 control-label"for="form-control-2">Apellidos</label>
-          <div class="col-sm-3">
-            <input class="form-control" type="text" id="form-control-2" [(ngModel)]="postulante.apellidos">
-          </div>
-          <label class="col-sm-1 control-label" for="form-control-3">Sexo</label>
-          <div class="col-sm-2">
-            <select class="custom-select" type="text" id="form-control-3" [(ngModel)]="postulante.sexo">
-              <option value="" selected="selected"></option>
-              <option value="M">M</option>
-              <option value="F">F</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-6">Fecha Nacimiento</label>
-          <div class="col-sm-4">
-            <div class="input-with-icon">
-              <input class="form-control" id="form-control-6" type="text" [(ngModel)]="postulante.fecha_nac" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
-              <span class="icon icon-calendar input-icon"></span>
+  <div class="col-md-9 col-md-offset-1">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title fw-l">
+          Seleccionar
+        </h3>
+      </div>
+      <div class="card-body">
+        <div class="demo-form-wrapper">
+          <div class="form form-horizontal">
+            <div class="form-group">
+              <label class="control-label col-sm-1 col-sm-offset-1" for="select-form-1">Postulante</label>
+              <div class="col-sm-5" *ngIf="selectData.length>0">
+                <select2 id="select-form-1"
+                         [data]="selectData"
+                         [width]="310"
+                         [options]="selectOptions"
+                         (valueChanged)="selectChanged($event)"></select2>
+              </div>
             </div>
-          </div>
-          <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-4">Rut</label>
-          <div class="col-sm-3">
-            <input class="form-control" type="text" id="form-control-4" [(ngModel)]="postulante.rut">
-          </div>
-          <div class="col-sm-1">
-            <input class="form-control" type="text" id="form-control-5" [(ngModel)]="postulante.dv">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-10">Teléfono Fijo</label>
-          <div class="col-sm-4">
-            <input id="form-control-10" class="form-control" type="text" [(ngModel)]="postulante.fono_casa">
-          </div>
-          <label class="col-sm-2 control-label" for="form-control-11">Teléfono Móvil</label>
-          <div class="col-sm-4">
-            <input id="form-control-11" class="form-control" type="text" [(ngModel)]="postulante.fono_movil">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-12">Nacionalidad</label>
-          <div class="col-sm-5">
-            <input id="form-control-12" class="form-control" type="text" [(ngModel)]="postulante.nacionalidad">
-          </div>
-          <label class="col-sm-2 control-label" for="form-control-13">Estado Matricula</label>
-          <div class="col-sm-3">
-            <input id="form-control-13" class="form-control" type="text" [(ngModel)]="postulante.estado">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-15">Dirección</label>
-          <div class="col-sm-3">
-            <input id="form-control-15" class="form-control" type="text" [(ngModel)]="postulante.direccion">
-          </div>
-          <label class="col-sm-1 control-label" for="form-control-16">N°</label>
-          <div class="col-sm-2">
-            <input id="form-control-16" class="form-control" type="text" [(ngModel)]="postulante.numeracion">
-          </div>
-          <label class="col-sm-1 control-label" for="form-control-14">Comuna</label>
-          <div class="col-sm-3">
-            <input id="form-control-14" class="form-control" type="text" [(ngModel)]="postulante.comuna">
           </div>
         </div>
       </div>
@@ -82,293 +32,124 @@
 </div>
 
 <div class="row">
-  <div class="col-md-8 col-md-offset-1">
-    <div class="card demo-form-wrapper">
-      <div class="form form-horizontal">
-        <div class="form-group">
-          <h3 class="title">Padre</h3>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" class="custom-control-primary" value="{{padre.selected}}" [(ngModel)]="padre.selected" (ngModelChange)="onChange(padre,madre)"> Apoderado
-            </label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-17">Nombre</label>
-          <div class="col-sm-3">
-            <input class="form-control" type="text" id="form-control-17" [(ngModel)]="padre.nombre">
-          </div>
-          <label class="col-sm-1 control-label"for="form-control-18">Apellidos</label>
-          <div class="col-sm-3">
-            <input class="form-control" type="text" id="form-control-18" [(ngModel)]="padre.apellidos">
-          </div>
-          <label class="col-sm-1 control-label" for="form-control-19">Sexo</label>
-          <div class="col-sm-2">
-            <select class="custom-select" type="text" id="form-control-19" [(ngModel)]="padre.sexo">
-              <option value="" selected="selected"></option>
-              <option value="M">M</option>
-              <option value="F">F</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-20">Fecha Nacimiento</label>
-          <div class="col-sm-4">
-            <div class="input-with-icon">
-              <input class="form-control" id="form-control-20" type="text" [(ngModel)]="padre.fecha_nac" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
-              <span class="icon icon-calendar input-icon"></span>
-            </div>
-          </div>
-          <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-21">Rut</label>
-          <div class="col-sm-3">
-            <input class="form-control" type="text" id="form-control-21" [(ngModel)]="padre.rut">
-          </div>
-          <div class="col-sm-1">
-            <input class="form-control" type="text" id="form-control-22" [(ngModel)]="padre.dv">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-23">Teléfono Fijo</label>
-          <div class="col-sm-4">
-            <input id="form-control-23" class="form-control" type="text" [(ngModel)]="padre.fono_casa">
-          </div>
-          <label class="col-sm-2 control-label" for="form-control-24">Teléfono Móvil</label>
-          <div class="col-sm-4">
-            <input id="form-control-24" class="form-control" type="text" [(ngModel)]="padre.fono_movil">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-30">Email</label>
-          <div class="col-sm-10">
-            <input id="form-control-30" class="form-control" type="text" [(ngModel)]="padre.mail">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-25">Nacionalidad</label>
-          <div class="col-sm-5">
-            <input id="form-control-25" class="form-control" type="text" [(ngModel)]="padre.nacionalidad">
-          </div>
-          <label class="col-sm-2 control-label" for="form-control-26">Estado Civil</label>
-          <div class="col-sm-3">
-            <input id="form-control-26" class="form-control" type="text" [(ngModel)]="padre.estado_civil">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-31">Titulo</label>
-          <div class="col-sm-4">
-            <input id="form-control-31" class="form-control" type="text" [(ngModel)]="padre.titulo">
-          </div>
-          <label class="col-sm-2 control-label" for="form-control-32">Ocupación</label>
-          <div class="col-sm-4">
-            <input id="form-control-32" class="form-control" type="text" [(ngModel)]="padre.ocupacion">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-27">Dirección</label>
-          <div class="col-sm-3">
-            <input id="form-control-27" class="form-control" type="text" [(ngModel)]="padre.direccion">
-          </div>
-          <label class="col-sm-1 control-label" for="form-control-29">N°</label>
-          <div class="col-sm-2">
-            <input id="form-control-29" class="form-control" type="text" [(ngModel)]="padre.numeracion">
-          </div>
-          <label class="col-sm-1 control-label" for="form-control-28">Comuna</label>
-          <div class="col-sm-3">
-            <input id="form-control-28" class="form-control" type="text" [(ngModel)]="padre.comuna">
-          </div>
-        </div>
+  <div class="col-md-9 col-md-offset-1">
+    <div class="card" *ngIf="postulante" [@fade]="postulante">
+      <div class="card-header">
+        <h3 class="card-title fw-l">
+          Postulante
+        </h3>
       </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-8 col-md-offset-1">
-    <div class="demo-form-wrapper">
-      <div class="form form-horizontal">
-        <div class="form-group">
-          <h3 class="title">Madre</h3>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" class="custom-control-primary" value="{{madre.selected}}" [(ngModel)]="madre.selected" (ngModelChange)="onChange(madre,padre)"> Apoderado
-            </label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-33">Nombre</label>
-          <div class="col-sm-3">
-            <input class="form-control" type="text" id="form-control-33" [(ngModel)]="madre.nombre">
-          </div>
-          <label class="col-sm-1 control-label"for="form-control-34">Apellidos</label>
-          <div class="col-sm-3">
-            <input class="form-control" type="text" id="form-control-34" [(ngModel)]="madre.apellidos">
-          </div>
-          <label class="col-sm-1 control-label" for="form-control-35">Sexo</label>
-          <div class="col-sm-2">
-            <select class="custom-select" type="text" id="form-control-35" [(ngModel)]="madre.sexo">
-              <option value="" selected="selected"></option>
-              <option value="M">M</option>
-              <option value="F">F</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-36">Fecha Nacimiento</label>
-          <div class="col-sm-4">
-            <div class="input-with-icon">
-              <input class="form-control" id="form-control-36" type="text" [(ngModel)]="madre.fecha_nac" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
-              <span class="icon icon-calendar input-icon"></span>
+      <div class="card-body">
+        <div class="demo-form-wrapper">
+          <div class="form form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="form-control-1">Nombre</label>
+              <div class="col-sm-3">
+                <input class="form-control" type="text" id="form-control-1" [(ngModel)]="postulante.nombre" readonly>
+              </div>
+              <label class="col-sm-1 control-label" for="form-control-2">Apellido Paterno</label>
+              <div class="col-sm-2">
+                <input class="form-control" type="text" id="form-control-2" [(ngModel)]="postulante.apellido_paterno" readonly>
+              </div>
+              <label class="col-sm-1 control-label" for="form-control-3">Apellido Materno</label>
+              <div class="col-sm-2">
+                <input class="form-control" type="text" id="form-control-3" [(ngModel)]="postulante.apellido_materno" readonly>
+              </div>
             </div>
-          </div>
-          <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-37">Rut</label>
-          <div class="col-sm-3">
-            <input class="form-control" type="text" id="form-control-37" [(ngModel)]="madre.rut">
-          </div>
-          <div class="col-sm-1">
-            <input class="form-control" type="text" id="form-control-38" [(ngModel)]="madre.dv">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-39">Teléfono Fijo</label>
-          <div class="col-sm-4">
-            <input id="form-control-39" class="form-control" type="text" [(ngModel)]="madre.fono_casa">
-          </div>
-          <label class="col-sm-2 control-label" for="form-control-40">Teléfono Móvil</label>
-          <div class="col-sm-4">
-            <input id="form-control-40" class="form-control" type="text" [(ngModel)]="madre.fono_movil">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-41">Email</label>
-          <div class="col-sm-10">
-            <input id="form-control-41" class="form-control" type="text" [(ngModel)]="madre.mail">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-42">Nacionalidad</label>
-          <div class="col-sm-5">
-            <input id="form-control-42" class="form-control" type="text" [(ngModel)]="madre.nacionalidad">
-          </div>
-          <label class="col-sm-2 control-label" for="form-control-43">Estado Civil</label>
-          <div class="col-sm-3">
-            <input id="form-control-43" class="form-control" type="text" [(ngModel)]="madre.estado_civil">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-44">Titulo</label>
-          <div class="col-sm-4">
-            <input id="form-control-44" class="form-control" type="text" [(ngModel)]="madre.titulo">
-          </div>
-          <label class="col-sm-2 control-label" for="form-control-45">Ocupación</label>
-          <div class="col-sm-4">
-            <input id="form-control-45" class="form-control" type="text" [(ngModel)]="madre.ocupacion">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-46">Dirección</label>
-          <div class="col-sm-3">
-            <input id="form-control-46" class="form-control" type="text" [(ngModel)]="madre.direccion">
-          </div>
-          <label class="col-sm-1 control-label" for="form-control-48">N°</label>
-          <div class="col-sm-2">
-            <input id="form-control-48" class="form-control" type="text" [(ngModel)]="madre.numeracion">
-          </div>
-          <label class="col-sm-1 control-label" for="form-control-47">Comuna</label>
-          <div class="col-sm-3">
-            <input id="form-control-47" class="form-control" type="text" [(ngModel)]="madre.comuna">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+            <div class="form-group">
+              <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-4">Sexo</label>
+              <div class="col-sm-1">
+                <input class="form-control no-arrows" type="text" id="form-control-4" [(ngModel)]="postulante.sexo" readonly>
+              </div>
+              <label class="col-sm-2 control-label" for="form-control-5">Fecha de Nacimiento</label>
+              <div class="col-sm-3">
+                <div class="input-with-icon">
+                  <input class="form-control" id="form-control-5" type="text" [(ngModel)]="postulante.fecha_nacimiento" readonly>
+                  <span class="icon icon-calendar input-icon"></span>
+                </div>
+              </div>
+              <label class="col-sm-1 control-label" for="form-control-6">Rut</label>
+              <div class="col-sm-2">
+                <input class="form-control no-arrows" type="number" id="form-control-6" [(ngModel)]="postulante.rut" readonly>
+              </div>
+              <div class="col-sm-1">
+                <input class="form-control" type="text" id="form-control-7" [(ngModel)]="postulante.dv" readonly>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label" for="form-control-8">Nacionalidad</label>
+              <div class="col-sm-3">
+                <input id="form-control-8" class="form-control" readonly [(ngModel)]="postulante.nacionalidad">
+              </div>
+              <label class="col-sm-1 control-label" for="form-control-9">Etnia</label>
+              <div class="col-sm-2">
+                <input id="form-control-9" class="form-control" [(ngModel)]="postulante.etnia" readonly>
+              </div>
+              <label class="col-sm-2 control-label" for="form-control-10">Pasaporte</label>
+              <div class="col-sm-2">
+                <input id="form-control-10" class="form-control" type="text" [(ngModel)]="postulante.pasaporte" readonly>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-11">Teléfono Fijo</label>
+              <div class="col-sm-2">
+                <input id="form-control-11" class="form-control" type="text" [(ngModel)]="postulante.fono_casa" readonly>
+              </div>
+              <label class="col-sm-1 control-label" for="form-control-12">Teléfono Móvil</label>
+              <div class="col-sm-2">
+                <input id="form-control-12" class="form-control" type="text" [(ngModel)]="postulante.fono_movil" readonly>
+              </div>
+              <label class="col-sm-1 control-label" for="form-control-13">Email</label>
+              <div class="col-sm-4">
+                <input id="form-control-13" class="form-control" type="text" [(ngModel)]="postulante.email" readonly>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-1 col-md-offset-1"> Prioritario </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="postulante.prioritario" disabled="disabled">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
 
-<div class="row" *ngIf="apoderado.selected">
-  <div class="col-md-8 col-md-offset-1">
-    <div class="demo-form-wrapper">
-      <div class="form form-horizontal">
-        <h3 class="title">Apoderado</h3>
-        <div class="form-group">
-          <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-49">Nombre</label>
-          <div class="col-sm-3">
-            <input class="form-control" type="text" id="form-control-49" [(ngModel)]="apoderado.nombre">
-          </div>
-          <label class="col-sm-1 control-label"for="form-control-50">Apellidos</label>
-          <div class="col-sm-3">
-            <input class="form-control" type="text" id="form-control-50" [(ngModel)]="apoderado.apellidos">
-          </div>
-          <label class="col-sm-1 control-label" for="form-control-51">Sexo</label>
-          <div class="col-sm-2">
-            <select class="custom-select" type="text" id="form-control-51" [(ngModel)]="apoderado.sexo">
-              <option value="" selected="selected"></option>
-              <option value="M">M</option>
-              <option value="F">F</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-52">Fecha Nacimiento</label>
-          <div class="col-sm-4">
-            <div class="input-with-icon">
-              <input class="form-control" id="form-control-52" type="text" [(ngModel)]="apoderado.fecha_nac" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
-              <span class="icon icon-calendar input-icon"></span>
+              <label class="control-label col-md-1"> Vulnerable </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="postulante.vulnerable" disabled="disabled">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+
+              <label class="control-label col-md-1"> Preferente </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="postulante.preferente" disabled="disabled">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+
+              <label class="control-label col-md-1"> PIE </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="postulante.pie" disabled="disabled">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+
+              <label class="control-label col-md-2"> Intercambio </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="postulante.intercambio" disabled="disabled">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
             </div>
-          </div>
-          <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-53">Rut</label>
-          <div class="col-sm-3">
-            <input class="form-control" type="text" id="form-control-53" [(ngModel)]="apoderado.rut">
-          </div>
-          <div class="col-sm-1">
-            <input class="form-control" type="text" id="form-control-54" [(ngModel)]="apoderado.dv">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-55">Teléfono Fijo</label>
-          <div class="col-sm-4">
-            <input id="form-control-55" class="form-control" type="text" [(ngModel)]="apoderado.fono_casa">
-          </div>
-          <label class="col-sm-2 control-label" for="form-control-56">Teléfono Móvil</label>
-          <div class="col-sm-4">
-            <input id="form-control-56" class="form-control" type="text" [(ngModel)]="apoderado.fono_movil">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-57">Email</label>
-          <div class="col-sm-10">
-            <input id="form-control-57" class="form-control" type="text" [(ngModel)]="apoderado.mail">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-58">Nacionalidad</label>
-          <div class="col-sm-5">
-            <input id="form-control-58" class="form-control" type="text" [(ngModel)]="apoderado.nacionalidad">
-          </div>
-          <label class="col-sm-2 control-label" for="form-control-59">Estado Civil</label>
-          <div class="col-sm-3">
-            <input id="form-control-59" class="form-control" type="text" [(ngModel)]="apoderado.estado_civil">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-60">Titulo</label>
-          <div class="col-sm-4">
-            <input id="form-control-60" class="form-control" type="text" [(ngModel)]="apoderado.titulo">
-          </div>
-          <label class="col-sm-2 control-label" for="form-control-61">Ocupación</label>
-          <div class="col-sm-4">
-            <input id="form-control-61" class="form-control" type="text" [(ngModel)]="apoderado.ocupacion">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-62">Dirección</label>
-          <div class="col-sm-3">
-            <input id="form-control-62" class="form-control" type="text" [(ngModel)]="apoderado.direccion">
-          </div>
-          <label class="col-sm-1 control-label" for="form-control-64">N°</label>
-          <div class="col-sm-2">
-            <input id="form-control-64" class="form-control" type="text" [(ngModel)]="apoderado.numeracion">
-          </div>
-          <label class="col-sm-1 control-label" for="form-control-63">Comuna</label>
-          <div class="col-sm-3">
-            <input id="form-control-63" class="form-control" type="text" [(ngModel)]="apoderado.comuna">
           </div>
         </div>
       </div>
@@ -377,14 +158,14 @@
 </div>
 
 <div class="row">
-  <div class="col-md-8 col-md-offset-1">
+  <div class="col-md-9 col-md-offset-1">
     <div class="form form-horizontal">
       <div class="form-group">
-        <div class="col-sm-2 col-sm-offset-2">
+        <div class="col-sm-3">
           <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
         </div>
-        <div class="col-sm-8">
-          <button class="btn btn-primary btn-block" (click)="saveMatricula()">Guardar</button>
+        <div class="col-sm-9">
+          <button class="btn btn-primary btn-block" [disabled]="!(this.postulante)" (click)="saveMatricula()">Matricular</button>
 
           <modal [animation]="true" #modal>
             <modal-header [show-close]="true">

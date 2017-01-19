@@ -19,7 +19,8 @@ export class MatriculaService {
   private headers = new Headers({'Content-Type': 'application/json'});
 
   getMatriculas(): Observable<Matricula[]> {
-    return this.http.get(this.matriculasUrl)
+    const url = `${this.matriculasUrl}/matriculados`;
+    return this.http.get(url)
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Alumnos'));
   }

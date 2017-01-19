@@ -1,60 +1,71 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, trigger, transition, style, animate } from '@angular/core';
 import { Location } from '@angular/common';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { Select2OptionData } from 'ng2-select2';
 
-import { Matricula, Apoderado } from '../matricula';
 import { MatriculaService } from '../../../../services/sistema/matricula.service';
+import { PostulacionesService } from '../../../../services/sistema/postulaciones.service';
+import { ApoderadosService } from '../../../../services/sistema/apoderados.service';
 
 @Component({
   selector: 'app-crear-matricula',
   templateUrl: 'crear-matricula.component.html',
-  styleUrls: ['crear-matricula.component.css']
+  styleUrls: ['crear-matricula.component.css'],
+  animations: [
+    trigger(
+      'fade', [
+        transition(':enter', [
+          style({transform: 'translateY(100%)', opacity: 0}),
+          animate('150ms', style({transform: 'translateY(0)', opacity: 1}))
+        ]),
+        transition(':leave', [
+          style({transform: 'translateY(0)', 'opacity': 1}),
+          animate('150ms', style({transform: 'translateY(100%)', opacity: 0}))
+        ])
+      ]
+    )
+  ],
 })
 export class CrearMatriculaComponent implements OnInit {
-  @ViewChild('modal')
-  modal: ModalComponent;
+  @ViewChild('modal') modal: ModalComponent;
 
-  matricula: Matricula;
-  padre: Apoderado;
-  madre: Apoderado;
-  apoderado: Apoderado;
+  public selectData: Array<Select2OptionData> = [];
+  public selectOptions: Select2Options;
+
+  postulantes = [];
+
+  postulante: any;
+/*  padre: any;
+  madre: any;
+  apoderado: any;*/
 
   constructor(
     private location: Location,
     private matriculaService: MatriculaService,
+    private postulacionesService: PostulacionesService,
   ) { }
 
   ngOnInit() {
-    this.matricula = new Matricula();
-    this.padre = new Apoderado(false);
-    this.madre = new Apoderado(false);
-    this.apoderado = new Apoderado(true);
+    this.postulacionesService.getAceptadas().subscribe(postulantes => {
+      this.postulantes = postulantes;
+      this.selectData.push({
+        id: ' ',
+        text: 'Ninguno'
+      });
+      for (let postulante of postulantes){
+        this.selectData.push({
+          id: postulante.id.toString(),
+          text: `${postulante.nombre} ${postulante.apellido_paterno} ${postulante.apellido_materno}`
+        })
+      }
+      console.log(this.selectData);
+    })
   }
 
   goBack(): void {
     this.location.back();
   }
 
-  onChange(changed: Apoderado, other: Apoderado) {
-    if ( !changed.selected && !other.selected ) {
-      this.apoderado = new Apoderado(true);
-    }
-
-    else if ( changed.selected && other.selected ) {
-      other.selected = false;
-      this.apoderado = JSON.parse(JSON.stringify(changed));
-      this.apoderado.selected = false;
-    }
-    else if ( changed.selected && !other.selected ) {
-      this.apoderado = JSON.parse(JSON.stringify(changed));
-      this.apoderado.selected = false;
-    }
-    else if ( !changed.selected && other.selected ){
-      this.apoderado = JSON.parse(JSON.stringify(other));
-      this.apoderado.selected = false;
-    }
-    console.log(this.apoderado);
-  }
 
   modalOpen(): void {
     this.modal.open();
@@ -65,14 +76,15 @@ export class CrearMatriculaComponent implements OnInit {
     this.goBack();
   }
 
+  selectChanged(e: any){
+    this.postulante = this.postulantes.find(postulante => postulante.id == +e.value);
+  }
 
   saveMatricula() {
-    this.matricula.madre = this.madre;
-    this.matricula.padre = this.padre;
-    this.matricula.apoderado = this.apoderado;
-
-    this.matriculaService.createMatricula(this.matricula).subscribe((matricula) => {
-      this.matricula = matricula;
+    this.postulante.postulante = false;
+    this.postulante.aceptado = false;
+    this.postulante.matriculado = true;
+    this.matriculaService.updateMatricula(this.postulante).subscribe(res => {
       this.modalOpen();
     });
   }

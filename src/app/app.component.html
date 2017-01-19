@@ -209,30 +209,50 @@
               </a>
             </li>-->
             <li class="sidenav-heading">Sistema</li>
-            <li class="sidenav-item" routerLinkActive="active">
+            <li class="sidenav-item has-subnav" routerLinkActive="active">
               <a [routerLink]="['sistema/colegios']">
                 <span class="sidenav-icon icon icon-institution"></span>
                 <span class="sidenav-label">Colegios</span>
               </a>
+              <ul class="sidenav-subnav collapse" routerLinkActive="active">
+                <li class="sidenav-subheading">Colegios</li>
+                <li routerLinkActive="active" [routerLink]="['sistema/colegios/ver']"><a>Ver Colegios</a></li>
+                <li routerLinkActive="active" [routerLink]="['sistema/colegios/crear']"><a>Crear Colegio</a></li>
+              </ul>
             </li>
-            <li class="sidenav-item" routerLinkActive="active">
+            <li class="sidenav-item has-subnav" routerLinkActive="active">
               <a [routerLink]="['sistema/postulaciones']">
                 <span class="sidenav-icon icon icon-folder-open"></span>
                 <span class="sidenav-label">Postulaciones</span>
               </a>
+              <ul class="sidenav-subnav collapse" routerLinkActive="active">
+                <li class="sidenav-subheading">Postulaciones</li>
+                <li routerLinkActive="active" [routerLink]="['sistema/postulaciones/dashboard']"><a>Ver Postulaciones</a></li>
+                <li routerLinkActive="active" [routerLink]="['sistema/postulaciones/crear']"><a>Crear Postulación</a></li>
+              </ul>
             </li>
-            <li class="sidenav-item" routerLinkActive="active">
+            <li class="sidenav-item has-subnav" routerLinkActive="active">
               <a [routerLink]="['sistema/matriculas']">
                 <span class="sidenav-icon icon icon-folder"></span>
                 <span class="sidenav-label">Matriculas</span>
               </a>
+              <ul class="sidenav-subnav collapse" routerLinkActive="active">
+                <li class="sidenav-subheading">Matriculas</li>
+                <li routerLinkActive="active" [routerLink]="['sistema/matriculas/ver']"><a>Ver Matriculas</a></li>
+                <li routerLinkActive="active" [routerLink]="['sistema/matriculas/crear']"><a>Crear Matricula</a></li>
+              </ul>
             </li>
             <li class="sidenav-heading">Modulos</li>
-            <li class="sidenav-item" routerLinkActive="active">
+            <li class="sidenav-item has-subnav" routerLinkActive="active">
               <a [routerLink]="['libros']">
                 <span class="sidenav-icon icon icon-book"></span>
                 <span class="sidenav-label">Libros de Clases</span>
               </a>
+              <ul class="sidenav-subnav collapse" routerLinkActive="active">
+                <li class="sidenav-subheading">Libros de Clases</li>
+                <li routerLinkActive="active" [routerLink]="['libros/ver-cursos']"><a>Ver Cursos</a></li>
+                <li routerLinkActive="active" [routerLink]="['libros/crear-curso']"><a>Crear Curso</a></li>
+              </ul>
             </li>
             <li class="sidenav-item has-subnav" routerLinkActive="active">
               <a>

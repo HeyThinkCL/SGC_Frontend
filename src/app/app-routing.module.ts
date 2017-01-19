@@ -86,11 +86,11 @@ const routes: Routes = [
 
   { path: 'sistema/matriculas',  component: MatriculaComponent,
     children: [
-      { path: '', redirectTo: 'ver-matriculas', pathMatch: 'full'},
-      { path: 'ver-matriculas',  component: VerMatriculaComponent },
-      { path: 'ver-matriculas/:id',  component: MatriculaDetailComponent },
+      { path: '', redirectTo: 'ver', pathMatch: 'full'},
+      { path: 'ver',  component: VerMatriculaComponent },
+      { path: 'ver/:id',  component: MatriculaDetailComponent },
       { path: 'crear',  component: CrearMatriculaComponent },
-      { path: 'editar-matricula/:id',  component: EditarMatriculaComponent },
+      { path: 'editar/:id',  component: EditarMatriculaComponent },
     ]
   },
 
