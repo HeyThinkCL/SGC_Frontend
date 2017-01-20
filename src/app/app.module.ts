@@ -96,6 +96,7 @@ import {NotasService} from "./services/libros/notas.service";
 import {AnotacionesService} from './services/libros/anotaciones.service';
 import {DpaService} from './services/sistema/dpa.service';
 import {EtniasService} from './services/sistema/etnias.service';
+import {EstadosCivilesService} from './services/sistema/estados-civiles.service'
 import {PostulacionesService} from './services/sistema/postulaciones.service';
 import {ApoderadosService} from './services/sistema/apoderados.service';
 
@@ -182,6 +183,7 @@ import {ApoderadosService} from './services/sistema/apoderados.service';
     AsignaturasService,
     NotasService,
     AnotacionesService,
+    EstadosCivilesService,
   ],
   bootstrap: [RootComponent]
 })

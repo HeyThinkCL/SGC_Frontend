@@ -227,7 +227,12 @@
               </div>
               <label class="col-sm-2 control-label" for="form-control-25">Estado Civil</label>
               <div class="col-sm-3">
-                <input id="form-control-25" class="form-control" type="text" [(ngModel)]="padre.usuario.estado_civil">
+                <select2 id="form-control-25"
+                         [data]="selectEstadoCivilData"
+                         *ngIf="selectEstadoCivilData.length > 0"
+                         [width]="150"
+                         [options]="selectEstadoCivilOptions"
+                         (valueChanged)="padre.usuario.estado_civil = $event.value"></select2>
               </div>
             </div>
             <div class="form-group">
@@ -332,7 +337,12 @@
               </div>
               <label class="col-sm-2 control-label" for="form-control-39">Estado Civil</label>
               <div class="col-sm-3">
-                <input id="form-control-39" class="form-control" type="text" [(ngModel)]="madre.usuario.estado_civil">
+                <select2 id="form-control-39"
+                         [data]="selectEstadoCivilData"
+                         *ngIf="selectEstadoCivilData.length > 0"
+                         [width]="150"
+                         [options]="selectEstadoCivilOptions"
+                         (valueChanged)="madre.usuario.estado_civil = $event.value"></select2>
               </div>
             </div>
             <div class="form-group">
@@ -428,7 +438,12 @@
               </div>
               <label class="col-sm-2 control-label" for="form-control-54">Estado Civil</label>
               <div class="col-sm-3">
-                <input id="form-control-54" class="form-control" type="text" [(ngModel)]="apoderado.usuario.estado_civil">
+                <select2 id="form-control-54"
+                         [data]="selectEstadoCivilData"
+                         *ngIf="selectEstadoCivilData.length > 0"
+                         [width]="150"
+                         [options]="selectEstadoCivilOptions"
+                         (valueChanged)="apoderado.usuario.estado_civil = $event.value"></select2>
               </div>
             </div>
             <div class="form-group">

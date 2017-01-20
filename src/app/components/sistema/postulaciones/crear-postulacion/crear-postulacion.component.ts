@@ -6,6 +6,7 @@ import { Select2OptionData } from 'ng2-select2';
 import { PostulacionesService } from '../../../../services/sistema/postulaciones.service'
 import { ApoderadosService } from '../../../../services/sistema/apoderados.service'
 import { EtniasService } from '../../../../services/sistema/etnias.service'
+import { EstadosCivilesService } from '../../../../services/sistema/estados-civiles.service'
 
 import * as globalVars from '../../../../globals';
 
@@ -40,6 +41,10 @@ export class CrearPostulacionComponent implements OnInit {
   public selectNacionalidadData: Array<Select2OptionData> = [];
   public selectNacionalidadOptions: Select2Options;
 
+  //estados civiles select2
+  public selectEstadoCivilData: Array<Select2OptionData> = [];
+  public selectEstadoCivilOptions: Select2Options;
+
   private postulante: Postulante;
   private padre: Apoderado;
   private madre: Apoderado;
@@ -48,6 +53,7 @@ export class CrearPostulacionComponent implements OnInit {
   constructor(
     private location: Location,
     private etniasService: EtniasService,
+    private estadosCivilesService: EstadosCivilesService,
     private postulacionesService: PostulacionesService,
     private apoderadosService: ApoderadosService,
   ) { }
@@ -81,6 +87,30 @@ export class CrearPostulacionComponent implements OnInit {
     this.selectEtniaOptions = {
       closeOnSelect: true,
       placeholder: 'Seleccionar Etnia',
+    };
+
+    this.selectEstadoCivilData = [{
+      id:' ',
+      text:'Ninguno'
+    }];
+
+    this.estadosCivilesService.getEstadosCiviles().subscribe(estados => {
+      this.selectEstadoCivilData.pop();
+      this.selectEstadoCivilData = [{
+        id:' ',
+        text:'Ninguno'
+      }];
+      for (let estado of estados){
+        this.selectEstadoCivilData.push({
+          id: estado.tipo,
+          text: estado.tipo,
+        })
+      }
+    });
+
+    this.selectEstadoCivilOptions = {
+      closeOnSelect: true,
+      placeholder: 'Seleccionar Estado Civil',
     };
 
     for (let country of globalVars.countriesArray){

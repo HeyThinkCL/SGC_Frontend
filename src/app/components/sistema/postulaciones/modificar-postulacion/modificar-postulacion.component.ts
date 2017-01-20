@@ -7,6 +7,7 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { PostulacionesService } from '../../../../services/sistema/postulaciones.service'
 import { ApoderadosService } from '../../../../services/sistema/apoderados.service'
 import { EtniasService } from '../../../../services/sistema/etnias.service'
+import { EstadosCivilesService } from '../../../../services/sistema/estados-civiles.service'
 
 import * as globalVars from '../../../../globals';
 
@@ -45,6 +46,10 @@ export class ModificarPostulacionComponent implements OnInit {
   public selectNacionalidadData: Array<Select2OptionData> = [];
   public selectNacionalidadOptions: Select2Options;
 
+  //estados civiles select2
+  public selectEstadoCivilData: Array<Select2OptionData> = [];
+  public selectEstadoCivilOptions: Select2Options;
+
   private postulante:any;
   private padre:any;
   private madre:any;
@@ -60,6 +65,7 @@ export class ModificarPostulacionComponent implements OnInit {
     private router: Router,
     private location: Location,
     private etniasService: EtniasService,
+    private estadosCivilesService: EstadosCivilesService,
     private postulacionesService: PostulacionesService,
     private apoderadosService: ApoderadosService,
   ) { }
@@ -168,6 +174,31 @@ export class ModificarPostulacionComponent implements OnInit {
     this.selectNacionalidadOptions = {
       closeOnSelect: true,
       placeholder: 'Seleccionar Nacionalidad',
+    };
+
+    this.selectEstadoCivilData = [{
+      id:' ',
+      text:'Ninguno'
+    }];
+
+    this.estadosCivilesService.getEstadosCiviles().subscribe(estados => {
+      this.selectEstadoCivilData.pop();
+      this.selectEstadoCivilData = [{
+        id:' ',
+        text:'Ninguno'
+      }];
+      for (let estado of estados){
+        this.selectEstadoCivilData.push({
+          id: estado.tipo.toString(),
+          text: estado.tipo.toString(),
+        })
+      }
+      console.log(this.selectEstadoCivilData);
+    });
+
+    this.selectEstadoCivilOptions = {
+      closeOnSelect: true,
+      placeholder: 'Seleccionar Estado Civil',
     };
 
   }
