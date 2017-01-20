@@ -3,10 +3,10 @@
     <thead>
     <tr class="bg-success">
       <th>Nombre</th>
+      <th>Apellidos</th>
       <th>Rut</th>
       <th>Fecha de Nacimiento</th>
       <th>Sexo</th>
-      <th>Dirección</th>
       <th>Telefono</th>
       <th></th>
     </tr>
@@ -20,7 +20,10 @@
 	                  <img class="circle" width="36" height="36" src="assets/img/3975409957.jpg">
                     <!--<span class="icon-child bg-warning circle sq-8"></span>-->
 	                </span>
-        <strong>{{postulacion.apellidos}} {{postulacion.nombre}}</strong>
+        {{postulacion.nombre}}
+      </td>
+      <td>
+        <strong>{{postulacion.apellido_paterno}} {{postulacion.apellido_materno}}</strong>
       </td>
       <td>
         {{postulacion.rut}}-{{postulacion.dv}}
@@ -30,9 +33,6 @@
       </td>
       <td>
         {{postulacion.sexo}}
-      </td>
-      <td class="maw-320">
-        <span class="truncate">{{postulacion.direccion}} {{postulacion.n}}</span>
       </td>
       <td>
         {{postulacion.fono_casa}}

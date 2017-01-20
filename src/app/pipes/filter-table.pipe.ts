@@ -23,7 +23,6 @@ export class FilterTablePipe implements PipeTransform {
               let mainData = item[key.mainKey];
               for (let subKey of key.subKeys){
                 if(typeof subKey === 'string' || subKey instanceof String){
-                  console.log(mainData[subKey.toString()]);
                   if(mainData[subKey.toString()]){
                     if (mainData[subKey.toString()].toString().toLowerCase().indexOf(filter.toLowerCase()) !== -1){
                      return true;

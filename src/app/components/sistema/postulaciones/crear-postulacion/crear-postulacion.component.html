@@ -5,7 +5,7 @@
 
 <div class="row">
   <div class="col-md-9 col-md-offset-1">
-    <div class="card">
+    <div class="card" *ngIf="postulante">
       <div class="card-header">
         <h3 class="card-title fw-l">
           Postulante
@@ -60,19 +60,9 @@
                          [width]="185"
                          [options]="selectNacionalidadOptions"
                          (valueChanged)="postulante.nacionalidad = $event.value"></select2>
-                <!--<input id="form-control-8" class="form-control" type="text" [(ngModel)]="postulante.nacionalidad">-->
-<!--                <input id="form-control-8"
-                        class="form-control"
-                        type="text"
-                        list="countries"
-                        [(ngModel)]="postulante.nacionalidad">
-                <datalist id="countries">
-                  <option class="list-group-item" *ngFor="let country of countries | filterArray:postulante.nacionalidad:filterNacionalidadKeys">{{country.nombre}}</option>
-                </datalist>-->
               </div>
               <label class="col-sm-1 control-label" for="form-control-9">Etnia</label>
               <div class="col-sm-2">
-                <!--<input id="form-control-9" class="form-control" type="text" [(ngModel)]="postulante.etnia">-->
                 <select2 id="form-control-9"
                          [data]="selectEtniaData"
                          *ngIf="selectEtniaData.length > 0"
@@ -154,7 +144,7 @@
 
 <div class="row">
   <div class="col-md-9 col-md-offset-1">
-    <div class="card">
+    <div class="card" *ngIf="padre">
       <div class="card-header">
         <div class="media">
           <div class="media-middle media-body">
@@ -259,7 +249,7 @@
 
 <div class="row">
   <div class="col-md-9 col-md-offset-1">
-    <div class="card">
+    <div class="card" *ngIf="madre">
       <div class="card-header">
         <div class="media">
           <div class="media-middle media-body">
@@ -362,9 +352,9 @@
   </div>
 </div>
 
-<div class="row" *ngIf="!padre.apoderado && !madre.apoderado" [@fade]="!padre.apoderado && !madre.apoderado">
+<div class="row" *ngIf="padre && madre && apoderado">
   <div class="col-md-9 col-md-offset-1">
-    <div class="card">
+    <div class="card" *ngIf="!padre.apoderado && !madre.apoderado" [@fade]="!padre.apoderado && !madre.apoderado">
       <div class="card-header">
         <div class="media">
           <div class="media-middle media-body">

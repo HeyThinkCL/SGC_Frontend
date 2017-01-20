@@ -15,6 +15,14 @@ export class VerCursoComponent implements OnInit {
 
   cursos = [];
 
+  filterData: string = '';
+  filterKeys = [
+    {
+    'mainKey':'curso',
+    'subKeys':['grado','curso']
+    }
+  ];
+
   selectedCurso_id: number;
 
   constructor(

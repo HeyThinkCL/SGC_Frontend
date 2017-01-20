@@ -12,6 +12,9 @@ export class VerMatriculaComponent implements OnInit {
   @ViewChild('modal')
   modal: ModalComponent;
 
+  filterData:string = '';
+  filterKeys = ['nombre', 'apellido_paterno', 'apellido-materno', 'rut'];
+
   private matriculas = [
     {"id":1},
   ];

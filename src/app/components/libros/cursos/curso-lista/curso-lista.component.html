@@ -6,12 +6,6 @@
           <table class="table table-middle table-striped table-bordered">
             <thead>
             <tr class="bg-primary">
-              <th>
-                <label class="custom-control custom-control-primary custom-checkbox">
-                  <input class="custom-control-input" type="checkbox">
-                  <span class="custom-control-indicator"></span>
-                </label>
-              </th>
               <th>Nombre</th>
               <th>Apellidos</th>
               <th>Rut</th>
@@ -25,12 +19,6 @@
             </thead>
             <tbody>
             <tr *ngFor="let alumno of alumnos">
-              <td>
-                <label class="custom-control custom-control-primary custom-checkbox">
-                  <input class="custom-control-input" type="checkbox">
-                  <span class="custom-control-indicator"></span>
-                </label>
-              </td>
               <td>{{alumno.nombre}}</td>
               <td>{{alumno.apellido_paterno}} {{alumno.apellido_materno}}</td>
               <td>{{alumno.rut}}-{{alumno.dv}}</td>
