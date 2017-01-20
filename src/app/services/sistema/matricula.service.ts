@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from "rxjs";
 
-import { Matricula } from '../../components/sistema/matricula/matricula';
-
 import * as globalVar from '../../globals';
 
 @Injectable()
@@ -18,19 +16,19 @@ export class MatriculaService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  getMatriculas(): Observable<Matricula[]> {
+  getMatriculas(): Observable<any[]> {
     const url = `${this.matriculasUrl}/matriculados`;
     return this.http.get(url)
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Alumnos'));
   }
 
-  getMatricula(id: number): Observable<Matricula> {
+  getMatricula(id: number): Observable<any> {
     return this.getMatriculas()
       .map(matricula => matricula.find(matricula => matricula.id == id));
   }
 
-  updateMatricula(matricula: Matricula){
+  updateMatricula(matricula: any){
     const url = `${this.matriculasUrl}/${matricula.id}`;
     return this.http
       .put(url, JSON.stringify(matricula), {headers: this.headers})
@@ -38,7 +36,7 @@ export class MatriculaService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Alumno'));
   }
 
-  createMatricula(matricula: Matricula): Observable<Matricula> {
+  createMatricula(matricula: any): Observable<any> {
     return this.http
       .post(this.matriculasUrl, JSON.stringify({nombre: matricula.nombre}), {headers: this.headers})
       .map(res => res.json().data)

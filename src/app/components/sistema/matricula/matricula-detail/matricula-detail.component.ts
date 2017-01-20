@@ -3,8 +3,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location }       from '@angular/common';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
-import { Matricula, Apoderado } from '../matricula';
+import { Alumno, Apoderado } from '../matricula';
 import { MatriculaService } from '../../../../services/sistema/matricula.service';
+import { ApoderadosService } from '../../../../services/sistema/apoderados.service'
 
 @Component({
   selector: 'app-matricula-detail',
@@ -18,32 +19,62 @@ export class MatriculaDetailComponent implements OnInit {
   id: number;
   private sub: any;
 
-  matricula: Matricula;
-  padre: Apoderado;
-  madre: Apoderado;
-  apoderado: Apoderado;
+  private alumno: any;
+  private padre: any;
+  private madre: any;
+  private apoderado: any;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
     private matriculaService: MatriculaService,
+    private apoderadosService: ApoderadosService,
   ) { }
 
   ngOnInit() {
-    this.matricula = new Matricula();
-    this.padre = new Apoderado(false);
-    this.madre = new Apoderado(false);
-    this.apoderado = new Apoderado(false);
-
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
     });
 
     this.route.params
       .switchMap((params: Params) => this.matriculaService.getMatricula(+params['id']))
-      .subscribe((matricula) => {
-        this.matricula = matricula;
+      .subscribe((postulante) => {
+        this.alumno = postulante;
+
+        let pCheck = false;
+        let mCheck = false;
+
+        this.apoderadosService.getApoderadoById(postulante.padre_id).subscribe(padre => {
+          this.padre = padre;
+          this.padre['apoderado']=false;
+          pCheck = true;
+          if(pCheck && mCheck){
+            this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+              this.apoderado = apoderado;
+              if(this.padre.usuario.rut == apoderado.usuario.rut){
+                this.padre.apoderado = true;
+              } else if (this.madre.usuario.rut == apoderado.usuario.rut){
+                this.madre.apoderado = true;
+              }
+            });
+          }
+        });
+        this.apoderadosService.getApoderadoById(postulante.madre_id).subscribe(madre => {
+          this.madre = madre;
+          this.madre['apoderado']=false;
+          mCheck = true;
+          if(pCheck && mCheck){
+            this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+              this.apoderado = apoderado;
+              if(this.padre.usuario.rut == apoderado.usuario.rut){
+                this.padre.apoderado = true;
+              } else if (this.madre.usuario.rut == apoderado.usuario.rut){
+                this.madre.apoderado = true;
+              }
+            });
+          }
+        });
       });
   }
 
@@ -52,7 +83,7 @@ export class MatriculaDetailComponent implements OnInit {
   }
 
   goToEdit(id: number){
-    this.router.navigate(['editar-matricula',id],{relativeTo: this.route.parent});
+    this.router.navigate(['editar',id],{relativeTo: this.route.parent});
 
   }
 
@@ -69,7 +100,7 @@ export class MatriculaDetailComponent implements OnInit {
   }
 
   deleteMatricula(): void {
-    this.matriculaService.deleteMatricula(this.matricula.id).subscribe(()=>{
+    this.matriculaService.deleteMatricula(this.alumno.id).subscribe(()=>{
       this.modal.close();
       this.goBack();
     });

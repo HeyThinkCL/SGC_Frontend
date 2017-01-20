@@ -1,391 +1,267 @@
 <div class="title-bar">
-  <h1 class="title-bar title">Editar Alumno</h1>
-  <h5 class="title bar description">{{selectedMatricula.nombre}} {{selectedMatricula.apellidos}}, {{selectedMatricula.rut}}-{{selectedMatricula.dv}}</h5>
+  <h3 class="title-bar title">Editar Matricula</h3>
+  <h5 class="title bar description"></h5>
 </div>
 
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <div class="demo-md-form-wrapper">
-      <div class="form form-horizontal">
+  <div class="col-md-9 col-md-offset-1">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title fw-l">
+          Alumno
+        </h3>
+      </div>
+      <div class="card-body">
+        <div class="demo-md-form-wrapper">
+          <div class="form form-horizontal">
+            <div class="md-form-group md-label-static">
 
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-1 md-control-label" for="form-control-1"><b>Nombre:</b> {{selectedMatricula.nombre}}</label>
-            <div class="col-sm-4">
-              <input class="form-control" type="text" id="form-control-1" [(ngModel)]="matricula.nombre">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-5 md-control-label"for="form-control-2"><b>Apellidos:</b> {{selectedMatricula.apellidos}}</label>
-            <div class="col-sm-3 col-sm-offset-1">
-              <input class="form-control" type="text" id="form-control-2" [(ngModel)]="matricula.apellidos">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-9 md-control-label" for="form-control-3"><b>Sexo:</b> {{selectedMatricula.sexo}}</label>
-            <div class="col-sm-2 col-sm-offset-1">
-              <select class="custom-select" type="text" id="form-control-3" [(ngModel)]="matricula.sexo">
-                <option value="" selected="selected"></option>
-                <option value="M">M</option>
-                <option value="F">F</option>
-              </select>
-            </div>
-          </div>
-        </div>
+              <label class="col-md-1 md-control-label" for="form-control-1"><b>Nombre:</b> {{selectedMatricula.nombre}}</label>
+              <div class="col-sm-5">
+                <input class="form-control" type="text" id="form-control-1" [(ngModel)]="matricula.nombre">
+              </div>
 
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-6"><b>Fecha Nacimiento:</b> {{selectedMatricula.fecha_nac}}</label>
-            <div class="col-sm-4">
-              <div class="input-with-icon">
-                <input class="form-control" id="form-control-6" type="text" [(ngModel)]="matricula.fecha_nac" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
-                <span class="icon icon-calendar input-icon"></span>
+              <label class="col-sm-1 col-sm-offset-5 md-control-label" for="form-control-2"><b>Apellido Paterno:</b> {{selectedMatricula.apellido_paterno}}</label>
+              <div class="col-sm-3">
+                <input class="form-control" type="text" id="form-control-2" [(ngModel)]="matricula.apellido_paterno">
+              </div>
+
+              <label class="col-sm-1 col-sm-offset-8 md-control-label" for="form-control-3"><b>Apellido Materno:</b> {{selectedMatricula.apellido_materno}}</label>
+              <div class="col-sm-3">
+                <input class="form-control" type="text" id="form-control-3" [(ngModel)]="matricula.apellido_materno">
+              </div>
+            </div>
+
+            <div class="md-form-group md-label-static">
+
+              <label class="col-sm-1 md-control-label" for="form-control-4"><b>Sexo:</b> {{selectedMatricula.sexo}}</label>
+              <div class="col-sm-2">
+                <select class="form-control no-arrows" type="text" id="form-control-4" [(ngModel)]="matricula.sexo">
+                  <option value="" selected="selected"></option>
+                  <option value="M">M</option>
+                  <option value="F">F</option>
+                </select>
+              </div>
+
+              <label class="col-sm-1 col-md-offset-2 md-control-label" for="form-control-5"><b>Fecha de Nacimiento:</b> {{selectedMatricula.fecha_nacimiento}}</label>
+              <div class="col-sm-5">
+                <div class="input-with-icon">
+                  <input class="form-control" id="form-control-5" type="text" [(ngModel)]="matricula.fecha_nacimiento" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
+                  <span class="icon icon-calendar input-icon"></span>
+                </div>
+              </div>
+
+              <label class="col-sm-1 col-md-offset-7 md-control-label" for="form-control-6"><b>Rut</b></label>
+              <div class="col-sm-3">
+                <input class="form-control no-arrows" type="number" id="form-control-6" [(ngModel)]="matricula.rut" readonly>
+              </div>
+              <div class="col-sm-1">
+                <input class="form-control" type="text" id="form-control-7" [(ngModel)]="matricula.dv" readonly>
+              </div>
+            </div>
+
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-8"><b>Nacionalidad:</b> {{selectedMatricula.nacionalidad}}</label>
+              <div class="col-sm-5">
+                <select2 id="form-control-8"
+                         [data]="selectNacionalidadData"
+                         [width]="300"
+                         [options]="selectNacionalidadOptions"
+                         (valueChanged)="matricula.nacionalidad = $event.value"></select2>
+              </div>
+              <label class="col-sm-1 col-sm-offset-5 md-control-label" for="form-control-9"><b>Etnia:</b> {{selectedMatricula.etnia}}</label>
+              <div class="col-sm-3">
+                <select2 id="form-control-9"
+                         [data]="selectEtniaData"
+                         *ngIf="selectEtniaData.length > 0"
+                         [width]="150"
+                         [options]="selectEtniaOptions"
+                         (valueChanged)="matricula.etnia = $event.value"></select2>
+              </div>
+              <label class="col-sm-1 col-sm-offset-8 md-control-label" for="form-control-10"><b>Pasaporte:</b> {{selectedMatricula.pasaporte}}</label>
+              <div class="col-sm-3">
+                <input id="form-control-10" class="form-control" type="text" [(ngModel)]="matricula.pasaporte">
+              </div>
+            </div>
+
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-11"><b>Teléfono Fijo:</b> {{selectedMatricula.fono_casa}}</label>
+              <div class="col-sm-3">
+                <input id="form-control-11" class="form-control" type="text" [(ngModel)]="matricula.fono_casa">
+              </div>
+
+              <label class="col-sm-1 col-sm-offset-3 md-control-label" for="form-control-12"><b>Teléfono Móvil:</b> {{selectedMatricula.fono_movil}}</label>
+              <div class="col-sm-3">
+                <input id="form-control-12" class="form-control" type="text" [(ngModel)]="matricula.fono_movil">
+              </div>
+              <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-13"><b>Email:</b> {{selectedMatricula.email}}</label>
+              <div class="col-sm-5">
+                <input id="form-control-13" class="form-control" type="text" [(ngModel)]="matricula.email">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-1"> Prioritario </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="matricula.prioritario">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+
+              <label class="control-label col-md-1"> Vulnerable </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="matricula.vulnerable">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+
+              <label class="control-label col-md-1"> Preferente </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="matricula.preferente">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+
+              <label class="control-label col-md-1"> PIE </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="matricula.pie">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+
+              <label class="control-label col-md-2"> Intercambio </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="matricula.intercambio">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
               </div>
             </div>
           </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-5 md-control-label" for="form-control-4"><b>Rut:</b> {{selectedMatricula.rut}}</label>
-            <div class="col-sm-3 col-sm-offset-1">
-              <input class="form-control" type="text" id="form-control-4" [(ngModel)]="matricula.rut">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-8 md-control-label" for="form-control-4">{{selectedMatricula.dv}}</label>
-            <div class="col-sm-1">
-              <input class="form-control" type="text" id="form-control-5" [(ngModel)]="matricula.dv">
-            </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="media">
+          <div class="media-middle pull-right">
+            <button class="btn btn-block btn-outline-info"
+                    (click)="undoChanges(matricula,selectedMatricula)" [disabled]="true"><span class="icon icon-fw icon-undo"></span> Deshacer</button>
           </div>
         </div>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-10"><b>Teléfono Fijo:</b> {{selectedMatricula.fono_casa}}</label>
-            <div class="col-sm-5">
-              <input id="form-control-10" class="form-control" type="text" [(ngModel)]="matricula.fono_casa">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-2 col-sm-offset-6 md-control-label" for="form-control-11"><b>Teléfono Móvil:</b> {{selectedMatricula.fono_movil}}</label>
-            <div class="col-sm-5 col-sm-offset-1">
-              <input id="form-control-11" class="form-control" type="text" [(ngModel)]="matricula.fono_movil">
-            </div>
-          </div>
-        </div>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-12"><b>Nacionalidad:</b> {{selectedMatricula.nacionalidad}}</label>
-            <div class="col-sm-6">
-              <input id="form-control-12" class="form-control" type="text" [(ngModel)]="matricula.nacionalidad">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-2 col-sm-offset-7 md-control-label" for="form-control-13"><b>Estado Matricula:</b> {{selectedMatricula.estado}}</label>
-            <div class="col-sm-3 col-sm-offset-1">
-              <input id="form-control-13" class="form-control" type="text" [(ngModel)]="matricula.estado">
-            </div>
-          </div>
-        </div>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-15"><b>Dirección:</b> {{selectedMatricula.direccion}}</label>
-            <div class="col-sm-4">
-              <input id="form-control-15" class="form-control" type="text" [(ngModel)]="matricula.direccion">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-5 md-control-label" for="form-control-16"><b>N°:</b> {{selectedMatricula.numeracion}}</label>
-            <div class="col-sm-2 col-sm-offset-1">
-              <input id="form-control-16" class="form-control" type="text" [(ngModel)]="matricula.numeracion">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-8 md-control-label" for="form-control-14"><b>Comuna:</b> {{selectedMatricula.comuna}}</label>
-            <div class="col-sm-3 col-sm-offset-1">
-              <input id="form-control-14" class="form-control" type="text" [(ngModel)]="matricula.comuna">
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <div class="demo-md-form-wrapper">
-      <div class="form form-horizontal">
-
-        <div class="form-group">
-          <h3 class="title">Padre</h3>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" value="{{padre.selected}}" [(ngModel)]="padre.selected" (ngModelChange)="onChange(padre,madre)"> Apoderado
-            </label>
+  <div class="col-md-9 col-md-offset-1">
+    <div class="card">
+      <div class="card-header">
+        <div class="media">
+          <div class="media-middle media-body">
+            <h3 class="card-title fw-l">Padre</h3>
+          </div>
+          <div class="media-middle media-right">
+            <p class="fw-l">
+              Apoderado
+              <label class="custom-control custom-control-primary custom-checkbox">
+                <input class="custom-control-input" type="checkbox" value="{{padre.apoderado}}" [(ngModel)]="padre.apoderado" (ngModelChange)="onChange(padre,madre)">
+                <span class="custom-control-indicator"></span>
+              </label>
+            </p>
           </div>
         </div>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-1 md-control-label" for="form-control-17"><b>Nombre:</b> {{selectedPadre.nombre}}</label>
-            <div class="col-sm-4">
-              <input class="form-control" type="text" id="form-control-17" [(ngModel)]="padre.nombre">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-5 md-control-label"for="form-control-18"><b>Apellidos:</b> {{selectedPadre.apellidos}}</label>
-            <div class="col-sm-3 col-sm-offset-1">
-              <input class="form-control" type="text" id="form-control-18" [(ngModel)]="padre.apellidos">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-9 md-control-label" for="form-control-19"><b>Sexo:</b> {{selectedPadre.sexo}}</label>
-            <div class="col-sm-2 col-sm-offset-1">
-              <select class="custom-select" type="text" id="form-control-19" [(ngModel)]="padre.sexo">
-                <option value="" selected="selected"></option>
-                <option value="M">M</option>
-                <option value="F">F</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-20"><b>Fecha Nacimiento:</b> {{selectedPadre.fecha_nac}}</label>
-            <div class="col-sm-4">
-              <div class="input-with-icon">
-                <input class="form-control" id="form-control-20" type="text" [(ngModel)]="padre.fecha_nac" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
-                <span class="icon icon-calendar input-icon"></span>
-              </div>
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-5 md-control-label" for="form-control-21"><b>Rut:</b> {{selectedPadre.rut}}</label>
-            <div class="col-sm-3 col-sm-offset-1">
-              <input class="form-control" type="text" id="form-control-21" [(ngModel)]="padre.rut">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-8 md-control-label" for="form-control-22">{{selectedPadre.dv}}</label>
-            <div class="col-sm-1">
-              <input class="form-control" type="text" id="form-control-22" [(ngModel)]="padre.dv">
-            </div>
-          </div>
-        </div>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-23"><b>Teléfono Fijo:</b> {{selectedPadre.fono_casa}}</label>
-            <div class="col-sm-5">
-              <input id="form-control-23" class="form-control" type="text" [(ngModel)]="padre.fono_casa">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-2 col-sm-offset-6 md-control-label" for="form-control-24"><b>Teléfono Móvil:</b> {{selectedPadre.fono_movil}}</label>
-            <div class="col-sm-5 col-sm-offset-1">
-              <input id="form-control-24" class="form-control" type="text" [(ngModel)]="padre.fono_movil">
-            </div>
-          </div>
-        </div>
-
-        <div class="md-form-group md-label-static">
-          <label class="col-sm-1 md-control-label" for="form-control-30"><b>Email:</b>{{selectedPadre.mail}}</label>
-          <div class="col-sm-11">
-            <input id="form-control-30" class="form-control" type="text" [(ngModel)]="padre.mail">
-          </div>
-        </div>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-25"><b>Nacionalidad:</b> {{selectedPadre.nacionalidad}}</label>
-            <div class="col-sm-6">
-              <input id="form-control-25" class="form-control" type="text" [(ngModel)]="padre.nacionalidad">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-2 col-sm-offset-7 md-control-label" for="form-control-26"><b>Estado Civil:</b> {{selectedPadre.estado}}</label>
-            <div class="col-sm-4 col-sm-offset-1">
-              <input id="form-control-26" class="form-control" type="text" [(ngModel)]="padre.estado">
-            </div>
-          </div>
-        </div>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-31"><b>Titulo:</b> {{selectedPadre.titulo}}</label>
-            <div class="col-sm-5">
-              <input id="form-control-31" class="form-control" type="text" [(ngModel)]="padre.titulo">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-2 col-sm-offset-6 md-control-label" for="form-control-32"><b>Ocupación:</b> {{selectedPadre.ocupacion}}</label>
-            <div class="col-sm-5 col-sm-offset-1">
-              <input id="form-control-32" class="form-control" type="text" [(ngModel)]="padre.ocupacion">
-            </div>
-          </div>
-        </div>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-27"><b>Dirección:</b> {{selectedPadre.direccion}}</label>
-            <div class="col-sm-4">
-              <input id="form-control-27" class="form-control" type="text" [(ngModel)]="padre.direccion">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-5 md-control-label" for="form-control-28"><b>N°:</b> {{selectedPadre.numeracion}}</label>
-            <div class="col-sm-2 col-sm-offset-1">
-              <input id="form-control-28" class="form-control" type="text" [(ngModel)]="padre.numeracion">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-8 md-control-label" for="form-control-29"><b>Comuna:</b> {{selectedPadre.comuna}}</label>
-            <div class="col-sm-3 col-sm-offset-1">
-              <input id="form-control-29" class="form-control" type="text" [(ngModel)]="padre.comuna">
-            </div>
-          </div>
-        </div>
-
       </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <div class="demo-md-form-wrapper">
-      <div class="form form-horizontal">
-
-        <div class="form-group">
-          <h3 class="title">Madre</h3>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" value="{{madre.selected}}" [(ngModel)]="madre.selected" (ngModelChange)="onChange(madre,padre)"> Apoderado
-            </label>
-          </div>
-        </div>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-1 md-control-label" for="form-control-33"><b>Nombre:</b> {{selectedMadre.nombre}}</label>
-            <div class="col-sm-4">
-              <input class="form-control" type="text" id="form-control-33" [(ngModel)]="madre.nombre">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-5 md-control-label"for="form-control-34"><b>Apellidos:</b> {{selectedMadre.apellidos}}</label>
-            <div class="col-sm-3 col-sm-offset-1">
-              <input class="form-control" type="text" id="form-control-34" [(ngModel)]="madre.apellidos">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-9 md-control-label" for="form-control-35"><b>Sexo:</b> {{selectedMadre.sexo}}</label>
-            <div class="col-sm-2 col-sm-offset-1">
-              <select class="custom-select" type="text" id="form-control-35" [(ngModel)]="madre.sexo">
-                <option value="" selected="selected"></option>
-                <option value="M">M</option>
-                <option value="F">F</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-36"><b>Fecha Nacimiento:</b> {{selectedMadre.fecha_nac}}</label>
-            <div class="col-sm-4">
-              <div class="input-with-icon">
-                <input class="form-control" id="form-control-36" type="text" [(ngModel)]="madre.fecha_nac" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
-                <span class="icon icon-calendar input-icon"></span>
+      <div class="card-body">
+        <div class="demo-md-form-wrapper">
+          <div class="form form-horizontal">
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-14"><b>Nombre:</b> {{selectedPadre.nombre}}</label>
+              <div class="col-sm-5">
+                <input class="form-control" type="text" id="form-control-14" [(ngModel)]="padre.usuario.nombre">
+              </div>
+              <label class="col-sm-1 col-sm-offset-5 md-control-label" for="form-control-15"><b>Apellido Paterno:</b> {{selectedPadre.apellido_paterno}} </label>
+              <div class="col-sm-3">
+                <input class="form-control" type="text" id="form-control-15" [(ngModel)]="padre.usuario.apellido_paterno">
+              </div>
+              <label class="col-sm-1 col-sm-offset-8 md-control-label" for="form-control-16"><b>Apellido Materno:</b> {{selectedPadre.apellido_materno}}</label>
+              <div class="col-sm-3">
+                <input class="form-control" type="text" id="form-control-16" [(ngModel)]="padre.usuario.apellido_materno">
               </div>
             </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-5 md-control-label" for="form-control-37"><b>Rut:</b> {{selectedMadre.rut}}</label>
-            <div class="col-sm-3 col-sm-offset-1">
-              <input class="form-control" type="text" id="form-control-37" [(ngModel)]="madre.rut">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-8 md-control-label" for="form-control-38">{{selectedMadre.dv}}</label>
-            <div class="col-sm-1">
-              <input class="form-control" type="text" id="form-control-38" [(ngModel)]="madre.dv">
-            </div>
-          </div>
-        </div>
 
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-39"><b>Teléfono Fijo:</b> {{selectedMadre.fono_casa}}</label>
-            <div class="col-sm-5">
-              <input id="form-control-39" class="form-control" type="text" [(ngModel)]="madre.fono_casa">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-2 col-sm-offset-6 md-control-label" for="form-control-40"><b>Teléfono Móvil:</b> {{selectedMadre.fono_movil}}</label>
-            <div class="col-sm-5 col-sm-offset-1">
-              <input id="form-control-40" class="form-control" type="text" [(ngModel)]="madre.fono_movil">
-            </div>
-          </div>
-        </div>
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-17"><b>Sexo:</b> {{selectedPadre.usuario.sexo}}</label>
+              <div class="col-sm-2">
+                <select class="form-control no-arrows" type="text" id="form-control-17" [(ngModel)]="padre.usuario.sexo">
+                  <option value="" selected="selected"></option>
+                  <option value="M">M</option>
+                  <option value="F">F</option>
+                </select>
+              </div>
 
-        <div class="md-form-group md-label-static">
-          <label class="col-sm-1 md-control-label" for="form-control-41"><b>Email:</b>{{selectedMadre.mail}}</label>
-          <div class="col-sm-11">
-            <input id="form-control-41" class="form-control" type="text" [(ngModel)]="madre.mail">
-          </div>
-        </div>
+              <label class="col-sm-1 col-md-offset-2 md-control-label" for="form-control-18"><b>Fecha de Nacimiento:</b> {{selectedPadre.usuario.fecha_nacimiento}}</label>
+              <div class="col-sm-5">
+                <div class="input-with-icon">
+                  <input class="form-control" id="form-control-18" type="text" [(ngModel)]="padre.usuario.fecha_nacimiento" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
+                  <span class="icon icon-calendar input-icon"></span>
+                </div>
+              </div>
 
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-42"><b>Nacionalidad:</b> {{selectedMadre.nacionalidad}}</label>
-            <div class="col-sm-6">
-              <input id="form-control-42" class="form-control" type="text" [(ngModel)]="madre.nacionalidad">
+              <label class="col-sm-1 col-md-offset-7 md-control-label" for="form-control-19"><b>Rut</b></label>
+              <div class="col-sm-3">
+                <input class="form-control no-arrows" type="number" id="form-control-19" [(ngModel)]="padre.usuario.rut" readonly>
+              </div>
+              <div class="col-sm-1">
+                <input class="form-control" type="text" id="form-control-20" [(ngModel)]="padre.usuario.dv" readonly>
+              </div>
             </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-2 col-sm-offset-7 md-control-label" for="form-control-43"><b>Estado Civil:</b> {{selectedMadre.estado}}</label>
-            <div class="col-sm-4 col-sm-offset-1">
-              <input id="form-control-43" class="form-control" type="text" [(ngModel)]="madre.estado">
-            </div>
-          </div>
-        </div>
 
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-44"><b>Titulo:</b> {{selectedMadre.titulo}}</label>
-            <div class="col-sm-5">
-              <input id="form-control-44" class="form-control" type="text" [(ngModel)]="madre.titulo">
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-21"><b>Teléfono Fijo:</b> {{selectedPadre.usuario.fono_casa}}</label>
+              <div class="col-sm-3">
+                <input id="form-control-21" class="form-control" type="text" [(ngModel)]="padre.usuario.fono_casa">
+              </div>
+              <label class="col-sm-1 col-sm-offset-3 md-control-label" for="form-control-22"><b>Teléfono Móvil:</b> {{selectedPadre.usuario.fono_movil}}</label>
+              <div class="col-sm-3">
+                <input id="form-control-22" class="form-control" type="text" [(ngModel)]="padre.usuario.fono_movil">
+              </div>
+              <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-23"><b>Email:</b> {{selectedPadre.usuario.email}}</label>
+              <div class="col-sm-5">
+                <input id="form-control-23" class="form-control" type="text" [(ngModel)]="padre.usuario.email">
+              </div>
             </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-2 col-sm-offset-6 md-control-label" for="form-control-45"><b>Ocupación:</b> {{selectedMadre.ocupacion}}</label>
-            <div class="col-sm-5 col-sm-offset-1">
-              <input id="form-control-45" class="form-control" type="text" [(ngModel)]="madre.ocupacion">
-            </div>
-          </div>
-        </div>
 
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-46"><b>Dirección:</b> {{selectedMadre.direccion}}</label>
-            <div class="col-sm-4">
-              <input id="form-control-46" class="form-control" type="text" [(ngModel)]="madre.direccion">
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-24"><b>Nacionalidad:</b> {{selectedPadre.usuario.nacionalidad}}</label>
+              <div class="col-sm-6">
+                <select2 id="form-control-24"
+                         [data]="selectNacionalidadData"
+                         [width]="350"
+                         [options]="selectNacionalidadOptions"
+                         (valueChanged)="padre.usuario.nacionalidad = $event.value"></select2>
+              </div>
+              <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-25"><b>Estado Civil:</b> {{selectedPadre.usuario.estado_civil}}</label>
+              <div class="col-sm-5">
+                <input id="form-control-25" class="form-control" type="text" [(ngModel)]="padre.usuario.estado_civil">
+              </div>
             </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-5 md-control-label" for="form-control-47"><b>N°:</b> {{selectedMadre.numeracion}}</label>
-            <div class="col-sm-2 col-sm-offset-1">
-              <input id="form-control-47" class="form-control" type="text" [(ngModel)]="madre.numeracion">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-8 md-control-label" for="form-control-48"><b>Comuna:</b> {{selectedMadre.comuna}}</label>
-            <div class="col-sm-3 col-sm-offset-1">
-              <input id="form-control-48" class="form-control" type="text" [(ngModel)]="madre.comuna">
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-26"><b>Titulo:</b> {{selectedPadre.titulo}}</label>
+              <div class="col-sm-6">
+                <input id="form-control-26" class="form-control" type="text" [(ngModel)]="padre.titulo">
+              </div>
+              <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-27"><b>Ocupación:</b> {{selectedPadre.ocupacion}}</label>
+              <div class="col-sm-5">
+                <input id="form-control-27" class="form-control" type="text" [(ngModel)]="padre.ocupacion">
+              </div>
             </div>
           </div>
         </div>
@@ -394,163 +270,241 @@
   </div>
 </div>
 
-<div class="row" *ngIf="apoderado.selected">
-  <div class="col-md-8 col-md-offset-2">
-    <div class="demo-md-form-wrapper">
-      <div class="form form-horizontal">
-        <h3 class="title">Apoderado</h3>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-1 md-control-label" for="form-control-49"><b>Nombre:</b> {{selectedApoderado.nombre}}</label>
-            <div class="col-sm-4">
-              <input class="form-control" type="text" id="form-control-49" [(ngModel)]="apoderado.nombre">
-            </div>
+<div class="row">
+  <div class="col-md-9 col-md-offset-1">
+    <div class="card">
+      <div class="card-header">
+        <div class="media">
+          <div class="media-middle media-body">
+            <h3 class="card-title fw-l">Madre</h3>
           </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-5 md-control-label"for="form-control-50"><b>Apellidos:</b> {{selectedApoderado.apellidos}}</label>
-            <div class="col-sm-3 col-sm-offset-1">
-              <input class="form-control" type="text" id="form-control-50" [(ngModel)]="apoderado.apellidos">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-9 md-control-label" for="form-control-51"><b>Sexo:</b> {{selectedApoderado.sexo}}</label>
-            <div class="col-sm-2 col-sm-offset-1">
-              <select class="custom-select" type="text" id="form-control-51" [(ngModel)]="apoderado.sexo">
-                <option value="" selected="selected"></option>
-                <option value="M">M</option>
-                <option value="F">F</option>
-              </select>
-            </div>
+          <div class="media-middle media-right">
+            <p class="fw-l">
+              Apoderado
+              <label class="custom-control custom-control-primary custom-checkbox">
+                <input class="custom-control-input" type="checkbox" value="{{madre.apoderado}}" [(ngModel)]="madre.apoderado" (ngModelChange)="onChange(madre,padre)">
+                <span class="custom-control-indicator"></span>
+              </label>
+            </p>
           </div>
         </div>
+      </div>
+      <div class="card-body">
+        <div class="demo-md-form-wrapper">
+          <div class="form form-horizontal">
 
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-52"><b>Fecha Nacimiento:</b> {{selectedApoderado.fecha_nac}}</label>
-            <div class="col-sm-4">
-              <div class="input-with-icon">
-                <input class="form-control" id="form-control-52" type="text" [(ngModel)]="apoderado.fecha_nac" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
-                <span class="icon icon-calendar input-icon"></span>
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-28"><b>Nombre:</b> {{selectedMadre.nombre}}</label>
+              <div class="col-sm-5">
+                <input class="form-control" type="text" id="form-control-28" [(ngModel)]="madre.usuario.nombre">
+              </div>
+              <label class="col-sm-1 col-sm-offset-5 md-control-label" for="form-control-29"><b>Apellido Paterno:</b> {{selectedMadre.apellido_paterno}} </label>
+              <div class="col-sm-3">
+                <input class="form-control" type="text" id="form-control-29" [(ngModel)]="madre.usuario.apellido_paterno">
+              </div>
+              <label class="col-sm-1 col-sm-offset-8 md-control-label" for="form-control-30"><b>Apellido Materno:</b> {{selectedMadre.apellido_materno}}</label>
+              <div class="col-sm-3">
+                <input class="form-control" type="text" id="form-control-30" [(ngModel)]="madre.usuario.apellido_materno">
+              </div>
+            </div>
+
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-31"><b>Sexo:</b> {{selectedMadre.usuario.sexo}}</label>
+              <div class="col-sm-2">
+                <select class="form-control no-arrows" type="text" id="form-control-31" [(ngModel)]="madre.usuario.sexo">
+                  <option value="" selected="selected"></option>
+                  <option value="M">M</option>
+                  <option value="F">F</option>
+                </select>
+              </div>
+
+              <label class="col-sm-1 col-md-offset-2 md-control-label" for="form-control-32"><b>Fecha de Nacimiento:</b> {{selectedMadre.usuario.fecha_nacimiento}}</label>
+              <div class="col-sm-5">
+                <div class="input-with-icon">
+                  <input class="form-control" id="form-control-32" type="text" [(ngModel)]="madre.usuario.fecha_nacimiento" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
+                  <span class="icon icon-calendar input-icon"></span>
+                </div>
+              </div>
+
+              <label class="col-sm-1 col-md-offset-7 md-control-label" for="form-control-33"><b>Rut</b></label>
+              <div class="col-sm-3">
+                <input class="form-control no-arrows" type="number" id="form-control-33" [(ngModel)]="madre.usuario.rut" readonly>
+              </div>
+              <div class="col-sm-1">
+                <input class="form-control" type="text" id="form-control-34" [(ngModel)]="madre.usuario.dv" readonly>
+              </div>
+            </div>
+
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-35"><b>Teléfono Fijo:</b> {{selectedMadre.usuario.fono_casa}}</label>
+              <div class="col-sm-3">
+                <input id="form-control-35" class="form-control" type="text" [(ngModel)]="madre.usuario.fono_casa">
+              </div>
+              <label class="col-sm-1 col-sm-offset-3 md-control-label" for="form-control-36"><b>Teléfono Móvil:</b> {{selectedMadre.usuario.fono_movil}}</label>
+              <div class="col-sm-3">
+                <input id="form-control-36" class="form-control" type="text" [(ngModel)]="madre.usuario.fono_movil">
+              </div>
+              <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-37"><b>Email:</b> {{selectedMadre.usuario.email}}</label>
+              <div class="col-sm-5">
+                <input id="form-control-37" class="form-control" type="text" [(ngModel)]="madre.usuario.email">
+              </div>
+            </div>
+
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-38"><b>Nacionalidad:</b> {{selectedMadre.usuario.nacionalidad}}</label>
+              <div class="col-sm-6">
+                <select2 id="form-control-38"
+                         [data]="selectNacionalidadData"
+                         [width]="350"
+                         [options]="selectNacionalidadOptions"
+                         (valueChanged)="madre.usuario.nacionalidad = $event.value"></select2>
+              </div>
+              <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-39"><b>Estado Civil:</b> {{selectedMadre.usuario.estado_civil}}</label>
+              <div class="col-sm-5">
+                <input id="form-control-39" class="form-control" type="text" [(ngModel)]="madre.usuario.estado_civil">
+              </div>
+            </div>
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-40"><b>Titulo:</b> {{selectedMadre.titulo}}</label>
+              <div class="col-sm-6">
+                <input id="form-control-40" class="form-control" type="text" [(ngModel)]="madre.titulo">
+              </div>
+              <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-41"><b>Ocupación:</b> {{selectedMadre.ocupacion}}</label>
+              <div class="col-sm-5">
+                <input id="form-control-41" class="form-control" type="text" [(ngModel)]="madre.ocupacion">
               </div>
             </div>
           </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-5 md-control-label" for="form-control-53"><b>Rut:</b> {{selectedApoderado.rut}}</label>
-            <div class="col-sm-3 col-sm-offset-1">
-              <input class="form-control" type="text" id="form-control-53" [(ngModel)]="apoderado.rut">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-8 md-control-label" for="form-control-54">{{selectedApoderado.dv}}</label>
-            <div class="col-sm-1">
-              <input class="form-control" type="text" id="form-control-54" [(ngModel)]="apoderado.dv">
-            </div>
-          </div>
         </div>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-55"><b>Teléfono Fijo:</b> {{selectedApoderado.fono_casa}}</label>
-            <div class="col-sm-5">
-              <input id="form-control-55" class="form-control" type="text" [(ngModel)]="apoderado.fono_casa">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-2 col-sm-offset-6 md-control-label" for="form-control-56"><b>Teléfono Móvil:</b> {{selectedApoderado.fono_movil}}</label>
-            <div class="col-sm-5 col-sm-offset-1">
-              <input id="form-control-56" class="form-control" type="text" [(ngModel)]="apoderado.fono_movil">
-            </div>
-          </div>
-        </div>
-
-        <div class="md-form-group md-label-static">
-          <label class="col-sm-1 md-control-label" for="form-control-57"><b>Email:</b>{{selectedApoderado.mail}}</label>
-          <div class="col-sm-11">
-            <input id="form-control-57" class="form-control" type="text" [(ngModel)]="apoderado.mail">
-          </div>
-        </div>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-58"><b>Nacionalidad:</b> {{selectedApoderado.nacionalidad}}</label>
-            <div class="col-sm-6">
-              <input id="form-control-58" class="form-control" type="text" [(ngModel)]="apoderado.nacionalidad">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-2 col-sm-offset-7 md-control-label" for="form-control-59"><b>Estado Civil:</b> {{selectedApoderado.estado}}</label>
-            <div class="col-sm-4 col-sm-offset-1">
-              <input id="form-control-59" class="form-control" type="text" [(ngModel)]="apoderado.estado">
-            </div>
-          </div>
-        </div>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-60"><b>Titulo:</b> {{selectedApoderado.titulo}}</label>
-            <div class="col-sm-5">
-              <input id="form-control-60" class="form-control" type="text" [(ngModel)]="apoderado.titulo">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-2 col-sm-offset-6 md-control-label" for="form-control-61"><b>Ocupación:</b> {{selectedApoderado.ocupacion}}</label>
-            <div class="col-sm-5 col-sm-offset-1">
-              <input id="form-control-61" class="form-control" type="text" [(ngModel)]="apoderado.ocupacion">
-            </div>
-          </div>
-        </div>
-
-        <div class="md-form-group">
-          <div class="md-label-static">
-            <label class="col-sm-2 md-control-label" for="form-control-62"><b>Dirección:</b> {{selectedApoderado.direccion}}</label>
-            <div class="col-sm-4">
-              <input id="form-control-62" class="form-control" type="text" [(ngModel)]="apoderado.direccion">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-5 md-control-label" for="form-control-63"><b>N°:</b> {{selectedApoderado.numeracion}}</label>
-            <div class="col-sm-2 col-sm-offset-1">
-              <input id="form-control-63" class="form-control" type="text" [(ngModel)]="apoderado.numeracion">
-            </div>
-          </div>
-          <div class="md-label-static">
-            <label class="col-sm-1 col-sm-offset-8 md-control-label" for="form-control-64"><b>Comuna:</b> {{selectedApoderado.comuna}}</label>
-            <div class="col-sm-3 col-sm-offset-1">
-              <input id="form-control-64" class="form-control" type="text" [(ngModel)]="apoderado.comuna">
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
 </div>
 
+<div class="row" *ngIf="!padre.apoderado && !madre.apoderado" [@fade]="!padre.apoderado && !madre.apoderado">
+  <div class="col-md-9 col-md-offset-1">
+    <div class="card">
+      <div class="card-header">
+        <div class="media">
+          <div class="media-middle media-body">
+            <h3 class="card-title fw-l">Apoderado</h3>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="demo-md-form-wrapper">
+          <div class="form form-horizontal">
+
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-42"><b>Nombre:</b> {{selectedApoderado.nombre}}</label>
+              <div class="col-sm-5">
+                <input class="form-control" type="text" id="form-control-42" [(ngModel)]="apoderado.usuario.nombre">
+              </div>
+              <label class="col-sm-1 col-sm-offset-5 md-control-label" for="form-control-43"><b>Apellido Paterno:</b> {{selectedApoderado.apellido_paterno}} </label>
+              <div class="col-sm-3">
+                <input class="form-control" type="text" id="form-control-43" [(ngModel)]="apoderado.usuario.apellido_paterno">
+              </div>
+              <label class="col-sm-1 col-sm-offset-8 md-control-label" for="form-control-44"><b>Apellido Materno:</b> {{selectedApoderado.apellido_materno}}</label>
+              <div class="col-sm-3">
+                <input class="form-control" type="text" id="form-control-44" [(ngModel)]="apoderado.usuario.apellido_materno">
+              </div>
+            </div>
+
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-45"><b>Sexo:</b> {{selectedApoderado.usuario.sexo}}</label>
+              <div class="col-sm-2">
+                <select class="form-control no-arrows" type="text" id="form-control-45" [(ngModel)]="apoderado.usuario.sexo">
+                  <option value="" selected="selected"></option>
+                  <option value="M">M</option>
+                  <option value="F">F</option>
+                </select>
+              </div>
+
+              <label class="col-sm-1 col-md-offset-2 md-control-label" for="form-control-46"><b>Fecha de Nacimiento:</b> {{selectedApoderado.usuario.fecha_nacimiento}}</label>
+              <div class="col-sm-5">
+                <div class="input-with-icon">
+                  <input class="form-control" id="form-control-46" type="text" [(ngModel)]="apoderado.usuario.fecha_nacimiento" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
+                  <span class="icon icon-calendar input-icon"></span>
+                </div>
+              </div>
+
+              <label class="col-sm-1 col-md-offset-7 md-control-label" for="form-control-47"><b>Rut</b></label>
+              <div class="col-sm-3">
+                <input class="form-control no-arrows" type="number" id="form-control-47" [(ngModel)]="apoderado.usuario.rut" readonly>
+              </div>
+              <div class="col-sm-1">
+                <input class="form-control" type="text" id="form-control-48" [(ngModel)]="apoderado.usuario.dv" readonly>
+              </div>
+            </div>
+
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-49"><b>Teléfono Fijo:</b> {{selectedApoderado.usuario.fono_casa}}</label>
+              <div class="col-sm-3">
+                <input id="form-control-49" class="form-control" type="text" [(ngModel)]="apoderado.usuario.fono_casa">
+              </div>
+              <label class="col-sm-1 col-sm-offset-3 md-control-label" for="form-control-50"><b>Teléfono Móvil:</b> {{selectedApoderado.usuario.fono_movil}}</label>
+              <div class="col-sm-3">
+                <input id="form-control-50" class="form-control" type="text" [(ngModel)]="apoderado.usuario.fono_movil">
+              </div>
+              <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-51"><b>Email:</b> {{selectedApoderado.usuario.email}}</label>
+              <div class="col-sm-5">
+                <input id="form-control-51" class="form-control" type="text" [(ngModel)]="apoderado.usuario.email">
+              </div>
+            </div>
+
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-52"><b>Nacionalidad:</b> {{selectedApoderado.usuario.nacionalidad}}</label>
+              <div class="col-sm-6">
+                <select2 id="form-control-52"
+                         [data]="selectNacionalidadData"
+                         [width]="350"
+                         [options]="selectNacionalidadOptions"
+                         (valueChanged)="apoderado.usuario.nacionalidad = $event.value"></select2>
+              </div>
+              <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-53"><b>Estado Civil:</b> {{selectedApoderado.usuario.estado_civil}}</label>
+              <div class="col-sm-5">
+                <input id="form-control-53" class="form-control" type="text" [(ngModel)]="apoderado.usuario.estado_civil">
+              </div>
+            </div>
+            <div class="md-form-group md-label-static">
+              <label class="col-sm-1 md-control-label" for="form-control-54"><b>Titulo:</b> {{selectedApoderado.titulo}}</label>
+              <div class="col-sm-6">
+                <input id="form-control-54" class="form-control" type="text" [(ngModel)]="apoderado.titulo">
+              </div>
+              <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-55"><b>Ocupación:</b> {{selectedApoderado.ocupacion}}</label>
+              <div class="col-sm-5">
+                <input id="form-control-55" class="form-control" type="text" [(ngModel)]="apoderado.ocupacion">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
+  <div class="col-md-9 col-md-offset-1">
     <div class="form form-horizontal">
-      <div class="demo-md-form-wrapper">
-        <div class="md-form-group">
-          <div class="col-sm-2 col-sm-offset-0">
-            <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
-          </div>
-          <div class="col-sm-9">
-            <button class="btn btn-primary btn-block" (click)="saveMatricula()">Guardar</button>
+      <div class="form-group">
+        <div class="col-sm-4">
+          <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
+        </div>
+        <div class="col-sm-8">
+          <button class="btn btn-primary btn-block" (click)="savePostulacion()">Guardar</button>
 
-            <modal [animation]="true" #modal>
-              <modal-header [show-close]="true">
-                <h4 class="modal-title">Matricula  modificada con éxito.</h4>
-              </modal-header>
-              <modal-body>
-                Presione Ok para continuar.
-              </modal-body>
-              <modal-footer>
-                <button type="button" class="btn btn-primary" (click)="modalClose()">Ok</button>
-              </modal-footer>
-            </modal>
-          </div>
+          <modal [animation]="true" #modal>
+            <modal-header [show-close]="true">
+              <h4 class="modal-title">Matricula Modificada con Éxito.</h4>
+            </modal-header>
+            <modal-body>
+              Presione Ok para continuar.
+            </modal-body>
+            <modal-footer>
+              <button type="button" class="btn btn-primary" (click)="modalClose()">Ok</button>
+            </modal-footer>
+          </modal>
+
         </div>
       </div>
     </div>

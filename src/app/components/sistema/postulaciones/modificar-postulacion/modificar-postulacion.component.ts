@@ -70,6 +70,11 @@ export class ModificarPostulacionComponent implements OnInit {
     this.madre = new Apoderado(false,true,false);
     this.apoderado = new Apoderado(false,false,true);
 
+    this.selectedPostulante = new Postulante(true);
+    this.selectedPadre = new Apoderado(true,false,false);
+    this.selectedMadre = new Apoderado(false,true,false);
+    this.selectedApoderado = new Apoderado(false,false,true);
+
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
     });
@@ -186,6 +191,57 @@ export class ModificarPostulacionComponent implements OnInit {
     else if ( !changed.apoderado && other.apoderado ){
       this.apoderado = JSON.parse(JSON.stringify(other));
     }
+  }
+
+  undoChanges(changed: any, original: any){
+    changed = JSON.parse(JSON.stringify(original));
+  }
+
+  modalOpen(): void {
+    this.modal.open();
+  }
+
+  modalClose(): void {
+    this.modal.close();
+    this.goBack();
+  }
+
+  savePostulacion() {
+
+    if(this.padre.apoderado){
+      this.apoderado = this.padre;
+    } else if (this.madre.apoderado){
+      this.apoderado = this.madre;
+    }
+
+    this.postulacionesService.updatePostulante(this.postulante).subscribe((post) => {
+      this.postulante = JSON.parse(JSON.stringify(post));
+
+      let pCheck = false;
+      let mCheck = false;
+
+      this.apoderadosService.updateApoderado(this.padre).subscribe(padre => {
+        this.padre = JSON.parse(JSON.stringify(padre));
+        pCheck = true;
+        if(pCheck && mCheck){
+          this.apoderadosService.updateApoderado(this.apoderado).subscribe(apoderado => {
+            this.apoderado = JSON.parse(JSON.stringify(apoderado));
+            this.modalOpen();
+          });
+        }
+      });
+      this.apoderadosService.updateApoderado(this.madre).subscribe(madre => {
+        this.madre = JSON.parse(JSON.stringify(madre));
+        mCheck = true;
+        if(pCheck && mCheck){
+          this.apoderadosService.updateApoderado(this.apoderado).subscribe(apoderado => {
+            this.apoderado = JSON.parse(JSON.stringify(apoderado));
+            this.modalOpen();
+          });
+        }
+      });
+
+    });
   }
 
 }

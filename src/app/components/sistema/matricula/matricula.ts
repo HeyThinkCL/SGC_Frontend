@@ -3,94 +3,60 @@
  */
 import { OnInit } from '@angular/core';
 
-export class Apoderado {
+export class Usuario{
   nombre: string;
-  apellidos: string;
-  sexo: string;
-  fecha_nac: string;
+  apellido_paterno: string;
+  apellido_materno: string;
   rut: number;
   dv: string;
   fono_casa: string;
   fono_movil: string;
+  email: string;
+  sexo: string;
   nacionalidad: string;
   estado_civil: string;
-  ocupacion: string;
-  titulo: string;
-  mail: string;
-  direccion: string;
-  numeracion: number;
-  comuna: string;
-  selected: boolean;
+  fecha_nacimiento: string;
 
-  constructor(check: boolean) {
-    this.selected = check;
-  }
+  constructor(){}
 }
 
-export class Matricula implements OnInit{
-  id: number;
+export class Alumno{
+  aceptado: boolean;
+  desiste: boolean;
+  lista_espera: boolean;
+  rechazado: boolean;
+  promovido: boolean;
+  matriculado: boolean;
+  prioritario: boolean;
+  vulnerable: boolean;
+  preferente: boolean;
+  pie: boolean;
+  intercambio: boolean;
+  excedente: boolean;
+  lista: number;
   nombre: string;
-  apellidos: string;
+  apellido_paterno: string;
+  apellido_materno: string;
   rut: number;
   dv: string;
-  fecha_nac: string;
+  pasaporte: string;
+  etnia: string;
   fono_casa: string;
   fono_movil: string;
+  email: string;
   sexo: string;
   nacionalidad: string;
-  estado: string;
-  direccion: string;
-  numeracion: number;
-  comuna: string;
-  padre: Apoderado;
-  madre: Apoderado;
-  apoderado: Apoderado;
+  fecha_nacimiento: string;
 
-/*  padre: {
-    nombre: string;
-    apellidos: string;
-    sexo: string;
-    fecha_nac: string;
-    rut: number;
-    dv: string;
-    fono_casa: string;
-    fono_movil: string;
-    nacionalidad: string;
-    estado_civil: string;
-    ocupacion: string;
-    titulo: string;
-    mail: string;
-    direccion: string;
-    numeracion: number;
-    comuna: string;
-    apoderado: boolean;
-  };
-  madre: {
-    nombre: string;
-    apellidos: string;
-    sexo: string;
-    fecha_nac: string;
-    rut: number;
-    dv: string;
-    fono_casa: string;
-    fono_movil: string;
-    nacionalidad: string;
-    estado_civil: string;
-    ocupacion: string;
-    titulo: string;
-    mail: string;
-    direccion: string;
-    numeracion: number;
-    comuna: string;
-    apoderado: boolean;
-  };*/
-
-  constructor() { };
-
-  ngOnInit() {
-/*    this.padre = new Apoderado();
-    this.madre = new Apoderado();
-    this.apoderado = new Apoderado();*/
-  }
+  constructor(public postulante: boolean){}
 }
 
+export class Apoderado{
+  ocupacion: string;
+  titulo: string;
+  usuario: Usuario;
+
+  constructor(public padre: boolean, public madre: boolean, public apoderado: boolean){
+    this.usuario = new Usuario;
+  }
+}

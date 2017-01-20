@@ -18,7 +18,6 @@ export class ApoderadosService {
 
   createApoderado(alumnoId: number, apoderado: any): Observable<any>{
     apoderado['alumno_id'] = alumnoId;
-    console.log({'apoderado':apoderado});
     return this.http
       .post(this.apoderadosUrl, JSON.stringify({'apoderado':apoderado}), {headers: this.headers})
       .map(res => res.json())
@@ -29,6 +28,14 @@ export class ApoderadosService {
     const url = `${this.apoderadosUrl}/${apoderadoId}`;
     return this.http.get(url)
       .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
+  }
+
+  updateApoderado(apoderado: any): Observable<any>{
+    const url = `${this.apoderadosUrl}/${apoderado.id}`;
+    return this.http
+      .put(url, JSON.stringify({'apoderado':apoderado}), {headers: this.headers})
+      .map(() => apoderado)
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 }
