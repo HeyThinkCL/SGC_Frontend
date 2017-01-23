@@ -74,6 +74,9 @@ import { CursoAnotacionesVerGenComponent } from './components/libros/cursos/curs
 ////Asignar Profesor
 import { AsignarProfComponent } from './components/libros/cursos/asignar-prof/asignar-prof.component';
 
+//Cierre de Año
+import { CierreAnnoComponent } from './components/cierre-anno/cierre-anno.component';
+
 //Profesor
 import { ProfesorComponent } from './components/libros/profesor/profesor.component';
 import { CrearProfesorComponent } from './components/libros/profesor/crear-profesor/crear-profesor.component';
@@ -88,6 +91,13 @@ import { ByGradoComponent } from './components/documentos/filtros/by-grado/by-gr
 import { ByCursoComponent } from './components/documentos/filtros/by-curso/by-curso.component';
 import { ByAlumnoComponent } from './components/documentos/filtros/by-alumno/by-alumno.component';
 
+//Funcionarios
+import { FuncionariosComponent } from './components/sistema/funcionarios/funcionarios.component';
+import { CrearFuncionarioComponent } from './components/sistema/funcionarios/crear-funcionario/crear-funcionario.component';
+import { VerFuncionariosComponent } from './components/sistema/funcionarios/ver-funcionarios/ver-funcionarios.component';
+import { FuncionarioDetailComponent } from './components/sistema/funcionarios/funcionario-detail/funcionario-detail.component';
+import { EditarFuncionarioComponent } from './components/sistema/funcionarios/editar-funcionario/editar-funcionario.component';
+
 //Servicios
 import { MatriculaService } from "./services/sistema/matricula.service";
 import {ColegiosService } from './services/sistema/colegios.service';
@@ -101,6 +111,8 @@ import {EtniasService} from './services/sistema/etnias.service';
 import {EstadosCivilesService} from './services/sistema/estados-civiles.service'
 import {PostulacionesService} from './services/sistema/postulaciones.service';
 import {ApoderadosService} from './services/sistema/apoderados.service';
+import {FuncionariosService} from './services/sistema/funcionarios.service';
+
 
 
 
@@ -164,6 +176,12 @@ import {ApoderadosService} from './services/sistema/apoderados.service';
     PostulacionesEsperaComponent,
     ModificarPostulacionComponent,
     PostulacionesDashboardComponent,
+    FuncionariosComponent,
+    CierreAnnoComponent,
+    CrearFuncionarioComponent,
+    VerFuncionariosComponent,
+    FuncionarioDetailComponent,
+    EditarFuncionarioComponent,
   ],
   imports: [
     BrowserModule,
@@ -188,6 +206,7 @@ import {ApoderadosService} from './services/sistema/apoderados.service';
     NotasService,
     AnotacionesService,
     EstadosCivilesService,
+    FuncionariosService,
   ],
   bootstrap: [RootComponent]
 })

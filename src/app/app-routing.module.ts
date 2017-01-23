@@ -58,10 +58,18 @@ import { CursoAnotacionesIngresarComponent } from './components/libros/cursos/cu
 import { CursoAnotacionesVerGenComponent } from './components/libros/cursos/curso-anotaciones/curso-anotaciones-ver-gen/curso-anotaciones-ver-gen.component';
 ////Asignar Profesor
 import { AsignarProfComponent } from './components/libros/cursos/asignar-prof/asignar-prof.component';
-
+//Cierre de Año
+import { CierreAnnoComponent } from './components/cierre-anno/cierre-anno.component';
 //Profesor
 import { ProfesorComponent } from './components/libros/profesor/profesor.component';
 import { CrearProfesorComponent } from './components/libros/profesor/crear-profesor/crear-profesor.component';
+
+//Funcionarios
+import { FuncionariosComponent } from './components/sistema/funcionarios/funcionarios.component';
+import { CrearFuncionarioComponent } from './components/sistema/funcionarios/crear-funcionario/crear-funcionario.component';
+import { VerFuncionariosComponent } from './components/sistema/funcionarios/ver-funcionarios/ver-funcionarios.component';
+import { FuncionarioDetailComponent } from './components/sistema/funcionarios/funcionario-detail/funcionario-detail.component';
+import { EditarFuncionarioComponent } from './components/sistema/funcionarios/editar-funcionario/editar-funcionario.component';
 
 //Documentos
 import { DocumentosComponent } from './components/documentos/documentos.component';
@@ -144,15 +152,24 @@ const routes: Routes = [
       },
       { path: ':id/asignar-prof',  component: AsignarProfComponent },
       { path: 'editar-curso/:id',  component: ModificarCursoComponent },
-      // { path: 'profesor/crear-profesor',  component: CrearProfesorComponent },
     ]
   },
+  { path: 'cierre', component: CierreAnnoComponent },
   { path: 'docs', component: DocumentosComponent,
     children: [
       { path: '', redirectTo: 'informes', pathMatch: 'full' },
       { path: 'informes', component: InformesComponent },
       { path: 'certificados', component: CertificadosComponent },
       { path: 'citaciones', component: CitacionesComponent },
+    ]
+  },
+  { path: 'sistema/funcionarios', component: FuncionariosComponent,
+    children: [
+      {path:'', redirectTo: 'ver', pathMatch:'full' },
+      {path:'ver', component: VerFuncionariosComponent },
+      {path:'ver/:id', component: FuncionarioDetailComponent },
+      {path:'crear', component: CrearFuncionarioComponent },
+      {path:'editar/:id', component: EditarFuncionarioComponent },
     ]
   },
 ];

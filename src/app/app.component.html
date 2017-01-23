@@ -221,6 +221,17 @@
               </ul>
             </li>
             <li class="sidenav-item has-subnav" routerLinkActive="active">
+              <a [routerLink]="['sistema/funcionarios']">
+                <span class="sidenav-icon icon icon-users"></span>
+                <span class="sidenav-label">Funcionarios</span>
+              </a>
+              <ul class="sidenav-subnav collapse" routerLinkActive="active">
+                <li class="sidenav-subheading">Funcionarios</li>
+                <li routerLinkActive="active" [routerLink]="['sistema/funcionarios/ver']"><a>Ver Funcionarios</a></li>
+                <li routerLinkActive="active" [routerLink]="['sistema/funcionarios/crear']"><a>Crear Funcionarios</a></li>
+              </ul>
+            </li>
+            <li class="sidenav-item has-subnav" routerLinkActive="active">
               <a [routerLink]="['sistema/postulaciones']">
                 <span class="sidenav-icon icon icon-folder-open"></span>
                 <span class="sidenav-label">Postulaciones</span>
@@ -265,6 +276,16 @@
                 <li routerLinkActive="active" [routerLink]="['docs/certificados']"><a>Certificados</a></li>
                 <li routerLinkActive="active" [routerLink]="['docs/citaciones']"><a>Citaciones</a></li>
               </ul>
+            </li>
+            <li class="sidenav-item" routerLinkActive="active">
+              <a [routerLink]="['cierre']">
+                <span class="sidenav-icon icon icon-calendar-check-o"></span>
+                <span class="sidenav-label">Cierre de Año</span>
+              </a>
+<!--              <ul class="sidenav-subnav collapse" routerLinkActive="active">
+                <li class="sidenav-subheading">Cierre de Año</li>
+                <li routerLinkActive="active" [routerLink]="['docs/informes']"><a>Informes</a></li>
+              </ul>-->
             </li>
           </ul>
         </nav>
