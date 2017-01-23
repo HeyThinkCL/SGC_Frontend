@@ -46,7 +46,11 @@
               <label class="col-sm-1 col-md-offset-2 md-control-label" for="form-control-5"><b>Fecha de Nacimiento:</b> {{selectedPostulante.fecha_nacimiento}}</label>
               <div class="col-sm-5">
                 <div class="input-with-icon">
-                  <input class="form-control" id="form-control-5" type="text" [(ngModel)]="postulante.fecha_nacimiento" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
+                  <input class="form-control" id="form-control-5" [(ngModel)]="postulante.fecha_nacimiento"
+                         ng2-datetime-picker
+                         close-on-select="true"
+                         date-only="true"
+                         date-format="DD-MM-YYYY">
                   <span class="icon icon-calendar input-icon"></span>
                 </div>
               </div>
@@ -210,7 +214,11 @@
               <label class="col-sm-1 col-md-offset-2 md-control-label" for="form-control-18"><b>Fecha de Nacimiento:</b> {{selectedPadre.usuario.fecha_nacimiento}}</label>
               <div class="col-sm-5">
                 <div class="input-with-icon">
-                  <input class="form-control" id="form-control-18" type="text" [(ngModel)]="padre.usuario.fecha_nacimiento" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
+                  <input class="form-control" id="form-control-18" [(ngModel)]="padre.usuario.fecha_nacimiento"
+                         ng2-datetime-picker
+                         close-on-select="true"
+                         date-only="true"
+                         date-format="DD-MM-YYYY">
                   <span class="icon icon-calendar input-icon"></span>
                 </div>
               </div>
@@ -326,7 +334,11 @@
               <label class="col-sm-1 col-md-offset-2 md-control-label" for="form-control-32"><b>Fecha de Nacimiento:</b> {{selectedMadre.usuario.fecha_nacimiento}}</label>
               <div class="col-sm-5">
                 <div class="input-with-icon">
-                  <input class="form-control" id="form-control-32" type="text" [(ngModel)]="madre.usuario.fecha_nacimiento" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
+                  <input class="form-control" id="form-control-32" [(ngModel)]="madre.usuario.fecha_nacimiento"
+                         ng2-datetime-picker
+                         close-on-select="true"
+                         date-only="true"
+                         date-format="DD-MM-YYYY">
                   <span class="icon icon-calendar input-icon"></span>
                 </div>
               </div>
@@ -433,7 +445,11 @@
               <label class="col-sm-1 col-md-offset-2 md-control-label" for="form-control-46"><b>Fecha de Nacimiento:</b> {{selectedApoderado.usuario.fecha_nacimiento}}</label>
               <div class="col-sm-5">
                 <div class="input-with-icon">
-                  <input class="form-control" id="form-control-46" type="text" [(ngModel)]="apoderado.usuario.fecha_nacimiento" value="16-July-2000" data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-MM-yyyy" data-date-start-view="decade" data-date-end-date="-5y">
+                  <input class="form-control" id="form-control-46" [(ngModel)]="apoderado.usuario.fecha_nacimiento"
+                         ng2-datetime-picker
+                         close-on-select="true"
+                         date-only="true"
+                         date-format="DD-MM-YYYY">
                   <span class="icon icon-calendar input-icon"></span>
                 </div>
               </div>

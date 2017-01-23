@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, trigger, transition, style, animate } fro
 import { Location } from '@angular/common';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { Select2OptionData } from 'ng2-select2';
+import  { Ng2DatetimePickerComponent } from 'ng2-datetime-picker';
 
 import { PostulacionesService } from '../../../../services/sistema/postulaciones.service'
 import { ApoderadosService } from '../../../../services/sistema/apoderados.service'

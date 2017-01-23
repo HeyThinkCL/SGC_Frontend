@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 
 import { Select2Module } from 'ng2-select2';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { Ng2DatetimePickerModule, Ng2Datetime } from 'ng2-datetime-picker';
+import { MomentModule } from 'angular2-moment';
 import './rxjs-extensions';
 
 //pipes
@@ -170,6 +172,8 @@ import {ApoderadosService} from './services/sistema/apoderados.service';
     AppRoutingModule,
     Ng2Bs3ModalModule,
     Select2Module,
+    Ng2DatetimePickerModule,
+    MomentModule,
   ],
   providers: [
     DpaService,

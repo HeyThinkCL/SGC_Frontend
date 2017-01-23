@@ -32,8 +32,10 @@
                 <div class="input-with-icon">
                   <input id="form-4" class="form-control"
                          [(ngModel)]="anotacion.fecha"
-                         type="date"
-                         data-date-format="dd-MM-yyyy">
+                         ng2-datetime-picker
+                         close-on-select="true"
+                         date-only="true"
+                         date-format="DD-MM-YYYY">
                   <span class="icon icon-calendar input-icon"></span>
                 </div>
               </div>

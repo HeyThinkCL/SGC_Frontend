@@ -153,8 +153,11 @@
           <div class="col-sm-4">
             <input id="form-control-2"
                    class="form-control"
-                   type="date"
-                   [(ngModel)]="createdNota.fecha">
+                   [(ngModel)]="createdNota.fecha"
+                   ng2-datetime-picker
+                   close-on-select="true"
+                   date-only="true"
+                   date-format="DD-MM-YYYY">
           </div>
 
           <label class="col-sm-1 control-label" for="form-control-3">Coeficiente</label>
