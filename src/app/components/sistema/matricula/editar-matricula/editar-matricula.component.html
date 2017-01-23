@@ -257,8 +257,13 @@
                          (valueChanged)="padre.usuario.nacionalidad = $event.value"></select2>
               </div>
               <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-25"><b>Estado Civil:</b> {{selectedPadre.usuario.estado_civil}}</label>
-              <div class="col-sm-5">
-                <input id="form-control-25" class="form-control" type="text" [(ngModel)]="padre.usuario.estado_civil">
+              <div class="col-sm-3">
+                <select2 id="form-control-25"
+                         [data]="selectEstadoCivilData"
+                         *ngIf="selectEstadoCivilData.length > 0"
+                         [width]="150"
+                         [options]="selectEstadoCivilOptions"
+                         (valueChanged)="padre.usuario.estado_civil = $event.value"></select2>
               </div>
             </div>
             <div class="md-form-group md-label-static">
@@ -372,8 +377,13 @@
                          (valueChanged)="madre.usuario.nacionalidad = $event.value"></select2>
               </div>
               <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-39"><b>Estado Civil:</b> {{selectedMadre.usuario.estado_civil}}</label>
-              <div class="col-sm-5">
-                <input id="form-control-39" class="form-control" type="text" [(ngModel)]="madre.usuario.estado_civil">
+              <div class="col-sm-3">
+                <select2 id="form-control-39"
+                         [data]="selectEstadoCivilData"
+                         *ngIf="selectEstadoCivilData.length > 0"
+                         [width]="150"
+                         [options]="selectEstadoCivilOptions"
+                         (valueChanged)="madre.usuario.estado_civil = $event.value"></select2>
               </div>
             </div>
             <div class="md-form-group md-label-static">
@@ -478,8 +488,13 @@
                          (valueChanged)="apoderado.usuario.nacionalidad = $event.value"></select2>
               </div>
               <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-53"><b>Estado Civil:</b> {{selectedApoderado.usuario.estado_civil}}</label>
-              <div class="col-sm-5">
-                <input id="form-control-53" class="form-control" type="text" [(ngModel)]="apoderado.usuario.estado_civil">
+              <div class="col-sm-3">
+                <select2 id="form-control-53"
+                         [data]="selectEstadoCivilData"
+                         *ngIf="selectEstadoCivilData.length > 0"
+                         [width]="150"
+                         [options]="selectEstadoCivilOptions"
+                         (valueChanged)="apoderado.usuario.estado_civil = $event.value"></select2>
               </div>
             </div>
             <div class="md-form-group md-label-static">

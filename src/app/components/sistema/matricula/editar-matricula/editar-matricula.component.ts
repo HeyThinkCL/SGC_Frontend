@@ -5,8 +5,9 @@ import { Select2OptionData } from 'ng2-select2';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { MatriculaService } from '../../../../services/sistema/matricula.service';
-import { ApoderadosService } from '../../../../services/sistema/apoderados.service'
-import { EtniasService } from '../../../../services/sistema/etnias.service'
+import { ApoderadosService } from '../../../../services/sistema/apoderados.service';
+import { EtniasService } from '../../../../services/sistema/etnias.service';
+import { EstadosCivilesService } from '../../../../services/sistema/estados-civiles.service';
 
 import * as globalVars from '../../../../globals';
 
@@ -46,6 +47,10 @@ export class EditarMatriculaComponent implements OnInit {
   public selectNacionalidadData: Array<Select2OptionData> = [];
   public selectNacionalidadOptions: Select2Options;
 
+  //estados civiles select2
+  public selectEstadoCivilData: Array<Select2OptionData> = [];
+  public selectEstadoCivilOptions: Select2Options;
+
   private matricula:any;
   private padre:any;
   private madre:any;
@@ -61,6 +66,7 @@ export class EditarMatriculaComponent implements OnInit {
     private router: Router,
     private location: Location,
     private etniasService: EtniasService,
+    private estadosCivilesService: EstadosCivilesService,
     private matriculasService: MatriculaService,
     private apoderadosService: ApoderadosService,
   ) { }
@@ -88,50 +94,52 @@ export class EditarMatriculaComponent implements OnInit {
 
         let pCheck = false;
         let mCheck = false;
-        console.log(this.matricula,this.selectedMatricula);
 
-        this.apoderadosService.getApoderadoById(postulante.padre_id).subscribe(padre => {
-          this.padre = padre;
-          this.selectedPadre = JSON.parse(JSON.stringify(this.padre));
-          this.padre['apoderado']=false;
-          pCheck = true;
+        if(postulante.padre_id){
+          this.apoderadosService.getApoderadoById(postulante.padre_id).subscribe(padre => {
+            this.padre = padre;
+            this.selectedPadre = JSON.parse(JSON.stringify(this.padre));
+            this.padre['apoderado']=false;
+            pCheck = true;
 
-          console.log(this.padre,this.selectedPadre);
-          if(pCheck && mCheck){
-            this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
-              this.apoderado = apoderado;
-              this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
 
-              console.log(this.apoderado,this.selectedApoderado);
-              if(this.padre.usuario.rut == apoderado.usuario.rut){
-                this.padre.apoderado = true;
-              } else if (this.madre.usuario.rut == apoderado.usuario.rut){
-                this.madre.apoderado = true;
-              }
-            });
-          }
-        });
-        this.apoderadosService.getApoderadoById(postulante.madre_id).subscribe(madre => {
-          this.madre = madre;
-          this.selectedMadre = JSON.parse(JSON.stringify(this.madre));
-          this.madre['apoderado']=false;
-          mCheck = true;
+            if(pCheck && mCheck && postulante.apoderado_id){
+              this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+                this.apoderado = apoderado;
+                this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
 
-          console.log(this.madre,this.selectedMadre);
-          if(pCheck && mCheck){
-            this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
-              this.apoderado = apoderado;
-              this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
+                console.log(this.apoderado,this.selectedApoderado);
+                if(this.padre.usuario.rut == apoderado.usuario.rut){
+                  this.padre.apoderado = true;
+                } else if (this.madre.usuario.rut == apoderado.usuario.rut){
+                  this.madre.apoderado = true;
+                }
+              });
+            }
+          });
+        }
+        if(postulante.madre_id){
+          this.apoderadosService.getApoderadoById(postulante.madre_id).subscribe(madre => {
+            this.madre = madre;
+            this.selectedMadre = JSON.parse(JSON.stringify(this.madre));
+            this.madre['apoderado']=false;
+            mCheck = true;
 
-              console.log(this.apoderado,this.selectedApoderado);
-              if(this.padre.usuario.rut == apoderado.usuario.rut){
-                this.padre.apoderado = true;
-              } else if (this.madre.usuario.rut == apoderado.usuario.rut){
-                this.madre.apoderado = true;
-              }
-            });
-          }
-        });
+            if(pCheck && mCheck && postulante.apoderado_id){
+              this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+                this.apoderado = apoderado;
+                this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
+
+                console.log(this.apoderado,this.selectedApoderado);
+                if(this.padre.usuario.rut == apoderado.usuario.rut){
+                  this.padre.apoderado = true;
+                } else if (this.madre.usuario.rut == apoderado.usuario.rut){
+                  this.madre.apoderado = true;
+                }
+              });
+            }
+          });
+        }
       });
 
     this.selectEtniaData = [{
@@ -157,6 +165,30 @@ export class EditarMatriculaComponent implements OnInit {
     this.selectEtniaOptions = {
       closeOnSelect: true,
       placeholder: 'Seleccionar Etnia',
+    };
+
+    this.selectEstadoCivilData = [{
+      id:' ',
+      text:'Ninguno'
+    }];
+
+    this.estadosCivilesService.getEstadosCiviles().subscribe(estados => {
+      this.selectEstadoCivilData.pop();
+      this.selectEstadoCivilData = [{
+        id:' ',
+        text:'Ninguno'
+      }];
+      for (let estado of estados){
+        this.selectEstadoCivilData.push({
+          id: estado.tipo,
+          text: estado.tipo,
+        })
+      }
+    });
+
+    this.selectEstadoCivilOptions = {
+      closeOnSelect: true,
+      placeholder: 'Seleccionar Estado Civil',
     };
 
     for (let country of globalVars.countriesArray){

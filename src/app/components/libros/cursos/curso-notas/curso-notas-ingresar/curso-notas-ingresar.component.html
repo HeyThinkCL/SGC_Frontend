@@ -151,14 +151,26 @@
         <div class="form-group">
           <label class="col-sm-2 col-sm-offset-1 control-label" for="form-control-2">Fecha de Evaluación</label>
           <div class="col-sm-4">
-            <input id="form-control-2"
-                   class="form-control"
-                   [(ngModel)]="createdNota.fecha"
+            <div class="input-with-icon">
+              <input id="form-control-2"
+                     class="form-control"
+                     [(ngModel)]="createdNota.fecha"
+                     ng2-datetime-picker
+                     close-on-select="true"
+                     date-only="true"
+                     date-format="DD-MM-YYYY">
+              <span class="icon icon-calendar input-icon"></span>
+            </div>
+          </div>
+          <!--<div class="input-with-icon">
+            <input class="form-control" id="form-control-46"
+
                    ng2-datetime-picker
                    close-on-select="true"
                    date-only="true"
                    date-format="DD-MM-YYYY">
-          </div>
+            <span class="icon icon-calendar input-icon"></span>
+          </div>-->
 
           <label class="col-sm-1 control-label" for="form-control-3">Coeficiente</label>
           <div class="col-sm-2">

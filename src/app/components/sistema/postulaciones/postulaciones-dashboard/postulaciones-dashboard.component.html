@@ -69,36 +69,76 @@
     <div class="row">
       <div class="col-md-3">
         <button class="btn btn-block btn-danger"
+                (click)="confirmModalOpen(1)"
                 [disabled]="subjects.length==0">Eliminar</button>
       </div>
       <div class="col-md-3">
         <button class="btn btn-block btn-success"
-                (click)="aceptarSelected()"
+                (click)="confirmModalOpen(2)"
                 [disabled]="subjects.length==0 || selectedTable == 'tAceptadas'">Aceptar</button>
       </div>
       <div class="col-md-3">
         <button class="btn btn-block btn-info"
-                (click)="moverAListaEsperaSelected()"
+                (click)="confirmModalOpen(3)"
                 [disabled]="subjects.length==0 || selectedTable == 'tListaEspera'">A Lista de Espera</button>
       </div>
       <div class="col-md-3">
         <button class="btn btn-block btn-warning"
-                (click)="rechazarSelected()"
+                (click)="confirmModalOpen(4)"
                 [disabled]="subjects.length==0 || selectedTable == 'tRechazadas'">Rechazar</button>
       </div>
     </div>
   </div>
 </div>
 
-<modal [animation]="true" #deleteModal>
+<modal [animation]="true" #confirmModal>
   <modal-header [show-close]="true">
-    <h4 class="modal-title">Eliminar Postulación.</h4>
+    <h4 class="modal-title">{{confirmModalMode.title}}</h4>
   </modal-header>
   <modal-body>
-    Haga click en Ok para continuar eliminando la postulación seleccionada.
+    <div class="table-responsive">
+      <table class="table table-middle table-bordered">
+        <thead>
+        <tr class="bg-default">
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Rut</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let postulacion of subjects">
+          <td>
+            {{postulacion.nombre}}
+          </td>
+          <td>
+            <strong>{{postulacion.apellido_paterno}} {{postulacion.apellido_materno}}</strong>
+          </td>
+          <td>
+            {{postulacion.rut}}-{{postulacion.dv}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="card-text">{{confirmModalMode.body}}</p>
   </modal-body>
   <modal-footer>
-    <button type="button" class="btn btn-default" (click)="deleteModalDismiss()">Cancelar</button>
-    <button type="button" class="btn btn-primary" (click)="deleteModalClose(postulacionToDelete_id)">Ok</button>
+    <button type="button" class="btn btn-default" (click)="confirmModalDismiss()">Cancelar</button>
+    <button *ngIf="confirmModalMode.mode == 1" type="button" class="btn btn-primary" (click)="deleteSelected()">Ok</button>
+    <button *ngIf="confirmModalMode.mode == 2" type="button" class="btn btn-primary" (click)="aceptarSelected()">Ok</button>
+    <button *ngIf="confirmModalMode.mode == 3" type="button" class="btn btn-primary" (click)="moverAListaEsperaSelected()">Ok</button>
+    <button *ngIf="confirmModalMode.mode == 4" type="button" class="btn btn-primary" (click)="rechazarSelected()">Ok</button>
+  </modal-footer>
+</modal>
+
+<modal [animation]="true" #notifyModal>
+  <modal-header [show-close]="true">
+    <h4 class="modal-title">{{notifyModalTitle}}</h4>
+  </modal-header>
+  <modal-body>
+    <p class="card-text">Presione Ok para continuar.</p>
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-primary" (click)="notifyModalClose()">Ok</button>
   </modal-footer>
 </modal>
