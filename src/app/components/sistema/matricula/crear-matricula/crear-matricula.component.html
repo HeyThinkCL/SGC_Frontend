@@ -19,7 +19,7 @@
               <div class="col-sm-5" *ngIf="selectData.length>0">
                 <select2 id="select-form-1"
                          [data]="selectData"
-                         [width]="310"
+                         [width]="310 | select2WidthFix"
                          [options]="selectOptions"
                          (valueChanged)="selectChanged($event)"></select2>
               </div>

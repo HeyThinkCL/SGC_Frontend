@@ -34,7 +34,7 @@
               <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-17">Sexo</label>
               <div class="col-sm-1">
                 <select class="form-control no-arrows" type="text" id="form-control-17" [(ngModel)]="funcionario.usuario.sexo">
-                  <option value="" selected="selected"></option>
+                  <option value="&hellip;" selected="selected"></option>
                   <option value="M">M</option>
                   <option value="F">F</option>
                 </select>
@@ -78,7 +78,7 @@
               <div class="col-sm-5">
                 <select2 id="form-control-24"
                          [data]="selectNacionalidadData"
-                         [width]="350"
+                         [width]="350 | select2WidthFix"
                          [options]="selectNacionalidadOptions"
                          (valueChanged)="funcionario.usuario.nacionalidad = $event.value"></select2>
               </div>
@@ -123,21 +123,21 @@
         <div class="demo-form-wrapper">
           <div class="form form-horizontal">
             <div class="form-group">
-              <label class="col-sm-5 control-label" for="form-control-28">Roles Docentes</label>
-              <div class="col-sm-7">
+              <label class="col-sm-4 control-label" for="form-control-28">Roles Docentes</label>
+              <div class="col-sm-8">
                 <select2 id="form-control-28"
                          [data]="selectRolesDocentesData"
-                         [width]="350"
+                         [width]="350 | select2WidthFix"
                          [options]="selectRolesOptions"
                          (valueChanged)="rolesDocentes = $event.value"></select2>
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-5 control-label" for="form-control-29">Roles No Docentes</label>
-              <div class="col-sm-7">
+              <label class="col-sm-4 control-label" for="form-control-29">Roles No Docentes</label>
+              <div class="col-sm-8">
                 <select2 id="form-control-29"
                          [data]="selectRolesNoDocentesData"
-                         [width]="350"
+                         [width]="350 | select2WidthFix"
                          [options]="selectRolesOptions"
                          (valueChanged)="rolesNoDocentes = $event.value"></select2>
               </div>

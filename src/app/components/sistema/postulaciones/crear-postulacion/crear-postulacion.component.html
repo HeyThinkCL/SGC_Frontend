@@ -32,7 +32,7 @@
               <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-4">Sexo</label>
               <div class="col-sm-1">
                 <select class="form-control no-arrows" type="text" id="form-control-4" [(ngModel)]="postulante.sexo">
-                  <option value="" selected="selected"></option>
+                  <option value="&hellip;" selected="selected"></option>
                   <option value="M">M</option>
                   <option value="F">F</option>
                 </select>
@@ -188,7 +188,7 @@
               <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-17">Sexo</label>
               <div class="col-sm-1">
                 <select class="form-control no-arrows" type="text" id="form-control-17" [(ngModel)]="padre.usuario.sexo">
-                  <option value="" selected="selected"></option>
+                  <option value="&hellip;" selected="selected"></option>
                   <option value="M">M</option>
                   <option value="F">F</option>
                 </select>
@@ -232,7 +232,7 @@
               <div class="col-sm-5">
                 <select2 id="form-control-24"
                          [data]="selectNacionalidadData"
-                         [width]="350"
+                         [width]="350 | select2WidthFix"
                          [options]="selectNacionalidadOptions"
                          (valueChanged)="padre.usuario.nacionalidad = $event.value"></select2>
               </div>
@@ -303,7 +303,7 @@
               <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-31">Sexo</label>
               <div class="col-sm-1">
                 <select class="form-control no-arrows" type="text" id="form-control-31" [(ngModel)]="madre.usuario.sexo">
-                  <option value="" selected="selected"></option>
+                  <option value="&hellip;" selected="selected"></option>
                   <option value="M">M</option>
                   <option value="F">F</option>
                 </select>
@@ -347,7 +347,7 @@
               <div class="col-sm-5">
                 <select2 id="form-control-38"
                          [data]="selectNacionalidadData"
-                         [width]="350"
+                         [width]="350 | select2WidthFix"
                          [options]="selectNacionalidadOptions"
                          (valueChanged)="madre.usuario.nacionalidad = $event.value"></select2>
               </div>
@@ -409,7 +409,7 @@
               <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-45">Sexo</label>
               <div class="col-sm-1">
                 <select class="form-control no-arrows" type="text" id="form-control-45" [(ngModel)]="apoderado.usuario.sexo">
-                  <option value="" selected="selected"></option>
+                  <option value="&hellip;" selected="selected"></option>
                   <option value="M">M</option>
                   <option value="F">F</option>
                 </select>
@@ -453,7 +453,7 @@
               <div class="col-sm-5">
                 <select2 id="form-control-53"
                          [data]="selectNacionalidadData"
-                         [width]="350"
+                         [width]="350 | select2WidthFix"
                          [options]="selectNacionalidadOptions"
                          (valueChanged)="apoderado.usuario.nacionalidad = $event.value"></select2>
               </div>

@@ -72,8 +72,8 @@
                     <a class="btn btn-primary btn-sm" [routerLink]="['../editar',colegio.id]">
                       <span class="icon icon-pencil-square-o icon-fw"></span>
                     </a>
-                    <button class="btn btn-danger btn-sm">
-                      <span class="icon icon-times icon-fw" (click)="modalOpen(colegio.id)"></span>
+                    <button class="btn btn-danger btn-sm" (click)="modalOpen(colegio.id)">
+                      <span class="icon icon-times icon-fw"></span>
                     </button>
 
                     <modal [animation]="true" #modal>

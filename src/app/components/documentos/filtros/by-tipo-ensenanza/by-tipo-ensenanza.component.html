@@ -6,10 +6,10 @@
           <div class="demo-form-wrapper">
             <div class="form-group">
               <label class="control-label col-sm-2" for="select-form-1">Tipo de Enseñanza</label>
-              <div class="col-sm-5">
+              <div class="col-sm-6">
                 <select2 id="select-form-1"
                          [data]="selectData"
-                         [width]="375"
+                         [width]="350 | select2WidthFix"
                          [options]="selectOptions"
                          [disabled]="disabledSelect"
                          [value]="selectValue"

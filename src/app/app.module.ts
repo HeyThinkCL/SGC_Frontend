@@ -16,6 +16,7 @@ import { CalcPromedio } from './pipes/calc-promedio.pipe';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { AbbreviatePipe } from './pipes/abbreviate.pipe'
 import {FilterTablePipe} from "./pipes/filter-table.pipe";
+import {Select2WidthFixPipe } from "./pipes/select2-width-fix.pipe"
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -157,16 +158,11 @@ import {FuncionariosService} from './services/sistema/funcionarios.service';
     DocumentosComponent,
     InformesComponent,
     CertificadosComponent,
+    CitacionesComponent,
     ByTipoEnsenanzaComponent,
     ByGradoComponent,
     ByCursoComponent,
     ByAlumnoComponent,
-    FilterCursoProf,
-    CalcPromedio,
-    TruncateTextPipe,
-    AbbreviatePipe,
-    FilterTablePipe,
-    CitacionesComponent,
     PostulacionesComponent,
     CrearPostulacionComponent,
     PostulacionDetailComponent,
@@ -182,6 +178,12 @@ import {FuncionariosService} from './services/sistema/funcionarios.service';
     VerFuncionariosComponent,
     FuncionarioDetailComponent,
     EditarFuncionarioComponent,
+    FilterCursoProf,
+    CalcPromedio,
+    TruncateTextPipe,
+    AbbreviatePipe,
+    FilterTablePipe,
+    Select2WidthFixPipe,
   ],
   imports: [
     BrowserModule,

@@ -46,7 +46,6 @@ export class CrearFuncionarioComponent implements OnInit {
       'email': null,
       'sexo': null,
       'nacionalidad': null,
-      'pass': null,
       'estado_civil': null,
       'fecha_nacimiento': null,
     },
@@ -148,7 +147,6 @@ export class CrearFuncionarioComponent implements OnInit {
       closeOnSelect: true,
       placeholder: 'Seleccionar Roles',
       multiple: true,
-      allowClear: true,
     };
 
 
