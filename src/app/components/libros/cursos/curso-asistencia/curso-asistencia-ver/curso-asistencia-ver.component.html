@@ -34,8 +34,8 @@
                         <p>{{ getDayName(day.date.getDay()) }} <i class="text-warning">{{ getInasistenciaByDia(day.date) }}</i></p>
                       </div>
                       <div class="media-middle media-left">
-                        <span class="icon icon-fw icon-star" *ngIf="day.isEspecial"></span>
-                        <span class="icon icon-fw icon-camera" *ngIf="day.isFeriado"></span>
+                        <span class="icon icon-fw icon-thumb-tack" *ngIf="day.isEspecial"></span>
+                        <span class="icon icon-fw icon-star" *ngIf="day.isFeriado"></span>
                         <span class="icon icon-fw icon-sun-o" *ngIf="day.inVacacion"></span>
                       </div>
                       <div class="media-middle media-body">
