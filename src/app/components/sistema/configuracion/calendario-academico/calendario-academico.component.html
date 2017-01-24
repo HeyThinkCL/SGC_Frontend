@@ -14,6 +14,7 @@
             <div class="col-sm-3">
               <div class="input-with-icon">
                 <input class="form-control" id="form-control-1"
+                       [(ngModel)]="configuracion.periodo_academico.inicio"
                        ng2-datetime-picker
                        close-on-select="true"
                        date-only="true"
@@ -25,6 +26,7 @@
             <div class="col-sm-3">
               <div class="input-with-icon">
                 <input class="form-control" id="form-control-2"
+                       [(ngModel)]="configuracion.periodo_academico.termino"
                        ng2-datetime-picker
                        close-on-select="true"
                        date-only="true"
@@ -53,7 +55,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2 col-sm-offset-1">Glosa</label>
             <div class="col-sm-6">
-              <input class="form-control" type="text">
+              <input class="form-control" type="text" [(ngModel)]="periodo.glosa">
             </div>
           </div>
           <div class="form-group">
@@ -61,6 +63,7 @@
             <div class="col-sm-3">
               <div class="input-with-icon">
                 <input class="form-control"
+                       [(ngModel)]="periodo.inicio"
                        ng2-datetime-picker
                        close-on-select="true"
                        date-only="true"
@@ -72,6 +75,7 @@
             <div class="col-sm-3">
               <div class="input-with-icon">
                 <input class="form-control"
+                       [(ngModel)]="periodo.termino"
                        ng2-datetime-picker
                        close-on-select="true"
                        date-only="true"
@@ -104,7 +108,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2 col-sm-offset-1">Glosa</label>
             <div class="col-sm-6">
-              <input class="form-control" type="text">
+              <input class="form-control" type="text" [(ngModel)]="fecha.glosa">
             </div>
           </div>
           <div class="form-group">
@@ -112,6 +116,7 @@
             <div class="col-sm-6">
               <div class="input-with-icon">
                 <input class="form-control"
+                       [(ngModel)]="fecha.fecha"
                        ng2-datetime-picker
                        close-on-select="true"
                        date-only="true"

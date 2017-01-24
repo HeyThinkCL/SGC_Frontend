@@ -34,11 +34,6 @@ export class CalendarioAcademicoComponent implements OnInit {
         'glosa':'',
         'inicio':'',
         'termino':'',
-      },
-      {
-        'glosa':'',
-        'inicio':'',
-        'termino':'',
       }
     ],
     'fechas_especiales':[

@@ -117,6 +117,8 @@ import {EstadosCivilesService} from './services/sistema/estados-civiles.service'
 import {PostulacionesService} from './services/sistema/postulaciones.service';
 import {ApoderadosService} from './services/sistema/apoderados.service';
 import {FuncionariosService} from './services/sistema/funcionarios.service';
+import {ConfiguracionService} from './services/sistema/configuracion.service';
+import {AsistenciaService} from "./services/libros/asistencia.service";
 
 
 
@@ -215,6 +217,8 @@ import {FuncionariosService} from './services/sistema/funcionarios.service';
     AnotacionesService,
     EstadosCivilesService,
     FuncionariosService,
+    AsistenciaService,
+    ConfiguracionService,
   ],
   bootstrap: [RootComponent]
 })

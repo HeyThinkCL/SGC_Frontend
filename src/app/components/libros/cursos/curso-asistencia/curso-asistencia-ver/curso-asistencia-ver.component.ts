@@ -17,6 +17,8 @@ import {
   isSameMonth,
   startOfDay,
   isSameDay,
+  isAfter,
+  isBefore,
   getDay,} from 'date-fns';
 
 /****/
@@ -38,6 +40,32 @@ export class CursoAsistenciaVerComponent implements OnInit {
   month = [];
   selectedDay: any;
 
+  private calendarConfig = {
+    'periodo_academico':{
+      'inicio':new Date(2017,2,1),
+      'termino':new Date(2017,11,5),
+    },
+    'vacaciones':[
+      {
+        'glosa':'vacaciones de tu mamá',
+        'inicio':new Date(2017,5,1),
+        'termino':new Date(2017,5,21),
+      }
+    ],
+    'fechas_especiales':[
+      {
+        'glosa':'día de tu mamá',
+        'fecha':new Date(2017,3,5),
+      }
+    ]
+  };
+
+  private feriados = [
+    {
+      'fecha':new Date(2017,4,1)
+    }
+  ];
+
   constructor() { }
 
   ngOnInit() {
@@ -56,7 +84,7 @@ export class CursoAsistenciaVerComponent implements OnInit {
           {'numero':3,'nombre':'Don','apellidos':'Carter','nMat':230,'exc':''},
         ]
       },
-      {'day': subDays(this.viewDate,2) , 'cant':6,
+      {'day': subDays(this.viewDate,4) , 'cant':6,
         'alumnos':[
           {'numero':1,'nombre':'Ivan','apellidos':'Arenas','nMat':10,'exc':''},
           {'numero':2,'nombre':'Valentin','apellidos':'Trujillo','nMat':15,'exc':''},
@@ -91,6 +119,49 @@ export class CursoAsistenciaVerComponent implements OnInit {
     }
   }
 
+  //date data
+  inPeriodoAcademico(day: Date){
+    let start = this.calendarConfig.periodo_academico.inicio;
+    let end = this.calendarConfig.periodo_academico.termino;
+    return ((isAfter(day,start) && isBefore(day,end)) || isSameDay(day,start) || isSameDay(day,end))
+  }
+
+  inVacacion(day: Date){
+    for(let periodo of this.calendarConfig.vacaciones){
+      if((isAfter(day,periodo.inicio) && isBefore(day,periodo.termino)) || isSameDay(day,periodo.inicio) || isSameDay(day,periodo.termino)){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isEspecial(day: Date){
+    for(let fecha of this.calendarConfig.fechas_especiales){
+      if(isSameDay(day,fecha.fecha)){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isFeriado(day: Date){
+    for(let feriado of this.feriados){
+      if(isSameDay(day,feriado.fecha)){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  getInasistenciaByDia(day: Date): number{
+    let cant: number;
+    if( this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString()) ){
+      cant = this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString()).alumnos.length;
+    } else {
+      cant = 0;
+    }
+    return cant;
+  }
 
   //calendar rendering
   getMonthView: Function = ({viewDate, weekStartsOn}:
@@ -106,7 +177,10 @@ export class CursoAsistenciaVerComponent implements OnInit {
       const day: MonthViewDay = getWeekDay({date});
 
       day.inMonth = isSameMonth(date, viewDate);
-
+      day['inPeriodoAcademico'] = this.inPeriodoAcademico(date);
+      day['inVacacion'] = this.inVacacion(date);
+      day['isEspecial'] = this.isEspecial(date);
+      day['isFeriado'] = this.isFeriado(date);
       days.push(day);
     }
 
@@ -178,16 +252,6 @@ export class CursoAsistenciaVerComponent implements OnInit {
 
     return monthNames.find(day => day.id == monthNumber).name;
   };
-
-  getInasistenciaByDia(day: Date): number{
-    let cant: number;
-    if( this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString()) ){
-      cant = this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString()).alumnos.length;
-    } else {
-      cant = 0;
-    }
-    return cant;
-  }
 
 }
 

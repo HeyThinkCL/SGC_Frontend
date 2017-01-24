@@ -27,10 +27,22 @@
                                       'btn-outline-danger': day.inMonth && (getInasistenciaByDia(day.date)>5),
                                       'text-muted': !(day.inMonth),
                                       'hide-day': !(day.inMonth)}"
-                          [disabled]="!(day.inMonth)"
+                          [disabled]="!(day.inMonth) || day.isEspecial || day.inVacacion"
                           (click)="modalOpen(day.date)">
-                    <p>{{ getDayName(day.date.getDay()) }} <i class="text-warning">{{ getInasistenciaByDia(day.date) }}</i></p>
-                    {{day.date.toString() | date }}
+                    <div class="media">
+                      <div class="media-middle">
+                        <p>{{ getDayName(day.date.getDay()) }} <i class="text-warning">{{ getInasistenciaByDia(day.date) }}</i></p>
+                      </div>
+                      <div class="media-middle media-left">
+                        <span class="icon icon-fw icon-star" *ngIf="day.isEspecial"></span>
+                        <span class="icon icon-fw icon-camera" *ngIf="day.isFeriado"></span>
+                        <span class="icon icon-fw icon-sun-o" *ngIf="day.inVacacion"></span>
+                      </div>
+                      <div class="media-middle media-body">
+                        {{day.date.toString() | date }}
+                      </div>
+                    </div>
+
                   </button>
 
                   <modal [animation]="true" #modal>
