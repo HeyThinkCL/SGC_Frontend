@@ -49,7 +49,6 @@ export class ModificarCursoComponent implements OnInit {
       .subscribe((curso) => {
         this.curso = curso;
         this.selectedCurso = JSON.parse(JSON.stringify(curso));
-        console.log(this.selectedCurso);
       });
   }
 

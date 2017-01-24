@@ -54,7 +54,6 @@ export class PostulacionesRechazadasComponent implements OnInit {
 
   //modals
   deleteModalOpen(id: number): void {
-    console.log(id);
     this.deleteModal.open();
     this.postulacionToDelete_id = id;
   }

@@ -71,7 +71,6 @@ export class CertificadosComponent implements OnInit {
       'sujetos':this.subjectsId,
     };
 
-    console.log(payload);
   }
 
 

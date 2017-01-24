@@ -174,7 +174,6 @@ export class CrearFuncionarioComponent implements OnInit {
       this.funcionario[rol.toString()] = true;
     }
 
-    console.log(this.funcionario);
   }
 
 }

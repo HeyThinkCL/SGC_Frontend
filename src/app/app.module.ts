@@ -99,6 +99,10 @@ import { VerFuncionariosComponent } from './components/sistema/funcionarios/ver-
 import { FuncionarioDetailComponent } from './components/sistema/funcionarios/funcionario-detail/funcionario-detail.component';
 import { EditarFuncionarioComponent } from './components/sistema/funcionarios/editar-funcionario/editar-funcionario.component';
 
+//Configuracion
+import { ConfiguracionComponent } from './components/sistema/configuracion/configuracion.component';
+import { CalendarioAcademicoComponent } from './components/sistema/configuracion/calendario-academico/calendario-academico.component';
+
 //Servicios
 import { MatriculaService } from "./services/sistema/matricula.service";
 import {ColegiosService } from './services/sistema/colegios.service';
@@ -184,6 +188,8 @@ import {FuncionariosService} from './services/sistema/funcionarios.service';
     AbbreviatePipe,
     FilterTablePipe,
     Select2WidthFixPipe,
+    ConfiguracionComponent,
+    CalendarioAcademicoComponent,
   ],
   imports: [
     BrowserModule,

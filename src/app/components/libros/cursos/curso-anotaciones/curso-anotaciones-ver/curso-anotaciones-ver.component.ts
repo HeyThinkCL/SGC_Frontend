@@ -75,7 +75,6 @@ export class CursoAnotacionesVerComponent implements OnInit {
           }
         });
       }
-      console.log(this.alumnos);
     });
 
   }

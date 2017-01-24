@@ -108,7 +108,6 @@ export class EditarMatriculaComponent implements OnInit {
                 this.apoderado = apoderado;
                 this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
 
-                console.log(this.apoderado,this.selectedApoderado);
                 if(this.padre.usuario.rut == apoderado.usuario.rut){
                   this.padre.apoderado = true;
                 } else if (this.madre.usuario.rut == apoderado.usuario.rut){
@@ -130,7 +129,6 @@ export class EditarMatriculaComponent implements OnInit {
                 this.apoderado = apoderado;
                 this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
 
-                console.log(this.apoderado,this.selectedApoderado);
                 if(this.padre.usuario.rut == apoderado.usuario.rut){
                   this.padre.apoderado = true;
                 } else if (this.madre.usuario.rut == apoderado.usuario.rut){

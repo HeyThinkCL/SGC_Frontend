@@ -65,7 +65,6 @@ export class CitacionesComponent implements OnInit {
       'sujetos':this.subjectsId,
     };
 
-    console.log(payload);
   }
 
 }

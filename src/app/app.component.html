@@ -134,7 +134,7 @@
           </li>
           <li class="dropdown hidden-xs">
             <button class="navbar-account-btn" data-toggle="dropdown" aria-haspopup="true">
-              <img class="rounded" width="36" height="36" src="/assets/img/0180441436.jpg" alt="Teddy Wilson"> Teddy Wilson
+              <img class="rounded" width="36" height="36" src="/assets/img/0180441436.jpg" alt="Teddy Wilson"> Manuel Alba
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
@@ -218,6 +218,16 @@
                 <li class="sidenav-subheading">Colegios</li>
                 <li routerLinkActive="active" [routerLink]="['sistema/colegios/ver']"><a>Ver Colegios</a></li>
                 <li routerLinkActive="active" [routerLink]="['sistema/colegios/crear']"><a>Crear Colegio</a></li>
+              </ul>
+            </li>
+            <li class="sidenav-item has-subnav" routerLinkActive="active">
+              <a [routerLink]="['sistema/configuracion']">
+                <span class="sidenav-icon icon icon-cogs"></span>
+                <span class="sidenav-label">Configuración</span>
+              </a>
+              <ul class="sidenav-subnav collapse" routerLinkActive="active">
+                <li class="sidenav-subheading">Configuración</li>
+                <li routerLinkActive="active" [routerLink]="['sistema/configuracion/calendario']"><a>Calendario Académico</a></li>
               </ul>
             </li>
             <li class="sidenav-item has-subnav" routerLinkActive="active">

@@ -95,8 +95,6 @@ export class CursoNotasVerComponent implements OnInit {
   getAlumnos(asignatura: any){
     this.cursosService.getNotasAlumnosByCursoId(this.id,asignatura.datos.id).subscribe((res) => {
       this.selectedAsignaturaAlumnos = res.notas_alumnos;
-      console.log(res);
-      console.log(this.selectedAsignaturaAlumnos);
     })
   }
 

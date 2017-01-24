@@ -65,7 +65,6 @@ export class InformesComponent implements OnInit {
       'sujetos':this.subjectsId,
     };
 
-    console.log(payload);
   }
 
 }

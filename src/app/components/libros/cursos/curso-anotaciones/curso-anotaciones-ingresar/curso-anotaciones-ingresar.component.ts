@@ -121,7 +121,6 @@ export class CursoAnotacionesIngresarComponent implements OnInit {
 
   //service
   saveAnotacion(){
-    console.log(this.anotacion);
     this.anotacionesService.createAnotacion(this.anotacion).subscribe((res) =>{
       this.confirmMessage = 'Anotacion creada con éxito.';
       this.confirmOpen();

@@ -34,7 +34,7 @@ export class CursoAlumnosService {
     const url = `${this.alumnosCursoUrl}/${curso.id}`;
     let payload = {};
     payload['curso'] = JSON.parse(JSON.stringify(curso));
-    console.log(payload);
+
     return this.http.put(url, JSON.stringify(payload), {headers: this.headers})
       .map(() => curso)
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Curso'));
@@ -44,7 +44,7 @@ export class CursoAlumnosService {
     let options = new RequestOptions({headers: this.headers});
     let payload = {};
     payload['curso'] = JSON.parse(JSON.stringify(curso));
-    console.log(payload);
+
     return this.http.post(this.alumnosCursoUrl, JSON.stringify(payload), options)
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Curso'));

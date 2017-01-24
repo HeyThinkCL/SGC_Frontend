@@ -93,7 +93,6 @@ export class ModificarPostulacionComponent implements OnInit {
 
         let pCheck = false;
         let mCheck = false;
-        console.log(this.postulante,this.selectedPostulante);
 
         this.apoderadosService.getApoderadoById(postulante.padre_id).subscribe(padre => {
           this.padre = padre;
@@ -101,13 +100,11 @@ export class ModificarPostulacionComponent implements OnInit {
           this.padre['apoderado']=false;
           pCheck = true;
 
-          console.log(this.padre,this.selectedPadre);
           if(pCheck && mCheck){
             this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
               this.apoderado = apoderado;
               this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
 
-              console.log(this.apoderado,this.selectedApoderado);
               if(this.padre.usuario.rut == apoderado.usuario.rut){
                 this.padre.apoderado = true;
               } else if (this.madre.usuario.rut == apoderado.usuario.rut){
@@ -122,13 +119,11 @@ export class ModificarPostulacionComponent implements OnInit {
           this.madre['apoderado']=false;
           mCheck = true;
 
-          console.log(this.madre,this.selectedMadre);
           if(pCheck && mCheck){
             this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
               this.apoderado = apoderado;
               this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
 
-              console.log(this.apoderado,this.selectedApoderado);
               if(this.padre.usuario.rut == apoderado.usuario.rut){
                 this.padre.apoderado = true;
               } else if (this.madre.usuario.rut == apoderado.usuario.rut){
@@ -193,7 +188,6 @@ export class ModificarPostulacionComponent implements OnInit {
           text: estado.tipo.toString(),
         })
       }
-      console.log(this.selectEstadoCivilData);
     });
 
     this.selectEstadoCivilOptions = {

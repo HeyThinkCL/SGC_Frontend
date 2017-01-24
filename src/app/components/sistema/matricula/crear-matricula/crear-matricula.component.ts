@@ -58,7 +58,6 @@ export class CrearMatriculaComponent implements OnInit {
           text: `${postulante.nombre} ${postulante.apellido_paterno} ${postulante.apellido_materno}`
         })
       }
-      console.log(this.selectData);
     })
   }
 

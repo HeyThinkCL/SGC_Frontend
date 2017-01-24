@@ -71,6 +71,11 @@ import { VerFuncionariosComponent } from './components/sistema/funcionarios/ver-
 import { FuncionarioDetailComponent } from './components/sistema/funcionarios/funcionario-detail/funcionario-detail.component';
 import { EditarFuncionarioComponent } from './components/sistema/funcionarios/editar-funcionario/editar-funcionario.component';
 
+//Configuracion
+import { ConfiguracionComponent } from './components/sistema/configuracion/configuracion.component';
+import { CalendarioAcademicoComponent } from './components/sistema/configuracion/calendario-academico/calendario-academico.component';
+
+
 //Documentos
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { InformesComponent } from './components/documentos/informes/informes.component';
@@ -170,6 +175,12 @@ const routes: Routes = [
       {path:'ver/:id', component: FuncionarioDetailComponent },
       {path:'crear', component: CrearFuncionarioComponent },
       {path:'editar/:id', component: EditarFuncionarioComponent },
+    ]
+  },
+  { path: 'sistema/configuracion', component: ConfiguracionComponent,
+    children: [
+      {path:'', redirectTo: 'calendario', pathMatch:'full' },
+      {path:'calendario', component: CalendarioAcademicoComponent },
     ]
   },
 ];
