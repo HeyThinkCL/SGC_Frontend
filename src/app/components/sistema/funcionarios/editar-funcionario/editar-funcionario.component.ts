@@ -22,10 +22,6 @@ export class EditarFuncionarioComponent implements OnInit {
   id: number;
   private sub: any;
 
-  //etnias select2
-  public selectEtniaData: Array<Select2OptionData> = [];
-  public selectEtniaOptions: Select2Options;
-
   //nacionalidades select2
   public selectNacionalidadData: Array<Select2OptionData> = [];
   public selectNacionalidadOptions: Select2Options;
@@ -41,6 +37,7 @@ export class EditarFuncionarioComponent implements OnInit {
   private selectedFuncionario: any;
   private funcionario = {
     'usuario':{
+      'id':1,
       'nombre':'Donald',
       'apellido_paterno':'Trump',
       'apellido_materno':'Trump',
@@ -58,9 +55,9 @@ export class EditarFuncionarioComponent implements OnInit {
     'profesor':true,
     'inspector':false,
     'psicopedagogo':false,
-    'digitador':true,
+    'digitador':false,
     'jefeUTP':true,
-    'secretario':true,
+    'secretario':false,
     'asistente':true,
   };
 
@@ -69,50 +66,19 @@ export class EditarFuncionarioComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private location: Location,
-    private etniasService: EtniasService,
     private estadosCivilesService: EstadosCivilesService,
   ) { }
 
   ngOnInit() {
 
-    this.selectedFuncionario = this.funcionario;
-    this.setRolesDocentes();
-    this.setRolesNoDocentes();
-
-    this.selectEtniaData = [{
-      id:' ',
-      text:'Ninguna'
-    }];
-
-    this.etniasService.getEtnias().subscribe(etnias => {
-      this.selectEtniaData.pop();
-      this.selectEtniaData = [{
-        id:' ',
-        text:'Ninguna'
-      }];
-      for (let etnia of etnias){
-        this.selectEtniaData.push({
-          id: etnia.etnia,
-          text: etnia.etnia,
-        })
-      }
-      this.selectEtniaData = JSON.parse(JSON.stringify(this.selectEtniaData));
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id'];
     });
 
-    this.selectEtniaOptions = {
-      closeOnSelect: true,
-      placeholder: 'Seleccionar Etnia',
-    };
-
-    this.selectEstadoCivilData = [{
-      id:' ',
-      text:'Ninguno'
-    }];
+    this.selectedFuncionario = JSON.parse(JSON.stringify(this.funcionario));
 
     this.estadosCivilesService.getEstadosCiviles().subscribe(estados => {
-      this.selectEstadoCivilData.pop();
       this.selectEstadoCivilData = [{
         id:' ',
         text:'Ninguno'
@@ -160,7 +126,11 @@ export class EditarFuncionarioComponent implements OnInit {
       closeOnSelect: true,
       placeholder: 'Seleccionar Roles',
       multiple: true,
+      allowClear: true,
     };
+
+    this.setRolesDocentes();
+    this.setRolesNoDocentes();
 
   }
 
@@ -182,9 +152,14 @@ export class EditarFuncionarioComponent implements OnInit {
     }
   }
 
-  rolChange(array,e: any){
-    array = e;
-    console.log(array);
+  rolDocenteChange(e: any){
+    this.rolesDocentes = e;
+    return;
+  }
+
+  rolNoDocenteChange(e: any){
+    this.rolesNoDocentes = e;
+    return;
   }
 
   goBack(): void {
@@ -192,12 +167,21 @@ export class EditarFuncionarioComponent implements OnInit {
   }
 
   saveFuncionario(){
+    for(let key in this.funcionario){
+      if(typeof this.funcionario[key.toString()] === "boolean" || this.funcionario[key.toString()] instanceof Boolean){
+        console.log(key,this.funcionario[key.toString()]);
+        this.funcionario[key.toString()] = false;
+      }
+    }
+    console.log(this.rolesDocentes);
     for(let rol of this.rolesDocentes){
       this.funcionario[rol.toString()] = true;
     }
-
+    console.log(this.rolesNoDocentes);
     for(let rol of this.rolesNoDocentes){
       this.funcionario[rol.toString()] = true;
     }
+
+    console.log(this.funcionario);
   }
 }

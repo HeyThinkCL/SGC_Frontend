@@ -113,6 +113,7 @@ import {NotasService} from "./services/libros/notas.service";
 import {AnotacionesService} from './services/libros/anotaciones.service';
 import {DpaService} from './services/sistema/dpa.service';
 import {EtniasService} from './services/sistema/etnias.service';
+import {CalendarioService} from './services/sistema/calendario.service';
 import {EstadosCivilesService} from './services/sistema/estados-civiles.service'
 import {PostulacionesService} from './services/sistema/postulaciones.service';
 import {ApoderadosService} from './services/sistema/apoderados.service';

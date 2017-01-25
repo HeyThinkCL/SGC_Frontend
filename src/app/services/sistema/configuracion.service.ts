@@ -19,4 +19,13 @@ export class ConfiguracionService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
+  setCalendarioConfig(config: any): Observable<any>{
+    let payload = {'configuracion':config};
+
+    return this.http
+      .post(this.configuracionUrl, JSON.stringify(payload), {headers: this.headers})
+      .map(res => res.json().data)
+      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t Update Configuracion'));
+  }
+
 }

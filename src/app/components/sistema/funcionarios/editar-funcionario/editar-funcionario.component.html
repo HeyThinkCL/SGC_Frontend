@@ -130,7 +130,7 @@
                          [width]="350 | select2WidthFix"
                          [options]="selectRolesOptions"
                          [value]="rolesDocentes"
-                         (valueChanged)="rolChange(rolesDocentes,$event.value)"></select2>
+                         (valueChanged)="rolDocenteChange($event.value)"></select2>
               </div>
             </div>
             <div class="form-group">
@@ -141,7 +141,7 @@
                          [width]="350 | select2WidthFix"
                          [options]="selectRolesOptions"
                          [value]="rolesNoDocentes"
-                         (valueChanged)="rolesNoDocentes = $event.value"></select2>
+                         (valueChanged)="rolNoDocenteChange($event.value)"></select2>
               </div>
             </div>
           </div>

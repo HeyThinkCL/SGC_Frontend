@@ -147,6 +147,7 @@ export class CrearFuncionarioComponent implements OnInit {
       closeOnSelect: true,
       placeholder: 'Seleccionar Roles',
       multiple: true,
+      allowClear:true,
     };
 
 

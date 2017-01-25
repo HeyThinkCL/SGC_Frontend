@@ -112,7 +112,7 @@
                 <select2 id="form-control-28"
                          [data]="selectRolesDocentesData"
                          [options]="selectRolesOptions"
-                         [width]="350"
+                         [width]="350 | select2WidthFix"
                          [value]="rolesDocentes"
                          [disabled]="true"></select2>
               </div>
@@ -123,7 +123,7 @@
                 <select2 id="form-control-29"
                          [data]="selectRolesNoDocentesData"
                          [options]="selectRolesOptions"
-                         [width]="350"
+                         [width]="350 | select2WidthFix"
                          [value]="rolesNoDocentes"
                          [disabled]="true"></select2>
               </div>
@@ -144,7 +144,7 @@
           <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
         </div>
         <div class="col-sm-8">
-          <button class="btn btn-primary btn-block" (click)="saveFuncionario()">Guardar</button>
+          <button class="btn btn-primary btn-block" (click)="goToEdit()">Editar</button>
 
           <modal [animation]="true" #modal>
             <modal-header [show-close]="true">

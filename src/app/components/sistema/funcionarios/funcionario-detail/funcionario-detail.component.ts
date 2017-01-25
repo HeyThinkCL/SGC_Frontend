@@ -19,10 +19,10 @@ export class FuncionarioDetailComponent implements OnInit {
   private funcionario = {
     'id': 1,
     'profesor': true,
-    'jefeUTO': true,
-    'director': true,
+    'jefeUTP': true,
+    'director': false,
     'asistente': false,
-    'inspector': false,
+    'inspector': true,
     'usuario': {
       'nombre': 'Profesor',
       'apellido_paterno': 'Jirafales',
@@ -75,7 +75,6 @@ export class FuncionarioDetailComponent implements OnInit {
       closeOnSelect: true,
       placeholder: 'Seleccionar Roles',
       multiple: true,
-      allowClear: true,
     };
 
     this.setRolesDocentes();
@@ -92,7 +91,7 @@ export class FuncionarioDetailComponent implements OnInit {
   }
 
   setRolesNoDocentes(){
-    let roles = ['director','inspector'];
+    let roles = ['director','inspector','psicopedagogo','secretario','digitador'];
     for(let rol of roles){
       if(this.funcionario[rol.toString()]){
         this.rolesNoDocentes.push(rol);
