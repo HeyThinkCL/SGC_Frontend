@@ -278,7 +278,7 @@
     }
 
     countryCode = country.element.value.toLowerCase();
-    countryFlag = 'img/flags/4x3/' + countryCode + '.svg';
+    countryFlag = 'assets/img/flags/4x3/' + countryCode + '.svg';
 
     var $countryFlag = $('<span/>', {
       'text': countryName
