@@ -101,7 +101,10 @@ import { EditarFuncionarioComponent } from './components/sistema/funcionarios/ed
 
 //Configuracion
 import { ConfiguracionComponent } from './components/sistema/configuracion/configuracion.component';
+import { ConfiguracionDashboardComponent } from './components/sistema/configuracion/configuracion-dashboard/configuracion-dashboard.component';
 import { CalendarioAcademicoComponent } from './components/sistema/configuracion/calendario-academico/calendario-academico.component';
+import { NotasPonderacionesComponent } from './components/sistema/configuracion/notas-ponderaciones/notas-ponderaciones.component';
+import { JornadaComponent } from './components/sistema/configuracion/jornada/jornada.component';
 
 //Servicios
 import { MatriculaService } from "./services/sistema/matricula.service";
@@ -120,10 +123,6 @@ import {ApoderadosService} from './services/sistema/apoderados.service';
 import {FuncionariosService} from './services/sistema/funcionarios.service';
 import {ConfiguracionService} from './services/sistema/configuracion.service';
 import {AsistenciaService} from "./services/libros/asistencia.service";
-
-
-
-
 
 
 
@@ -192,7 +191,10 @@ import {AsistenciaService} from "./services/libros/asistencia.service";
     FilterTablePipe,
     Select2WidthFixPipe,
     ConfiguracionComponent,
+    ConfiguracionDashboardComponent,
     CalendarioAcademicoComponent,
+    NotasPonderacionesComponent,
+    JornadaComponent,
   ],
   imports: [
     BrowserModule,
@@ -220,6 +222,7 @@ import {AsistenciaService} from "./services/libros/asistencia.service";
     FuncionariosService,
     AsistenciaService,
     ConfiguracionService,
+    CalendarioService,
   ],
   bootstrap: [RootComponent]
 })

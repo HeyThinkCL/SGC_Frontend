@@ -20,7 +20,7 @@ export class ConfiguracionService {
   private headers = new Headers({'Content-Type': 'application/json'});
 
   setCalendarioConfig(config: any): Observable<any>{
-    let payload = {'configuracion':config};
+    let payload = {'configuracion':config,'glosa':'calendario'};
 
     return this.http
       .post(this.configuracionUrl, JSON.stringify(payload), {headers: this.headers})

@@ -227,7 +227,7 @@
               </a>
               <ul class="sidenav-subnav collapse" routerLinkActive="active">
                 <li class="sidenav-subheading">Configuración</li>
-                <li routerLinkActive="active" [routerLink]="['sistema/configuracion/calendario']"><a>Calendario Académico</a></li>
+                <li routerLinkActive="active" *ngFor="let configRoute of configRoutes" [routerLink]="['sistema/configuracion/',configRoute.path]"><a>{{configRoute.name}}</a></li>
               </ul>
             </li>
             <li class="sidenav-item has-subnav" routerLinkActive="active">

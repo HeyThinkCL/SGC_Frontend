@@ -73,7 +73,10 @@ import { EditarFuncionarioComponent } from './components/sistema/funcionarios/ed
 
 //Configuracion
 import { ConfiguracionComponent } from './components/sistema/configuracion/configuracion.component';
+import { ConfiguracionDashboardComponent } from './components/sistema/configuracion/configuracion-dashboard/configuracion-dashboard.component';
 import { CalendarioAcademicoComponent } from './components/sistema/configuracion/calendario-academico/calendario-academico.component';
+import { NotasPonderacionesComponent } from './components/sistema/configuracion/notas-ponderaciones/notas-ponderaciones.component';
+import { JornadaComponent } from './components/sistema/configuracion/jornada/jornada.component';
 
 
 //Documentos
@@ -179,8 +182,11 @@ const routes: Routes = [
   },
   { path: 'sistema/configuracion', component: ConfiguracionComponent,
     children: [
-      {path:'', redirectTo: 'calendario', pathMatch:'full' },
+      {path:'', redirectTo: 'dashboard', pathMatch:'full' },
+      {path:'dashboard', component: ConfiguracionDashboardComponent},
       {path:'calendario', component: CalendarioAcademicoComponent },
+      {path:'notas', component: NotasPonderacionesComponent },
+      {path:'jornada', component: JornadaComponent },
     ]
   },
 ];
