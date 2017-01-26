@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import {ProfesoresService} from '../../../../services/libros/profesores.service';
+
 @Component({
   selector: 'app-ver-profesores',
   templateUrl: './ver-profesores.component.html',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VerProfesoresComponent implements OnInit {
 
-  constructor() { }
+  filterData:string  = '';
+  filterKeys = [
+    {
+      'mainKey':'usuario',
+      'subKeys':['nombre','apellido_paterno','apellido_materno','rut']
+    }
+  ];
+
+  private profesores = [];
+
+  constructor(
+    private profesoresService: ProfesoresService
+  ) { }
 
   ngOnInit() {
+    this.profesoresService.getProfesores().subscribe(res => {
+      this.profesores = res
+    })
   }
 
 }

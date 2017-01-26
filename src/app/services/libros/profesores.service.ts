@@ -19,14 +19,14 @@ export class ProfesoresService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  getProfesors(): Observable<any> {
+  getProfesores(): Observable<any> {
     return this.http.get(this.profesorsUrl)
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Profesores'));
   }
 
   getProfesor(id: number): Observable<any> {
-    return this.getProfesors()
+    return this.getProfesores()
       .map(profesors => profesors.find(profesor => profesor.id == id));
   }
 
