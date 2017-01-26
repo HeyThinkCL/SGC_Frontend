@@ -6,7 +6,7 @@
     <div class="row gutter-xs">
       <div class="col-sm-4" *ngFor="let route of routes">
         <div class="card">
-          <div class="card-body" (click)="goToRoute(route.path)">
+          <div class="card-body" (click)="goToRoute(route.path,route.id)">
             <div class="media">
               <div class="media-middle media-left">
             <span class="icon-with-child">
@@ -16,7 +16,7 @@
               </div>
               <div class="media-middle media-body">
                 <h4 class="card-title">
-                  {{route.name}}
+                  {{route.glosa}}
                 </h4>
               </div>
             </div>

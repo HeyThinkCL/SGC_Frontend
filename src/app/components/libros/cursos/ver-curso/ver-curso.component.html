@@ -40,7 +40,7 @@
                 <span class="truncate" *ngIf="(curso.curso.prof_jefe)"> {{ curso.profesor?.nombre }} {{curso.profesor?.apellidos}}</span>
                 <div class="demo-btn-toolbar btn-toolbar" *ngIf="!(curso.curso.prof_jefe)">
                   <div class="btn-group btn-group-sm">
-                    <a class="btn btn-outline-primary btn-sm" [routerLink]="['../',curso.curso.id,'asignar-prof']">
+                    <a class="btn btn-outline-primary btn-sm" [routerLink]="['../',curso.curso.id,'profesor']">
                       <span class="icon icon-plus icon-fw"></span>
                     </a>
                   </div>

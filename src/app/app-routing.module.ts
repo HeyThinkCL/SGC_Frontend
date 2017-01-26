@@ -57,12 +57,14 @@ import { CursoAnotacionesVerComponent } from './components/libros/cursos/curso-a
 import { CursoAnotacionesIngresarComponent } from './components/libros/cursos/curso-anotaciones/curso-anotaciones-ingresar/curso-anotaciones-ingresar.component';
 import { CursoAnotacionesVerGenComponent } from './components/libros/cursos/curso-anotaciones/curso-anotaciones-ver-gen/curso-anotaciones-ver-gen.component';
 ////Asignar Profesor
-import { AsignarProfComponent } from './components/libros/cursos/asignar-prof/asignar-prof.component';
+import { AsignarProfesorACursoComponent } from './components/libros/cursos/asignar-profesor-a-curso/asignar-profesor-a-curso.component';
 //Cierre de Año
 import { CierreAnnoComponent } from './components/cierre-anno/cierre-anno.component';
+
 //Profesor
-import { ProfesorComponent } from './components/libros/profesor/profesor.component';
-import { CrearProfesorComponent } from './components/libros/profesor/crear-profesor/crear-profesor.component';
+import { ProfesoresComponent } from './components/libros/profesores/profesores.component';
+import { VerProfesoresComponent } from './components/libros/profesores/ver-profesores/ver-profesores.component';
+import { AsignarProfesorComponent } from './components/libros/profesores/asignar-profesor/asignar-profesor.component';
 
 //Funcionarios
 import { FuncionariosComponent } from './components/sistema/funcionarios/funcionarios.component';
@@ -77,7 +79,7 @@ import { ConfiguracionDashboardComponent } from './components/sistema/configurac
 import { CalendarioAcademicoComponent } from './components/sistema/configuracion/calendario-academico/calendario-academico.component';
 import { NotasPonderacionesComponent } from './components/sistema/configuracion/notas-ponderaciones/notas-ponderaciones.component';
 import { JornadaComponent } from './components/sistema/configuracion/jornada/jornada.component';
-
+import { ConfiguracionCursosComponent } from './components/sistema/configuracion/configuracion-cursos/configuracion-cursos.component';
 
 //Documentos
 import { DocumentosComponent } from './components/documentos/documentos.component';
@@ -158,8 +160,15 @@ const routes: Routes = [
 
         ]
       },
-      { path: ':id/asignar-prof',  component: AsignarProfComponent },
+      { path: ':id/profesores',  component: AsignarProfesorACursoComponent },
       { path: 'editar-curso/:id',  component: ModificarCursoComponent },
+      { path: 'profesores', component: ProfesoresComponent,
+        children:[
+          {path: '', redirectTo:'ver', pathMatch: 'full'},
+          {path:'ver', component: VerProfesoresComponent },
+          {path:'asignar',component:AsignarProfesorComponent}
+        ]
+      }
     ]
   },
   { path: 'cierre', component: CierreAnnoComponent },
@@ -187,6 +196,7 @@ const routes: Routes = [
       {path:'calendario', component: CalendarioAcademicoComponent },
       {path:'notas', component: NotasPonderacionesComponent },
       {path:'jornada', component: JornadaComponent },
+      {path:'cursos', component: ConfiguracionCursosComponent },
     ]
   },
 ];

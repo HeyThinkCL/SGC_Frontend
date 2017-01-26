@@ -227,7 +227,7 @@
               </a>
               <ul class="sidenav-subnav collapse" routerLinkActive="active">
                 <li class="sidenav-subheading">Configuración</li>
-                <li routerLinkActive="active" *ngFor="let configRoute of configRoutes" [routerLink]="['sistema/configuracion/',configRoute.path]"><a>{{configRoute.name}}</a></li>
+                <li routerLinkActive="active" *ngFor="let configRoute of configRoutes" [routerLink]="['sistema/configuracion/',configRoute.path]" (click)="goToConfigRoute(configRoute.id)"><a>{{configRoute.glosa}}</a></li>
               </ul>
             </li>
             <li class="sidenav-item has-subnav" routerLinkActive="active">
@@ -273,6 +273,7 @@
                 <li class="sidenav-subheading">Libros de Clases</li>
                 <li routerLinkActive="active" [routerLink]="['libros/ver-cursos']"><a>Ver Cursos</a></li>
                 <li routerLinkActive="active" [routerLink]="['libros/crear-curso']"><a>Crear Curso</a></li>
+                <li routerLinkActive="active" [routerLink]="['libros/profesores']"><a>Ver Profesores</a></li>
               </ul>
             </li>
             <li class="sidenav-item has-subnav" routerLinkActive="active">

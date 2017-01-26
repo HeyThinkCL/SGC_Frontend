@@ -73,14 +73,15 @@ import { CursoAnotacionesVerComponent } from './components/libros/cursos/curso-a
 import { CursoAnotacionesIngresarComponent } from './components/libros/cursos/curso-anotaciones/curso-anotaciones-ingresar/curso-anotaciones-ingresar.component';
 import { CursoAnotacionesVerGenComponent } from './components/libros/cursos/curso-anotaciones/curso-anotaciones-ver-gen/curso-anotaciones-ver-gen.component';
 ////Asignar Profesor
-import { AsignarProfComponent } from './components/libros/cursos/asignar-prof/asignar-prof.component';
+import { AsignarProfesorACursoComponent } from './components/libros/cursos/asignar-profesor-a-curso/asignar-profesor-a-curso.component';
 
 //Cierre de Año
 import { CierreAnnoComponent } from './components/cierre-anno/cierre-anno.component';
 
 //Profesor
-import { ProfesorComponent } from './components/libros/profesor/profesor.component';
-import { CrearProfesorComponent } from './components/libros/profesor/crear-profesor/crear-profesor.component';
+import { ProfesoresComponent } from './components/libros/profesores/profesores.component';
+import { VerProfesoresComponent } from './components/libros/profesores/ver-profesores/ver-profesores.component';
+import { AsignarProfesorComponent } from './components/libros/profesores/asignar-profesor/asignar-profesor.component';
 
 //Documentos
 import { DocumentosComponent } from './components/documentos/documentos.component';
@@ -105,6 +106,7 @@ import { ConfiguracionDashboardComponent } from './components/sistema/configurac
 import { CalendarioAcademicoComponent } from './components/sistema/configuracion/calendario-academico/calendario-academico.component';
 import { NotasPonderacionesComponent } from './components/sistema/configuracion/notas-ponderaciones/notas-ponderaciones.component';
 import { JornadaComponent } from './components/sistema/configuracion/jornada/jornada.component';
+import { ConfiguracionCursosComponent } from './components/sistema/configuracion/configuracion-cursos/configuracion-cursos.component';
 
 //Servicios
 import { MatriculaService } from "./services/sistema/matricula.service";
@@ -116,14 +118,13 @@ import {NotasService} from "./services/libros/notas.service";
 import {AnotacionesService} from './services/libros/anotaciones.service';
 import {DpaService} from './services/sistema/dpa.service';
 import {EtniasService} from './services/sistema/etnias.service';
-import {CalendarioService} from './services/sistema/calendario.service';
 import {EstadosCivilesService} from './services/sistema/estados-civiles.service'
 import {PostulacionesService} from './services/sistema/postulaciones.service';
 import {ApoderadosService} from './services/sistema/apoderados.service';
 import {FuncionariosService} from './services/sistema/funcionarios.service';
 import {ConfiguracionService} from './services/sistema/configuracion.service';
+import {CalendarioService} from './services/sistema/calendario.service';
 import {AsistenciaService} from "./services/libros/asistencia.service";
-
 
 
 @NgModule({
@@ -144,9 +145,8 @@ import {AsistenciaService} from "./services/libros/asistencia.service";
     CrearCursoComponent,
     VerCursoComponent,
     ModificarCursoComponent,
-    ProfesorComponent,
-    CrearProfesorComponent,
-    AsignarProfComponent,
+    ProfesoresComponent,
+    AsignarProfesorACursoComponent,
     ColegioDetailComponent,
     MatriculaDetailComponent,
     CursoDetailComponent,
@@ -195,6 +195,10 @@ import {AsistenciaService} from "./services/libros/asistencia.service";
     CalendarioAcademicoComponent,
     NotasPonderacionesComponent,
     JornadaComponent,
+    CursosComponent,
+    ConfiguracionCursosComponent,
+    VerProfesoresComponent,
+    AsignarProfesorComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@ export class ConfiguracionService {
     return [[Http]]
   }
 
-  private configuracionUrl = globalVar.apiUrl+'/configuracion';
+  private configuracionUrl = globalVar.apiUrl+'/configuraciones';
 
   constructor(private http: Http) {
 
@@ -19,13 +19,10 @@ export class ConfiguracionService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  setCalendarioConfig(config: any): Observable<any>{
-    let payload = {'configuracion':config,'glosa':'calendario'};
-
-    return this.http
-      .post(this.configuracionUrl, JSON.stringify(payload), {headers: this.headers})
-      .map(res => res.json().data)
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t Update Configuracion'));
+  getConguraciones(): Observable<any>{
+    return this.http.get(this.configuracionUrl)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
 }

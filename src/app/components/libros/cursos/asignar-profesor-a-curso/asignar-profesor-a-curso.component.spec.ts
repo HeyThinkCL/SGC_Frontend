@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { AsignarProfComponent } from './asignar-prof.component';
+import { AsignarProfComponent } from './asignar-profesor-a-curso.component';
 
 describe('AsignarProfComponent', () => {
   let component: AsignarProfComponent;

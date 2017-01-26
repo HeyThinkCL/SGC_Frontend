@@ -9,10 +9,10 @@ import { ProfesoresService } from '../../../../services/libros/profesores.servic
 
 @Component({
   selector: 'app-asignar-prof',
-  templateUrl: 'asignar-prof.component.html',
-  styleUrls: ['asignar-prof.component.css']
+  templateUrl: 'asignar-profesor-a-curso.component.html',
+  styleUrls: ['asignar-profesor-a-curso.component.css']
 })
-export class AsignarProfComponent implements OnInit {
+export class AsignarProfesorACursoComponent implements OnInit {
   @ViewChild('modal')
   modal: ModalComponent;
 
