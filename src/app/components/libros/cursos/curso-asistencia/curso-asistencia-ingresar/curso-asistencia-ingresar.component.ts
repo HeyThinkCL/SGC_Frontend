@@ -17,9 +17,14 @@ import {
   isSameMonth,
   startOfDay,
   isSameDay,
+  isAfter,
+  isBefore,
   getDay,} from 'date-fns';
 
 /****/
+
+import {ConfiguracionService} from '../../../../../services/sistema/configuracion.service';
+import {CalendarioService} from '../../../../../services/sistema/calendario.service';
 
 @Component({
   selector: 'app-curso-asistencia-ingresar',
@@ -38,6 +43,8 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
   month = [];
   selectedDay: any;
 
+  private calendarConfig: any;
+
   private alumnos = [
     {'numero':1,'nombre':'Ivan','apellidos':'Arenas','nMat':10,'exc':''},
     {'numero':2,'nombre':'Valentin','apellidos':'Trujillo','nMat':15,'exc':''},
@@ -49,14 +56,23 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
     {'numero':8,'nombre':'Rod','apellidos':'Stewart','nMat':20,'exc':''},
   ];
 
-  constructor() { }
+  constructor(
+    private configuracionService: ConfiguracionService,
+    private calendarioService: CalendarioService,
+  ) { }
 
   ngOnInit() {
     this.viewDate = new Date();
-    this.weekStartsOn = 1;
-    this.view = this.getMonthView({
-      viewDate: this.viewDate,
-      weekStartsOn: this.weekStartsOn
+
+    this.configuracionService.getConguraciones().subscribe(configs => {
+      let config = configs.find(c => c.glosa == 'Calendario Académico');
+      this.calendarioService.getConfigCalendarioAcademicoById(config.id).subscribe(subRes => {
+        console.log(subRes);
+        this.calendarConfig = subRes;
+        this.view = this.getMonthView({
+          viewDate: this.viewDate,
+        });
+      });
     });
 
     this.inasistenciaMonth.push(
@@ -67,7 +83,7 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
           {'numero':3,'nombre':'Don','apellidos':'Carter','nMat':230,'exc':''},
         ]
       },
-      {'day': addDays(this.viewDate,2), 'cant':6,
+      {'day': addDays(this.viewDate,3), 'cant':6,
         'alumnos':[
           {'numero':1,'nombre':'Ivan','apellidos':'Arenas','nMat':10,'exc':''},
           {'numero':2,'nombre':'Valentin','apellidos':'Trujillo','nMat':15,'exc':''},
@@ -134,6 +150,50 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
     console.log(alumno.asistencia);
   }
 
+  //date data
+  inPeriodoAcademico(day: Date){
+    let start = this.calendarConfig.periodo_academico.fecha_inicio;
+    let end = this.calendarConfig.periodo_academico.fecha_termino;
+    return ((isAfter(day,start) && isBefore(day,end)) || isSameDay(day,start) || isSameDay(day,end))
+  }
+
+  inVacacion(day: Date){
+    for(let periodo of this.calendarConfig.vacaciones){
+      if((isAfter(day,periodo.fecha_inicio) && isBefore(day,periodo.fecha_termino)) || isSameDay(day,periodo.fecha_inicio) || isSameDay(day,periodo.fecha_termino)){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isEspecial(day: Date){
+    for(let fecha of this.calendarConfig.fechas_especiales){
+      if(isSameDay(day,fecha.fecha_inicio)){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isFeriado(day: Date){
+    for(let feriado of this.calendarConfig.feriados){
+      if(isSameDay(day,feriado.fecha_inicio)){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  getInasistenciaByDia(day: Date): number{
+    let cant: number;
+    if( this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString()) ){
+      cant = this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString()).alumnos.length;
+    } else {
+      cant = 0;
+    }
+    return cant;
+  }
+
   //calendar rendering
   getMonthView: Function = ({viewDate, weekStartsOn}:
     {viewDate: Date, weekStartsOn: number})
@@ -148,7 +208,10 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
       const day: MonthViewDay = getWeekDay({date});
 
       day.inMonth = isSameMonth(date, viewDate);
-
+      day['inPeriodoAcademico'] = this.inPeriodoAcademico(date);
+      day['inVacacion'] = this.inVacacion(date);
+      day['isEspecial'] = this.isEspecial(date);
+      day['isFeriado'] = this.isFeriado(date);
       days.push(day);
     }
 
@@ -220,16 +283,6 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
 
     return monthNames.find(day => day.id == monthNumber).name;
   };
-
-  getInasistenciaByDia(day: Date): number{
-    let cant: number;
-    if( this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString()) ){
-      cant = this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString()).alumnos.length;
-    } else {
-      cant = 0;
-    }
-    return cant;
-  }
 
 }
 

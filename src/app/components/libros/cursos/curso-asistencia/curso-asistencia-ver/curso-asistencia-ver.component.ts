@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 /** date-fns**/
@@ -25,6 +26,7 @@ import {
 
 import {ConfiguracionService} from '../../../../../services/sistema/configuracion.service';
 import {CalendarioService} from '../../../../../services/sistema/calendario.service';
+import {AsistenciaService} from '../../../../../services/libros/asistencia.service';
 
 @Component({
   selector: 'app-curso-asistencia-ver',
@@ -34,6 +36,9 @@ import {CalendarioService} from '../../../../../services/sistema/calendario.serv
 export class CursoAsistenciaVerComponent implements OnInit {
   @ViewChild('modal')
   modal: ModalComponent;
+
+  id: number;
+  private sub: any;
 
   viewDate: Date;
   weekStartsOn: number;
@@ -46,18 +51,26 @@ export class CursoAsistenciaVerComponent implements OnInit {
   private calendarConfig: any;
 
   constructor(
+    private route: ActivatedRoute,
     private configuracionService: ConfiguracionService,
     private calendarioService: CalendarioService,
+    private asistenciaService: AsistenciaService,
   ) { }
 
   ngOnInit() {
 
     this.viewDate = new Date();
 
+    this.sub = this.route.parent.parent.params.subscribe(params => {
+      this.id = params['id'];
+      this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
+        this.inasistenciaMonth = res;
+      })
+    });
+
     this.configuracionService.getConguraciones().subscribe(configs => {
       let config = configs.find(c => c.glosa == 'Calendario Académico');
       this.calendarioService.getConfigCalendarioAcademicoById(config.id).subscribe(subRes => {
-        console.log(subRes);
         this.calendarConfig = subRes;
         this.view = this.getMonthView({
           viewDate: this.viewDate,
@@ -65,8 +78,7 @@ export class CursoAsistenciaVerComponent implements OnInit {
       });
     });
 
-
-    this.inasistenciaMonth.push(
+    /*this.inasistenciaMonth.push(
       {'day': this.viewDate , 'cant':3,
         'alumnos':[
           {'numero':1,'nombre':'Ivan','apellidos':'Arenas','nMat':10,'exc':''},
@@ -85,7 +97,7 @@ export class CursoAsistenciaVerComponent implements OnInit {
 
         ]
       }
-    );
+    );*/
 
     this.selectedDay = {'day': new Date() ,'cant':0,'alumnos':[]};
   }
@@ -195,7 +207,9 @@ export class CursoAsistenciaVerComponent implements OnInit {
       viewDate: this.viewDate,
       weekStartsOn: this.weekStartsOn
     });
-
+    this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
+      this.inasistenciaMonth = res;
+    })
   }
 
   decrement(): void {
@@ -205,6 +219,9 @@ export class CursoAsistenciaVerComponent implements OnInit {
       viewDate: this.viewDate,
       weekStartsOn: this.weekStartsOn
     });
+    this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
+      this.inasistenciaMonth = res;
+    })
   }
 
   today(): void {

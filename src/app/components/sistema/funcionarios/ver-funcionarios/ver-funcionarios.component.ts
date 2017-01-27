@@ -1,6 +1,8 @@
 import {Component, OnInit, ViewChild } from '@angular/core';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
+import {FuncionariosService} from '../../../../services/sistema/funcionarios.service';
+
 @Component({
   selector: 'app-ver-funcionarios',
   templateUrl: './ver-funcionarios.component.html',
@@ -36,9 +38,14 @@ export class VerFuncionariosComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(
+    private funcionariosService: FuncionariosService,
+  ) { }
 
   ngOnInit() {
+    this.funcionariosService.getFuncionarios().subscribe(res => {
+      this.funcionarios = res;
+    })
   }
 
   indexOfObj(id: number): number {

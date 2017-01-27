@@ -19,16 +19,22 @@ export class FuncionariosService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  getFuncionarios(){
-
+  getFuncionarios(): Observable<any>{
+    return this.http.get(this.funcionariosUrl)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
-  getFuncionario(){
-
+  getFuncionario(id: number): Observable<any>{
+    return this.getFuncionarios()
+      .map(funcionario => funcionario.find(func => func.id == id));
   }
 
-  getFuncionarioById(){
-
+  getFuncionarioById(id: number){
+    const url = `${this.funcionariosUrl}/${id}`;
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
   createFuncionario(){

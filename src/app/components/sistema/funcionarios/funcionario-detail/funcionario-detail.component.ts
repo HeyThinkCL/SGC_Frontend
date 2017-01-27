@@ -6,6 +6,8 @@ import { Select2OptionData } from 'ng2-select2';
 
 import * as globalVars from '../../../../globals';
 
+import {FuncionariosService} from '../../../../services/sistema/funcionarios.service';
+
 @Component({
   selector: 'app-funcionario-detail',
   templateUrl: './funcionario-detail.component.html',
@@ -50,11 +52,15 @@ export class FuncionarioDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
+    private funcionariosService: FuncionariosService,
   ) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
+      this.funcionariosService.getFuncionario(this.id).subscribe(res => {
+        this.funcionario = res;
+      })
     });
 
     for (let rol of globalVars.rolesDocentes){

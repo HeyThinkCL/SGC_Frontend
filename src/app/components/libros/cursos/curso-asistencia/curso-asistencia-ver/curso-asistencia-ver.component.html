@@ -48,11 +48,19 @@
 
                   <modal [animation]="true" #modal>
                     <modal-header [show-close]="false">
-                      <h4 class="modal-title">Inasistentes</h4>
-                      <h5>{{selectedDay?.day.toString() | date }}</h5>
+                      <div class="media">
+                        <div class="media-middle media-left">
+                          <h4 class="modal-title fw-l">Inasistentes</h4>
+                        </div>
+                        <div class="media-middle media-body">
+                          <h4>{{selectedDay?.day.toString() | date }}</h4>
+                        </div>
+                      </div>
+
+
                     </modal-header>
-                    <modal-body>
-                      <div class="table-responsive" *ngIf="selectedDay.alumnos.length > 0">
+                    <modal-body *ngIf="selectedDay.alumnos.length > 0">
+                      <div class="table-responsive">
                         <table class="table table-bordered">
                           <thead>
                             <tr class="bg-info">

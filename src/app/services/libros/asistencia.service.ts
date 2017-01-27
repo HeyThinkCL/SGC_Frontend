@@ -9,8 +9,8 @@ export class AsistenciaService {
   static get parameters(){
     return [[Http]]
   }
-
-  private asistenciaUrl = globalVar.apiUrl+'/asistencia';
+'http://localhost:3000/libro_clases/cursos/asistencias?mes=2016-01-01&curso_id=1'
+  private asistenciaUrl = globalVar.apiUrl+'/libro_clases/cursos/asistencias';
 
   constructor(private http: Http) {
 
@@ -18,5 +18,17 @@ export class AsistenciaService {
   }
 
   private headers = new Headers({'Content-Type': 'application/json'});
+
+  getInasistenciasByMonth(idCurso: number, day: Date){
+    const url = `${this.asistenciaUrl}?anno=${day.getFullYear()}&mes=${day.getMonth()+1}&curso_id=${idCurso}`;
+
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status));
+  }
+
+  createInasistencia(){
+
+  }
 
 }
