@@ -56,7 +56,7 @@ export class CursoAnotacionesIngresarComponent implements OnInit {
       this.asignaturas = res.asignaturas;
     });
 
-    this.profesoresService.getProfesors().subscribe(res => {
+    this.profesoresService.getProfesores().subscribe(res => {
       this.funcionarios = res;
     });
 

@@ -166,7 +166,7 @@ const routes: Routes = [
         children:[
           {path: '', redirectTo:'ver', pathMatch: 'full'},
           {path:'ver', component: VerProfesoresComponent },
-          {path:'asignar',component:AsignarProfesorComponent}
+          {path:'asignar/:id',component:AsignarProfesorComponent}
         ]
       }
     ]

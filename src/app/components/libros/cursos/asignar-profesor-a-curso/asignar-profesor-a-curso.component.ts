@@ -48,7 +48,7 @@ export class AsignarProfesorACursoComponent implements OnInit {
   }
   //../services
   getProfesores() {
-    this.profesoresService.getProfesors().subscribe((res) => {
+    this.profesoresService.getProfesores().subscribe((res) => {
       this.profesores = res;
     })
   }

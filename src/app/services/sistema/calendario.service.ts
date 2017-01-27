@@ -64,7 +64,7 @@ export class CalendarioService {
   }
 
   createEventCalendarioAcademico(vacaciones: boolean, idConfig: number): Observable<any>{
-    let url = `${this.configuracionUrl}/calendario_academicos`;
+    let url = `${this.configuracionUrl}/configuraciones/calendario_academico/eventos`;
 
     let payload = {
       'id_config':idConfig,
@@ -88,10 +88,10 @@ export class CalendarioService {
   }
 
   deleteEventCalendarioAcademico(idEvent: number): Observable<any>{
-    let url = `${this.configuracionUrl}/calendario_academicos/${idEvent}`;
+    let url = `${this.configuracionUrl}/configuraciones/calendario_academico/eventos/${idEvent}`;
 
-    return this.http.delete(url)
-      .map(res => res.json())
+    return this.http.delete(url, {headers: this.headers})
+      .map(() => null)
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 

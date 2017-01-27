@@ -23,6 +23,9 @@ import {
 
 /****/
 
+import {ConfiguracionService} from '../../../../../services/sistema/configuracion.service';
+import {CalendarioService} from '../../../../../services/sistema/calendario.service';
+
 @Component({
   selector: 'app-curso-asistencia-ver',
   templateUrl: 'curso-asistencia-ver.component.html',
@@ -40,41 +43,28 @@ export class CursoAsistenciaVerComponent implements OnInit {
   month = [];
   selectedDay: any;
 
-  private calendarConfig = {
-    'periodo_academico':{
-      'inicio':new Date(2017,2,1),
-      'termino':new Date(2017,11,5),
-    },
-    'vacaciones':[
-      {
-        'glosa':'vacaciones de tu mamá',
-        'inicio':new Date(2017,5,1),
-        'termino':new Date(2017,5,21),
-      }
-    ],
-    'fechas_especiales':[
-      {
-        'glosa':'día de tu mamá',
-        'fecha':new Date(2017,3,5),
-      }
-    ]
-  };
+  private calendarConfig: any;
 
-  private feriados = [
-    {
-      'fecha':new Date(2017,4,1)
-    }
-  ];
-
-  constructor() { }
+  constructor(
+    private configuracionService: ConfiguracionService,
+    private calendarioService: CalendarioService,
+  ) { }
 
   ngOnInit() {
+
     this.viewDate = new Date();
-    this.weekStartsOn = 1;
-    this.view = this.getMonthView({
-      viewDate: this.viewDate,
-      weekStartsOn: this.weekStartsOn
+
+    this.configuracionService.getConguraciones().subscribe(configs => {
+      let config = configs.find(c => c.glosa == 'Calendario Académico');
+      this.calendarioService.getConfigCalendarioAcademicoById(config.id).subscribe(subRes => {
+        console.log(subRes);
+        this.calendarConfig = subRes;
+        this.view = this.getMonthView({
+          viewDate: this.viewDate,
+        });
+      });
     });
+
 
     this.inasistenciaMonth.push(
       {'day': this.viewDate , 'cant':3,
@@ -111,6 +101,7 @@ export class CursoAsistenciaVerComponent implements OnInit {
     this.selectedDay = {'day': new Date() ,'cant':0,'alumnos':[]};
   }
 
+
   setSelectedDay(day: Date): any{
     if( this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString()) ){
       return this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString());
@@ -121,14 +112,14 @@ export class CursoAsistenciaVerComponent implements OnInit {
 
   //date data
   inPeriodoAcademico(day: Date){
-    let start = this.calendarConfig.periodo_academico.inicio;
-    let end = this.calendarConfig.periodo_academico.termino;
+    let start = this.calendarConfig.periodo_academico.fecha_inicio;
+    let end = this.calendarConfig.periodo_academico.fecha_termino;
     return ((isAfter(day,start) && isBefore(day,end)) || isSameDay(day,start) || isSameDay(day,end))
   }
 
   inVacacion(day: Date){
     for(let periodo of this.calendarConfig.vacaciones){
-      if((isAfter(day,periodo.inicio) && isBefore(day,periodo.termino)) || isSameDay(day,periodo.inicio) || isSameDay(day,periodo.termino)){
+      if((isAfter(day,periodo.fecha_inicio) && isBefore(day,periodo.fecha_termino)) || isSameDay(day,periodo.fecha_inicio) || isSameDay(day,periodo.fecha_termino)){
         return true;
       }
     }
@@ -137,7 +128,7 @@ export class CursoAsistenciaVerComponent implements OnInit {
 
   isEspecial(day: Date){
     for(let fecha of this.calendarConfig.fechas_especiales){
-      if(isSameDay(day,fecha.fecha)){
+      if(isSameDay(day,fecha.fecha_inicio)){
         return true;
       }
     }
@@ -145,8 +136,8 @@ export class CursoAsistenciaVerComponent implements OnInit {
   }
 
   isFeriado(day: Date){
-    for(let feriado of this.feriados){
-      if(isSameDay(day,feriado.fecha)){
+    for(let feriado of this.calendarConfig.feriados){
+      if(isSameDay(day,feriado.fecha_inicio)){
         return true;
       }
     }

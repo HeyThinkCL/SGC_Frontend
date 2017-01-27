@@ -2,6 +2,16 @@ import { Component, OnInit, ViewChild, trigger, transition, style, animate } fro
 import { Location } from '@angular/common';
 import {ModalComponent} from 'ng2-bs3-modal/ng2-bs3-modal';
 
+/** date-fns**/
+import {
+  format,
+  addDays,
+  isSameDay,
+  isAfter,
+  isBefore,} from 'date-fns';
+
+/****/
+
 import {CalendarioService} from '../../../../services/sistema/calendario.service';
 
 @Component({
@@ -57,55 +67,86 @@ export class CalendarioAcademicoComponent implements OnInit {
     this.calendarioService.getConfigCalendarioAcademico(+localStorage.getItem('idConfig')).subscribe(res => {
       if(res){
         this.calendarioService.getConfigCalendarioAcademicoById(+localStorage.getItem('idConfig')).subscribe(subRes => {
-          console.log('llegó',subRes);
           this.configuracion = subRes;
+          this.formatDates(this.configuracion);
         })
       } else {
         this.calendarioService.createConfigCalendarioAcademico(+localStorage.getItem('idConfig')).subscribe(subRes => {
-          console.log('nollegó',subRes);
-          this.calendarioService.getConfigCalendarioAcademicoById(+localStorage.getItem('idConfig')).subscribe(subRes => {
-            console.log('llegó',subRes);
-            this.configuracion = subRes;
+          this.calendarioService.getConfigCalendarioAcademicoById(+localStorage.getItem('idConfig')).subscribe(subSubRes => {
+            this.configuracion = subSubRes;
+            this.formatDates(this.configuracion);
           })
         })
       }
     })
   }
 
-  addVacaciones(){
-/*    this.configuracion.vacaciones.push({
-      'glosa':'',
-      'inicio':null,
-      'termino':null,
-    });*/
-    this.calendarioService.createEventCalendarioAcademico(true,+localStorage.getItem('idConfig')).subscribe(res => {
-      this.calendarioService.getConfigCalendarioAcademicoById(+localStorage.getItem('idConfig')).subscribe(subRes => {
-        console.log('llegó',subRes);
-        this.configuracion = subRes;
-      })
-    })
+  addDays(day: Date,amount: number){
+    return format(addDays(day,amount),"DD-MM-YYYY");
   }
 
-  deleteVacaciones(id: number){
-    // this.configuracion.vacaciones.splice(index,1);
-    this.calendarioService.deleteEventCalendarioAcademico(id).subscribe(() => {
+  formatDates(config: any){
+    for(let key in config.periodo_academico){
+      if(key.toString().includes('fecha') && !(typeof config.periodo_academico[key.toString()] === 'boolean') ){
+        if(config.periodo_academico[key.toString()]){
+          let _b1 = config.periodo_academico[key.toString()].toString().split('T');
+          let _b2 = _b1[0].split('-').reverse();
+          config.periodo_academico[key.toString()] = _b2.join('-');
+          console.log(key,config.periodo_academico[key.toString()]);
+        }
+      }
+    }
+    for (let periodo of config.vacaciones){
+      for(let key in periodo){
+        if(key.toString().includes('fecha') && !(typeof config.periodo_academico[key.toString()] === 'boolean') ){
+          if(periodo[key.toString()]){
+            let _b1 = periodo[key.toString()].toString().split('T');
+            let _b2 = _b1[0].split('-').reverse();
+            periodo[key.toString()] = _b2.join('-');
+            console.log(key,periodo[key.toString()]);
+          }
+        }
+      }
+    }
+    for (let periodo of config.fechas_especiales){
+      for(let key in periodo){
+        if(key.toString().includes('fecha') && !(typeof config.periodo_academico[key.toString()] === 'boolean') ){
+          if(periodo[key.toString()]){
+            let _b1 = periodo[key.toString()].toString().split('T');
+            let _b2 = _b1[0].split('-').reverse();
+            periodo[key.toString()] = _b2.join('-');
+            console.log(key,periodo[key.toString()]);
+          }
+        }
+      }
+    }
+  }
+
+  addVacaciones(){
+    this.calendarioService.createEventCalendarioAcademico(true,+localStorage.getItem('idConfig')).subscribe(res => {
       this.calendarioService.getConfigCalendarioAcademicoById(+localStorage.getItem('idConfig')).subscribe(subRes => {
-        console.log('llegó',subRes);
         this.configuracion = subRes;
+        this.formatDates(this.configuracion);
       })
     })
   }
 
   addFechaEspecial(){
-/*    this.configuracion.fechas_especiales.push({
-      'glosa':'',
-      'fecha':'',
-    });*/
+    this.calendarioService.createEventCalendarioAcademico(false,+localStorage.getItem('idConfig')).subscribe(res => {
+      this.calendarioService.getConfigCalendarioAcademicoById(+localStorage.getItem('idConfig')).subscribe(subRes => {
+        this.configuracion = subRes;
+        this.formatDates(this.configuracion);
+      })
+    })
   }
 
-  deleteFechaEspecial(id: number){
-    /*this.configuracion.fechas_especiales.splice(index,1)*/
-
+  deleteFecha(id: number){
+    this.calendarioService.deleteEventCalendarioAcademico(id).subscribe(() => {
+      this.calendarioService.getConfigCalendarioAcademicoById(+localStorage.getItem('idConfig')).subscribe(subRes => {
+        this.configuracion = subRes;
+        this.formatDates(this.configuracion);
+      })
+    })
   }
 
   saveConfig(){

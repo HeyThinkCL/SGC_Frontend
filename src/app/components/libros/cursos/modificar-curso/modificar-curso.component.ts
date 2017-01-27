@@ -54,7 +54,7 @@ export class ModificarCursoComponent implements OnInit {
 
   //../services
   getProfesores() {
-    this.profesoresService.getProfesors().subscribe((res) => {
+    this.profesoresService.getProfesores().subscribe((res) => {
       this.profesores = res;
     })
   }
