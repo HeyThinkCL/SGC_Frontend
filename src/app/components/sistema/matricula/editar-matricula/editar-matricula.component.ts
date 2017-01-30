@@ -61,6 +61,40 @@ export class EditarMatriculaComponent implements OnInit {
   private selectedMadre:any;
   private selectedApoderado:any;
 
+  grados = [
+    {"id":"1ro básico"},
+    {"id":"2do básico"},
+    {"id":"3ro básico"},
+    {"id":"4to básico"},
+    {"id":"5to básico"},
+    {"id":"6to básico"},
+    {"id":"7mo básico"},
+    {"id":"8vo básico"},
+    {"id":"1ro medio"},
+    {"id":"2do medio"},
+    {"id":"3ro medio"},
+    {"id":"4to medio"},
+  ];
+
+  letras = [
+    {"id":"A"},
+    {"id":"B"},
+    {"id":"C"},
+    {"id":"D"},
+    {"id":"E"},
+    {"id":"F"},
+    {"id":"G"},
+    {"id":"H"},
+    {"id":"I"},
+    {"id":"J"},
+    {"id":"K"},
+    {"id":"L"},
+    {"id":"M"},
+    {"id":"N"},
+    {"id":"O"},
+    {"id":"P"},
+  ];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,

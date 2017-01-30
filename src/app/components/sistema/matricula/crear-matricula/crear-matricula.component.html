@@ -159,6 +159,34 @@
 
 <div class="row">
   <div class="col-md-9 col-md-offset-1">
+    <div class="card" *ngIf="postulante" [@fade]="postulante">
+      <div class="card-header">
+        <h3 class="card-title fw-l">
+          Curso
+        </h3>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="form-control-14">Grado</label>
+          <div class="col-sm-4">
+            <select id="form-control-14" class="form-control" type="text">
+              <option *ngFor="let grado of grados">{{ grado.id }}</option>
+            </select>
+          </div>
+          <label class="col-sm-2 control-label" for="form-control-15">Letra</label>
+          <div class="col-sm-4">
+            <select id="form-control-15" class="form-control" type="text">
+              <option *ngFor="let letra of letras">{{ letra.id }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-9 col-md-offset-1">
     <div class="form form-horizontal">
       <div class="form-group">
         <div class="col-sm-3">

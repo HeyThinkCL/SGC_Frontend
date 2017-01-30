@@ -1,35 +1,39 @@
 <div class="row">
   <div class="col-md-12">
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-        <tr class="bg-info">
-          <th>Fecha</th>
-          <th>Anotador</th>
-          <th>Asignatura</th>
-          <th>Caract.</th>
-          <th>Observacion</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let anotacion of anotaciones" (click)="toggleShow(anotacion)">
-          <td>{{anotacion?.fecha_anotacion.toString() | date }}</td>
-          <td>{{anotacion?.profesor?.nombre}} {{anotacion?.profesor?.apellido_paterno}}</td>
-          <td>{{anotacion?.asignatura?.nombre}}</td>
-          <td>
-            <span class="label label-info label-pill" *ngIf="anotacion.general">General</span>
-            <span class="label label-danger label-pill" *ngIf="!(anotacion.tipo)">Negativa</span>
-            <span class="label label-success label-pill" *ngIf="anotacion.tipo">Positiva</span>
-            <span class="label label-warning label-pill" *ngIf="anotacion.seguimiento">Seguimiento</span>
-          </td>
-          <td>
-            <div>
-              <p class="card-text">{{ anotacion.observacion | truncate: 60 }}</p>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+    <div class="panel">
+      <div class="panel-body">
+        <div class="table-responsive" *ngIf="anotaciones.length>0">
+          <table class="table table-bordered">
+            <thead>
+            <tr class="bg-info">
+              <th>Fecha</th>
+              <th>Anotador</th>
+              <th>Asignatura</th>
+              <th>Caract.</th>
+              <th>Observacion</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let anotacion of anotaciones" (click)="toggleShow(anotacion)">
+              <td>{{anotacion?.fecha_anotacion.toLocaleString() | date }}</td>
+              <td>{{anotacion?.profesor?.nombre}} {{anotacion?.profesor?.apellido_paterno}}</td>
+              <td>{{anotacion?.asignatura?.nombre}}</td>
+              <td>
+                <span class="label label-info label-pill" *ngIf="anotacion.general">General</span>
+                <span class="label label-danger label-pill" *ngIf="!(anotacion.tipo)">Negativa</span>
+                <span class="label label-success label-pill" *ngIf="anotacion.tipo">Positiva</span>
+                <span class="label label-warning label-pill" *ngIf="anotacion.seguimiento">Seguimiento</span>
+              </td>
+              <td>
+                <div>
+                  <p class="card-text">{{ anotacion.observacion | truncate: 60 }}</p>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
