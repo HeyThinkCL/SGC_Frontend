@@ -15,22 +15,36 @@
         </div>
 
       </div>
-      <div class="card-body">
+      <div class="card-body" *ngIf="inasistenciaMonth.length>0">
         <div *ngIf="view">
           <div *ngFor="let rowIndex of view.rowOffsets">
             <div class="row gutter-xs">
               <div *ngFor="let day of view.days | slice : rowIndex : rowIndex + 7">
+
                 <div *ngIf="!(day.date.getDay()==0)"
                      class="col-md-2">
                   <button class="btn btn-block"
                           [ngClass]="{'btn-outline-info': day.inMonth && (getInasistenciaByDia(day.date)<=5),
                                       'btn-outline-danger': day.inMonth && (getInasistenciaByDia(day.date)>5),
+                                      'active': day.isToday,
                                       'text-muted': !(day.inMonth),
                                       'hide-day': !(day.inMonth)}"
-                          [disabled]="!(day.inMonth)"
+                          [disabled]="!(day.inMonth) || day.isEspecial || day.inVacacion"
                           (click)="modalOpen(day.date)">
-                    <p>{{ getDayName(day.date.getDay()) }} <i class="text-warning">{{ getInasistenciaByDia(day.date) }}</i></p>
-                    {{day.date.toString() | date }}
+                    <div class="media">
+                      <div class="media-middle">
+                        <p>{{ getDayName(day.date.getDay()) }} <i class="text-warning">{{ getInasistenciaByDia(day.date) }}</i></p>
+                      </div>
+                      <div class="media-middle media-left">
+                        <span class="icon icon-fw icon-thumb-tack" *ngIf="day.isEspecial"></span>
+                        <span class="icon icon-fw icon-star" *ngIf="day.isFeriado"></span>
+                        <span class="icon icon-fw icon-sun-o" *ngIf="day.inVacacion"></span>
+                      </div>
+                      <div class="media-middle media-body">
+                        {{day.date.toString() | date }}
+                      </div>
+                    </div>
+
                   </button>
 
                   <modal [animation]="true" #modal>
@@ -40,17 +54,17 @@
                           <h4 class="modal-title fw-l">Inasistentes</h4>
                         </div>
                         <div class="media-middle media-body">
-                          <h4>{{selectedDay?.day.toString() | date }}</h4>
+                          <h4>{{selectedDay?.dia | date }}</h4>
                         </div>
                       </div>
                     </modal-header>
                     <modal-body>
                       <div class="row">
-                        <div class="col-md-2">
-                          <p class="text-primary"><small>Asistentes: </small>{{ selectedDay.alumnos.length - getInasistenciaByDia(selectedDay.day) }}</p>
+                        <div class="col-md-2" *ngIf="selectedDay?.alumnos">
+                          <p class="text-primary"><small>Asistentes: </small>{{ selectedDay.asistentes }}</p>
                         </div>
                         <div class="col-md-2">
-                          <p class="text-danger"><small>Inasistentes: </small>{{ getInasistenciaByDia(selectedDay.day) }}</p>
+                          <p class="text-danger"><small>Inasistentes: </small>{{ selectedDay.inasistentes }}</p>
                         </div>
                         <div class="col-md-4 col-md-offset-4">
                           <button class="btn btn-block btn-info"><span class="icon icon-fw icon-calendar-plus-o"></span>Marcar Todos</button>
@@ -58,24 +72,22 @@
                       </div>
                       <div class="row">
                         <div class="col-md-12">
-                          <div class="table-responsive">
+                          <div class="table-responsive" *ngIf="selectedDay.alumnos">
                             <table class="table table-bordered">
                               <thead>
                               <tr class="bg-info">
-                                <th>#</th>
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
-                                <th>N° Mat.</th>
+                                <th>Rut</th>
                               </tr>
                               </thead>
                               <tbody>
                               <tr *ngFor="let alumno of selectedDay.alumnos"
                                   [ngClass]="{'bg-danger':!(alumno.asistencia)}"
                                   (click)="toggleValue(alumno)">
-                                <td>{{alumno.numero}}</td>
                                 <td>{{alumno.nombre}}</td>
-                                <td>{{alumno.apellidos}}</td>
-                                <td>{{alumno.nMat}}</td>
+                                <td>{{alumno.apellido_paterno}} {{alumno.apellido_materno}}</td>
+                                <td>{{alumno.rut}}-{{alumno.dv}}</td>
                               </tr>
                               </tbody>
                             </table>

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 /** date-fns**/
@@ -22,9 +23,10 @@ import {
   getDay,} from 'date-fns';
 
 /****/
-
+import { CursosService } from '../../../../../services/libros/cursos.service';
 import {ConfiguracionService} from '../../../../../services/sistema/configuracion.service';
 import {CalendarioService} from '../../../../../services/sistema/calendario.service';
+import {AsistenciaService} from '../../../../../services/libros/asistencia.service';
 
 @Component({
   selector: 'app-curso-asistencia-ingresar',
@@ -34,6 +36,9 @@ import {CalendarioService} from '../../../../../services/sistema/calendario.serv
 export class CursoAsistenciaIngresarComponent implements OnInit {
   @ViewChild('modal')
   modal: ModalComponent;
+
+  id: number;
+  private sub: any;
 
   viewDate: Date;
   weekStartsOn: number;
@@ -45,29 +50,35 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
 
   private calendarConfig: any;
 
-  private alumnos = [
-    {'numero':1,'nombre':'Ivan','apellidos':'Arenas','nMat':10,'exc':''},
-    {'numero':2,'nombre':'Valentin','apellidos':'Trujillo','nMat':15,'exc':''},
-    {'numero':3,'nombre':'Don','apellidos':'Carter','nMat':230,'exc':''},
-    {'numero':4,'nombre':'Richard','apellidos':'Gere','nMat':210,'exc':''},
-    {'numero':5,'nombre':'Marcelo','apellidos':'Comparini','nMat':110,'exc':''},
-    {'numero':6,'nombre':'Federico','apellidos':'Sanchez','nMat':73,'exc':''},
-    {'numero':7,'nombre':'Juan','apellidos':'Perez','nMat':44,'exc':''},
-    {'numero':8,'nombre':'Rod','apellidos':'Stewart','nMat':20,'exc':''},
-  ];
+  private alumnos = [];
 
   constructor(
+    private route: ActivatedRoute,
+    private cursosService: CursosService,
     private configuracionService: ConfiguracionService,
     private calendarioService: CalendarioService,
+    private asistenciaService: AsistenciaService,
   ) { }
 
   ngOnInit() {
     this.viewDate = new Date();
 
+    this.sub = this.route.parent.parent.params.subscribe(params => {
+      this.id = params['id'];
+      this.cursosService.getCursoById(this.id).subscribe(curso => {
+        this.alumnos = curso.alumnos;
+      });
+      this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
+        for (let dia of res.mes){
+          dia.dia = addDays(new Date(dia.dia),1);
+        }
+        this.inasistenciaMonth = res.mes;
+      })
+    });
+
     this.configuracionService.getConguraciones().subscribe(configs => {
       let config = configs.find(c => c.glosa == 'Calendario Académico');
       this.calendarioService.getConfigCalendarioAcademicoById(config.id).subscribe(subRes => {
-        console.log(subRes);
         this.calendarConfig = subRes;
         this.view = this.getMonthView({
           viewDate: this.viewDate,
@@ -75,28 +86,7 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
       });
     });
 
-    this.inasistenciaMonth.push(
-      {'day': addDays(this.viewDate, 5), 'cant':3,
-        'alumnos':[
-          {'numero':1,'nombre':'Ivan','apellidos':'Arenas','nMat':10,'exc':''},
-          {'numero':2,'nombre':'Valentin','apellidos':'Trujillo','nMat':15,'exc':''},
-          {'numero':3,'nombre':'Don','apellidos':'Carter','nMat':230,'exc':''},
-        ]
-      },
-      {'day': addDays(this.viewDate,3), 'cant':6,
-        'alumnos':[
-          {'numero':1,'nombre':'Ivan','apellidos':'Arenas','nMat':10,'exc':''},
-          {'numero':2,'nombre':'Valentin','apellidos':'Trujillo','nMat':15,'exc':''},
-          {'numero':3,'nombre':'Don','apellidos':'Carter','nMat':230,'exc':''},
-          {'numero':4,'nombre':'Richard','apellidos':'Gere','nMat':210,'exc':''},
-          {'numero':5,'nombre':'Marcelo','apellidos':'Comparini','nMat':110,'exc':''},
-          {'numero':6,'nombre':'Federico','apellidos':'Sanchez','nMat':73,'exc':''},
-
-        ]
-      }
-    );
-
-    this.selectedDay = {'day': new Date() , 'alumnos':[]};
+    this.selectedDay = {'dia': new Date() , 'alumnos':[]};
   }
 
   //modal
@@ -107,7 +97,7 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
 
   modalClose(): void {
     this.modal.close();
-    this.selectedDay = {'day': new Date() ,'alumnos':[]};
+    this.selectedDay = {'dia': new Date() ,'alumnos':[]};
   }
 
   modalDismiss(): void {
@@ -116,38 +106,52 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
 
   setSelectedDay(day: Date): any{
     this.selectedDay = {
-      'day': day,
+      'dia': day,
       'alumnos': this.alumnos,
+      'asistentes':null,
+      'inasistentes':null,
     };
+    console.log(this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString()).alumnos);
+    let inasistenciaListDay = this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString()).alumnos;
 
-    if(this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString())){
-
-      let inasistenciaListDay = this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString()).alumnos;
-
-      for(let alumno of this.selectedDay.alumnos){
-        if( inasistenciaListDay.find(res => res.numero == alumno.numero)){
-          alumno['asistencia'] = false;
-        } else{
-          alumno['asistencia'] = true;
-        }
-      }
-    } else {
-      for(let alumno of this.selectedDay.alumnos){
+    for(let alumno of this.selectedDay.alumnos){
+      if( inasistenciaListDay.find(res => res.alumno.id == alumno.id)){
+        alumno['asistencia'] = false;
+      } else{
         alumno['asistencia'] = true;
       }
     }
+    this.selectedDay.inasistentes = this.getInasistenciaByDia(day);
+    this.selectedDay.asistentes = this.selectedDay.alumnos.length - this.selectedDay.inasistentes;
 
+  }
+
+  getInasistenciaByDia(day: Date): number{
+    let cant: number;
+    if( this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString()) ){
+      cant = this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString()).alumnos.length;
+    } else {
+      cant = 0;
+    }
+    return cant;
   }
 
   //logic
   saveAsistencia(){
-    console.log(this.selectedDay.alumnos);
-    this.modalClose();
+    this.asistenciaService.updateInasistencia({'fecha_asistencia':this.selectedDay.dia,'alumno_id':this.selectedDay.alumnos},this.id).subscribe(res => {
+      this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
+        for (let dia of res.mes){
+          dia.dia = addDays(new Date(dia.dia),1);
+        }
+        this.inasistenciaMonth = res.mes;
+      });
+      this.modalClose();
+    });
+
   }
 
   toggleValue(alumno: any) {
     alumno.asistencia = !(alumno.asistencia);
-    console.log(alumno.asistencia);
   }
 
   //date data
@@ -182,16 +186,6 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
       }
     }
     return false;
-  }
-
-  getInasistenciaByDia(day: Date): number{
-    let cant: number;
-    if( this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString()) ){
-      cant = this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString()).alumnos.length;
-    } else {
-      cant = 0;
-    }
-    return cant;
   }
 
   //calendar rendering
@@ -235,7 +229,12 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
       viewDate: this.viewDate,
       weekStartsOn: this.weekStartsOn
     });
-
+    this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
+      for (let dia of res.mes){
+        dia.dia = addDays(new Date(dia.dia),1);
+      }
+      this.inasistenciaMonth = res.mes;
+    })
   }
 
   decrement(): void {
@@ -245,6 +244,12 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
       viewDate: this.viewDate,
       weekStartsOn: this.weekStartsOn
     });
+    this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
+      for (let dia of res.mes){
+        dia.dia = addDays(new Date(dia.dia),1);
+      }
+      this.inasistenciaMonth = res.mes;
+    })
   }
 
   today(): void {

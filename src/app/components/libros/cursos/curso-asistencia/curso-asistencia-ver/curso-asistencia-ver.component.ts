@@ -64,7 +64,10 @@ export class CursoAsistenciaVerComponent implements OnInit {
     this.sub = this.route.parent.parent.params.subscribe(params => {
       this.id = params['id'];
       this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
-        this.inasistenciaMonth = res;
+        for (let dia of res.mes){
+          dia.dia = addDays(new Date(dia.dia),1);
+        }
+        this.inasistenciaMonth = res.mes;
       })
     });
 
@@ -78,27 +81,6 @@ export class CursoAsistenciaVerComponent implements OnInit {
       });
     });
 
-    /*this.inasistenciaMonth.push(
-      {'day': this.viewDate , 'cant':3,
-        'alumnos':[
-          {'numero':1,'nombre':'Ivan','apellidos':'Arenas','nMat':10,'exc':''},
-          {'numero':2,'nombre':'Valentin','apellidos':'Trujillo','nMat':15,'exc':''},
-          {'numero':3,'nombre':'Don','apellidos':'Carter','nMat':230,'exc':''},
-        ]
-      },
-      {'day': subDays(this.viewDate,4) , 'cant':6,
-        'alumnos':[
-          {'numero':1,'nombre':'Ivan','apellidos':'Arenas','nMat':10,'exc':''},
-          {'numero':2,'nombre':'Valentin','apellidos':'Trujillo','nMat':15,'exc':''},
-          {'numero':3,'nombre':'Don','apellidos':'Carter','nMat':230,'exc':''},
-          {'numero':4,'nombre':'Richard','apellidos':'Gere','nMat':210,'exc':''},
-          {'numero':5,'nombre':'Marcelo','apellidos':'Comparini','nMat':110,'exc':''},
-          {'numero':6,'nombre':'Federico','apellidos':'Sanchez','nMat':73,'exc':''},
-
-        ]
-      }
-    );*/
-
     this.selectedDay = {'day': new Date() ,'cant':0,'alumnos':[]};
   }
 
@@ -110,16 +92,12 @@ export class CursoAsistenciaVerComponent implements OnInit {
 
   modalClose(): void {
     this.modal.close();
-    this.selectedDay = {'day': new Date() ,'cant':0,'alumnos':[]};
+    this.selectedDay = {'dia': new Date() ,'alumnos':[]};
   }
 
 
   setSelectedDay(day: Date): any{
-    if( this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString()) ){
-      return this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString());
-    } else {
-      return {'day':day,'cant':0,'alumnos':[]};
-    }
+    return this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString());
   }
 
   //date data
@@ -158,8 +136,8 @@ export class CursoAsistenciaVerComponent implements OnInit {
 
   getInasistenciaByDia(day: Date): number{
     let cant: number;
-    if( this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString()) ){
-      cant = this.inasistenciaMonth.find(res => res.day.toDateString() == day.toDateString()).alumnos.length;
+    if( this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString()) ){
+      cant = this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString()).alumnos.length;
     } else {
       cant = 0;
     }
@@ -208,7 +186,10 @@ export class CursoAsistenciaVerComponent implements OnInit {
       weekStartsOn: this.weekStartsOn
     });
     this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
-      this.inasistenciaMonth = res;
+      for (let dia of res.mes){
+        dia.dia = addDays(new Date(dia.dia),1);
+      }
+      this.inasistenciaMonth = res.mes;
     })
   }
 
@@ -220,7 +201,10 @@ export class CursoAsistenciaVerComponent implements OnInit {
       weekStartsOn: this.weekStartsOn
     });
     this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
-      this.inasistenciaMonth = res;
+      for (let dia of res.mes){
+        dia.dia = addDays(new Date(dia.dia),1);
+      }
+      this.inasistenciaMonth = res.mes;
     })
   }
 

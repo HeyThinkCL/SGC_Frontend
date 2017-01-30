@@ -20,6 +20,7 @@
           <div *ngFor="let rowIndex of view?.rowOffsets">
             <div class="row gutter-xs">
               <div *ngFor="let day of view.days | slice : rowIndex : rowIndex + 7">
+
                 <div *ngIf="!(day.date.getDay()==0)"
                       class="col-md-2">
                   <button class="btn btn-block"
@@ -53,7 +54,7 @@
                           <h4 class="modal-title fw-l">Inasistentes</h4>
                         </div>
                         <div class="media-middle media-body">
-                          <h4>{{selectedDay?.day.toString() | date }}</h4>
+                          <h4>{{selectedDay?.dia | date }}</h4>
                         </div>
                       </div>
 
@@ -64,18 +65,16 @@
                         <table class="table table-bordered">
                           <thead>
                             <tr class="bg-info">
-                              <th>#</th>
                               <th>Nombre</th>
                               <th>Apellidos</th>
-                              <th>N° Mat.</th>
+                              <th>Rut</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr *ngFor="let alumno of selectedDay?.alumnos">
-                              <td>{{alumno.numero}}</td>
-                              <td>{{alumno.nombre}}</td>
-                              <td>{{alumno.apellidos}}</td>
-                              <td>{{alumno.nMat}}</td>
+                              <td>{{alumno.alumno.nombre}}</td>
+                              <td>{{alumno.alumno.apellido_paterno}} {{alumno.alumno.apellido_materno}}</td>
+                              <td>{{alumno.alumno.rut}}-{{alumno.alumno.dv}}</td>
                             </tr>
                           </tbody>
                         </table>

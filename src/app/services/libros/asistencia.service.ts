@@ -27,8 +27,13 @@ export class AsistenciaService {
       .catch((error:any) => Observable.throw(error.json().error || error.status));
   }
 
-  createInasistencia(){
-
+  updateInasistencia(payload: any, cursoId: number){
+    payload['curso_id'] = cursoId;
+    console.log({'asistencias':payload});
+    return this.http
+      .post(this.asistenciaUrl, JSON.stringify({'asistencias':payload}), {headers: this.headers})
+      .map(() => {})
+      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Asistencia'));
   }
 
 }
