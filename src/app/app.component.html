@@ -41,7 +41,7 @@
           <li class="visible-xs-block">
             <h4 class="navbar-text text-center">Toggle Menu</h4>
           </li>
-          <li class="hidden-xs hidden-sm">
+          <!--<li class="hidden-xs hidden-sm">
             <form class="navbar-search navbar-search-collapsed">
               <div class="navbar-search-group">
                 <input class="navbar-search-input" type="text" placeholder="Search for people, companies, and more&hellip;">
@@ -51,8 +51,8 @@
                 <button class="navbar-search-adv-btn" type="button">Advanced</button>
               </div>
             </form>
-          </li>
-          <li class="dropdown">
+          </li>-->
+          <!--<li class="dropdown">
             <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true">
               <span class="icon-with-child hidden-xs">
                 <span class="icon icon-envelope-o icon-lg"></span>
@@ -91,8 +91,8 @@
                 <a class="dropdown-btn" href="#">See All</a>
               </div>
             </div>
-          </li>
-          <li class="dropdown">
+          </li>-->
+          <!--<li class="dropdown">
             <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true">
               <span class="icon-with-child hidden-xs">
                 <span class="icon icon-bell-o icon-lg"></span>
@@ -131,45 +131,30 @@
                 <a class="dropdown-btn" href="#">See All</a>
               </div>
             </div>
-          </li>
+          </li>-->
           <li class="dropdown hidden-xs">
             <button class="navbar-account-btn" data-toggle="dropdown" aria-haspopup="true">
               <img class="rounded" width="36" height="36" src="/assets/img/0180441436.jpg" alt="Teddy Wilson"> Manuel Alba
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
-              <li>
+              <!--<li>
                 <a href="upgrade.html">
                   <h5 class="navbar-upgrade-heading">
                     Upgrade Now
                     <small class="navbar-upgrade-notification">You have 15 days left in your trial.</small>
                   </h5>
                 </a>
-              </li>
+              </li>-->
+              <li class="navbar-upgrade-version">Version: 0.0.0</li>
               <li class="divider"></li>
-              <li class="navbar-upgrade-version">Version: 1.0.0</li>
-              <li class="divider"></li>
-              <li><a href="contacts.html">Contacts</a></li>
-              <li><a href="profile.html">Profile</a></li>
-              <li><a href="login-1.html">Sign out</a></li>
+              <li><a>Cerrar Sesión</a></li>
             </ul>
           </li>
           <li class="visible-xs-block">
-            <a href="contacts.html">
-              <span class="icon icon-users icon-lg icon-fw"></span>
-              Contacts
-            </a>
-          </li>
-          <li class="visible-xs-block">
-            <a href="profile.html">
-              <span class="icon icon-user icon-lg icon-fw"></span>
-              Profile
-            </a>
-          </li>
-          <li class="visible-xs-block">
-            <a href="login-1.html">
+            <a>
               <span class="icon icon-power-off icon-lg icon-fw"></span>
-              Sign out
+              Cerrar Sesión
             </a>
           </li>
         </ul>
@@ -177,6 +162,7 @@
     </div>
   </div>
 </div>
+
 <div class="layout-main">
   <div class="layout-sidebar">
     <div class="layout-sidebar-backdrop"></div>
@@ -201,13 +187,6 @@
                 <span class="sidenav-label">Dashboard</span>
               </a>
             </li>
-<!--            <li class="sidenav-item">
-              <a href="#">
-                <span class="badge badge-success">26</span>
-                <span class="sidenav-icon icon icon-th"></span>
-                <span class="sidenav-label">Widgets</span>
-              </a>
-            </li>-->
             <li class="sidenav-heading">Sistema</li>
             <li class="sidenav-item has-subnav" routerLinkActive="active">
               <a [routerLink]="['sistema/colegios']">
@@ -293,10 +272,6 @@
                 <span class="sidenav-icon icon icon-calendar-check-o"></span>
                 <span class="sidenav-label">Cierre de Año</span>
               </a>
-<!--              <ul class="sidenav-subnav collapse" routerLinkActive="active">
-                <li class="sidenav-subheading">Cierre de Año</li>
-                <li routerLinkActive="active" [routerLink]="['docs/informes']"><a>Informes</a></li>
-              </ul>-->
             </li>
           </ul>
         </nav>
