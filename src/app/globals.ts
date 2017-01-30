@@ -3,7 +3,7 @@
  */
 'use strict';
 
-export let apiUrl: string = 'http://192.168.1.168:3000';
+export let apiUrl: string = 'http://190.44.43.185:80';
 // export let apiUrl: string = 'http://api.innovacolegio.cl:3000';
 
 export let rolesDocentes = [

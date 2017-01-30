@@ -24,10 +24,15 @@ export class ModificarCursoComponent implements OnInit {
   selectedCurso: any;
 
   profesores = [
-    {"nombre":"Pedro Fernandez","id":1},
-    {"nombre":"Juan Carlos Giadach","id":2},
-    {"nombre":"Ivan Arenas","id":3},
-    {"nombre":"Valentin Trujillo","id":4},
+    {"nombre":"Pedro Fernandez","id":1,'id_asignaturas':[1]},
+    {"nombre":"Juan Carlos Giadach","id":2,'id_asignaturas':[2]},
+    {"nombre":"Ivan Arenas","id":3,'id_asignaturas':[1]},
+    {"nombre":"Valentin Trujillo","id":4,'id_asignaturas':[1,2]},
+  ];
+
+  asignaturas = [
+    {'id':1,'nombre':'Lenguaje y Comunicación'},
+    {'id':2,'nombre':'Matemáticas'},
   ];
 
   constructor(

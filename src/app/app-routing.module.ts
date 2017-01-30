@@ -157,7 +157,6 @@ const routes: Routes = [
               { path:'ingresar', component: CursoAnotacionesIngresarComponent},
             ]
           },
-
         ]
       },
       { path: ':id/profesores',  component: AsignarProfesorACursoComponent },
