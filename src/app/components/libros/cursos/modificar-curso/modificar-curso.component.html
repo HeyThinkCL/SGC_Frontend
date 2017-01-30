@@ -13,7 +13,7 @@
         <div class="demo-form-wrapper">
           <div class="form form-horizontal">
             <div class="form-group">
-              <label class="control-label col-sm-6" for="form-control-1">Profesor Jefe: {{selectedCurso?.profesor.nombre}} {{selectedCurso?.profesor.apellido_paterno}} {{selectedCurso?.profesor.apellido_materno}}</label>
+              <label class="control-label col-sm-5" for="form-control-1">Profesor Jefe: {{selectedCurso?.profesor.nombre}} {{selectedCurso?.profesor.apellido_paterno}} {{selectedCurso?.profesor.apellido_materno}}</label>
               <div class="col-sm-6">
                 <select class="form-control" id="form-control-1" type="text"
                         [(ngModel)]="curso?.curso.prof_jefe">
@@ -48,7 +48,7 @@
                 <input class="form-control" type="text" readonly [(ngModel)]="asignatura.nombre">
               </div>
               <label class="col-sm-1 control-label">Profesor</label>
-              <div class="col-sm-5">
+              <div class="col-sm-4">
                 <select class="form-control" type="text">
                   <!--                    <option *ngFor="let profesor of profesores | filterProfByAsign:profesor?.id_asignaturas:asignatura.id" [ngValue]="profesor.id">
                                         {{ profesor?.usuario?.nombre }} {{ profesor?.usuario?.apellido_paterno }} {{ profesor?.usuario?.apellido_materno }}
@@ -57,6 +57,42 @@
                     {{ profesor?.nombre }}
                   </option>
                 </select>
+              </div>
+              <div class="col-sm-1">
+                <div class="btn-group btn-group-sm">
+                  <button class="btn btn-block btn-sm btn-outline-danger" [disabled]="asignatura.obligatoria"><span class="icon btn-icon icon-fw icon-minus"></span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-sm-offset-2">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="fw-l">Asignaturas</h4>
+      </div>
+      <div class="card-header">
+        <div class="demo-form-wrapper">
+          <div class="form form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Agregar Asignatura</label>
+              <div class="col-sm-8">
+                <select class="form-control" type="text">
+                  <option *ngFor="let asignatura of allAsignaturas | filterAsignaturas:asignaturas">
+                    {{ asignatura.nombre }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-sm-1 col-sm-offset-1">
+                <div class="btn-group btn-group-sm">
+                  <button class="btn btn-block btn-sm btn-outline-primary"><span class="icon btn-icon icon-fw icon-plus"></span></button>
+                </div>
               </div>
             </div>
           </div>

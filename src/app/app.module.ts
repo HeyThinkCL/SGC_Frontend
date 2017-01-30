@@ -18,6 +18,7 @@ import { AbbreviatePipe } from './pipes/abbreviate.pipe'
 import {FilterTablePipe} from "./pipes/filter-table.pipe";
 import {Select2WidthFixPipe } from "./pipes/select2-width-fix.pipe"
 import {FilterProfByAsign } from "./pipes/filter-prof-asignatura"
+import {FilterAsignaturas } from "./pipes/filter-asignaturas"
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -192,6 +193,7 @@ import {AsistenciaService} from "./services/libros/asistencia.service";
     FilterTablePipe,
     Select2WidthFixPipe,
     FilterProfByAsign,
+    FilterAsignaturas,
     ConfiguracionComponent,
     ConfiguracionDashboardComponent,
     CalendarioAcademicoComponent,

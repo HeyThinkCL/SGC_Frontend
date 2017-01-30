@@ -31,8 +31,15 @@ export class ModificarCursoComponent implements OnInit {
   ];
 
   asignaturas = [
-    {'id':1,'nombre':'Lenguaje y Comunicación'},
-    {'id':2,'nombre':'Matemáticas'},
+    {'id':1,'nombre':'Lenguaje y Comunicación','obligatoria':true},
+    {'id':2,'nombre':'Matemáticas','obligatoria':false},
+  ];
+
+  allAsignaturas = [
+    {'id':1,'nombre':'Lenguaje y Comunicación','obligatoria':true},
+    {'id':2,'nombre':'Matemáticas','obligatoria':false},
+    {'id':3,'nombre':'Historia','obligatoria':false},
+    {'id':4,'nombre':'Religión','obligatoria':false},
   ];
 
   constructor(
@@ -43,7 +50,7 @@ export class ModificarCursoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getProfesores();
+    // this.getProfesores();
 
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
