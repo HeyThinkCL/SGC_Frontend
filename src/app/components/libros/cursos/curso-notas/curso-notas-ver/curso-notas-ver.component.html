@@ -1,5 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
+    <app-spinner *ngIf="!(asignaturas.length>0)"></app-spinner>
     <div class="panel" *ngIf="asignaturas.length>0">
       <div class="panel-heading">
         <div class="demo-btn-toolbar btn-toolbar">

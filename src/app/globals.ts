@@ -6,6 +6,7 @@
 // export let apiUrl: string = 'http://190.44.43.185:80';
 export let apiUrl: string = 'http://api.innovacolegio.cl:80';
 
+
 export let rolesDocentes = [
   {'rol':'profesor'},
   {'rol':'asistente'},

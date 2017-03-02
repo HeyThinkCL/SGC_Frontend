@@ -127,6 +127,7 @@ import {FuncionariosService} from './services/sistema/funcionarios.service';
 import {ConfiguracionService} from './services/sistema/configuracion.service';
 import {CalendarioService} from './services/sistema/calendario.service';
 import {AsistenciaService} from "./services/libros/asistencia.service";
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 
 @NgModule({
@@ -203,6 +204,7 @@ import {AsistenciaService} from "./services/libros/asistencia.service";
     ConfiguracionCursosComponent,
     VerProfesoresComponent,
     AsignarProfesorComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
