@@ -3,6 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location }       from '@angular/common';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
+import { connectionErrorMsg, invalidRequestMsg } from '../../../spinner/spinner.component';
+
 import { Alumno, Apoderado } from '../matricula';
 import { MatriculaService } from '../../../../services/sistema/matricula.service';
 import { ApoderadosService } from '../../../../services/sistema/apoderados.service'
@@ -24,6 +26,8 @@ export class MatriculaDetailComponent implements OnInit {
   private madre: any;
   private apoderado: any;
 
+  timeoutMessage: string;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -33,6 +37,9 @@ export class MatriculaDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.timeoutMessage = connectionErrorMsg();
+
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
     });
@@ -41,6 +48,10 @@ export class MatriculaDetailComponent implements OnInit {
       .switchMap((params: Params) => this.matriculaService.getMatricula(+params['id']))
       .subscribe((postulante) => {
         this.alumno = postulante;
+
+        if(!(postulante)){
+          this.timeoutMessage = invalidRequestMsg();
+        }
 
         let pCheck = false;
         let mCheck = false;

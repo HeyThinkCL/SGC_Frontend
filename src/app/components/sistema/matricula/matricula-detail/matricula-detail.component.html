@@ -5,6 +5,7 @@
 
 <div class="row">
   <div class="col-md-9 col-md-offset-1">
+    <app-spinner [timeoutMessage]="timeoutMessage" *ngIf="!(alumno)"></app-spinner>
     <div class="card" *ngIf="alumno">
       <div class="card-header">
         <h3 class="card-title fw-l">
@@ -416,7 +417,7 @@
 
 <div class="row">
   <div class="col-md-9 col-md-offset-1">
-    <div class="card">
+    <div class="card" *ngIf="alumno">
       <div class="card-header">
         <h3 class="card-title fw-l">
           Curso
@@ -446,7 +447,7 @@
           <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
         </div>
         <div class="col-sm-8">
-          <button class="btn btn-primary btn-block" (click)="goToEdit()">Editar</button>
+          <button class="btn btn-primary btn-block" (click)="goToEdit()" [disabled]="!(alumno)">Editar</button>
 
           <modal [animation]="true" #modal>
             <modal-header [show-close]="true">

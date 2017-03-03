@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
+import { connectionErrorMsg, emptyArrayMsg } from '../../../spinner/spinner.component';
+
 import { MatriculaService } from '../../../../services/sistema/matricula.service';
 
 @Component({
@@ -19,15 +21,23 @@ export class VerMatriculaComponent implements OnInit {
 
   selectedMatricula_id: number;
 
+  timeoutMessage: string;
+
   constructor(
     private matriculaService: MatriculaService,
   ) { }
 
   getMatriculas() {
-    this.matriculaService.getMatriculas().subscribe((response) => {this.matriculas = response})
+    this.matriculaService.getMatriculas().subscribe((response) => {
+      this.matriculas = response;
+      if(response.length>0){
+        this.timeoutMessage = emptyArrayMsg("Matriculas");
+      }
+    })
   }
 
   ngOnInit(): void {
+    this.timeoutMessage = connectionErrorMsg();
     this.getMatriculas();
   }
 
