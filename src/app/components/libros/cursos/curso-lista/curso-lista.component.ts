@@ -13,7 +13,7 @@ export class CursoListaComponent implements OnInit {
   private sub: any;
 
   curso: any;
-  alumnos: any;
+  alumnos = [];
 
   constructor(
     private cursosService: CursosService,

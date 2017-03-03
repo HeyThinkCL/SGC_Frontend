@@ -1,9 +1,10 @@
+<app-spinner *ngIf="!(colegio)"></app-spinner>
 <div class="title-bar">
   <h1 class="title-bar description">Ver Colegio</h1>
-  <h3 class="title bar title">{{colegio.nombre}}</h3>
+  <h3 class="title bar title" *ngIf="colegio">{{colegio.nombre}}</h3>
 
 </div>
-<div class="row">
+<div class="row" *ngIf="colegio">
   <div class="col-md-8 col-md-offset-1">
     <div class="demo-form-wrapper">
       <div class="form form-horizontal">

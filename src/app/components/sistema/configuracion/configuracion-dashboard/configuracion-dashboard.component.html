@@ -1,7 +1,8 @@
 <div class="title-bar">
   <h2 class="title-bar-title"><span class="icon icon-fw icon-dashboard"></span> Dashboard</h2>
 </div>
-<div class="row">
+<app-spinner *ngIf="!(routes.length>0)"></app-spinner>
+<div class="row" *ngIf="routes.length>0">
   <div class="col-md-10 col-md-offset-1">
     <div class="row gutter-xs">
       <div class="col-sm-4" *ngFor="let route of routes">

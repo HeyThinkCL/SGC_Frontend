@@ -204,7 +204,7 @@ export class Postulante{
   promovido: boolean;
   matriculado: boolean;
   prioritario: boolean;
-  vulnerable: boolean;
+  proretencion: boolean;
   preferente: boolean;
   pie: boolean;
   intercambio: boolean;

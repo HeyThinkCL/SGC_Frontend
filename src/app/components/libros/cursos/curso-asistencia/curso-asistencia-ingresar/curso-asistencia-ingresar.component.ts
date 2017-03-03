@@ -115,6 +115,7 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
     let inasistenciaListDay = this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString()).alumnos;
 
     for(let alumno of this.selectedDay.alumnos){
+      alumno['cambio']=false;
       if( inasistenciaListDay.find(res => res.alumno.id == alumno.id)){
         alumno['asistencia'] = false;
       } else{
@@ -125,7 +126,7 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
     this.selectedDay.asistentes = this.selectedDay.alumnos.length - this.selectedDay.inasistentes;
 
   }
-
+  //change count with pipe that takes an array of this.selectedDay.alumnos
   getInasistenciaByDia(day: Date): number{
     let cant: number;
     if( this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString()) ){
@@ -152,6 +153,9 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
 
   toggleValue(alumno: any) {
     alumno.asistencia = !(alumno.asistencia);
+    if(!(alumno.cambio)){
+      alumno.cambio = !(alumno.cambio);
+    }
   }
 
   //date data
