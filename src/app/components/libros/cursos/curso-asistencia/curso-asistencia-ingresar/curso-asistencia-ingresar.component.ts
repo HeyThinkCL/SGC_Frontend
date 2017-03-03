@@ -112,7 +112,7 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
       'inasistentes':null,
       'allSelected':false,
     };
-    console.log(this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString()).alumnos);
+
     let inasistenciaListDay = this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString()).alumnos;
 
     for(let alumno of this.selectedDay.alumnos){
@@ -130,8 +130,9 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
   //change count with pipe that takes an array of this.selectedDay.alumnos
   getInasistenciaByDia(day: Date): number{
     let cant: number;
-    if( this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString()) ){
-      cant = this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString()).alumnos.length;
+    let inasistenciaDay: any = this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString());
+    if( inasistenciaDay ){
+      cant = inasistenciaDay.alumnos.length;
     } else {
       cant = 0;
     }
@@ -142,13 +143,19 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
   saveAsistencia(){
     this.asistenciaService.updateInasistencia({'fecha_asistencia':this.selectedDay.dia,'alumno_id':this.selectedDay.alumnos},this.id).subscribe(res => {
       this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
-        for (let dia of res.mes){
+        /*for (let dia of res.mes){
           dia.dia = addDays(new Date(dia.dia),1);
         }
-        this.inasistenciaMonth = res.mes;
+        this.inasistenciaMonth = res.mes;*/
+        let changedDay = this.inasistenciaMonth.find(monthDay => monthDay.dia.toDateString() == this.selectedDay.dia.toDateString());
+        console.log(changedDay);
+        let newDataDay = res.mes.find(monthDay => addDays(monthDay.dia,0).toDateString() == this.selectedDay.dia.toDateString());
+        changedDay.alumnos = newDataDay.alumnos;
+        console.log(newDataDay);
+        this.modalClose();
       });
-      this.modalClose();
     });
+
 
   }
 
