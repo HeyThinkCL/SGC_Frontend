@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { connectionErrorMsg, emptyArrayMsg } from '../../../spinner/spinner.component'
+
 import {ProfesoresService} from '../../../../services/libros/profesores.service';
 
 @Component({
@@ -19,13 +21,19 @@ export class VerProfesoresComponent implements OnInit {
 
   private profesores = [];
 
+  timeoutMessage: string;
+
   constructor(
     private profesoresService: ProfesoresService
   ) { }
 
   ngOnInit() {
+    this.timeoutMessage = connectionErrorMsg();
     this.profesoresService.getProfesores().subscribe(res => {
       this.profesores = res
+      if((res.length>0)){
+        this.timeoutMessage = emptyArrayMsg("Profesores");
+      }
     })
   }
 

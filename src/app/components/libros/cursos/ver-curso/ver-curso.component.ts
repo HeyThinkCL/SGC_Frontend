@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
+import { connectionErrorMsg, emptyArrayMsg } from '../../../spinner/spinner.component';
+
 import { CursosService } from '../../../../services/libros/cursos.service';
 import { Curso } from '../curso';
 
@@ -25,17 +27,23 @@ export class VerCursoComponent implements OnInit {
 
   selectedCurso_id: number;
 
+  timeoutMessage: string;
+
   constructor(
     private cursosService: CursosService,
   ) { }
 
   ngOnInit() {
+    this.timeoutMessage = connectionErrorMsg();
     this.getCursos();
   }
 
   getCursos() {
     this.cursosService.getCursos().subscribe((res) => {
       this.cursos = res;
+      if(!(res.length>0)){
+        this.timeoutMessage = emptyArrayMsg("Cursos");
+      }
     })
   }
 
