@@ -1,6 +1,8 @@
 import {Component, OnInit, ViewChild } from '@angular/core';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
+import { connectionErrorMsg, emptyArrayMsg } from '../../../spinner/spinner.component';
+
 import { ColegiosService } from '../../../../services/sistema/colegios.service'
 import {Colegio} from "../colegio";
 
@@ -13,20 +15,28 @@ export class VerColegioComponent implements OnInit {
   @ViewChild('modal')
   modal: ModalComponent;
 
-  private colegios = [{"id":1},];
+  private colegios = [];
   selectedColegio_id: number;
   filterData:string  = '';
   filterKeys = ['nombre','razon_social','dependencia','sostenedor','depto_prov'];
+
+  timeoutMessage: string;
 
   constructor(
     private colegiosService: ColegiosService,
   ) { }
 
   getColegios() {
-    this.colegiosService.getColegios().subscribe((response) => {this.colegios = response})
+    this.colegiosService.getColegios().subscribe((response) => {
+      this.colegios = response;
+      if(this.colegios.length < 1 ){
+        this.timeoutMessage = emptyArrayMsg('Colegios');
+      }
+    })
   }
 
   ngOnInit(): void {
+    this.timeoutMessage = connectionErrorMsg();
     this.getColegios();
   }
 

@@ -1,12 +1,12 @@
-<app-spinner *ngIf="!(selectedColegio)"></app-spinner>
 <div class="title-bar">
   <h1 class="title-bar title">Editar Colegio</h1>
   <h3 class="title bar description" *ngIf="selectedColegio">{{selectedColegio.nombre}}</h3>
 
 </div>
-<div class="row" *ngIf="selectedColegio">
+<div class="row">
   <div class="col-md-8 col-md-offset-2">
-    <div class="demo-md-form-wrapper">
+    <app-spinner [timeoutMessage]="timeoutMessage" *ngIf="!(selectedColegio)"></app-spinner>
+    <div class="demo-md-form-wrapper" *ngIf="selectedColegio">
       <div class="form form-horizontal">
         <div class="md-form-group md-label-static">
           <label class="col-sm-2 md-control-label" for="form-control-1"><b>Nombre del Establecimiento:</b> {{selectedColegio.nombre}}</label>
@@ -201,11 +201,11 @@
     <div class="form form-horizontal">
       <div class="demo-md-form-wrapper">
         <div class="md-form-group">
-          <div class="col-sm-2 col-sm-offset-0">
+          <div class="col-sm-4">
             <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
           </div>
           <div class="col-sm-8">
-            <button class="btn btn-primary btn-block" (click)="saveColegio()">Guardar</button>
+            <button class="btn btn-primary btn-block" (click)="saveColegio()" [disabled]="!(selectedColegio)">Guardar</button>
 
             <modal [animation]="true" #modal>
               <modal-header [show-close]="true">

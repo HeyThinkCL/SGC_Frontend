@@ -21,3 +21,17 @@ export class SpinnerComponent implements OnInit {
   }, 1000*40);
 
 }
+
+//Global Messages
+
+export function emptyArrayMsg(subject: string): string {
+  return 'No se encontraron' + subject + 'en la base de datos.';
+}
+
+export function connectionErrorMsg(): string {
+  return 'Sin conexión con el servidor.';
+}
+
+export function invalidRequestMsg(): string{
+  return 'Petición inválida.';
+}

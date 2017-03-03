@@ -20,7 +20,7 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <app-spinner *ngIf="!(colegios.length>0)"></app-spinner>
+    <app-spinner [timeoutMessage]="timeoutMessage" *ngIf="!(colegios.length>0)"></app-spinner>
     <div class="panel" *ngIf="colegios.length>0">
       <div class="panel-body">
         <div class="table-responsive">

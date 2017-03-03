@@ -3,6 +3,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Location }       from '@angular/common';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
+import { connectionErrorMsg, invalidRequestMsg } from '../../../spinner/spinner.component';
+
 import { ColegiosService } from '../../../../services/sistema/colegios.service';
 import { DpaService } from '../../../../services/sistema/dpa.service';
 import { Colegio } from '../colegio';
@@ -19,7 +21,7 @@ export class EditarColegioComponent implements OnInit {
   id: number;
   private sub: any;
 
-  selectedColegio: Colegio;
+  selectedColegio: any;
   colegio: Colegio;
 
   regiones = [];
@@ -30,6 +32,8 @@ export class EditarColegioComponent implements OnInit {
   selectedProvincia: any;
   selectedComuna: any;
 
+  timeoutMessage: string;
+
   constructor(
       private route: ActivatedRoute,
       private location: Location,
@@ -39,11 +43,12 @@ export class EditarColegioComponent implements OnInit {
 
   ngOnInit() {
     window.scrollTo(0,0);
+    this.timeoutMessage = connectionErrorMsg();
 
     if(window.innerWidth < 785){
       this.warningModalOpen();
     }
-    this.selectedColegio = new Colegio();
+    // this.selectedColegio = new Colegio();
     this.colegio = new Colegio();
 
     this.sub = this.route.params.subscribe( params => { this.id = +params['id'];});
@@ -53,6 +58,9 @@ export class EditarColegioComponent implements OnInit {
       .subscribe((colegio) => {
         this.colegio = colegio;
         this.selectedColegio = JSON.parse(JSON.stringify(colegio));
+        if(!(colegio)){
+          this.timeoutMessage = invalidRequestMsg();
+        }
     });
 
     this.dpaService.getRegiones().subscribe(res => {
