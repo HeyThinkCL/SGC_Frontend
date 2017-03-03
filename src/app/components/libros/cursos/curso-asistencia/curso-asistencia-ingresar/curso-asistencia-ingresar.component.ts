@@ -110,6 +110,7 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
       'alumnos': this.alumnos,
       'asistentes':null,
       'inasistentes':null,
+      'allSelected':false,
     };
     console.log(this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString()).alumnos);
     let inasistenciaListDay = this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString()).alumnos;
@@ -157,6 +158,19 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
       alumno.cambio = !(alumno.cambio);
     }
   }
+
+/*  toggleAll(){
+    if(this.selectedDay.allSelected){
+      for(let alumno of this.selectedDay.alumnos){
+
+      }
+    }
+    for(let alumno of alumnos){
+      if(!(alumno.asistencia)){
+
+      }
+    }
+  }*/
 
   //date data
   inPeriodoAcademico(day: Date){

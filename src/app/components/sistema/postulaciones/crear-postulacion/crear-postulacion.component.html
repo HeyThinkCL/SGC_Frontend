@@ -96,10 +96,19 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-md-1 col-md-offset-1"> Prioritario </label>
+              <label class="control-label col-md-1 col-md-offset-1"> SEP </label>
               <div class="col-md-1">
                 <label class="switch switch-info">
                   <input class="switch-input" type="checkbox" [(ngModel)]="postulante.prioritario">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+
+              <label class="control-label col-md-1"> PIE </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="postulante.pie">
                   <span class="switch-track"></span>
                   <span class="switch-thumb"></span>
                 </label>
@@ -118,15 +127,6 @@
               <div class="col-md-1">
                 <label class="switch switch-info">
                   <input class="switch-input" type="checkbox" [(ngModel)]="postulante.preferente">
-                  <span class="switch-track"></span>
-                  <span class="switch-thumb"></span>
-                </label>
-              </div>
-
-              <label class="control-label col-md-1"> PIE </label>
-              <div class="col-md-1">
-                <label class="switch switch-info">
-                  <input class="switch-input" type="checkbox" [(ngModel)]="postulante.pie">
                   <span class="switch-track"></span>
                   <span class="switch-thumb"></span>
                 </label>
