@@ -1,4 +1,5 @@
-<div class="table-responsive">
+<app-spinner [timeoutMessage]="timeoutMessage" *ngIf="!(postulaciones.length>0)"></app-spinner>
+<div class="table-responsive" *ngIf="postulaciones.length>0">
   <table class="table table-middle table-bordered">
     <thead>
     <tr class="bg-warning">

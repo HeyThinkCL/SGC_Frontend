@@ -5,6 +5,7 @@
 
 <div class="row">
   <div class="col-md-9 col-md-offset-1">
+    <app-spinner [timeoutMessage]="timeoutMessage" *ngIf="!(postulante)"></app-spinner>
     <div class="card" *ngIf="postulante">
       <div class="card-header">
         <h3 class="card-title fw-l">
@@ -422,7 +423,7 @@
           <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
         </div>
         <div class="col-sm-8">
-          <button class="btn btn-primary btn-block" (click)="goToEdit()">Editar</button>
+          <button class="btn btn-primary btn-block" (click)="goToEdit()" [disabled]="!(postulante)">Editar</button>
 
           <modal [animation]="true" #modal>
             <modal-header [show-close]="true">

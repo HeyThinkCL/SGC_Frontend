@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
+import { connectionErrorMsg, emptyArrayMsg } from '../../../spinner/spinner.component';
+
 import { PostulacionesService } from '../../../../services/sistema/postulaciones.service';
 import { MatriculaService } from '../../../../services/sistema/matricula.service';
 
@@ -21,14 +23,20 @@ export class PostulacionesRechazadasComponent implements OnInit {
 
   filterKeys = ['nombre','rut'];
 
+  timeoutMessage: string;
+
   constructor(
     private postulacionesService: PostulacionesService,
     private matriculaService: MatriculaService,
   ) { }
 
   ngOnInit() {
+    this.timeoutMessage = connectionErrorMsg();
     this.postulacionesService.getRechazadas().subscribe(res => {
       this.postulaciones = res;
+      if(!(res.length<0)){
+        this.timeoutMessage = emptyArrayMsg("Postulaciones");
+      }
     });
 
   }

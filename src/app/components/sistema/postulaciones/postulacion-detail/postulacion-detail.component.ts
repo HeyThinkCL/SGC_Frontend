@@ -3,6 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location }       from '@angular/common';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
+import { invalidRequestMsg, connectionErrorMsg } from '../../../spinner/spinner.component';
+
 import { PostulacionesService } from '../../../../services/sistema/postulaciones.service'
 import { ApoderadosService } from '../../../../services/sistema/apoderados.service'
 
@@ -21,6 +23,8 @@ export class PostulacionDetailComponent implements OnInit {
   private madre: any;
   private apoderado: any;
 
+  timeoutMessage: string;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -30,6 +34,9 @@ export class PostulacionDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.timeoutMessage = connectionErrorMsg();
+
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
     });
@@ -38,6 +45,10 @@ export class PostulacionDetailComponent implements OnInit {
       .switchMap((params: Params) => this.postulacionesService.getPostulante(+params['id']))
       .subscribe((postulante) => {
         this.postulante = postulante;
+
+        if(!(postulante)){
+          this.timeoutMessage = invalidRequestMsg();
+        }
 
         let pCheck = false;
         let mCheck = false;

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location }       from '@angular/common';
 
+import { connectionErrorMsg } from '../../../spinner/spinner.component';
+
 import {ConfiguracionService} from '../../../../services/sistema/configuracion.service';
 
 @Component({
@@ -36,6 +38,8 @@ export class ConfiguracionDashboardComponent implements OnInit {
 
   routes = [];
 
+  timeoutMessage: string;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -44,6 +48,8 @@ export class ConfiguracionDashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.timeoutMessage = connectionErrorMsg();
+
     this.configuracionService.getConguraciones().subscribe(res => {
       this.routes = res;
       for(let r of this.routes){
