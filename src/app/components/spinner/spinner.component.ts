@@ -35,7 +35,7 @@ export class SpinnerComponent implements OnInit {
 //Global Messages
 
 export function emptyArrayMsg(subject: string): string {
-  return 'No se encontraron' + subject + 'en la base de datos.';
+  return 'No se encontraron ' + subject + ' en la base de datos.';
 }
 
 export function connectionErrorMsg(): string {

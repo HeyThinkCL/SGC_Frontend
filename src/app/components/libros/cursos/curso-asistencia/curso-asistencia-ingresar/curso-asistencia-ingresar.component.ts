@@ -122,12 +122,13 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
     };
 
     let dayInfo = this.view.days.find(day => day.date.toDateString() == selectedDay.toDateString());
-    console.log(dayInfo);
 
-    this.selectedDay.alumnos = dayInfo.alumnos;
+    this.selectedDay.alumnos = JSON.parse(JSON.stringify(dayInfo.alumnos));
 
     this.selectedDay.inasistentes = this.getInasistenciaByDia(selectedDay);
     this.selectedDay.asistentes = this.selectedDay.alumnos.length - this.selectedDay.inasistentes;
+
+    console.log(this.selectedDay);
 
   }
   //change count with pipe that takes an array of this.selectedDay.alumnos
@@ -153,21 +154,19 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
 
         let newDataDay = res.mes.find(monthDay => addDays(monthDay.dia,0).toDateString() == this.selectedDay.dia.toDateString());
 
-        console.log(newDataDay);
-
         listChangedDay.alumnos = newDataDay.alumnos;
         changedDay.inasistenciaList = newDataDay.alumnos;
 
-        /*for(let alumno of changedDay.alumnos){
+        for(let alumno of changedDay.alumnos){
 
           alumno['cambio']=false;
 
           if( changedDay.inasistenciaList.find(res => res.alumno.id == alumno.id)){
             alumno['asistencia'] = false;
-          } else{
+          } else {
             alumno['asistencia'] = true;
           }
-        }*/
+        }
 
         this.modalClose();
       });
@@ -181,7 +180,6 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
     if(!(alumno.cambio)){
       alumno.cambio = !(alumno.cambio);
     }
-    console.log(alumno);
   }
 
   toggleAll(){
@@ -247,10 +245,9 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
       day['isFeriado'] = this.isFeriado(date);
 
       let inasistenciaListDay = this.inasistenciaMonth.find(res => res.dia.toDateString() == date.toDateString());
-
       if(inasistenciaListDay){
 
-        day.alumnos = this.alumnos;
+        day.alumnos = JSON.parse(JSON.stringify(this.alumnos));
         day.inasistenciaList = inasistenciaListDay.alumnos;
 
         for(let alumno of day.alumnos){
