@@ -111,26 +111,22 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
     this.modal.dismiss();
   }
 
-  setSelectedDay(day: Date): any{
+  setSelectedDay(selectedDay: Date): any{
     this.selectedDay = {
-      'dia': day,
-      'alumnos': this.alumnos,
+      'dia': selectedDay,
+      'alumnos': [],
       'asistentes':null,
       'inasistentes':null,
-      'allSelected':false,
+      'loading':false,
+
     };
 
-    let inasistenciaListDay = this.inasistenciaMonth.find(res => res.dia.toDateString() == day.toDateString()).alumnos;
+    let dayInfo = this.view.days.find(day => day.date.toDateString() == selectedDay.toDateString());
+    console.log(dayInfo);
 
-    for(let alumno of this.selectedDay.alumnos){
-      alumno['cambio']=false;
-      if( inasistenciaListDay.find(res => res.alumno.id == alumno.id)){
-        alumno['asistencia'] = false;
-      } else{
-        alumno['asistencia'] = true;
-      }
-    }
-    this.selectedDay.inasistentes = this.getInasistenciaByDia(day);
+    this.selectedDay.alumnos = dayInfo.alumnos;
+
+    this.selectedDay.inasistentes = this.getInasistenciaByDia(selectedDay);
     this.selectedDay.asistentes = this.selectedDay.alumnos.length - this.selectedDay.inasistentes;
 
   }
@@ -148,17 +144,31 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
 
   //logic
   saveAsistencia(){
+    this.selectedDay.loading = true;
     this.asistenciaService.updateInasistencia({'fecha_asistencia':this.selectedDay.dia,'alumno_id':this.selectedDay.alumnos},this.id).subscribe(res => {
       this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
-        /*for (let dia of res.mes){
-          dia.dia = addDays(new Date(dia.dia),1);
-        }
-        this.inasistenciaMonth = res.mes;*/
-        let changedDay = this.inasistenciaMonth.find(monthDay => monthDay.dia.toDateString() == this.selectedDay.dia.toDateString());
-        console.log(changedDay);
+
+        let changedDay = this.view.days.find(day => day.date.toDateString() == this.selectedDay.dia.toDateString());
+        let listChangedDay = this.inasistenciaMonth.find(res => res.dia.toDateString() == this.selectedDay.dia.toDateString());
+
         let newDataDay = res.mes.find(monthDay => addDays(monthDay.dia,0).toDateString() == this.selectedDay.dia.toDateString());
-        changedDay.alumnos = newDataDay.alumnos;
+
         console.log(newDataDay);
+
+        listChangedDay.alumnos = newDataDay.alumnos;
+        changedDay.inasistenciaList = newDataDay.alumnos;
+
+        /*for(let alumno of changedDay.alumnos){
+
+          alumno['cambio']=false;
+
+          if( changedDay.inasistenciaList.find(res => res.alumno.id == alumno.id)){
+            alumno['asistencia'] = false;
+          } else{
+            alumno['asistencia'] = true;
+          }
+        }*/
+
         this.modalClose();
       });
     });
@@ -171,20 +181,16 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
     if(!(alumno.cambio)){
       alumno.cambio = !(alumno.cambio);
     }
+    console.log(alumno);
   }
 
-/*  toggleAll(){
-    if(this.selectedDay.allSelected){
-      for(let alumno of this.selectedDay.alumnos){
-
+  toggleAll(){
+    for(let alumno of this.selectedDay.alumnos){
+      if(alumno.asistencia){
+        this.toggleValue(alumno);
       }
     }
-    for(let alumno of alumnos){
-      if(!(alumno.asistencia)){
-
-      }
-    }
-  }*/
+  }
 
   //date data
   inPeriodoAcademico(day: Date){
@@ -245,16 +251,15 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
       if(inasistenciaListDay){
 
         day.alumnos = this.alumnos;
-
-        let inasistenciaList = inasistenciaListDay.alumnos;
+        day.inasistenciaList = inasistenciaListDay.alumnos;
 
         for(let alumno of day.alumnos){
 
           alumno['cambio']=false;
 
-          if( inasistenciaList.find(res => res.alumno.id == alumno.id)){
+          if( day.inasistenciaList.find(res => res.alumno.id == alumno.id)){
             alumno['asistencia'] = false;
-          } else{
+          } else {
             alumno['asistencia'] = true;
           }
         }
@@ -269,7 +274,6 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
       rowOffsets.push(i * 7);
     }
 
-    console.log(days);
     return {
       rowOffsets,
       days
@@ -357,6 +361,7 @@ export interface MonthViewDay extends WeekDay {
   cssClass?: string;
   badgeTotal: number;
   alumnos: any[];
+  inasistenciaList: any[];
 }
 
 export interface WeekDay {
