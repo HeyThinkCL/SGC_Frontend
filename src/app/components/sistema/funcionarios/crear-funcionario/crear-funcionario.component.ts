@@ -57,6 +57,7 @@ export class CrearFuncionarioComponent implements OnInit {
     'jefeUTP':false,
     'secretario':false,
     'asistente':false,
+    'horas_profesor':null,
   };
   private rolesDocentes = [];
   private rolesNoDocentes = [];
@@ -151,6 +152,12 @@ export class CrearFuncionarioComponent implements OnInit {
     };
 
 
+  }
+
+  profesorCheck(){
+    if(this.rolesDocentes.indexOf('profesor') == -1){
+      this.funcionario.horas_profesor = null;
+    }
   }
 
   goBack(): void {

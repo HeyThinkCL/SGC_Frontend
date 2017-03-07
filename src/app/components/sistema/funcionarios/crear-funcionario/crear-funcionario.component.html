@@ -129,19 +129,29 @@
                          [data]="selectRolesDocentesData"
                          [width]="350 | select2WidthFix"
                          [options]="selectRolesOptions"
-                         (valueChanged)="rolesDocentes = $event.value"></select2>
+                         (valueChanged)="rolesDocentes = $event.value;profesorCheck()"></select2>
               </div>
             </div>
+            <div class="col-sm-12 p-b-md" *ngIf="rolesDocentes.includes('profesor')">
+              <div class="form group" >
+                <label class="col-sm-4 control-label" for="form-control-29">Horas Profesor</label>
+                <div class="col-sm-2 col-sm-offset-1">
+                  <input id="form-control-29" class="form-control" type="number" [(ngModel)]="funcionario.horas_profesor">
+                </div>
+              </div>
+            </div>
+
             <div class="form-group">
-              <label class="col-sm-4 control-label" for="form-control-29">Roles No Docentes</label>
+              <label class="col-sm-4 control-label" for="form-control-30">Roles No Docentes</label>
               <div class="col-sm-8">
-                <select2 id="form-control-29"
+                <select2 id="form-control-30"
                          [data]="selectRolesNoDocentesData"
                          [width]="350 | select2WidthFix"
                          [options]="selectRolesOptions"
                          (valueChanged)="rolesNoDocentes = $event.value"></select2>
               </div>
             </div>
+
           </div>
         </div>
       </div>
