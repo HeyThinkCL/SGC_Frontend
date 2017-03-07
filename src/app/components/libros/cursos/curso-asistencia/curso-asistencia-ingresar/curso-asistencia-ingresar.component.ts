@@ -65,25 +65,32 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
 
     this.sub = this.route.parent.parent.params.subscribe(params => {
       this.id = params['id'];
+
       this.cursosService.getCursoById(this.id).subscribe(curso => {
         this.alumnos = curso.alumnos;
       });
+
       this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
         for (let dia of res.mes){
           dia.dia = addDays(new Date(dia.dia),1);
         }
         this.inasistenciaMonth = res.mes;
-      })
-    });
 
-    this.configuracionService.getConguraciones().subscribe(configs => {
-      let config = configs.find(c => c.glosa == 'Calendario Académico');
-      this.calendarioService.getConfigCalendarioAcademicoById(config.id).subscribe(subRes => {
-        this.calendarConfig = subRes;
-        this.view = this.getMonthView({
-          viewDate: this.viewDate,
+        this.configuracionService.getConguraciones().subscribe(configs => {
+          let config = configs.find(c => c.glosa == 'Calendario Académico');
+
+          this.calendarioService.getConfigCalendarioAcademicoById(config.id).subscribe(subRes => {
+            this.calendarConfig = subRes;
+            this.view = this.getMonthView({
+              viewDate: this.viewDate,
+            });
+
+          });
+
         });
-      });
+
+      })
+
     });
 
     this.selectedDay = {'dia': new Date() , 'alumnos':[]};
@@ -227,10 +234,32 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
       const day: MonthViewDay = getWeekDay({date});
 
       day.inMonth = isSameMonth(date, viewDate);
+
       day['inPeriodoAcademico'] = this.inPeriodoAcademico(date);
       day['inVacacion'] = this.inVacacion(date);
       day['isEspecial'] = this.isEspecial(date);
       day['isFeriado'] = this.isFeriado(date);
+
+      let inasistenciaListDay = this.inasistenciaMonth.find(res => res.dia.toDateString() == date.toDateString());
+
+      if(inasistenciaListDay){
+
+        day.alumnos = this.alumnos;
+
+        let inasistenciaList = inasistenciaListDay.alumnos;
+
+        for(let alumno of day.alumnos){
+
+          alumno['cambio']=false;
+
+          if( inasistenciaList.find(res => res.alumno.id == alumno.id)){
+            alumno['asistencia'] = false;
+          } else{
+            alumno['asistencia'] = true;
+          }
+        }
+      }
+
       days.push(day);
     }
 
@@ -240,6 +269,7 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
       rowOffsets.push(i * 7);
     }
 
+    console.log(days);
     return {
       rowOffsets,
       days
@@ -326,6 +356,7 @@ export interface MonthViewDay extends WeekDay {
   backgroundColor?: string;
   cssClass?: string;
   badgeTotal: number;
+  alumnos: any[];
 }
 
 export interface WeekDay {
@@ -345,6 +376,6 @@ const getWeekDay: Function = ({date}: {date: Date}): WeekDay => {
     isPast: date < today,
     isToday: isSameDay(date, today),
     isFuture: date > today,
-    isWeekend: WEEKEND_DAY_NUMBERS.indexOf(getDay(date)) > -1
+    isWeekend: WEEKEND_DAY_NUMBERS.indexOf(getDay(date)) > -1,
   };
 };
