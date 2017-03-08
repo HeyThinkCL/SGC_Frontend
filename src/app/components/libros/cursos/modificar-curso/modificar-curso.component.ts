@@ -31,8 +31,8 @@ export class ModificarCursoComponent implements OnInit {
   ];
 
   asignaturas = [
-    {'id':1,'nombre':'Lenguaje y Comunicación','obligatoria':true},
-    {'id':2,'nombre':'Matemáticas','obligatoria':false},
+    {'id':1,'nombre':'Lenguaje y Comunicación','obligatoria':true,'horas':null},
+    {'id':2,'nombre':'Matemáticas','obligatoria':false,'horas':null},
   ];
 
   allAsignaturas = [

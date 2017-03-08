@@ -84,13 +84,9 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
             this.view = this.getMonthView({
               viewDate: this.viewDate,
             });
-
           });
-
         });
-
       })
-
     });
 
     this.selectedDay = {'dia': new Date() , 'alumnos':[]};
@@ -127,8 +123,6 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
 
     this.selectedDay.inasistentes = this.getInasistenciaByDia(selectedDay);
     this.selectedDay.asistentes = this.selectedDay.alumnos.length - this.selectedDay.inasistentes;
-
-    console.log(this.selectedDay);
 
   }
   //change count with pipe that takes an array of this.selectedDay.alumnos
@@ -176,6 +170,13 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
   }
 
   toggleValue(alumno: any) {
+    if(alumno.asistencia){
+      this.selectedDay.inasistentes += 1;
+      this.selectedDay.asistentes -= 1;
+    } else {
+      this.selectedDay.inasistentes -= 1;
+      this.selectedDay.asistentes += 1;
+    }
     alumno.asistencia = !(alumno.asistencia);
     if(!(alumno.cambio)){
       alumno.cambio = !(alumno.cambio);
@@ -188,6 +189,8 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
         this.toggleValue(alumno);
       }
     }
+    this.selectedDay.inasistentes = this.selectedDay.alumnos.length;
+    this.selectedDay.asistentes = 0;
   }
 
   //date data

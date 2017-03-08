@@ -3,9 +3,9 @@
  */
 'use strict';
 
-// export let apiUrl: string = 'http://190.44.43.185:80';
-export let apiUrl: string = 'http://api.innovacolegio.cl:80';
-// export let apiUrl: string = 'http://192.168.1.175:3000';
+export let apiUrl: string = 'http://192.168.1.192:3000';//dev
+
+// export let apiUrl: string = 'http://api.innovacolegio.cl:80';//production
 
 export let rolesDocentes = [
   {'rol':'profesor'},

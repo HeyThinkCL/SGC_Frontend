@@ -68,17 +68,17 @@ export class CursoAsistenciaVerComponent implements OnInit {
           dia.dia = addDays(new Date(dia.dia),1);
         }
         this.inasistenciaMonth = res.mes;
-      })
-    });
 
-    this.configuracionService.getConguraciones().subscribe(configs => {
-      let config = configs.find(c => c.glosa == 'Calendario Académico');
-      this.calendarioService.getConfigCalendarioAcademicoById(config.id).subscribe(subRes => {
-        this.calendarConfig = subRes;
-        this.view = this.getMonthView({
-          viewDate: this.viewDate,
+        this.configuracionService.getConguraciones().subscribe(configs => {
+          let config = configs.find(c => c.glosa == 'Calendario Académico');
+          this.calendarioService.getConfigCalendarioAcademicoById(config.id).subscribe(subRes => {
+            this.calendarConfig = subRes;
+            this.view = this.getMonthView({
+              viewDate: this.viewDate,
+            });
+          });
         });
-      });
+      })
     });
 
     this.selectedDay = {'day': new Date() ,'cant':0,'alumnos':[]};

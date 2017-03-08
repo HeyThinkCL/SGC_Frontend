@@ -30,6 +30,7 @@ export class CursoListaComponent implements OnInit {
       .subscribe((curso) => {
         this.curso = curso;
         this.alumnos = curso.alumnos;
+        console.log(this.alumnos);
       });
   }
 

@@ -43,12 +43,12 @@
         <div class="demo-form-wrapper">
           <div class="form form-horizontal">
             <div class="form-group">
-              <label class="col-sm-2 control-label">Asignatura</label>
+              <label class="col-sm-1 control-label">Asignatura</label>
               <div class="col-sm-4">
                 <input class="form-control" type="text" readonly [(ngModel)]="asignatura.nombre">
               </div>
               <label class="col-sm-1 control-label">Profesor</label>
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <select class="form-control" type="text">
                   <!--                    <option *ngFor="let profesor of profesores | filterProfByAsign:profesor?.id_asignaturas:asignatura.id" [ngValue]="profesor.id">
                                         {{ profesor?.usuario?.nombre }} {{ profesor?.usuario?.apellido_paterno }} {{ profesor?.usuario?.apellido_materno }}
@@ -58,6 +58,11 @@
                   </option>
                 </select>
               </div>
+              <label class="col-sm-1 control-label">Horas</label>
+              <div class="col-sm-1">
+                <input class="form-control" type="number" [(ngModel)]="asignatura.horas">
+              </div>
+
               <div class="col-sm-1">
                 <div class="btn-group btn-group-sm">
                   <button class="btn btn-block btn-sm btn-outline-danger" [disabled]="asignatura.obligatoria"><span class="icon btn-icon icon-fw icon-minus"></span></button>
