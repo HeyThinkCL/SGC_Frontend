@@ -95,7 +95,7 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
   //modal
   modalOpen(day: Date): void {
     this.setSelectedDay(day);
-    this.modal.open();
+    this.modal.open('lg');
   }
 
   modalClose(): void {
@@ -191,6 +191,16 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
     }
     this.selectedDay.inasistentes = this.selectedDay.alumnos.length;
     this.selectedDay.asistentes = 0;
+  }
+
+  unToggleAll(){
+    for(let alumno of this.selectedDay.alumnos){
+      if(!alumno.asistencia){
+        this.toggleValue(alumno);
+      }
+    }
+    this.selectedDay.asistentes = this.selectedDay.alumnos.length;
+    this.selectedDay.inasistentes = 0;
   }
 
   //date data

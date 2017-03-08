@@ -64,15 +64,18 @@
                     </modal-header>
                     <modal-body>
                       <app-spinner *ngIf="selectedDay.loading"></app-spinner>
-                      <div class="row" *ngIf="!(selectedDay.loading)">
+                      <div class="row gutter-sm" *ngIf="!(selectedDay.loading)">
                         <div class="col-md-2" *ngIf="selectedDay?.alumnos">
                           <p class="text-primary"><small>Asistentes: </small>{{ selectedDay.asistentes }}</p>
                         </div>
                         <div class="col-md-2">
                           <p class="text-danger"><small>Inasistentes: </small>{{ selectedDay.inasistentes }}</p>
                         </div>
-                        <div class="col-md-4 col-md-offset-4">
+                        <div class="col-md-3 col-sm-offset-2">
                           <button class="btn btn-block btn-info" (click)="toggleAll()"><span class="icon icon-fw icon-calendar-plus-o"></span>Marcar Todos</button>
+                        </div>
+                        <div class="col-md-3">
+                          <button class="btn btn-block btn-default" (click)="unToggleAll()"><span class="icon icon-fw icon-calendar-minus-o"></span>Desmarcar Todos</button>
                         </div>
                       </div>
                       <div class="row" *ngIf="!(selectedDay.loading)">
