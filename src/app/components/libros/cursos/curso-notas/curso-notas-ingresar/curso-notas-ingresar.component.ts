@@ -70,12 +70,15 @@ export class CursoNotasIngresarComponent implements OnInit {
         this.setAsignatura(this.asignaturas[0].asignatura.datos.id);
       });
 
-    this.selectedAsignatura = {'datos':{
-      'id':1,
-      'nombre': 'Lenguaje y Comunicación',
-      'ponderacion':true,
-    },'cantidad':0,'info_notas':[]}
-
+    this.selectedAsignatura = {
+      'datos':{
+        'id':1,
+        'nombre': 'Lenguaje y Comunicación',
+        'ponderacion':true,
+      },
+      'cantidad':0,
+      'info_notas':[]
+    }
   }
 
   //template rendering
@@ -111,13 +114,12 @@ export class CursoNotasIngresarComponent implements OnInit {
 
   onChange(nota: any){
     this.saveNota(nota);
-
   }
 
   //../services
   saveNota(nota: any){
     this.restrictValue(nota);
-    this.notasService.updateNota(nota).subscribe((res) =>{
+    this.notasService.updateNota(nota,this.selectedAsignatura.datos.id).subscribe((res) =>{
       nota = res;
     });
   }

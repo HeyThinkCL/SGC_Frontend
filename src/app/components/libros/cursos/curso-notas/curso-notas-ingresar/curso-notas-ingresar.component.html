@@ -43,7 +43,7 @@
             <tr class="bg-primary">
               <th rowspan="1" colspan="1"
                   *ngFor="let item of createRange(selectedAsignatura.cantidad); let currentIndex = index"
-                  (click)="modalInfoOpen(currentIndex)">{{currentIndex+1}}</th>
+                  (click)="modalInfoOpen(currentIndex)">{{currentIndex+1}}<span class="pull-right icon icon-commenting-o"></span></th>
               <th rowspan="1" colspan="1">Prom</th>
             </tr>
             </thead>
@@ -69,7 +69,7 @@
                        (ngModelChange)="restrictValue(nota)"
                        (change)="onChange(nota)"/>
               </td>
-              <td>{{ alumno.notas | calcPromedio | number:'1.1-2' }}</td>
+              <td>{{ alumno.notas | calcPromedio:selectedAsignatura.info_notas | number:'1.1-2' }}</td>
             </tr>
             </tbody>
           </table>

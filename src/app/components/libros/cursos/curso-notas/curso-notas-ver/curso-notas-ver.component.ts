@@ -103,19 +103,6 @@ export class CursoNotasVerComponent implements OnInit {
     this.infoNota = this.selectedAsignatura.info_notas[index];
   }
 
-  //logic
-  public getPromedio(notas): number{
-    let sum: number = 0;
-    let total: number = 0;
-    for(let nota of notas){
-      if(!(nota.valor == null)){
-        sum += nota.valor;
-        total += 1;
-      }
-    }
-    return isNaN(sum/total)? 1.0 : sum/total ;
-  }
-
   ////modal
   //info
   modalInfoOpen(index: number){

@@ -124,7 +124,7 @@
           <modal-header [show-close]="true">
             <h3 class="modal-title">{{confirmMessage}}</h3>
           </modal-header>
-          <modal-body>
+          <modal-body *ngIf="confirmErrorMessage.length>0">
             <p class="card-text">{{confirmErrorMessage}}</p>
           </modal-body>
           <modal-footer>

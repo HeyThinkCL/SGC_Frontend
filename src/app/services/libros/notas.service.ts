@@ -9,7 +9,7 @@ export class NotasService {
     return [[Http]]
   }
 
-  private notasUrl = globalVar.apiUrl+'/notas';
+  private notasUrl = globalVar.apiUrl+'/libro_clases/cursos/notas';
 
   constructor(private http: Http) {
 
@@ -25,8 +25,8 @@ export class NotasService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Notas By Id'));
   }
 
-  updateNota(nota){
-    const url = `${this.notasUrl}/${nota.id}`;
+  updateNota(nota,asignatura_id){
+    const url = `${this.notasUrl}/${nota.id}?asignatura_id=${asignatura_id}`;
     let payload = {};
     payload['nota'] = JSON.parse(JSON.stringify(nota));
 

@@ -29,6 +29,7 @@
             <tr class="bg-primary">
               <th>Curso</th>
               <th>Profesor Jefe</th>
+              <th>Contacto Profesor Jefe</th>
               <th></th>
             </tr>
             </thead>
@@ -38,7 +39,7 @@
                 <span><a [routerLink]="['./',curso.curso.id]">{{ curso.curso.grado }} {{ curso.curso.curso }}</a></span>
               </td>
               <td>
-                <span class="truncate" *ngIf="(curso.curso.prof_jefe)"> {{ curso.profesor?.nombre }} {{curso.profesor?.apellidos}}</span>
+                <span class="truncate" *ngIf="(curso.curso.prof_jefe)"> {{ curso.profesor?.nombre }} {{curso.profesor?.apellido_paterno}} {{curso.profesor?.apellido_materno}}</span>
                 <div class="demo-btn-toolbar btn-toolbar" *ngIf="!(curso.curso.prof_jefe)">
                   <div class="btn-group btn-group-sm">
                     <a class="btn btn-outline-primary btn-sm" [routerLink]="['../',curso.curso.id,'profesores']">
@@ -46,6 +47,9 @@
                     </a>
                   </div>
                 </div>
+              </td>
+              <td>
+                <span class="truncate" *ngIf="(curso.curso.prof_jefe)"> {{ curso.profesor?.email }}</span>
               </td>
 
               <td>
