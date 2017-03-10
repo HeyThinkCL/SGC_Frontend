@@ -9,7 +9,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   pure: false,
 })
 export class CalcPromedio implements PipeTransform {
-  transform(notas: any[],info_notas: any[]) {
+  transform(notas: any[],info_notas: any[], config: any) {
     let sum: number = 0;
     let total: number = 0;
     for(let ixx in notas){
@@ -22,6 +22,19 @@ export class CalcPromedio implements PipeTransform {
         }
       }
     }
-    return isNaN(sum/total)? 1.0 : sum/total ;
+    console.log(config.notas.aprox);
+    if(config.notas.aprox == 1){
+      return isNaN(sum/total)? 1.0 : this.round(sum/total,config.notas.decimales) ;
+    } else {
+      return isNaN(sum/total)? 1.0 : sum/total ;
+    }
+
+  }
+
+  round(value, precision) {
+    let multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
   }
 }
+
+

@@ -125,7 +125,8 @@ import {PostulacionesService} from './services/sistema/postulaciones.service';
 import {ApoderadosService} from './services/sistema/apoderados.service';
 import {FuncionariosService} from './services/sistema/funcionarios.service';
 import {ConfiguracionService} from './services/sistema/configuracion.service';
-import {CalendarioService} from './services/sistema/calendario.service';
+import {CalendarioService} from './services/sistema/configuraciones/calendario.service';
+import {ConfigNotasService} from './services/sistema/configuraciones/config-notas.service';
 import {AsistenciaService} from "./services/libros/asistencia.service";
 import { SpinnerComponent } from './components/spinner/spinner.component';
 
@@ -233,6 +234,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     AsistenciaService,
     ConfiguracionService,
     CalendarioService,
+    ConfigNotasService,
   ],
   bootstrap: [RootComponent]
 })

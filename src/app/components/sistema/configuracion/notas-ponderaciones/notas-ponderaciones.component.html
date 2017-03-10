@@ -1,3 +1,58 @@
 <div class="title-bar">
   <h2 class="title-bar-title"><span class="icon icon-fw icon-check-square-o"></span> Notas y Ponderaciones</h2>
 </div>
+
+<div class="row">
+  <div class="col-md-9 col-md-offset-1">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title fw-l">Configuración para cálculo de promedios.</h3>
+      </div>
+      <div class="card-body">
+        <div class="form form-horizontal">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="form-control-1">N° de decimales</label>
+            <div class="col-sm-1">
+              <input class="form-control" id="form-control-1" type="number">
+            </div>
+            <label class="control-label col-sm-4" for="form-control-2">Método de aproximación.</label>
+            <div class="col-sm-3">
+              <select class="form-control" id="form-control-2">
+                <option value="0">Hacia arriba</option>
+                <option value="1">Truncado</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-9 col-md-offset-1">
+    <div class="form form-horizontal">
+      <div class="form-group">
+        <div class="col-sm-4">
+          <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
+        </div>
+        <div class="col-sm-8">
+          <button class="btn btn-primary btn-block" (click)="modalOpen()">Guardar</button>
+
+          <modal [animation]="true" #modal>
+            <modal-header [show-close]="true">
+              <h4 class="modal-title">Guardar Configuración.</h4>
+            </modal-header>
+            <modal-body>
+              Presione Ok para continuar guardando la configuración.
+            </modal-body>
+            <modal-footer>
+              <button type="button" class="btn btn-primary" (click)="saveConfig()">Ok</button>
+            </modal-footer>
+          </modal>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

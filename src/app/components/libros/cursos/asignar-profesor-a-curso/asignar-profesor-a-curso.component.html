@@ -5,7 +5,8 @@
 </div>
 <div class="row">
   <div class="col-md-8 col-md-offset-1">
-    <div class="demo-form-wrapper">
+    <app-spinner [timeoutMessage]="timeoutMessage" *ngIf="!(profesores.length>0)"></app-spinner>
+    <div class="demo-form-wrapper" *ngIf="profesores.length>0">
       <div class="form form-horizontal">
         <div class="form-group">
           <label class="col-sm-2 control-label" for="form-control-1">Profesor</label>

@@ -12,7 +12,7 @@ import {
 
 /****/
 
-import {CalendarioService} from '../../../../services/sistema/calendario.service';
+import {CalendarioService} from '../../../../services/sistema/configuraciones/calendario.service';
 
 @Component({
   selector: 'app-calendario-academico',
@@ -150,7 +150,6 @@ export class CalendarioAcademicoComponent implements OnInit {
   }
 
   saveConfig(){
-    console.log(this.configuracion);
     this.calendarioService.updateConfigCalendarioAcademico(+localStorage.getItem('idConfig'),this.configuracion).subscribe(res => {});
     this.modalClose();
   }

@@ -3,6 +3,8 @@ import { Location } from '@angular/common'
 import { ActivatedRoute, Params } from '@angular/router';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
+import {emptyArrayMsg,connectionErrorMsg} from '../../../spinner/spinner.component';
+
 import { Curso } from '../curso';
 import { CursosService } from '../../../../services/libros/cursos.service';
 import { ProfesoresService } from '../../../../services/libros/profesores.service';
@@ -19,11 +21,11 @@ export class AsignarProfesorACursoComponent implements OnInit {
   id: number;
   private sub: any;
 
+  timeoutMessage: string;
+
   curso: any;
 
-  profesores = [
-    {"nombre":"Pedro","apellidos":"Fernandez","id":1},
-  ];
+  profesores = [];
 
   constructor(
     private location: Location,
@@ -33,6 +35,8 @@ export class AsignarProfesorACursoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.timeoutMessage = connectionErrorMsg();
+
     this.getProfesores();
 
     this.sub = this.route.params.subscribe(params => {
@@ -50,6 +54,9 @@ export class AsignarProfesorACursoComponent implements OnInit {
   getProfesores() {
     this.profesoresService.getProfesores().subscribe((res) => {
       this.profesores = res;
+      if(this.profesores.length<1){
+        this.timeoutMessage = emptyArrayMsg('Profesores');
+      }
     })
   }
 

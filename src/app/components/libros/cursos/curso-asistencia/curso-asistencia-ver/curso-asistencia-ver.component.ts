@@ -25,7 +25,7 @@ import {
 /****/
 
 import {ConfiguracionService} from '../../../../../services/sistema/configuracion.service';
-import {CalendarioService} from '../../../../../services/sistema/calendario.service';
+import {CalendarioService} from '../../../../../services/sistema/configuraciones/calendario.service';
 import {AsistenciaService} from '../../../../../services/libros/asistencia.service';
 
 @Component({

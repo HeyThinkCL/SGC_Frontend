@@ -33,8 +33,8 @@
               <td>{{alumno.alumno.id}}</td>
               <td>{{alumno.alumno.nombre}}</td>
               <td>{{alumno.alumno.apellido_paterno}} {{alumno.alumno.apellido_materno}}</td>
-              <td *ngFor="let nota of alumno.notas" style="width:60px">{{nota.valor | number:'1.1-2' }}</td>
-              <td>{{alumno.notas | calcPromedio:selectedAsignatura.info_notas | number:'1.1-2' }}</td>
+              <td *ngFor="let nota of alumno.notas" style="width:60px">{{nota.valor | number:decimals }}</td>
+              <td>{{alumno.notas | calcPromedio:selectedAsignatura.info_notas:notasCongif | number:decimals }}</td>
             </tr>
             </tbody>
           </table>

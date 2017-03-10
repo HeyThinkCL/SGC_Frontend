@@ -3,6 +3,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { CursosService } from '../../../../../services/libros/cursos.service';
+import {ConfiguracionService} from '../../../../../services/sistema/configuracion.service';
+import { ConfigNotasService } from '../../../../../services/sistema/configuraciones/config-notas.service';
 
 @Component({
   selector: 'app-curso-notas-ver',
@@ -20,34 +22,13 @@ export class CursoNotasVerComponent implements OnInit {
     'coeficiente':null,
   };
 
-  alumnos = [
-    {'id':1, 'alumnos':[
-      {'numero':1,'nombre':'Ivan','apellidos':'Arenas','nMat':10,'exc':'','notas':[
-        {'value':5.0},
-        {'value': null},
-        {'value': 4.6},
-        {'value': 6.0},
-        {'value': 5.7},
-      ]},
-      {'numero':2,'nombre':'Valentin','apellidos':'Trujillo','nMat':15,'exc':'','notas':[
-        {'value':4.0},
-        {'value': 7.0},
-        {'value': null},
-        {'value': null},
-        {'value': 5.4},
-      ]},
-      {'numero':3,'nombre':'Don','apellidos':'Carter','nMat':230,'exc':'','notas':[
-        {'value':7.0},
-        {'value': 7.0},
-        {'value': null},
-        {'value': 5.5},
-        {'value': 6.4},
-      ]},
-    ]}
-  ];
+  alumnos = [];
 
   selectedAsignatura: any;
   selectedAsignaturaAlumnos = [];
+
+  private notasCongif: any;
+  decimals: string;
 
   id: number;
   private sub: any;
@@ -55,6 +36,8 @@ export class CursoNotasVerComponent implements OnInit {
   constructor(
     private cursosService: CursosService,
     private route: ActivatedRoute,
+    private configuracionService: ConfiguracionService,
+    private configNotasService: ConfigNotasService,
   ) { }
 
   ngOnInit() {
@@ -68,6 +51,22 @@ export class CursoNotasVerComponent implements OnInit {
       .subscribe((res) => {
         this.asignaturas = res.asignaturas;
         this.setAsignatura(this.asignaturas[0].asignatura.datos.id);
+
+        /*this.configuracionService.getConguraciones().subscribe(configs => {
+          let config = configs.find(c => c.glosa == 'Calendario Académico');
+
+          this.configNotasService.getConfigNotasById(config.id).subscribe(subRes => {
+            this.notasCongif = subRes;
+          });
+        });*/
+        this.notasCongif = {
+          'notas': {
+            'decimales':1,
+            'aprox':0,
+          }
+        };
+
+        this.decimals = '1.1-'+this.notasCongif.notas.decimales.toString();
       });
 
     this.selectedAsignatura = {'datos':{
