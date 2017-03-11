@@ -4,6 +4,8 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { CursosService } from '../../../../../services/libros/cursos.service';
 import { NotasService } from '../../../../../services/libros/notas.service';
+import {ConfiguracionService} from '../../../../../services/sistema/configuracion.service';
+import { ConfigNotasService } from '../../../../../services/sistema/configuraciones/config-notas.service';
 
 @Component({
   selector: 'app-curso-notas-ingresar',
@@ -52,10 +54,15 @@ export class CursoNotasIngresarComponent implements OnInit {
   id: number;
   private sub: any;
 
+  private notasCongif: any;
+  decimals: string;
+
   constructor(
     private cursosService: CursosService,
     private notasService: NotasService,
     private route: ActivatedRoute,
+    private configuracionService: ConfiguracionService,
+    private configNotasService: ConfigNotasService,
   ) { }
 
   ngOnInit() {
@@ -68,6 +75,22 @@ export class CursoNotasIngresarComponent implements OnInit {
       .subscribe((res) => {
         this.asignaturas = res.asignaturas;
         this.setAsignatura(this.asignaturas[0].asignatura.datos.id);
+
+        /*this.configuracionService.getConguraciones().subscribe(configs => {
+         let config = configs.find(c => c.glosa == 'Calendario Académico');
+
+         this.configNotasService.getConfigNotasById(config.id).subscribe(subRes => {
+         this.notasCongif = subRes;
+         });
+         });*/
+        this.notasCongif = {
+          'notas': {
+            'decimales':2,
+            'aprox':0,
+          }
+        };
+
+        this.decimals = '1.1-'+this.notasCongif.notas.decimales.toString();
       });
 
     this.selectedAsignatura = {

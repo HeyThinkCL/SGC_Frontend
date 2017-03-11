@@ -22,7 +22,7 @@
           </div>
         </div>
       </div>
-      <div class="panel-body">
+      <div class="panel-body" *ngIf="selectedAsignaturaAlumnos&&selectedAsignatura">
         <div class="table-responsive">
           <table class="table table-middle table-striped table-bordered">
             <thead>
@@ -69,7 +69,7 @@
                        (ngModelChange)="restrictValue(nota)"
                        (change)="onChange(nota)"/>
               </td>
-              <td>{{ alumno.notas | calcPromedio:selectedAsignatura.info_notas | number:'1.1-2' }}</td>
+              <td>{{ alumno.notas | calcPromedio:selectedAsignatura.info_notas:notasCongif | number:decimals }}</td>
             </tr>
             </tbody>
           </table>

@@ -62,7 +62,7 @@ export class CursoNotasVerComponent implements OnInit {
         this.notasCongif = {
           'notas': {
             'decimales':1,
-            'aprox':0,
+            'aprox':1,
           }
         };
 
