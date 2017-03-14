@@ -57,6 +57,8 @@ export class CursoNotasIngresarComponent implements OnInit {
   private notasCongif: any;
   decimals: string;
 
+  renderView: boolean;
+
   constructor(
     private cursosService: CursosService,
     private notasService: NotasService,
@@ -86,11 +88,13 @@ export class CursoNotasIngresarComponent implements OnInit {
         this.notasCongif = {
           'notas': {
             'decimales':2,
-            'aprox':0,
+            'aprox':1,
           }
         };
 
         this.decimals = '1.1-'+this.notasCongif.notas.decimales.toString();
+
+        this.renderView = true;
       });
 
     this.selectedAsignatura = {
@@ -115,6 +119,7 @@ export class CursoNotasIngresarComponent implements OnInit {
 
   setAsignatura(id: number) {
     this.selectedAsignatura = this.asignaturas.find(res => res.asignatura.datos.id == id).asignatura;
+    console.log(this.selectedAsignatura);
     this.getAlumnos(this.selectedAsignatura);
   }
 
@@ -177,6 +182,8 @@ export class CursoNotasIngresarComponent implements OnInit {
     for (let nota of this.notaToDelete.notas){
       notas.push(nota.nota.id);
     }
+
+    this.renderView = false;
     this.notasService.deleteNotas(notas).subscribe(() => {
       this.notaToDelete = {
         'evaluacion': {},
@@ -188,6 +195,7 @@ export class CursoNotasIngresarComponent implements OnInit {
         .subscribe((res) => {
           this.asignaturas = res.asignaturas;
           this.setAsignatura(this.selectedAsignatura.datos.id);
+          this.renderView = true;
           this.modalDelete.close();
         });
     })

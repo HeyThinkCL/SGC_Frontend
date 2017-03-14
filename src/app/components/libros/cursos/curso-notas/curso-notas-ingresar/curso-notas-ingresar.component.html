@@ -22,7 +22,8 @@
           </div>
         </div>
       </div>
-      <div class="panel-body" *ngIf="selectedAsignaturaAlumnos&&selectedAsignatura">
+      <app-spinner [timeoutMessage]="" *ngIf="!(renderView)"></app-spinner>
+      <div class="panel-body" *ngIf="renderView&&selectedAsignaturaAlumnos&&selectedAsignatura">
         <div class="table-responsive">
           <table class="table table-middle table-striped table-bordered">
             <thead>

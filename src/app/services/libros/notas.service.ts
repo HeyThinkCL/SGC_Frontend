@@ -51,6 +51,7 @@ export class NotasService {
   }
 
   deleteNotas(notas){
+    console.log(notas);
     const url = `${this.notasUrl}/${notas[0]}?nota=${JSON.stringify(notas)}`;
 
     return this.http.delete(url,{headers: this.headers})
