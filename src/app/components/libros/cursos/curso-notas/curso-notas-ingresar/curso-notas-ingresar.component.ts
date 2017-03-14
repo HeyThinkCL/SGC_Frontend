@@ -78,23 +78,26 @@ export class CursoNotasIngresarComponent implements OnInit {
         this.asignaturas = res.asignaturas;
         this.setAsignatura(this.asignaturas[0].asignatura.datos.id);
 
-        /*this.configuracionService.getConguraciones().subscribe(configs => {
-         let config = configs.find(c => c.glosa == 'Calendario Académico');
+        this.configuracionService.getConfiguraciones().subscribe(configs => {
 
-         this.configNotasService.getConfigNotasById(config.id).subscribe(subRes => {
-         this.notasCongif = subRes;
-         });
-         });*/
-        this.notasCongif = {
-          'notas': {
-            'decimales':2,
-            'aprox':1,
-          }
-        };
+          let config = configs.find(c => c.glosa == 'Notas y Ponderaciones');
 
-        this.decimals = '1.1-'+this.notasCongif.notas.decimales.toString();
+          this.notasCongif = {
+            'notas': {
+              'decimales':null,
+              'aprox':null,
+            }
+          };
 
-        this.renderView = true;
+          this.configNotasService.getConfigNotasById(config.id).subscribe(subRes => {
+           this.notasCongif.notas.decimales = subRes.notas.decimales;
+           this.notasCongif.notas.aprox = subRes.notas.aprox;
+
+           this.decimals = '1.1-'+this.notasCongif.notas.decimales.toString();
+
+           this.renderView = true;
+          });
+        });
       });
 
     this.selectedAsignatura = {
@@ -119,7 +122,6 @@ export class CursoNotasIngresarComponent implements OnInit {
 
   setAsignatura(id: number) {
     this.selectedAsignatura = this.asignaturas.find(res => res.asignatura.datos.id == id).asignatura;
-    console.log(this.selectedAsignatura);
     this.getAlumnos(this.selectedAsignatura);
   }
 

@@ -4,7 +4,8 @@
 
 <div class="row">
   <div class="col-md-9 col-md-offset-1">
-    <div class="card">
+    <app-spinner [timeoutMessage]="" *ngIf="!(configuracion)"></app-spinner>
+    <div class="card" *ngIf="configuracion">
       <div class="card-header">
         <h3 class="card-title fw-l">Configuración para cálculo de promedios.</h3>
       </div>
@@ -13,13 +14,13 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="form-control-1">N° de decimales</label>
             <div class="col-sm-1">
-              <input class="form-control" id="form-control-1" type="number">
+              <input class="form-control" id="form-control-1" type="number" [(ngModel)]="configuracion.notas.decimales">
             </div>
             <label class="control-label col-sm-4" for="form-control-2">Método de aproximación.</label>
             <div class="col-sm-3">
-              <select class="form-control" id="form-control-2">
-                <option value="0">Hacia arriba</option>
-                <option value="1">Truncado</option>
+              <select class="form-control" id="form-control-2" type="number" [(ngModel)]="configuracion.notas.aprox">
+                <option value=1>Hacia arriba</option>
+                <option value=0>Truncado</option>
               </select>
             </div>
           </div>

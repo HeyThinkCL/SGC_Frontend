@@ -19,26 +19,26 @@ export class ConfigNotasService {
   private headers = new Headers({'Content-Type': 'application/json'});
 
   getConfigNotas(idConfig: number): Observable<any>{
-    let url = `${this.configuracionUrl}/configuraciones/notas/${idConfig}`;
+    let url = `${this.configuracionUrl}/configuraciones/notas_ponderaciones/${idConfig}`;
     return this.http.get(url)
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
   getConfigNotasById(idConfig: number): Observable<any>{
-    let url = `${this.configuracionUrl}/configuraciones/notas?id=${idConfig}`;
+    let url = `${this.configuracionUrl}/configuraciones/notas_ponderaciones?id=${idConfig}`;
     return this.http.get(url)
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
   createConfigNotas(idConfig: number): Observable<any>{
-    let url = `${this.configuracionUrl}/configuraciones/notas?id=${idConfig}`;
+    let url = `${this.configuracionUrl}/configuraciones/notas_ponderaciones?id=${idConfig}`;
 
     let payload = {
       'notas':{
         'decimales':null,
-        'aproximacion':'',
+        'aprox':null, // 0->aprox. hacia arriba, 1->truncado
       }
     };
 
@@ -48,9 +48,9 @@ export class ConfigNotasService {
   }
 
   updateConfigNotas(idConfig: number,config: any): Observable<any>{
-    let url = `${this.configuracionUrl}/configuraciones/notas/${idConfig}`;
+    let url = `${this.configuracionUrl}/configuraciones/notas_ponderaciones/${idConfig}`;
 
-    return this.http.put(url, JSON.stringify({'notas': config}), {headers: this.headers})
+    return this.http.put(url, JSON.stringify(config), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }

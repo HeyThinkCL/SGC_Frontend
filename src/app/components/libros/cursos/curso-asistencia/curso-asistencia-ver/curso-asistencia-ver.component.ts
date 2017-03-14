@@ -69,7 +69,7 @@ export class CursoAsistenciaVerComponent implements OnInit {
         }
         this.inasistenciaMonth = res.mes;
 
-        this.configuracionService.getConguraciones().subscribe(configs => {
+        this.configuracionService.getConfiguraciones().subscribe(configs => {
           let config = configs.find(c => c.glosa == 'Calendario Académico');
           this.calendarioService.getConfigCalendarioAcademicoById(config.id).subscribe(subRes => {
             this.calendarConfig = subRes;

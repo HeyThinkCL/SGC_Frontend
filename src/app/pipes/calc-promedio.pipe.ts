@@ -31,7 +31,7 @@ export class CalcPromedio implements PipeTransform {
         }
       }
     }
-    if(config.notas.aprox == 1){
+    if(!(config.notas.aprox)){
       return isNaN(sum/total)? 1.0 : this.round(sum/total,config.notas.decimales) ;
     } else {
       return isNaN(sum/total)? 1.0 : sum/total ;

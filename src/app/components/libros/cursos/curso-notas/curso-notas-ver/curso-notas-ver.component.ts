@@ -52,21 +52,24 @@ export class CursoNotasVerComponent implements OnInit {
         this.asignaturas = res.asignaturas;
         this.setAsignatura(this.asignaturas[0].asignatura.datos.id);
 
-        /*this.configuracionService.getConguraciones().subscribe(configs => {
-          let config = configs.find(c => c.glosa == 'Calendario Académico');
+        this.configuracionService.getConfiguraciones().subscribe(configs => {
+
+          let config = configs.find(c => c.glosa == 'Notas y Ponderaciones');
+
+          this.notasCongif = {
+            'notas': {
+              'decimales':null,
+              'aprox':null,
+            }
+          };
 
           this.configNotasService.getConfigNotasById(config.id).subscribe(subRes => {
-            this.notasCongif = subRes;
-          });
-        });*/
-        this.notasCongif = {
-          'notas': {
-            'decimales':1,
-            'aprox':1,
-          }
-        };
+            this.notasCongif.notas.decimales = subRes.notas.decimales;
+            this.notasCongif.notas.aprox = subRes.notas.aprox;
 
-        this.decimals = '1.1-'+this.notasCongif.notas.decimales.toString();
+            this.decimals = '1.1-'+this.notasCongif.notas.decimales.toString();
+          });
+        });
       });
 
     this.selectedAsignatura = {'datos':{

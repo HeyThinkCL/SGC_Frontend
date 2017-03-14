@@ -19,7 +19,7 @@ export class ConfiguracionService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  getConguraciones(): Observable<any>{
+  getConfiguraciones(): Observable<any>{
     return this.http.get(this.configuracionUrl)
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));

@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
   ){}
 
   ngOnInit(){
-    this.configuracionService.getConguraciones().subscribe(res => {
+    this.configuracionService.getConfiguraciones().subscribe(res => {
       this.configRoutes = res;
       for(let r of this.configRoutes){
         let data = this.configRoutesData.find(data => data.glosa == r.glosa);

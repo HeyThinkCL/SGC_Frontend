@@ -15,7 +15,7 @@ export class NotasPonderacionesComponent implements OnInit {
   private configuracion = {
     'notas':{
       'decimales':null,
-      'aproximacion':'',
+      'aprox':null,
     }
   };
 

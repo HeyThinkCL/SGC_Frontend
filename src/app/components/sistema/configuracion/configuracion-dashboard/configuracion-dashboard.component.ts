@@ -50,7 +50,7 @@ export class ConfiguracionDashboardComponent implements OnInit {
   ngOnInit() {
     this.timeoutMessage = connectionErrorMsg();
 
-    this.configuracionService.getConguraciones().subscribe(res => {
+    this.configuracionService.getConfiguraciones().subscribe(res => {
       this.routes = res;
       for(let r of this.routes){
         let data = this.routeData.find(data => data.glosa == r.glosa);
