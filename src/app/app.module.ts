@@ -28,6 +28,7 @@ import { LoginComponent } from './components/login/login.component';
 
 //Dashboard
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 //Sistema
 ////Colegios
@@ -128,8 +129,7 @@ import {ConfiguracionService} from './services/sistema/configuracion.service';
 import {CalendarioService} from './services/sistema/configuraciones/calendario.service';
 import {ConfigNotasService} from './services/sistema/configuraciones/config-notas.service';
 import {AsistenciaService} from "./services/libros/asistencia.service";
-import { SpinnerComponent } from './components/spinner/spinner.component';
-
+import {PlanDeEstudiosService} from './services/sistema/plan-de-estudios.service';
 
 @NgModule({
   declarations: [
@@ -235,6 +235,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     ConfiguracionService,
     CalendarioService,
     ConfigNotasService,
+    PlanDeEstudiosService,
   ],
   bootstrap: [RootComponent]
 })

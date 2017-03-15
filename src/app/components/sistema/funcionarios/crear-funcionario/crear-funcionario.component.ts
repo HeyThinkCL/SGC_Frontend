@@ -4,8 +4,9 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { Select2OptionData } from 'ng2-select2';
 import  { Ng2DatetimePickerComponent } from 'ng2-datetime-picker';
 
-import { EtniasService } from '../../../../services/sistema/etnias.service'
-import { EstadosCivilesService } from '../../../../services/sistema/estados-civiles.service'
+import { EtniasService } from '../../../../services/sistema/etnias.service';
+import { EstadosCivilesService } from '../../../../services/sistema/estados-civiles.service';
+import { FuncionariosService} from '../../../../services/sistema/funcionarios.service';
 
 import * as globalVars from '../../../../globals';
 
@@ -58,6 +59,7 @@ export class CrearFuncionarioComponent implements OnInit {
     'secretario':false,
     'asistente':false,
     'horas_profesor':null,
+    'colegio_id':1,
   };
   private rolesDocentes = [];
   private rolesNoDocentes = [];
@@ -66,6 +68,7 @@ export class CrearFuncionarioComponent implements OnInit {
     private location: Location,
     private etniasService: EtniasService,
     private estadosCivilesService: EstadosCivilesService,
+    private funcionariosService: FuncionariosService,
   ) { }
 
   ngOnInit() {
@@ -182,6 +185,9 @@ export class CrearFuncionarioComponent implements OnInit {
       this.funcionario[rol.toString()] = true;
     }
 
+    this.funcionariosService.createFuncionario(this.funcionario).subscribe(res => {
+      this.modalOpen();
+    })
   }
 
 }

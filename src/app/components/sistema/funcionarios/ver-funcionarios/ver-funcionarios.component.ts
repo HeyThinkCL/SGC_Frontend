@@ -12,23 +12,7 @@ export class VerFuncionariosComponent implements OnInit {
   @ViewChild('modal')
   modal: ModalComponent;
 
-  private funcionarios = [
-    {
-      'id':1,
-      'profesor':true,
-      'jefeUTO':true,
-      'director':true,
-      'asistente':false,
-      'inspector':false,
-      'usuario':{
-        'nombre':'Profesor',
-        'apellido_paterno':'Jirafales',
-        'apellido_materno':'Longaniza',
-        'rut':7544263,
-        'dv':'k',
-      }
-    },
-  ];
+  private funcionarios = [];
   selectedFuncionario_id: number;
   filterData:string  = '';
   filterKeys = [
@@ -44,8 +28,8 @@ export class VerFuncionariosComponent implements OnInit {
 
   ngOnInit() {
     this.funcionariosService.getFuncionarios().subscribe(res => {
-      this.funcionarios = res;
       console.log(res);
+      this.funcionarios = res;
     })
   }
 
@@ -74,8 +58,10 @@ export class VerFuncionariosComponent implements OnInit {
   deleteFuncionario(id: number){
     let index = this.indexOfObj(id);
     this.funcionarios.splice(index,1);
-    this.modal.close();
-    this.selectedFuncionario_id = null;
+    this.funcionariosService.deleteFuncionario(id).subscribe(() => {
+      this.modal.close();
+      this.selectedFuncionario_id = null;
+    });
   }
 
 }

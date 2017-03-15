@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { Select2OptionData } from 'ng2-select2';
 
 import { ColegiosService } from '../../../../services/sistema/colegios.service';
 import { DpaService } from '../../../../services/sistema/dpa.service';
+import { PlanDeEstudiosService } from '../../../../services/sistema/plan-de-estudios.service';
 
 @Component({
   selector: 'app-crear-colegio',
@@ -24,10 +26,15 @@ export class CrearColegioComponent implements OnInit {
   selectedProvincia: any;
   selectedComuna: any;
 
+  //planes de estudio select2
+  public selectPlanesDeEstudiosData: Array<Select2OptionData> = [];
+  public selectPlanesDeEstudiosOptions: Select2Options;
+
   constructor(
       private location: Location,
       private colegiosService: ColegiosService,
       private dpaService: DpaService,
+      private planDeEstudiosService: PlanDeEstudiosService,
   ) { }
 
   ngOnInit() {
@@ -55,10 +62,36 @@ export class CrearColegioComponent implements OnInit {
       "director": null,
       "sostenedor": null,
       "depto_prov": null,
+      'plan_estudios':null,
     };
     this.dpaService.getRegiones().subscribe(res => {
       this.regiones = res;
     });
+    this.selectPlanesDeEstudiosData = [{
+      id:' ',
+      text:'Ninguno'
+    }];
+
+    this.planDeEstudiosService.getPlanesDeEstudio().subscribe(planes => {
+      this.selectPlanesDeEstudiosData.pop();
+      this.selectPlanesDeEstudiosData = [{
+        id:' ',
+        text:'Ninguno'
+      }];
+      console.log(planes);
+      for (let plan of planes){
+        this.selectPlanesDeEstudiosData.push({
+          id: null,
+          text: null,
+        })
+      }
+      this.selectPlanesDeEstudiosData = JSON.parse(JSON.stringify(this.selectPlanesDeEstudiosData));
+    });
+
+    this.selectPlanesDeEstudiosOptions = {
+      closeOnSelect: true,
+      placeholder: 'Seleccionar Plan de Estudios',
+    };
   }
 
   setRegion(region: string){
@@ -85,6 +118,10 @@ export class CrearColegioComponent implements OnInit {
     this.dpaService.getDeptoProvincialbyComunaId(this.selectedComuna.codigo).subscribe(res => {
       this.colegio.depto_prov = res.depto;
     });
+  }
+
+  planChanged(value: any){
+    console.log(value);
   }
 
   goBack(): void {

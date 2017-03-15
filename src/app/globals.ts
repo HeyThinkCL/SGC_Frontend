@@ -3,6 +3,8 @@
  */
 'use strict';
 
+export let version: string = '0.1.0';
+
 export let apiUrl: string = 'http://192.168.1.175:3000';//dev
 
 // export let apiUrl: string = 'http://api.innovacolegio.cl:80';//production

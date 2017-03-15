@@ -5,27 +5,21 @@ import { Observable } from "rxjs";
 import * as globalVar from '../../globals';
 
 @Injectable()
-export class AnotacionesService {
+export class PlanDeEstudiosService {
   static get parameters(){
     return [[Http]]
   }
 
-  private anotacionessUrl = globalVar.apiUrl+'/anotaciones';
+  private planesDeEstudiosUrl = globalVar.apiUrl+'/configuraciones/plan_estudio/plan_estudios';
 
   constructor(private http: Http) {
     this.http=http;
   }
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  createAnotacion(anotacion): Observable<any>{
-    let options = new RequestOptions({headers: this.headers});
-    let payload = {};
-    payload['anotaciones'] = JSON.parse(JSON.stringify(anotacion));
-    console.log(payload);
-
-    return this.http.post(this.anotacionessUrl, JSON.stringify(payload), options)
+  getPlanesDeEstudio(){
+    return this.http.get(this.planesDeEstudiosUrl)
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
 }

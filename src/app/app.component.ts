@@ -3,6 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import {ConfiguracionService} from './services/sistema/configuracion.service';
 
+import * as globalVars from './globals';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -35,6 +37,8 @@ export class AppComponent implements OnInit {
     }
   ];
 
+  version: string;
+
   constructor(
     private configuracionService: ConfiguracionService,
     private route: ActivatedRoute,
@@ -42,6 +46,7 @@ export class AppComponent implements OnInit {
   ){}
 
   ngOnInit(){
+    this.version = globalVars.version;
     this.configuracionService.getConfiguraciones().subscribe(res => {
       this.configRoutes = res;
       for(let r of this.configRoutes){
