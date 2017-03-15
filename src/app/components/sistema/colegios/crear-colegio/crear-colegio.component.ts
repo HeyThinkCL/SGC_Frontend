@@ -30,6 +30,8 @@ export class CrearColegioComponent implements OnInit {
   public selectPlanesDeEstudiosData: Array<Select2OptionData> = [];
   public selectPlanesDeEstudiosOptions: Select2Options;
 
+  private planesDeEstudios = [];
+
   constructor(
       private location: Location,
       private colegiosService: ColegiosService,
@@ -62,8 +64,9 @@ export class CrearColegioComponent implements OnInit {
       "director": null,
       "sostenedor": null,
       "depto_prov": null,
-      'plan_estudios':null,
+      'plan_estudios': [],
     };
+
     this.dpaService.getRegiones().subscribe(res => {
       this.regiones = res;
     });
@@ -73,16 +76,16 @@ export class CrearColegioComponent implements OnInit {
     }];
 
     this.planDeEstudiosService.getPlanesDeEstudio().subscribe(planes => {
+      this.planesDeEstudios = planes;
       this.selectPlanesDeEstudiosData.pop();
       this.selectPlanesDeEstudiosData = [{
         id:' ',
         text:'Ninguno'
       }];
-      console.log(planes);
       for (let plan of planes){
         this.selectPlanesDeEstudiosData.push({
-          id: null,
-          text: null,
+          id: plan.id,
+          text: plan.decreto,
         })
       }
       this.selectPlanesDeEstudiosData = JSON.parse(JSON.stringify(this.selectPlanesDeEstudiosData));
@@ -116,12 +119,16 @@ export class CrearColegioComponent implements OnInit {
   setComuna(comuna: string){
     this.selectedComuna = this.comunas.find(com => com.nombre == comuna);
     this.dpaService.getDeptoProvincialbyComunaId(this.selectedComuna.codigo).subscribe(res => {
-      this.colegio.depto_prov = res.depto;
+      this.colegio.depto_prov = res.depto_prov;
     });
   }
 
   planChanged(value: any){
-    console.log(value);
+    this.colegio.plan_estudios.id = value;
+    let selectedPlan = this.planesDeEstudios.find(plan => plan.id == value);
+    if(selectedPlan){
+      this.colegio.plan_estudios.codigo = selectedPlan.codigo;
+    }
   }
 
   goBack(): void {

@@ -46,6 +46,9 @@ export class ColegioDetailComponent implements OnInit {
         if(!(colegio)){
           this.timeoutMessage = invalidRequestMsg();
         }
+        this.colegio['plan_estudios'] = {
+          'decreto': 'Decreto Placeholder',
+        }; //placeholder
       });
   }
 
