@@ -112,6 +112,7 @@ import { JornadaComponent } from './components/sistema/configuracion/jornada/jor
 import { ConfiguracionCursosComponent } from './components/sistema/configuracion/configuracion-cursos/configuracion-cursos.component';
 
 //Servicios
+import {AuthenticationService} from './services/authentication.service';
 import { MatriculaService } from "./services/sistema/matricula.service";
 import {ColegiosService } from './services/sistema/colegios.service';
 import {CursosService} from "./services/libros/cursos.service";
@@ -130,6 +131,9 @@ import {CalendarioService} from './services/sistema/configuraciones/calendario.s
 import {ConfigNotasService} from './services/sistema/configuraciones/config-notas.service';
 import {AsistenciaService} from "./services/libros/asistencia.service";
 import {PlanDeEstudiosService} from './services/sistema/plan-de-estudios.service';
+
+//Guards
+import {AuthGuard,AuthGuardChild} from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -218,6 +222,9 @@ import {PlanDeEstudiosService} from './services/sistema/plan-de-estudios.service
     MomentModule,
   ],
   providers: [
+    AuthGuard,
+    AuthGuardChild,
+    AuthenticationService,
     DpaService,
     EtniasService,
     ColegiosService,

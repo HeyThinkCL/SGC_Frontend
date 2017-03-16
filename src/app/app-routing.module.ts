@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RootComponent } from './root.component';
 
 import { AppComponent } from './app.component';
-
+import {AuthGuard, AuthGuardChild} from './guards/auth.guard';
 //Login
 import { LoginComponent } from './components/login/login.component';
 
@@ -202,7 +202,7 @@ const routes: Routes = [
 
 const rootRoutes: Routes = [
   { path: '', redirectTo: 'app', pathMatch: 'full'},
-  { path: 'app', component: AppComponent, children: routes },
+  { path: 'app', component: AppComponent, children: routes, canActivate: [AuthGuard], canActivateChild: [AuthGuardChild] },
   { path: 'login', component: LoginComponent },
 ];
 

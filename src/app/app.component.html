@@ -146,13 +146,13 @@
                   </h5>
                 </a>
               </li>-->
-              <li class="navbar-upgrade-version">Version: 0.0.0</li>
+              <li class="navbar-upgrade-version">Version: {{version}}</li>
               <li class="divider"></li>
-              <li><a>Cerrar Sesión</a></li>
+              <li (click)="logout()"><a>Cerrar Sesión</a></li>
             </ul>
           </li>
           <li class="visible-xs-block">
-            <a>
+            <a (click)="logout()">
               <span class="icon icon-power-off icon-lg icon-fw"></span>
               Cerrar Sesión
             </a>

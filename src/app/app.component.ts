@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
+import {AuthenticationService} from './services/authentication.service';
 import {ConfiguracionService} from './services/sistema/configuracion.service';
 
 import * as globalVars from './globals';
@@ -43,6 +44,7 @@ export class AppComponent implements OnInit {
     private configuracionService: ConfiguracionService,
     private route: ActivatedRoute,
     private router: Router,
+    private authenticationService: AuthenticationService,
   ){}
 
   ngOnInit(){
@@ -57,7 +59,6 @@ export class AppComponent implements OnInit {
     })
   }
 
-
   goToConfigRoute(id: number){
     if(localStorage.getItem('idConfig')){
       localStorage.setItem('idConfig',id.toString());
@@ -65,5 +66,10 @@ export class AppComponent implements OnInit {
       localStorage['idConfig'] = id;
     }
 
+  }
+
+  logout(){
+    this.authenticationService.logout();
+    this.router.navigate(['../login'])
   }
 }
