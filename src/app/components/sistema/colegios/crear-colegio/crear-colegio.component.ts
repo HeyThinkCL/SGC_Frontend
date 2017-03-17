@@ -26,11 +26,6 @@ export class CrearColegioComponent implements OnInit {
   selectedProvincia: any;
   selectedComuna: any;
 
-  //planes de estudio select2
-  public selectPlanesDeEstudiosData: Array<Select2OptionData> = [];
-  public selectPlanesDeEstudiosOptions: Select2Options;
-
-  private planesDeEstudios = [];
 
   constructor(
       private location: Location,
@@ -70,31 +65,7 @@ export class CrearColegioComponent implements OnInit {
     this.dpaService.getRegiones().subscribe(res => {
       this.regiones = res;
     });
-    this.selectPlanesDeEstudiosData = [{
-      id:' ',
-      text:'Ninguno'
-    }];
 
-    this.planDeEstudiosService.getPlanesDeEstudio().subscribe(planes => {
-      this.planesDeEstudios = planes;
-      this.selectPlanesDeEstudiosData.pop();
-      this.selectPlanesDeEstudiosData = [{
-        id:' ',
-        text:'Ninguno'
-      }];
-      for (let plan of planes){
-        this.selectPlanesDeEstudiosData.push({
-          id: plan.id,
-          text: plan.decreto,
-        })
-      }
-      this.selectPlanesDeEstudiosData = JSON.parse(JSON.stringify(this.selectPlanesDeEstudiosData));
-    });
-
-    this.selectPlanesDeEstudiosOptions = {
-      closeOnSelect: true,
-      placeholder: 'Seleccionar Plan de Estudios',
-    };
   }
 
   setRegion(region: string){
@@ -121,14 +92,6 @@ export class CrearColegioComponent implements OnInit {
     this.dpaService.getDeptoProvincialbyComunaId(this.selectedComuna.codigo).subscribe(res => {
       this.colegio.depto_prov = res.depto_prov;
     });
-  }
-
-  planChanged(value: any){
-    this.colegio.plan_estudios.id = value;
-    let selectedPlan = this.planesDeEstudios.find(plan => plan.id == value);
-    if(selectedPlan){
-      this.colegio.plan_estudios.codigo = selectedPlan.codigo;
-    }
   }
 
   goBack(): void {

@@ -14,7 +14,13 @@
             <div class="form-horizontal">
               <div class="form-group">
                 <div class="col-sm-10">
-
+                  <select2 id="form-control-1"
+                           [data]="selectPlanesData"
+                           [width]="520 | select2WidthFix"
+                           [options]="selectPlanesOptions"
+                           [value]="selectedPlanes"
+                           (valueChanged)="planChanged($event.value)"
+                           *ngIf="selectPlanesData.length>0"></select2>
                 </div>
               </div>
             </div>
@@ -22,7 +28,7 @@
         </div>
       </div>
     </div>
-    <div class="card" *ngFor="let plan of configuracion.planes">
+    <div class="card" *ngFor="let plan of configuracion.planes" [@fade]="true">
       <div class="card-header">
         <h4 class="fw-l">{{plan.decreto}} <span class="fw-sb panel-info pull-right">Código: {{plan.codigo}}</span></h4>
       </div>
@@ -33,14 +39,18 @@
               <div class="form-group">
                 <label></label>
                 <div class="col-sm-8">
-
+                  <select2 id="form-control-2"
+                           [data]="plan.selectTiposData"
+                           [width]="520 | select2WidthFix"
+                           [options]="selectTiposOptions"
+                           *ngIf="plan.selectTiposData"></select2>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="card-header" *ngFor="let tipo of plan.tipos">
+      <div class="card-header" *ngFor="let tipo of plan.tipos" [@fade]>
         <div class="media">
           <div class="media-middle media-left">
             <h5 class="fw-l"><span class="fw-sb panel-info">Código: {{tipo.codigo}}</span><span class="pull-right"> {{tipo.glosa}}</span></h5>
