@@ -5,11 +5,11 @@
 
 export let version: string = '0.2.2';
 
-// export let apiUrl: string = 'http://192.168.1.175:3000';//dev
+export let apiUrl: string = 'http://192.168.1.175:3000';//dev
 
 // export let apiUrl: string = 'http://api.innovacolegio.cl:3000';//production
 
-export let apiUrl: string = 'http://office.heythink.cl:3000';//test
+// export let apiUrl: string = 'http://office.heythink.cl:3000';//test
 
 export let rolesDocentes = [
   {'rol':'profesor'},

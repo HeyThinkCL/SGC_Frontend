@@ -5,7 +5,7 @@ import { Select2OptionData } from 'ng2-select2';
 
 import { ColegiosService } from '../../../../services/sistema/colegios.service';
 import { DpaService } from '../../../../services/sistema/dpa.service';
-import { PlanDeEstudiosService } from '../../../../services/sistema/plan-de-estudios.service';
+import { PlanDeEstudiosService } from '../../../../services/sistema/configuraciones/plan-de-estudios.service';
 
 @Component({
   selector: 'app-crear-colegio',

@@ -31,7 +31,6 @@ export class VerPostulacionesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.timeout = 40;
     this.timeoutMessage = connectionErrorMsg();
     this.postulacionesService.getPostulaciones().subscribe(res => {
       this.timeout = null;

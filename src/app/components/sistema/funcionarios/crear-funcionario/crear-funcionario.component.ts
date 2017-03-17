@@ -58,7 +58,9 @@ export class CrearFuncionarioComponent implements OnInit {
     'jefeUTP':false,
     'secretario':false,
     'asistente':false,
-    'horas_profesor':null,
+    'horas_profesor':{
+      'valor':null,
+    },
     'colegio_id':1,
   };
   private rolesDocentes = [];

@@ -24,7 +24,6 @@ export class SpinnerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('init');
     if(!isNaN(this.timeout)) {
       setTimeout(() => {
         this.timeoutCheck = true;

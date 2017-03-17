@@ -109,8 +109,7 @@ import { ConfiguracionDashboardComponent } from './components/sistema/configurac
 import { CalendarioAcademicoComponent } from './components/sistema/configuracion/calendario-academico/calendario-academico.component';
 import { NotasPonderacionesComponent } from './components/sistema/configuracion/notas-ponderaciones/notas-ponderaciones.component';
 import { JornadaComponent } from './components/sistema/configuracion/jornada/jornada.component';
-import { ConfiguracionCursosComponent } from './components/sistema/configuracion/configuracion-cursos/configuracion-cursos.component';
-
+import { PlanesEnsenanzaComponent } from './components/sistema/configuracion/planes-ensenanza/planes-ensenanza.component';
 //Servicios
 import {AuthenticationService} from './services/authentication.service';
 import { MatriculaService } from "./services/sistema/matricula.service";
@@ -130,10 +129,11 @@ import {ConfiguracionService} from './services/sistema/configuracion.service';
 import {CalendarioService} from './services/sistema/configuraciones/calendario.service';
 import {ConfigNotasService} from './services/sistema/configuraciones/config-notas.service';
 import {AsistenciaService} from "./services/libros/asistencia.service";
-import {PlanDeEstudiosService} from './services/sistema/plan-de-estudios.service';
+import {PlanDeEstudiosService} from './services/sistema/configuraciones/plan-de-estudios.service';
 
 //Guards
 import {AuthGuard,AuthGuardChild} from './guards/auth.guard';
+
 
 @NgModule({
   declarations: [
@@ -205,11 +205,12 @@ import {AuthGuard,AuthGuardChild} from './guards/auth.guard';
     CalendarioAcademicoComponent,
     NotasPonderacionesComponent,
     JornadaComponent,
+    PlanesEnsenanzaComponent,
     CursosComponent,
-    ConfiguracionCursosComponent,
     VerProfesoresComponent,
     AsignarProfesorComponent,
     SpinnerComponent,
+    PlanesEnsenanzaComponent,
   ],
   imports: [
     BrowserModule,

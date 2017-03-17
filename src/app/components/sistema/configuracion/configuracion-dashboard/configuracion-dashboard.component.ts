@@ -30,8 +30,8 @@ export class ConfiguracionDashboardComponent implements OnInit {
       'icon':'icon-bell-o',
     },
     {
-      'glosa':'Cursos',
-      'path':'cursos',
+      'glosa':'Planes de Estudio y Tipos de Enseñanza',
+      'path':'planes-ensenanza',
       'icon':'icon-graduation-cap',
     }
   ];

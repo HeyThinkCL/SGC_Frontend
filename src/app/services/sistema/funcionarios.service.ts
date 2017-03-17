@@ -49,7 +49,7 @@ export class FuncionariosService {
     return this.http
       .put(url, JSON.stringify(funcionario), {headers: this.headers})
       .map(() => funcionario)
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Alumno'));
+      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Funcionario'));
   }
 
   deleteFuncionario(id: number){

@@ -79,8 +79,7 @@ import { ConfiguracionDashboardComponent } from './components/sistema/configurac
 import { CalendarioAcademicoComponent } from './components/sistema/configuracion/calendario-academico/calendario-academico.component';
 import { NotasPonderacionesComponent } from './components/sistema/configuracion/notas-ponderaciones/notas-ponderaciones.component';
 import { JornadaComponent } from './components/sistema/configuracion/jornada/jornada.component';
-import { ConfiguracionCursosComponent } from './components/sistema/configuracion/configuracion-cursos/configuracion-cursos.component';
-
+import { PlanesEnsenanzaComponent } from './components/sistema/configuracion/planes-ensenanza/planes-ensenanza.component';
 //Documentos
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { InformesComponent } from './components/documentos/informes/informes.component';
@@ -195,7 +194,7 @@ const routes: Routes = [
       {path:'calendario', component: CalendarioAcademicoComponent },
       {path:'notas', component: NotasPonderacionesComponent },
       {path:'jornada', component: JornadaComponent },
-      {path:'cursos', component: ConfiguracionCursosComponent },
+      {path:'planes-ensenanza', component: PlanesEnsenanzaComponent },
     ]
   },
 ];

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from "rxjs";
 
-import * as globalVar from '../../globals';
+import * as globalVar from '../../../globals';
 
 @Injectable()
 export class PlanDeEstudiosService {
@@ -18,6 +18,12 @@ export class PlanDeEstudiosService {
   private headers = new Headers({'Content-Type': 'application/json'});
 
   getPlanesDeEstudio(){
+    return this.http.get(globalVar.apiUrl+'/configuraciones/plan_estudios')
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
+  }
+
+  getConfigPlanesDeEstudio(){
     return this.http.get(this.planesDeEstudiosUrl)
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
