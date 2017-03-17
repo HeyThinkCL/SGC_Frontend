@@ -24,6 +24,7 @@ export class PostulacionesRechazadasComponent implements OnInit {
   filterKeys = ['nombre','rut'];
 
   timeoutMessage: string;
+  timeout: number;
 
   constructor(
     private postulacionesService: PostulacionesService,
@@ -33,8 +34,10 @@ export class PostulacionesRechazadasComponent implements OnInit {
   ngOnInit() {
     this.timeoutMessage = connectionErrorMsg();
     this.postulacionesService.getRechazadas().subscribe(res => {
+      this.timeout = null;
       this.postulaciones = res;
       if(!(res.length<0)){
+        this.timeout = 1;
         this.timeoutMessage = emptyArrayMsg("Postulaciones");
       }
     });

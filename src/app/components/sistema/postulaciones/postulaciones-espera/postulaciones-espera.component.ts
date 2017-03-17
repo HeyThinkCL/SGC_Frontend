@@ -23,6 +23,7 @@ export class PostulacionesEsperaComponent implements OnInit {
   filterKeys = ['nombre','rut'];
 
   timeoutMessage: string;
+  timeout: number;
 
   constructor(
     private postulacionesService: PostulacionesService,
@@ -32,8 +33,10 @@ export class PostulacionesEsperaComponent implements OnInit {
   ngOnInit() {
     this.timeoutMessage = connectionErrorMsg();
     this.postulacionesService.getListaEspera().subscribe(res => {
+      this.timeout = null;
       this.postulaciones = res;
       if(!(res.length<0)){
+        this.timeout = 1;
         this.timeoutMessage = emptyArrayMsg("Postulaciones");
       }
     });

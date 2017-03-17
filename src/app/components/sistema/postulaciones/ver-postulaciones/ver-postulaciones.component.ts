@@ -23,6 +23,7 @@ export class VerPostulacionesComponent implements OnInit {
   filterKeys = ['nombre','rut'];
 
   timeoutMessage: string;
+  timeout: number;
 
   constructor(
     private postulacionesService: PostulacionesService,
@@ -30,10 +31,13 @@ export class VerPostulacionesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.timeout = 40;
     this.timeoutMessage = connectionErrorMsg();
     this.postulacionesService.getPostulaciones().subscribe(res => {
+      this.timeout = null;
       this.postulaciones = res;
       if(!(res.length<0)){
+        this.timeout = 1;
         this.timeoutMessage = emptyArrayMsg("Postulaciones");
       }
     });

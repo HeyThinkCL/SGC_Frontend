@@ -17,19 +17,28 @@ import { Component, OnInit, Input, trigger, transition, style, animate, keyframe
 })
 export class SpinnerComponent implements OnInit {
   @Input('timeoutMessage') timeoutMessage: string;
+  @Input('timeout') timeout: number;
 
   timeoutCheck: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
-
+    console.log('init');
+    if(!isNaN(this.timeout)) {
+      setTimeout(() => {
+        this.timeoutCheck = true;
+      }, 1000*this.timeout);
+    }
   }
 
   timeoutId = setTimeout(() => {
     this.timeoutCheck = true;
   }, 1000*40);
 
+  //To modify the timeout length, the app-spinner component called in HTML must be re-rendered using *ngIf.
+  //Simple way to do this is by setting the variable timeout, setting it to null after receiving the API response
+  //and then assigning a value to it.
 }
 
 //Global Messages
