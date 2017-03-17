@@ -2,12 +2,12 @@
 body {
   background-color: #fff;
   border-color: #fff;
-  color: #757575;
+  color: #2c3e50;
 }
 .contact {
   background-color: #fff;
   border-color: #fff;
-  color: #757575;
+  color: #2c3e50;
   height: 100%;
   overflow: hidden;
   position: relative;
@@ -41,21 +41,21 @@ body {
 }
 .contact-list-link {
   border-radius: 0;
-  color: #757575;
+  color: #2c3e50;
   display: block;
   padding: 10px;
   position: relative;
 }
 .contact-list-link:hover,
 .contact-list-link:focus {
-  background-color: #eee;
-  color: #424242;
+  background-color: #e5ebf1;
+  color: #3a5269;
   text-decoration: none;
 }
 .active > .contact-list-link,
 .active > .contact-list-link:hover,
 .active > .contact-list-link:focus {
-  background-color: #0288d1;
+  background-color: #2c3e50;
   color: #fff;
 }
 .contact-list-heading {
@@ -68,7 +68,7 @@ body {
   position: relative;
 }
 .contact-list-divider:before {
-  background-color: #eee;
+  background-color: #cad6e2;
   content: "";
   display: block;
   height: 1px;
@@ -154,7 +154,7 @@ body {
 }
 .contact-avatar-btn:hover,
 .contact-avatar-btn:focus {
-  background-color: #0288d1;
+  background-color: #2c3e50;
   color: #fff;
 }
 .contact-name {
@@ -213,7 +213,7 @@ body {
 }
 @media (min-width: 992px) {
   .contact-sidebar {
-    border-right: 1px solid #eee;
+    border-right: 1px solid #cad6e2;
     bottom: 0;
     display: block;
     position: absolute;
@@ -257,7 +257,7 @@ body {
     top: 0;
   }
   .contact-toolbar {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #cad6e2;
     -webkit-box-shadow: none;
             box-shadow: none;
   }

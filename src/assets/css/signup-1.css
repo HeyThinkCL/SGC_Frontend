@@ -49,7 +49,7 @@ body {
   width: 100%;
 }
 .help-block.has-error {
-  color: #d50000;
+  color: #e74c3c;
 }
 .list-inline {
   text-align: center;

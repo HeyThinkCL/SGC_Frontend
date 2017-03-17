@@ -114,7 +114,7 @@
                          [options]="selectRolesOptions"
                          [width]="350 | select2WidthFix"
                          [value]="rolesDocentes"
-                         [disabled]="true"></select2>
+                         [disabled]="true" *ngIf="rolesDocentesCheck"></select2>
               </div>
             </div>
             <div class="form-group">
@@ -125,7 +125,7 @@
                          [options]="selectRolesOptions"
                          [width]="350 | select2WidthFix"
                          [value]="rolesNoDocentes"
-                         [disabled]="true"></select2>
+                         [disabled]="true" *ngIf="rolesNoDocentesCheck"></select2>
               </div>
             </div>
           </div>

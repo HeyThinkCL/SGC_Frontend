@@ -28,7 +28,6 @@ export class VerFuncionariosComponent implements OnInit {
 
   ngOnInit() {
     this.funcionariosService.getFuncionarios().subscribe(res => {
-      console.log(res);
       this.funcionarios = res;
     })
   }

@@ -24,7 +24,7 @@
   line-height: 34px;
 }
 .cart-subtotal {
-  border-top: 1px solid #eee;
+  border-top: 1px solid #cad6e2;
   font-size: 18px;
   font-weight: 500;
   line-height: 1.333333;
@@ -33,7 +33,7 @@
   text-align: right;
 }
 .cart-subtotal-amount {
-  color: #d50000;
+  color: #e74c3c;
 }
 .cart-actions {
   padding: 10px;
@@ -43,11 +43,11 @@
   text-align: center;
 }
 .confirmation-icon {
-  color: #0288d1;
+  color: #2c3e50;
 }
 .payment-card {
   background-color: #fff;
-  border: 1px solid #eee;
+  border: 1px solid #f2f5f8;
   border-radius: 0;
   margin-bottom: 15px;
   padding: 15px;
@@ -56,7 +56,7 @@
   margin-bottom: 0;
 }
 .payment-total-amount {
-  color: #d50000;
+  color: #e74c3c;
   font-size: 18px;
   font-weight: 500;
 }
@@ -66,7 +66,7 @@
 }
 @media (max-width: 767px) {
   .cart-list-item {
-    border-top: 1px solid #eee;
+    border-top: 1px solid #cad6e2;
     display: block;
     padding-bottom: 15px;
     padding-top: 15px;
@@ -125,7 +125,7 @@
   .cart-list-details,
   .cart-list-quantity,
   .cart-list-subtotal {
-    border-top: 1px solid #eee;
+    border-top: 1px solid #cad6e2;
     display: table-cell;
     padding: 10px;
     vertical-align: top;
@@ -145,7 +145,7 @@
 }
 @media (min-width: 992px) {
   .cart-list-price {
-    border-top: 1px solid #eee;
+    border-top: 1px solid #cad6e2;
     display: table-cell;
     padding: 10px;
     vertical-align: top;

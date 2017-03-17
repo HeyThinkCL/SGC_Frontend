@@ -4,9 +4,9 @@
   margin-left: 0;
 }
 .demo-grid-block {
-  background: #cfd6db;
+  background: #d1dce6;
   border-radius: 0;
-  color: #757575;
+  color: #2c3e50;
   font-size: 11px;
   margin-bottom: 15px;
   overflow: hidden;
@@ -15,7 +15,7 @@
   text-align: center;
 }
 .demo-icons-header {
-  color: #424242;
+  color: #3a5269;
   font-size: 14px;
   margin-bottom: 15px;
   margin-top: 15px;
@@ -43,7 +43,7 @@
           transform: scale(1.5);
 }
 .demo-icons .caption {
-  color: #757575;
+  color: #7b99b7;
   display: block;
   font-size: 11px;
   margin-bottom: 45px;

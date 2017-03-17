@@ -3,7 +3,7 @@
   <p class="title bar description"></p>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="this.funcionario && this.selectedFuncionario">
   <div class="col-md-9 col-md-offset-1">
     <div class="card">
       <div class="card-header">
@@ -19,11 +19,11 @@
             <div class="md-form-group md-label-static">
               <label class="col-sm-1 md-control-label" for="form-control-14"><b>Nombre:</b> {{selectedFuncionario.usuario.nombre}}</label>
               <div class="col-sm-5">
-                <input class="form-control" type="text" id="form-control-14" [(ngModel)]="funcionario.usuario.nombre">
+                <input class="form-control" type="text" id="form-control-14" [(ngModel)]="funcionario?.usuario.nombre">
               </div>
               <label class="col-sm-1 col-sm-offset-5 md-control-label" for="form-control-15"><b>Apellido Paterno:</b> {{selectedFuncionario.usuario.apellido_paterno}}</label>
               <div class="col-sm-3">
-                <input class="form-control" type="text" id="form-control-15" [(ngModel)]="funcionario.usuario.apellido_paterno">
+                <input class="form-control" type="text" id="form-control-15" [(ngModel)]="funcionario?.usuario.apellido_paterno">
               </div>
               <label class="col-sm-1 col-sm-offset-8 md-control-label" for="form-control-16"><b>Apellido Materno:</b> {{selectedFuncionario.usuario.apellido_materno}}</label>
               <div class="col-sm-3">
@@ -80,15 +80,18 @@
                          [data]="selectNacionalidadData"
                          [width]="350 | select2WidthFix"
                          [options]="selectNacionalidadOptions"
+                         [value]="funcionario.usuario.nacionalidad"
+                         *ngIf="funcionario"
                          (valueChanged)="funcionario.usuario.nacionalidad = $event.value"></select2>
               </div>
               <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-25"><b>Estado Civil:</b> {{selectedFuncionario.usuario.estado_civil}}</label>
               <div class="col-sm-3">
                 <select2 id="form-control-25"
                          [data]="selectEstadoCivilData"
-                         *ngIf="selectEstadoCivilData.length > 0"
                          [width]="150"
                          [options]="selectEstadoCivilOptions"
+                         [value]="funcionario.usuario.estado_civil"
+                         *ngIf="selectEstadoCivilData.length > 0 && funcionario"
                          (valueChanged)="funcionario.usuario.estado_civil = $event.value"></select2>
               </div>
             </div>
@@ -109,7 +112,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="this.selectedFuncionario && this.funcionario">
   <div class="col-md-9 col-md-offset-1">
     <div class="card">
       <div class="card-header">
@@ -130,7 +133,7 @@
                          [width]="350 | select2WidthFix"
                          [options]="selectRolesOptions"
                          [value]="rolesDocentes"
-                         (valueChanged)="rolDocenteChange($event.value)"></select2>
+                         (valueChanged)="rolDocenteChange($event.value)" *ngIf="rolesDocentesCheck"></select2>
               </div>
             </div>
             <div class="form-group">
@@ -141,7 +144,7 @@
                          [width]="350 | select2WidthFix"
                          [options]="selectRolesOptions"
                          [value]="rolesNoDocentes"
-                         (valueChanged)="rolNoDocenteChange($event.value)"></select2>
+                         (valueChanged)="rolNoDocenteChange($event.value)" *ngIf="rolesNoDocentesCheck"></select2>
               </div>
             </div>
           </div>
@@ -164,7 +167,7 @@
 
           <modal [animation]="true" #modal>
             <modal-header [show-close]="true">
-              <h4 class="modal-title">Funcionario creado con éxito.</h4>
+              <h4 class="modal-title">Funcionario modificado con éxito.</h4>
             </modal-header>
             <modal-body>
               Presione Ok para continuar.

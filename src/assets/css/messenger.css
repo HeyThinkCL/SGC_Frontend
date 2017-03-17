@@ -2,12 +2,12 @@
 body {
   background-color: #fff;
   border-color: #fff;
-  color: #757575;
+  color: #2c3e50;
 }
 .messenger {
   background-color: #fff;
   border-color: #fff;
-  color: #757575;
+  color: #2c3e50;
   height: 100%;
   overflow: hidden;
   position: relative;
@@ -49,21 +49,21 @@ body {
 }
 .messenger-list-link {
   border-radius: 0;
-  color: #757575;
+  color: #2c3e50;
   display: block;
   padding: 10px;
   position: relative;
 }
 .messenger-list-link:hover,
 .messenger-list-link:focus {
-  background-color: #eee;
-  color: #424242;
+  background-color: #e5ebf1;
+  color: #3a5269;
   text-decoration: none;
 }
 .active > .messenger-list-link,
 .active > .messenger-list-link:hover,
 .active > .messenger-list-link:focus {
-  background-color: #0288d1;
+  background-color: #2c3e50;
   color: #fff;
 }
 .messenger-list-avatar {
@@ -117,7 +117,7 @@ body {
 }
 .messenger-toolbar {
   background-color: #fff;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #cad6e2;
 }
 .messenger-toolbar:before,
 .messenger-toolbar:after {
@@ -157,7 +157,7 @@ body {
 }
 .messenger-compose {
   background-color: #fff;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #cad6e2;
   padding: 10px 15px;
 }
 .messenger-compose-actions {
@@ -174,7 +174,7 @@ body {
   background-color: #fff;
   background-image: none;
   border: none;
-  color: #757575;
+  color: #2c3e50;
   display: block;
   font-size: 13px;
   line-height: 1.538462;
@@ -294,7 +294,7 @@ body {
   width: 0;
 }
 .conversation-timestamp {
-  color: #757575;
+  color: #7b99b7;
   font-size: 11px;
   margin-top: 5px;
 }
@@ -308,13 +308,13 @@ body {
   padding-left: 15px;
 }
 .conversation-self .conversation-message {
-  background-color: #eee;
+  background-color: #e5ebf1;
   clear: left;
-  color: #424242;
+  color: #3a5269;
   float: left;
 }
 .conversation-self .conversation-message:after {
-  border-right-color: #eee;
+  border-right-color: #e5ebf1;
   right: 100%;
   top: 10px;
 }
@@ -333,13 +333,13 @@ body {
   padding-right: 15px;
 }
 .conversation-other .conversation-message {
-  background-color: #0288d1;
+  background-color: #2c3e50;
   clear: right;
   color: #fff;
   float: right;
 }
 .conversation-other .conversation-message:after {
-  border-left-color: #0288d1;
+  border-left-color: #2c3e50;
   left: 100%;
   top: 10px;
 }
@@ -376,7 +376,7 @@ body {
 }
 @media (min-width: 992px) {
   .messenger-sidebar {
-    border-right: 1px solid #eee;
+    border-right: 1px solid #cad6e2;
     bottom: 0;
     display: block;
     position: absolute;

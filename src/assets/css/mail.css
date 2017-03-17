@@ -2,12 +2,12 @@
 body {
   background-color: #fff;
   border-color: #fff;
-  color: #757575;
+  color: #2c3e50;
 }
 .mail {
   background-color: #fff;
   border-color: #fff;
-  color: #757575;
+  color: #2c3e50;
   height: 100%;
   overflow: hidden;
   position: relative;
@@ -37,7 +37,7 @@ body {
   padding-left: 0;
 }
 .mail-list-item {
-  border-top: 1px solid #eee;
+  border-top: 1px solid #cad6e2;
   display: block;
   position: relative;
 }
@@ -45,21 +45,21 @@ body {
   border-top: none;
 }
 .mail-list-link {
-  color: #757575;
+  color: #2c3e50;
   display: block;
   padding: 10px;
   position: relative;
 }
 .mail-list-link:hover,
 .mail-list-link:focus {
-  background-color: #eee;
-  color: #424242;
+  background-color: #e5ebf1;
+  color: #3a5269;
   text-decoration: none;
 }
 .active > .mail-list-link,
 .active > .mail-list-link:hover,
 .active > .mail-list-link:focus {
-  background-color: #0288d1;
+  background-color: #2c3e50;
   color: #fff;
 }
 .mail-list-meta {
@@ -124,7 +124,7 @@ body {
 }
 .mail-toolbar {
   background-color: #fff;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #cad6e2;
 }
 .mail-toolbar:before,
 .mail-toolbar:after {
@@ -217,7 +217,7 @@ body {
 }
 @media (min-width: 992px) {
   .mail-sidebar {
-    border-right: 1px solid #eee;
+    border-right: 1px solid #cad6e2;
     bottom: 0;
     display: block;
     position: absolute;

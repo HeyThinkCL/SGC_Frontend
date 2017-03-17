@@ -5,8 +5,10 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { Select2OptionData } from 'ng2-select2';
 import  { Ng2DatetimePickerComponent } from 'ng2-datetime-picker';
 
-import { EtniasService } from '../../../../services/sistema/etnias.service'
-import { EstadosCivilesService } from '../../../../services/sistema/estados-civiles.service'
+import { EtniasService } from '../../../../services/sistema/etnias.service';
+import { EstadosCivilesService } from '../../../../services/sistema/estados-civiles.service';
+
+import {FuncionariosService} from '../../../../services/sistema/funcionarios.service';
 
 import * as globalVars from '../../../../globals';
 
@@ -35,48 +37,31 @@ export class EditarFuncionarioComponent implements OnInit {
   public selectRolesOptions: Select2Options;
 
   private selectedFuncionario: any;
-  private funcionario = {
-    'usuario':{
-      'id':1,
-      'nombre':'Donald',
-      'apellido_paterno':'Trump',
-      'apellido_materno':'Trump',
-      'rut':null,
-      'dv':null,
-      'fono_casa': null,
-      'fono_movil': null,
-      'email': null,
-      'sexo': null,
-      'nacionalidad': 'Mexico',
-      'estado_civil': null,
-      'fecha_nacimiento': null,
-    },
-    'director':false,
-    'profesor':true,
-    'inspector':false,
-    'psicopedagogo':false,
-    'digitador':false,
-    'jefeUTP':true,
-    'secretario':false,
-    'asistente':true,
-  };
+  private funcionario: any;
 
   private rolesDocentes = [];
+  rolesDocentesCheck: boolean = false;
   private rolesNoDocentes = [];
+  rolesNoDocentesCheck: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
     private estadosCivilesService: EstadosCivilesService,
+    private funcionariosService: FuncionariosService,
   ) { }
 
   ngOnInit() {
 
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
+      this.funcionariosService.getFuncionario(this.id).subscribe(res => {
+        this.funcionario = res;
+        this.selectedFuncionario = JSON.parse(JSON.stringify(res));
+        this.setRolesDocentes();
+        this.setRolesNoDocentes();
+      })
     });
-
-    this.selectedFuncionario = JSON.parse(JSON.stringify(this.funcionario));
 
     this.estadosCivilesService.getEstadosCiviles().subscribe(estados => {
       this.selectEstadoCivilData = [{
@@ -129,9 +114,6 @@ export class EditarFuncionarioComponent implements OnInit {
       allowClear: true,
     };
 
-    this.setRolesDocentes();
-    this.setRolesNoDocentes();
-
   }
 
   setRolesDocentes(){
@@ -141,6 +123,7 @@ export class EditarFuncionarioComponent implements OnInit {
         this.rolesDocentes.push(rol);
       }
     }
+    this.rolesDocentesCheck = true;
   }
 
   setRolesNoDocentes(){
@@ -150,6 +133,7 @@ export class EditarFuncionarioComponent implements OnInit {
         this.rolesNoDocentes.push(rol);
       }
     }
+    this.rolesNoDocentesCheck = true;
   }
 
   rolDocenteChange(e: any){
@@ -166,22 +150,31 @@ export class EditarFuncionarioComponent implements OnInit {
     this.location.back();
   }
 
+  modalOpen(): void {
+    this.modal.open();
+  }
+
+  modalClose(): void {
+    this.modal.close();
+    this.goBack();
+  }
+
   saveFuncionario(){
     for(let key in this.funcionario){
       if(typeof this.funcionario[key.toString()] === "boolean" || this.funcionario[key.toString()] instanceof Boolean){
-        console.log(key,this.funcionario[key.toString()]);
         this.funcionario[key.toString()] = false;
       }
     }
-    console.log(this.rolesDocentes);
     for(let rol of this.rolesDocentes){
       this.funcionario[rol.toString()] = true;
     }
-    console.log(this.rolesNoDocentes);
     for(let rol of this.rolesNoDocentes){
       this.funcionario[rol.toString()] = true;
     }
 
-    console.log(this.funcionario);
+    this.funcionariosService.updateFuncionario(this.funcionario).subscribe(res => {
+      console.log(res);
+      this.modalOpen();
+    });
   }
 }

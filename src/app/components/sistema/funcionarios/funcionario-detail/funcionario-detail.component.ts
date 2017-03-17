@@ -18,31 +18,12 @@ export class FuncionarioDetailComponent implements OnInit {
   id: number;
   private sub: any;
 
-  private funcionario = {
-    'id': 1,
-    'profesor': true,
-    'jefeUTP': true,
-    'director': false,
-    'asistente': false,
-    'inspector': true,
-    'usuario': {
-      'nombre': 'Profesor',
-      'apellido_paterno': 'Jirafales',
-      'apellido_materno': 'Longaniza',
-      'rut': 7544263,
-      'dv': 'k',
-      'fono_casa': null,
-      'fono_movil': null,
-      'email': null,
-      'sexo': null,
-      'nacionalidad': null,
-      'estado_civil': null,
-      'fecha_nacimiento': null,
-    }
-  };
+  private funcionario: any;
 
   private rolesDocentes = [];
+  rolesDocentesCheck: boolean = false;
   private rolesNoDocentes = [];
+  rolesNoDocentesCheck: boolean = false;
 
   public selectRolesDocentesData: Array<Select2OptionData> = [];
   public selectRolesNoDocentesData: Array<Select2OptionData> = [];
@@ -60,6 +41,8 @@ export class FuncionarioDetailComponent implements OnInit {
       this.id = +params['id'];
       this.funcionariosService.getFuncionario(this.id).subscribe(res => {
         this.funcionario = res;
+        this.setRolesDocentes();
+        this.setRolesNoDocentes();
       })
     });
 
@@ -82,9 +65,6 @@ export class FuncionarioDetailComponent implements OnInit {
       placeholder: 'Seleccionar Roles',
       multiple: true,
     };
-
-    this.setRolesDocentes();
-    this.setRolesNoDocentes();
   }
 
   setRolesDocentes(){
@@ -94,6 +74,8 @@ export class FuncionarioDetailComponent implements OnInit {
         this.rolesDocentes.push(rol);
       }
     }
+    this.rolesDocentesCheck = true;
+    console.log(this.rolesDocentes);
   }
 
   setRolesNoDocentes(){
@@ -103,6 +85,7 @@ export class FuncionarioDetailComponent implements OnInit {
         this.rolesNoDocentes.push(rol);
       }
     }
+    this.rolesNoDocentesCheck = true;
   }
 
   goBack(): void {

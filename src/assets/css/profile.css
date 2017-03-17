@@ -143,7 +143,7 @@
   color: #fff;
 }
 .profile-nav > li.active > a:after {
-  border-color: transparent transparent #eceff1;
+  border-color: transparent transparent #f2f5f8;
   border-style: solid;
   border-width: 10px;
   bottom: 0;
@@ -190,7 +190,7 @@
 }
 .post {
   background-color: #fff;
-  border: 1px solid #eee;
+  border: 1px solid #f2f5f8;
   border-radius: 0;
   margin-bottom: 20px;
 }
@@ -220,7 +220,7 @@
   padding-top: 5px;
 }
 .post-timestamp {
-  color: #757575;
+  color: #7b99b7;
   display: block;
   font-size: 12px;
   line-height: 1;
@@ -238,14 +238,14 @@
   margin-top: 10px;
 }
 .post-action {
-  color: #757575;
+  color: #2c3e50;
   display: block;
   float: left;
   margin-right: 15px;
 }
 .post-action:hover,
 .post-action:focus {
-  color: #0288d1;
+  color: #2c3e50;
   text-decoration: none;
 }
 .post-summary {
@@ -253,9 +253,9 @@
   text-align: right;
 }
 .post-footer {
-  background-color: #e5e9ec;
+  background-color: #eaeff4;
   border-radius: 0 0 0 0;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #f2f5f8;
   padding: 10px;
 }
 .post-comments {
@@ -289,7 +289,7 @@
 }
 .dropdown-toggler:hover,
 .dropdown-toggler:focus {
-  border-color: #eee;
+  border-color: #f2f5f8;
 }
 @media (max-width: 767px) {
   .profile-header {

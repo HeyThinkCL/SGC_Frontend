@@ -2,12 +2,12 @@
 body {
   background-color: #fff;
   border-color: #fff;
-  color: #757575;
+  color: #2c3e50;
 }
 .mail {
   background-color: #fff;
   border-color: #fff;
-  color: #757575;
+  color: #2c3e50;
   height: 100%;
   overflow: hidden;
   position: relative;
@@ -21,8 +21,8 @@ body {
 }
 .mail-toolbar {
   background-color: #fff;
-  -webkit-box-shadow: 0px 1px 0px 0px #eee;
-          box-shadow: 0px 1px 0px 0px #eee;
+  -webkit-box-shadow: 0px 1px 0px 0px #cad6e2;
+          box-shadow: 0px 1px 0px 0px #cad6e2;
 }
 .mail-toolbar:before,
 .mail-toolbar:after {
@@ -60,7 +60,7 @@ body {
   padding-left: 0;
 }
 .mail-list-item {
-  border-top: 1px solid #eee;
+  border-top: 1px solid #cad6e2;
   cursor: pointer;
   display: table;
   padding: 0;
@@ -71,17 +71,17 @@ body {
   border-top: none;
 }
 .mail-list-item.hover {
-  background-color: #eee;
-  color: #424242;
+  background-color: #e5ebf1;
+  color: #3a5269;
 }
 .mail-list-item.selected {
-  background-color: #0288d1;
-  border-color: #0288d1;
+  background-color: #2c3e50;
+  border-color: #2c3e50;
   color: #fff;
 }
 .mail-list-item.active {
-  background-color: #0288d1;
-  border-color: #0288d1;
+  background-color: #2c3e50;
+  border-color: #2c3e50;
   color: #fff;
 }
 .mail-list-checkbox {

@@ -8,27 +8,27 @@
   display: none;
 }
 .ticket-list-item {
-  border-top: 1px solid #eee;
+  border-top: 1px solid #cad6e2;
   display: block;
   position: relative;
 }
 .ticket-list-link {
-  color: #757575;
+  color: #2c3e50;
   display: block;
   padding: 10px 15px;
   position: relative;
 }
 .ticket-list-link:hover,
 .ticket-list-link:focus {
-  background-color: #eee;
-  color: #424242;
+  background-color: #e5ebf1;
+  color: #3a5269;
   text-decoration: none;
 }
 .ticket-list-link.active,
 .ticket-list-link.active:hover,
 .ticket-list-link.active:focus {
-  background-color: #0288d1;
-  color: #0288d1;
+  background-color: #2c3e50;
+  color: #2c3e50;
 }
 .ticket-list-meta {
   float: right;
@@ -67,7 +67,7 @@
   white-space: nowrap;
 }
 .ticket-list-channel {
-  background: #0288d1;
+  background: #2c3e50;
   border-radius: 3px;
   color: #fff;
   display: block;
@@ -92,20 +92,20 @@
   padding-right: 5px;
 }
 .ticket-list-status.new {
-  background: #2196f3;
+  background: #3498db;
 }
 .ticket-list-status.open {
-  background: #43a047;
+  background: #35cf76;
 }
 .ticket-list-status.pending {
-  background: #ef6c00;
+  background: #e67e22;
 }
 .ticket-list-status.resolved {
-  background: #d50000;
+  background: #e74c3c;
 }
 .ticket-list-separator {
-  background-color: #dde3e6;
-  border-top: 1px solid #eee;
+  background-color: #e1e8ef;
+  border-top: 1px solid #cad6e2;
   display: block;
   padding: 10px 15px;
   position: relative;
@@ -121,7 +121,7 @@
     margin: 0;
   }
   .ticket-list-header {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #cad6e2;
     display: block;
     font-weight: 500;
     padding: 10px 15px;
