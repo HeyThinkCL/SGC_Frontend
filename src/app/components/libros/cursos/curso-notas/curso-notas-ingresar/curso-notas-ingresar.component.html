@@ -205,3 +205,16 @@
   </modal-footer>
 </modal>
 
+<modal [animation]="true" #modalConfirm>
+  <modal-header [show-close]="true">
+    <h3 class="modal-title">Información guardada con éxito.</h3>
+  </modal-header>
+  <modal-body>
+    Presione ok para continuar.
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-primary" (click)="modalConfirmClose()">Continuar</button>
+  </modal-footer>
+</modal>
+
+

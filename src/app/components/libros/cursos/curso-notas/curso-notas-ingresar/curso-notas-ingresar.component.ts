@@ -16,6 +16,7 @@ export class CursoNotasIngresarComponent implements OnInit {
   @ViewChild('modalDelete') modalDelete: ModalComponent;
   @ViewChild('modalCreate') modalCreate: ModalComponent;
   @ViewChild('modalInfo') modalInfo: ModalComponent;
+  @ViewChild('modalConfirm') modalConfirm: ModalComponent;
 
   asignaturas = [];
   alumnos = [];
@@ -160,6 +161,7 @@ export class CursoNotasIngresarComponent implements OnInit {
         this.saveNota(nota);
       }
     }
+    this.modalConfirmOpen();
   }
 
   createNota(){
@@ -268,6 +270,14 @@ export class CursoNotasIngresarComponent implements OnInit {
       'coeficiente':null,
     };
     this.modalInfo.close();
+  }
+  //confirm
+  modalConfirmOpen(){
+    this.modalConfirm.open('sm');
+  }
+
+  modalConfirmClose(){
+    this.modalConfirm.close();
   }
 
 }

@@ -33,7 +33,6 @@ export class PlanesEnsenanzaComponent implements OnInit {
   public selectPlanesOptions: Select2Options;
 
   //tipos de enseñanza select2
-  // public selectTiposData: Array<Select2OptionData> = [];
   public selectTiposOptions: Select2Options;
 
   selectedPlanes = [];
@@ -73,9 +72,10 @@ export class PlanesEnsenanzaComponent implements OnInit {
     };
   }
 
-  planChanged(e: any){
-    this.selectedPlanes = e;
-    if(e && this.selectedPlanes.length>0){
+  planChanged(value: any){
+    this.selectedPlanes = value;
+
+    if(value && this.selectedPlanes.length>0){
       for(let plan of this.selectedPlanes){
         let tiposByPlan = this.selectedTipos.find(tipo => tipo.plan_id == +plan);
         if(!tiposByPlan){
@@ -115,9 +115,34 @@ export class PlanesEnsenanzaComponent implements OnInit {
       }
     }
 
+  }
 
-    console.log(this.selectedPlanes,this.selectedTipos);
-    console.log(this.configuracion);
+  getSelectTipoDataByPlanId(id: number){
+    return this.selectedTipos.find(res => res.plan_id==id).selectTiposData;
+  }
+
+  tipoChanged(plan,value){
+    let _tipos = this.selectedTipos.find(res => res.plan_id==plan.id);
+    let selectedPlan = this.planesDeEstudio.find(p => p.id==plan.id);
+    _tipos.tipos = value;
+    if(value && _tipos.tipos.length>0){
+      for(let tipo of _tipos.tipos){
+        if(!plan.tipos.find(t => t.id==+tipo)){
+          let tipoData = selectedPlan.tipos.find(t => t.id==+tipo);
+          let _tipoData = JSON.parse(JSON.stringify(tipoData));
+          _tipoData['cursos_nivel'] = null;
+          plan.tipos.push(_tipoData);
+        }
+      }
+    }
+
+    for(let tipoIdx in plan.tipos){
+      let tipoOfTipos = _tipos.tipos? _tipos.tipos.find(t => +t==+plan.tipos[+tipoIdx].id) : null;
+      if(!tipoOfTipos){
+        plan.tipos.splice(+tipoIdx,1);
+      }
+    }
+
   }
 
   modalOpen(){
@@ -131,6 +156,11 @@ export class PlanesEnsenanzaComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  saveConfig(){
+    console.log(this.configuracion);
+    this.modalClose();
   }
 
 }

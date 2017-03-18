@@ -37,30 +37,32 @@
           <div class="media-body media-middle">
             <div class="form-horizontal">
               <div class="form-group">
-                <label></label>
+                <label class="control-label" for="form-control-2">Tipos de Enseñanza</label>
                 <div class="col-sm-8">
                   <select2 id="form-control-2"
-                           [data]="plan.selectTiposData"
+                           [data]="getSelectTipoDataByPlanId(plan.id)"
                            [width]="520 | select2WidthFix"
                            [options]="selectTiposOptions"
-                           *ngIf="plan.selectTiposData"></select2>
+                           (valueChanged)="tipoChanged(plan,$event.value)"
+                           *ngIf="getSelectTipoDataByPlanId(plan.id)"></select2>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <div class="card-header" *ngFor="let tipo of plan.tipos" [@fade]>
         <div class="media">
-          <div class="media-middle media-left">
-            <h5 class="fw-l"><span class="fw-sb panel-info">Código: {{tipo.codigo}}</span><span class="pull-right"> {{tipo.glosa}}</span></h5>
+          <div class="media-heading">
+            <h5 class="fw-l">{{tipo.glosa}}<span class="fw-sb panel-info pull-right">Código: {{tipo.codigo}}</span></h5>
           </div>
           <div class="media-middle media-body">
             <div class="form-horizontal">
               <div class="form-group">
-                <label>Horas por Nivel</label>
+                <label class="control-label col-sm-2">Horas por Nivel</label>
                 <div class="col-sm-2">
-                  <input class="form-control" [(ngModel)]="tipo.curos_nivel">
+                  <input class="form-control" [(ngModel)]="tipo.cursos_nivel">
                 </div>
               </div>
             </div>
@@ -71,3 +73,35 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-md-9 col-md-offset-1">
+    <div class="form form-horizontal">
+      <div class="form-group">
+        <div class="col-sm-4">
+          <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
+        </div>
+        <div class="col-sm-8">
+          <button class="btn btn-primary btn-block" (click)="modalOpen()" [disabled]="configuracion.planes<1">Guardar</button>
+
+          <modal [animation]="true" #modal>
+            <modal-header [show-close]="true">
+              <h4 class="modal-title">Guardar Configuración.</h4>
+            </modal-header>
+            <modal-body>
+              Presione Ok para continuar guardando la configuración.
+              <div class="media alert-warning">
+                <div class="media-middle media-body">
+                  <p class="p-a-md fw-n"><span class="icon icon-exclamation-triangle"></span> Cambiar la configuración de Planes de Estudio, Tipos de Enseñanza y Cursos puede significar perdida de datos.</p>
+                </div>
+              </div>
+            </modal-body>
+            <modal-footer>
+              <button type="button" class="btn btn-primary" (click)="saveConfig()">Ok</button>
+            </modal-footer>
+          </modal>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

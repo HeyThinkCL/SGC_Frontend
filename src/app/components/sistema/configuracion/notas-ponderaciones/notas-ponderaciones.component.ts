@@ -29,6 +29,7 @@ export class NotasPonderacionesComponent implements OnInit {
       if(res){
         this.configNotasService.getConfigNotasById(+localStorage.getItem('idConfig')).subscribe(subRes => {
           this.configuracion = subRes;
+          console.log(this.configuracion);
         })
       } else {
         this.configNotasService.createConfigNotas(+localStorage.getItem('idConfig')).subscribe(subRes => {
@@ -37,7 +38,7 @@ export class NotasPonderacionesComponent implements OnInit {
           })
         })
       }
-    })
+    });
   }
 
   saveConfig(){
