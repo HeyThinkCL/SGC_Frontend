@@ -80,6 +80,7 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
           let config = configs.find(c => c.glosa == 'Calendario Académico');
 
           this.calendarioService.getConfigCalendarioAcademicoById(config.id).subscribe(subRes => {
+            console.log(subRes);
             this.calendarConfig = subRes;
             this.view = this.getMonthView({
               viewDate: this.viewDate,

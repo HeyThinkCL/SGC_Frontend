@@ -133,6 +133,7 @@ import {PlanDeEstudiosService} from './services/sistema/configuraciones/plan-de-
 
 //Guards
 import {AuthGuard,AuthGuardChild} from './guards/auth.guard';
+import {ConfigCalendarioAcademicoGuard} from './guards/config-guards/config-calendario-academico.guard';
 
 
 @NgModule({
@@ -225,6 +226,7 @@ import {AuthGuard,AuthGuardChild} from './guards/auth.guard';
   providers: [
     AuthGuard,
     AuthGuardChild,
+    ConfigCalendarioAcademicoGuard,
     AuthenticationService,
     DpaService,
     EtniasService,

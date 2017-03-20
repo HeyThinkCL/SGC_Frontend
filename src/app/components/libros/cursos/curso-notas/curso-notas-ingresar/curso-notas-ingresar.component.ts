@@ -17,6 +17,7 @@ export class CursoNotasIngresarComponent implements OnInit {
   @ViewChild('modalCreate') modalCreate: ModalComponent;
   @ViewChild('modalInfo') modalInfo: ModalComponent;
   @ViewChild('modalConfirm') modalConfirm: ModalComponent;
+  @ViewChild('modalConfigInfo') modalConfigInfo: ModalComponent;
 
   asignaturas = [];
   alumnos = [];
@@ -55,7 +56,7 @@ export class CursoNotasIngresarComponent implements OnInit {
   id: number;
   private sub: any;
 
-  private notasCongif: any;
+  private notasCongif: any = {};
   decimals: string;
 
   renderView: boolean;
@@ -278,6 +279,15 @@ export class CursoNotasIngresarComponent implements OnInit {
 
   modalConfirmClose(){
     this.modalConfirm.close();
+  }
+
+  //info config
+  modalConfigInfoOpen(){
+    this.modalConfigInfo.open('sm');
+  }
+
+  modalConfigInfoClose(){
+    this.modalConfigInfo.close();
   }
 
 }

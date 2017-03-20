@@ -3,7 +3,16 @@
  */
 'use strict';
 
-export let version: string = '0.3.3';
+/*
+  0.*.*.* -> alpha
+  1.*.*.* -> beta
+  2.*.*.* -> full release
+
+  *.x.*.* major update number
+  *.*.y.* minor update number
+  *.*.*.z bug fig update number
+*/
+export let version: string = '0.3.3.3';
 
 // export let apiUrl: string = 'http://192.168.1.175:3000';//dev
 

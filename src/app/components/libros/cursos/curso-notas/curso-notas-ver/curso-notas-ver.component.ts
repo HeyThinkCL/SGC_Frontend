@@ -4,7 +4,7 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { CursosService } from '../../../../../services/libros/cursos.service';
 import {ConfiguracionService} from '../../../../../services/sistema/configuracion.service';
-import { ConfigNotasService } from '../../../../../services/sistema/configuraciones/config-notas.service';
+import {ConfigNotasService } from '../../../../../services/sistema/configuraciones/config-notas.service';
 
 @Component({
   selector: 'app-curso-notas-ver',
@@ -13,6 +13,7 @@ import { ConfigNotasService } from '../../../../../services/sistema/configuracio
 })
 export class CursoNotasVerComponent implements OnInit {
   @ViewChild('modalInfo') modalInfo: ModalComponent;
+  @ViewChild('modalConfigInfo') modalConfigInfo: ModalComponent;
 
   asignaturas = [];
 
@@ -27,7 +28,7 @@ export class CursoNotasVerComponent implements OnInit {
   selectedAsignatura: any;
   selectedAsignaturaAlumnos = [];
 
-  private notasCongif: any;
+  private notasCongif: any = {};
   decimals: string;
 
   id: number;
@@ -49,6 +50,7 @@ export class CursoNotasVerComponent implements OnInit {
     this.route.parent.parent.params
       .switchMap((params: Params) => this.cursosService.getAsignaturasByCursoId(params['id']))
       .subscribe((res) => {
+
         this.asignaturas = res.asignaturas;
         this.setAsignatura(this.asignaturas[0].asignatura.datos.id);
 
@@ -119,6 +121,14 @@ export class CursoNotasVerComponent implements OnInit {
       'coeficiente':null,
     };
     this.modalInfo.close();
+  }
+
+  modalConfigInfoOpen(){
+    this.modalConfigInfo.open('sm');
+  }
+
+  modalConfigInfoClose(){
+    this.modalConfigInfo.close();
   }
 
 }

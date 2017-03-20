@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common'
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { Select2OptionData } from 'ng2-select2';
 
-import { Curso } from '../curso';
 import { CursosService } from '../../../../services/libros/cursos.service';
+import { PlanDeEstudiosService } from '../../../../services/sistema/configuraciones/plan-de-estudios.service';
 
 @Component({
   selector: 'app-crear-curso',
@@ -15,12 +16,31 @@ export class CrearCursoComponent implements OnInit {
   modal: ModalComponent;
 
   private default_date: Date;
-  private curso: Curso;
+  private curso: any ={
+    'anio':null,
+    'plan_estudios':null,
+    'tipo_ensenanza':null,
+    'nivel':null,
+  };
+
+  planesDeEstudio = [];
+
+  //planes de estudio select2
+  public selectPlanesData: Array<Select2OptionData> = [];
+  public selectPlanesOptions: Select2Options;
+
+  //tipos de enseñanza select2
+  public selectTiposData: Array<Select2OptionData> = [];
+  public selectTiposOptions: Select2Options;
+
+  //tipos de enseñanza select2
+  public selectNivelesData: Array<Select2OptionData> = [];
+  public selectNivelesOptions: Select2Options;
 
   modalMessage: string;
   modalErrorMessage: string;
 
-  grados = [
+  niveles = [
     {"id":"1ro básico"},
     {"id":"2do básico"},
     {"id":"3ro básico"},
@@ -35,39 +55,86 @@ export class CrearCursoComponent implements OnInit {
     {"id":"4to medio"},
   ];
 
-  letras = [
-    {"id":"A"},
-    {"id":"B"},
-    {"id":"C"},
-    {"id":"D"},
-    {"id":"E"},
-    {"id":"F"},
-    {"id":"G"},
-    {"id":"H"},
-    {"id":"I"},
-    {"id":"J"},
-    {"id":"K"},
-    {"id":"L"},
-    {"id":"M"},
-    {"id":"N"},
-    {"id":"O"},
-    {"id":"P"},
-  ];
-
   constructor(
     private location: Location,
     private cursosService: CursosService,
+    private planDeEStudiosService: PlanDeEstudiosService,
   ) {
   }
 
   ngOnInit() {
-    this.curso = new Curso();
+    this.planDeEStudiosService.getPlanesDeEstudio().subscribe(res => {
+      this.planesDeEstudio = res.planes;
+      for(let plan of this.planesDeEstudio){
+        this.selectPlanesData.push({
+          id:plan.id,
+          text: plan.decreto.length>70 ? plan.decreto.substring(0,plan.decreto.length-18)+'...' : plan.decreto,
+        })
+      }
+    });
+
+    this.selectPlanesOptions = {
+      closeOnSelect: true,
+      placeholder: 'Seleccionar Plan de Estudios',
+    };
+
+    this.selectTiposOptions = {
+      closeOnSelect: true,
+      placeholder: 'Seleccionar Tipo de Enseñanza',
+    };
+
+    this.selectNivelesOptions = {
+      closeOnSelect: true,
+      placeholder: 'Seleccionar Nivel',
+    };
+
     this.default_date = new Date();
     if (this.default_date.getMonth() > 4) {
       this.default_date.setFullYear(this.default_date.getFullYear() + 1);
     }
     this.curso.anio = this.default_date.getFullYear().toString();
     this.modalErrorMessage ='';
+  }
+
+  planChanged(e: any){
+    if(e){
+      this.curso.plan_estudios = +e;
+      let selectedPlan = this.planesDeEstudio.find(plan => plan.id==+e);
+
+      this.selectTiposData = [];
+      this.selectNivelesData = [];
+      for(let tipo of selectedPlan.tipos){
+        this.selectTiposData.push({
+          id:tipo.id,
+          text:tipo.glosa
+        })
+      }
+      selectedPlan['niveles']=JSON.parse(JSON.stringify(this.niveles));
+      for(let nivel of selectedPlan.niveles){
+        this.selectNivelesData.push({
+          id:nivel.id,
+          text:nivel.id
+        })
+      }
+    } else {
+      this.curso.plan_estudios = e;
+      this.selectTiposData = [];
+      this.selectNivelesData = [];
+    }
+
+  }
+
+  tipoChanged(e: any){
+    if(e){
+      this.curso.tipo_ensenanza = +e
+    } else {
+      this.curso.tipo_ensenanza = e;
+    }
+
+  }
+
+  nivelChanged(e: any){
+    this.curso.nivel = e;
   }
 
   goBack(): void {

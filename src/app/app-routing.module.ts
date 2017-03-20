@@ -4,7 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { RootComponent } from './root.component';
 
 import { AppComponent } from './app.component';
+//guards
 import {AuthGuard, AuthGuardChild} from './guards/auth.guard';
+import {ConfigCalendarioAcademicoGuard} from './guards/config-guards/config-calendario-academico.guard';
 //Login
 import { LoginComponent } from './components/login/login.component';
 
@@ -146,7 +148,8 @@ const routes: Routes = [
               { path: '', redirectTo: 'ver' ,pathMatch: 'full' },
               { path:'ver', component: CursoAsistenciaVerComponent},
               { path:'ingresar', component: CursoAsistenciaIngresarComponent},
-            ]
+            ],
+            canActivate: [ConfigCalendarioAcademicoGuard]
           },
           { path: 'anotaciones', component: CursoAnotacionesComponent,
             children: [

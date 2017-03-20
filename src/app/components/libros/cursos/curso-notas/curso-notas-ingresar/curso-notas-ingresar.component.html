@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-xs-12">
     <app-spinner *ngIf="!(asignaturas.length>0)"></app-spinner>
-    <div class="panel" *ngIf="asignaturas.length>0">
+    <div class="panel" *ngIf="asignaturas.length>0 && notasCongif.notas">
       <div class="panel-heading">
         <div class="row gutter-xs">
           <div class="col-md-8">
@@ -45,7 +45,7 @@
               <th rowspan="1" colspan="1"
                   *ngFor="let item of createRange(selectedAsignatura.cantidad); let currentIndex = index"
                   (click)="modalInfoOpen(currentIndex)">{{currentIndex+1}}<span class="pull-right icon icon-commenting-o"></span></th>
-              <th rowspan="1" colspan="1">Prom</th>
+              <th rowspan="1" colspan="1" (click)="modalConfigInfoOpen()">Prom<span class="pull-right icon icon-commenting-o"></span></th>
             </tr>
             </thead>
             <tbody>
@@ -214,6 +214,19 @@
   </modal-body>
   <modal-footer>
     <button type="button" class="btn btn-primary" (click)="modalConfirmClose()">Continuar</button>
+  </modal-footer>
+</modal>
+
+<modal [animation]="true" #modalConfigInfo>
+  <modal-header [show-close]="true">
+    <h3 class="modal-title">Configuración de Promedio</h3>
+  </modal-header>
+  <modal-body *ngIf="notasCongif.notas">
+    <p class="card-text">Decimales: {{notasCongif?.notas.decimales}}</p>
+    <p class="card-text">Método de Aproximación: {{notasCongif?.notas.aprox? 'Hacia Arriba' : 'Truncado' }}</p>
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-primary" (click)="modalConfigInfoClose()">Continuar</button>
   </modal-footer>
 </modal>
 
