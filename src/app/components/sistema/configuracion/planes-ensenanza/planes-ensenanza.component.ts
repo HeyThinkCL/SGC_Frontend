@@ -4,6 +4,7 @@ import { Select2OptionData } from 'ng2-select2';
 import {ModalComponent} from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { PlanDeEstudiosService } from '../../../../services/sistema/configuraciones/plan-de-estudios.service';
+import { ConfiguracionService } from '../../../../services/sistema/configuracion.service';
 
 @Component({
   selector: 'app-planes-ensenanza',
@@ -28,6 +29,10 @@ import { PlanDeEstudiosService } from '../../../../services/sistema/configuracio
 export class PlanesEnsenanzaComponent implements OnInit {
   @ViewChild('modal') modal: ModalComponent;
 
+  configId: number;
+  view: boolean = false;
+  lock:boolean = false;
+
   //planes de estudio select2
   public selectPlanesData: Array<Select2OptionData> = [];
   public selectPlanesOptions: Select2Options;
@@ -46,9 +51,11 @@ export class PlanesEnsenanzaComponent implements OnInit {
   constructor(
     private location: Location,
     private planDeEstudiosService: PlanDeEstudiosService,
+    private configuracionService: ConfiguracionService,
   ) { }
 
   ngOnInit() {
+
     this.planDeEstudiosService.getPlanesDeEstudio().subscribe(planes => {
       this.planesDeEstudio = planes.planes;
       for(let plan of planes.planes){
@@ -57,6 +64,66 @@ export class PlanesEnsenanzaComponent implements OnInit {
           text: plan.decreto.length>70 ? plan.decreto.substring(0,plan.decreto.length-18)+'...' : plan.decreto,
         })
       }
+      this.configuracionService.getConfiguraciones().subscribe(res => {
+        this.configId = res.find(c => c.glosa == 'Planes de Estudio y Tipos de Enseñanza').id;
+
+        this.planDeEstudiosService.getConfigPlanesDeEstudio(this.configId).subscribe(config => {
+          if(config){
+            this.configuracion = config;
+            this.lock = true;
+            console.log('get',this.configuracion);
+
+            if(config.planes.length>0){
+              for(let plan of config.planes){
+                this.selectedPlanes.push(plan.id.toString());
+
+                let tiposByPlan = this.selectedTipos.find(tipo => tipo.plan_id == plan.id);
+                if(!tiposByPlan){
+
+                  let planData = this.planesDeEstudio.find(data => data.id == plan.id);
+
+                  if(planData){
+                    //select2 Tipos de Enseñanza Data
+                    let selectTiposData: Array<Select2OptionData> = [];
+                    for(let tipo of planData.tipos){
+                      selectTiposData.push({
+                        'id':tipo.tipo.id,
+                        'text':tipo.tipo.glosa.length>70 ? tipo.tipo.glosa.substring(0,tipo.tipo.glosa.length-18)+'...' : tipo.tipo.glosa,
+                      })
+                    }
+
+                    //selectedTipos
+                    let _tipos = [];
+                    for(let tipo of plan.tipos){
+                      if(!tipo.cursos_nivel){
+                        tipo['cursos_nivel']=1;
+                      }
+                      _tipos.push(tipo.tipo.id.toString());
+                    }
+
+                    this.selectedTipos.push({
+                      'plan_id': plan.id,
+                      'selectTiposData':selectTiposData,
+                      'tipos':_tipos,
+                    });
+                    console.log('init',this.selectedTipos);
+                  }
+                }
+              }
+            }
+            this.view = true;
+
+          } else {
+            this.planDeEstudiosService.createConfigPlanesDeEstudio(this.configId).subscribe(configCreated => {
+              this.configuracion = configCreated;
+              console.log('create',this.configuracion);
+              this.view=true;
+            })
+          }
+        })
+      })
+
+
     });
 
     this.selectPlanesOptions = {
@@ -90,8 +157,8 @@ export class PlanesEnsenanzaComponent implements OnInit {
 
             for(let tipo of planData.tipos){
               selectTiposData.push({
-                'id':tipo.id,
-                'text':tipo.glosa.length>70 ? tipo.glosa.substring(0,tipo.glosa.length-18)+'...' : tipo.glosa,
+                'id':tipo.tipo.id,
+                'text':tipo.tipo.glosa.length>70 ? tipo.tipo.glosa.substring(0,tipo.tipo.glosa.length-18)+'...' : tipo.tipo.glosa,
               })
             }
 
@@ -127,8 +194,8 @@ export class PlanesEnsenanzaComponent implements OnInit {
     _tipos.tipos = value;
     if(value && _tipos.tipos.length>0){
       for(let tipo of _tipos.tipos){
-        if(!plan.tipos.find(t => t.id==+tipo)){
-          let tipoData = selectedPlan.tipos.find(t => t.id==+tipo);
+        if(!plan.tipos.find(t => t.tipo.id==+tipo)){
+          let tipoData = selectedPlan.tipos.find(t => t.tipo.id==+tipo);
           let _tipoData = JSON.parse(JSON.stringify(tipoData));
           _tipoData['cursos_nivel'] = null;
           plan.tipos.push(_tipoData);
@@ -137,12 +204,11 @@ export class PlanesEnsenanzaComponent implements OnInit {
     }
 
     for(let tipoIdx in plan.tipos){
-      let tipoOfTipos = _tipos.tipos? _tipos.tipos.find(t => +t==+plan.tipos[+tipoIdx].id) : null;
+      let tipoOfTipos = _tipos.tipos? _tipos.tipos.find(t => +t==+plan.tipos[+tipoIdx].tipo.id) : null;
       if(!tipoOfTipos){
         plan.tipos.splice(+tipoIdx,1);
       }
     }
-
   }
 
   modalOpen(){
@@ -159,8 +225,14 @@ export class PlanesEnsenanzaComponent implements OnInit {
   }
 
   saveConfig(){
-    console.log(this.configuracion);
-    this.modalClose();
+    this.planDeEstudiosService.updateConfigPlanesDeEstudio(this.configId,this.configuracion).subscribe(configRes => {
+      console.log(configRes);
+      if(configRes){
+        this.planDeEstudiosService.createCursosWithConfigPlanesDeEstudio(this.configId,this.configuracion,1).subscribe(res => {
+          this.modalClose();
+        })
+      }
+    });
   }
 
 }

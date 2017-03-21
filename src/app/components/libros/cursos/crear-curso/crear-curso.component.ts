@@ -18,9 +18,9 @@ export class CrearCursoComponent implements OnInit {
   private default_date: Date;
   private curso: any ={
     'anio':null,
-    'plan_estudios':null,
-    'tipo_ensenanza':null,
-    'nivel':null,
+    'plan_id':null,
+    'ensenanza_id':null,
+    'grado_id':null,
   };
 
   planesDeEstudio = [];
@@ -36,6 +36,9 @@ export class CrearCursoComponent implements OnInit {
   //tipos de enseñanza select2
   public selectNivelesData: Array<Select2OptionData> = [];
   public selectNivelesOptions: Select2Options;
+
+  selectedPlan: any;
+  selectedTipo: any;
 
   modalMessage: string;
   modalErrorMessage: string;
@@ -63,8 +66,11 @@ export class CrearCursoComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
     this.planDeEStudiosService.getPlanesDeEstudio().subscribe(res => {
       this.planesDeEstudio = res.planes;
+
       for(let plan of this.planesDeEstudio){
         this.selectPlanesData.push({
           id:plan.id,
@@ -98,43 +104,57 @@ export class CrearCursoComponent implements OnInit {
 
   planChanged(e: any){
     if(e){
-      this.curso.plan_estudios = +e;
-      let selectedPlan = this.planesDeEstudio.find(plan => plan.id==+e);
+      this.curso.plan_id = +e;
+      this.selectedPlan = this.planesDeEstudio.find(plan => plan.id==+e);
+      this.selectedTipo = null;
 
-      this.selectTiposData = [];
       this.selectNivelesData = [];
-      for(let tipo of selectedPlan.tipos){
+      this.selectTiposData = [];
+
+
+      for(let tipo of this.selectedPlan.tipos){
         this.selectTiposData.push({
-          id:tipo.id,
-          text:tipo.glosa
+          id:tipo.tipo.id,
+          text:tipo.tipo.glosa
         })
       }
-      selectedPlan['niveles']=JSON.parse(JSON.stringify(this.niveles));
-      for(let nivel of selectedPlan.niveles){
-        this.selectNivelesData.push({
-          id:nivel.id,
-          text:nivel.id
-        })
-      }
+
     } else {
-      this.curso.plan_estudios = e;
+      this.curso.plan_id = e;
       this.selectTiposData = [];
       this.selectNivelesData = [];
+
+      this.selectedTipo = null;
+      this.selectedPlan = null;
     }
 
   }
 
   tipoChanged(e: any){
     if(e){
-      this.curso.tipo_ensenanza = +e
+      this.curso.ensenanza_id = +e;
+      this.selectedTipo = this.selectedPlan.tipos.find(tipo => tipo.tipo.id == +e);
+
+      this.selectNivelesData = [];
+
+
+      for(let nivel of this.selectedTipo.grados){
+        this.selectNivelesData.push({
+          id:nivel.id,
+          text:nivel.glosa,
+        })
+      }
     } else {
-      this.curso.tipo_ensenanza = e;
+      this.curso.ensenanza_id = e;
+      this.selectNivelesData = [];
+
+      this.selectedTipo = null;
     }
 
   }
 
   nivelChanged(e: any){
-    this.curso.nivel = e;
+    this.curso.grado_id = e;
   }
 
   goBack(): void {
@@ -142,15 +162,10 @@ export class CrearCursoComponent implements OnInit {
   }
 
   saveCurso() {
-    this.cursosService.createCurso(this.curso).subscribe((res) => {
+    console.log(this.curso);
+    this.cursosService.createCurso(this.curso,1).subscribe((res) => {
       this.modalMessage = 'Curso creado con éxito.';
       this.modalOpen();
-    }, (error:any) => {
-      if (error == 422){
-        this.modalMessage = 'Curso no creado.';
-        this.modalErrorMessage = 'Curso ya existente.';
-        this.modalOpen();
-      }
     });
   }
 

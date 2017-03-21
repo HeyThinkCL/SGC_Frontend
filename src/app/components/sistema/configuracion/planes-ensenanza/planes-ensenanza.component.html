@@ -1,5 +1,9 @@
-<div class="title-bar">
-  <h2 class="title-bar-title"><span class="icon icon-fw icon-calendar-o"></span> Planes de Estudio y Tipos de Enseñanza</h2>
+<div class="row">
+  <div class="col-sm-11 col-sm-offset-1">
+    <div class="title-bar">
+      <h2 class="title-bar-title"><span class="icon icon-fw icon-graduation-cap"></span> Planes de Estudio y Tipos de Enseñanza</h2>
+    </div>
+  </div>
 </div>
 
 <div class="row">
@@ -20,7 +24,8 @@
                            [options]="selectPlanesOptions"
                            [value]="selectedPlanes"
                            (valueChanged)="planChanged($event.value)"
-                           *ngIf="selectPlanesData.length>0"></select2>
+                           *ngIf="selectPlanesData.length>0"
+                           [disabled]="lock"></select2>
                 </div>
               </div>
             </div>
@@ -44,7 +49,8 @@
                            [width]="520 | select2WidthFix"
                            [options]="selectTiposOptions"
                            (valueChanged)="tipoChanged(plan,$event.value)"
-                           *ngIf="getSelectTipoDataByPlanId(plan.id)"></select2>
+                           *ngIf="getSelectTipoDataByPlanId(plan.id)"
+                            [disabled]="lock"></select2>
                 </div>
               </div>
             </div>
@@ -55,14 +61,14 @@
       <div class="card-header" *ngFor="let tipo of plan.tipos" [@fade]>
         <div class="media">
           <div class="media-heading">
-            <h5 class="fw-l">{{tipo.glosa}}<span class="fw-sb panel-info pull-right">Código: {{tipo.codigo}}</span></h5>
+            <h5 class="fw-l">{{tipo.tipo.glosa}}<span class="fw-sb panel-info pull-right">Código: {{tipo.tipo.codigo}}</span></h5>
           </div>
           <div class="media-middle media-body">
             <div class="form-horizontal">
               <div class="form-group">
-                <label class="control-label col-sm-2">Horas por Nivel</label>
+                <label class="control-label col-sm-2">Cursos Minimos por Nivel</label>
                 <div class="col-sm-2">
-                  <input class="form-control" [(ngModel)]="tipo.cursos_nivel">
+                  <input class="form-control" type="number" [(ngModel)]="tipo.cursos_nivel" [readonly]="lock">
                 </div>
               </div>
             </div>
@@ -81,7 +87,7 @@
           <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
         </div>
         <div class="col-sm-8">
-          <button class="btn btn-primary btn-block" (click)="modalOpen()" [disabled]="configuracion.planes<1">Guardar</button>
+          <button class="btn btn-primary btn-block" (click)="modalOpen()" [disabled]="configuracion.planes<1 || lock">Guardar</button>
 
           <modal [animation]="true" #modal>
             <modal-header [show-close]="true">

@@ -1,8 +1,8 @@
 <div class="layout-header">
   <div class="navbar navbar-default">
-    <div class="navba|r-header">
+    <div class="navbar-header">
       <a class="navbar-brand navbar-brand-center" [routerLink]="['./']">
-        <p class="fw-n">InnovaColegios</p>
+        <p class="fw-n text-white">InnovaColegios</p>
       </a>
       <button class="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse" data-target="#sidenav">
         <span class="sr-only">Toggle navigation</span>
@@ -19,9 +19,7 @@
       <button class="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse" data-target="#navbar">
         <span class="sr-only">Toggle navigation</span>
         <span class="arrow-up"></span>
-        <span class="ellipsis ellipsis-vertical">
-          <!--<img class="ellipsis-object" width="32" height="32" src="/assets/img/0180441436.jpg" alt="Teddy Wilson">-->
-        </span>
+        <span class="ellipsis ellipsis-vertical"></span>
       </button>
     </div>
     <div class="navbar-toggleable">
@@ -39,7 +37,6 @@
         </button>
         <ul class="nav navbar-nav navbar-right">
           <li class="visible-xs-block">
-            <h4 class="navbar-text text-center">Toggle Menu</h4>
           </li>
           <!--<li class="hidden-xs hidden-sm">
             <form class="navbar-search navbar-search-collapsed">
@@ -149,10 +146,16 @@
               </li>-->
               <li class="navbar-upgrade-version">Version: {{version}}</li>
               <li class="divider"></li>
-              <li (click)="logout()"><a>Cerrar Sesión</a></li>
+              <li (click)="logout()">
+                <a>
+                  <span class="icon icon-power-off icon-lg icon-fw"></span>
+                  Cerrar Sesión
+                </a>
+              </li>
             </ul>
           </li>
           <li class="visible-xs-block">
+            <span class="navbar-upgrade-version">Version: {{version}}</span>
             <a (click)="logout()">
               <span class="icon icon-power-off icon-lg icon-fw"></span>
               Cerrar Sesión
@@ -171,7 +174,7 @@
       <div class="custom-scrollbar">
         <nav id="sidenav" class="sidenav-collapse collapse">
           <ul class="sidenav">
-            <li class="sidenav-search hidden-md hidden-lg">
+            <!--<li class="sidenav-search hidden-md hidden-lg">
               <form class="sidenav-form" action="/">
                 <div class="form-group form-group-sm">
                   <div class="input-with-icon">
@@ -180,7 +183,7 @@
                   </div>
                 </div>
               </form>
-            </li>
+            </li>-->
 
             <li class="sidenav-item" routerLinkActive="active">
               <a [routerLink]="['dashboard']"  aria-haspopup="true">

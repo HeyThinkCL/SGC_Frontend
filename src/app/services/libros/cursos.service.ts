@@ -63,12 +63,11 @@ export class CursosService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Curso'));
   }
 
-  createCurso(curso: Curso): Observable<any>{
+  createCurso(curso: Curso, idColegio: number): Observable<any>{
     let options = new RequestOptions({headers: this.headers});
-    let payload = {};
-    payload['curso'] = JSON.parse(JSON.stringify(curso));
+    curso['colegio_id'] = idColegio;
 
-    return this.http.post(this.cursosUrl, JSON.stringify(payload), options)
+    return this.http.post(this.cursosUrl, JSON.stringify({'curso':curso}), options)
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status));
       // .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Curso'));
