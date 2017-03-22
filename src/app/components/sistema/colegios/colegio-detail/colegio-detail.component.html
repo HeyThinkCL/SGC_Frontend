@@ -146,7 +146,7 @@
           <button class="btn btn-primary btn-block" (click)="goToEdit(colegio.id)" [disabled]="!(colegio)">Editar</button>
         </div>
         <div class="col-sm-3">
-          <button class="btn btn-danger btn-block" (click)="modalOpen()" [disabled]="!(colegio)">Borrar</button>
+          <button class="btn btn-danger btn-block" (click)="modalOpen()" [disabled]="true || !(colegio)">Borrar</button>
 
           <modal [animation]="true" #modal>
             <modal-header [show-close]="true">

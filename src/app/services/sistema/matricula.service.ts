@@ -36,9 +36,10 @@ export class MatriculaService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Alumno'));
   }
 
-  createMatricula(matricula: any): Observable<any> {
+  createMatricula(matricula: any, cursoId: number): Observable<any> {
+    let url = `${this.matriculasUrl}?curso_id=${cursoId}`;
     return this.http
-      .post(this.matriculasUrl, JSON.stringify({nombre: matricula.nombre}), {headers: this.headers})
+      .post(url, JSON.stringify({nombre: matricula.nombre}), {headers: this.headers})
       .map(res => res.json().data)
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Alumno'));
   }

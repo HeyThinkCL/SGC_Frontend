@@ -108,8 +108,10 @@ export class CrearMatriculaComponent implements OnInit {
     this.postulante.postulante = false;
     this.postulante.aceptado = false;
     this.postulante.matriculado = true;
-    this.matriculaService.updateMatricula(this.postulante).subscribe(res => {
-      this.modalOpen();
+    this.matriculaService.updateMatricula(this.postulante).subscribe(alumno => {
+      this.cursosService.asignarAlumnoACurso(this.curso,alumno.id).subscribe(res => {
+        this.modalOpen();
+      });
     });
   }
 

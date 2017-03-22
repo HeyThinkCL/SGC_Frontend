@@ -53,4 +53,11 @@ export class ColegiosService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t DELETE Colegio'));
   }
 
+  getAsignaturasByColegioId(colegioId: number): Observable<any>{
+    const url = `${this.colegiosUrl}/asignaturas/${colegioId}`;
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Asignaturas BY Colegio Id'));
+  }
+
 }

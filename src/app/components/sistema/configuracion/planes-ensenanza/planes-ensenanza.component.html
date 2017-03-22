@@ -8,7 +8,7 @@
 
 <div class="row">
   <div class="col-md-9 col-md-offset-1">
-    <div class="card">
+    <div class="card" *ngIf="!lock">
       <div class="card-header">
         <h3 class="card-title fw-l">Planes de Estudio</h3>
       </div>
@@ -37,7 +37,7 @@
       <div class="card-header">
         <h4 class="fw-l">{{plan.decreto}} <span class="fw-sb panel-info pull-right">Código: {{plan.codigo}}</span></h4>
       </div>
-      <div class="card-header">
+      <div class="card-header" *ngIf="!lock">
         <div class="media">
           <div class="media-body media-middle">
             <div class="form-horizontal">

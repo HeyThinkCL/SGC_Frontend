@@ -12,7 +12,7 @@ export class CursosService {
     return [[Http]]
   }
 
-  private cursosUrl = globalVar.apiUrl+'/cursos';
+  private cursosUrl = globalVar.apiUrl+'/libro_clases/cursos';
 
   constructor(private http: Http) {
 
@@ -40,14 +40,14 @@ export class CursosService {
   }
 
   getAsignaturasByCursoId(id): Observable<any> {
-    const url = `${this.cursosUrl}/${id}/asignaturas`;
+    const url = `${this.cursosUrl}/asignaturas/${id}`;
     return this.http.get(url)
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Asignaturas by CursoID'));
   }
 
   getNotasAlumnosByCursoId(id,asignatura): Observable<any> {
-    const url = `${this.cursosUrl}/${id}/notas_alumno?asignatura_id=${asignatura}`;
+    const url = `${this.cursosUrl}/notas/${id}?asignatura_id=${asignatura}`;
     return this.http.get(url)
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Notas Alumnos by CursoID'));
@@ -81,9 +81,24 @@ export class CursosService {
   }
 
   getAnotacionesGenerales(id: number): Observable<any>{
-    const url = `${this.cursosUrl}/${id}/anotaciones_curso`;
+    const url = `${this.cursosUrl}/anotaciones?id=${id}`;
 
     return this.http.get(url)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Anotaciones of Curso'));
+  }
+
+  asignarAlumnoACurso(cursoId: number, alumnoId: number): Observable<any>{
+    let payload = {};
+    payload['curso']={
+      'curso_id':cursoId,
+      'alumno_id':alumnoId,
+    };
+
+    const url = `${this.cursosUrl}/alumnos`;
+
+    return this.http
+      .post(url, JSON.stringify(payload), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Anotaciones of Curso'));
   }

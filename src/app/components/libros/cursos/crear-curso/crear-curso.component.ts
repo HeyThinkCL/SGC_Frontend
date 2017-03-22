@@ -222,7 +222,7 @@ export class CrearCursoComponent implements OnInit {
   }
 
   nivelChanged(e: any){
-    this.curso.grado_id = e;
+    this.curso.grado_id = +e;
   }
 
   goBack(): void {
@@ -230,7 +230,6 @@ export class CrearCursoComponent implements OnInit {
   }
 
   saveCurso() {
-    console.log(this.curso);
     this.cursosService.createCurso(this.curso,1).subscribe((res) => {
       this.modalMessage = 'Curso creado con éxito.';
       this.modalOpen();

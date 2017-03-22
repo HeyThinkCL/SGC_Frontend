@@ -44,4 +44,18 @@ export class ProfesoresService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Profesor'));
   }
 
+  getAsignaturasByProfesorId(profesorId: number): Observable<any>{
+    const url = `${this.profesorsUrl}/asignaturas?id=${profesorId}`;
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Profesor'));
+  }
+
+  getJefaturasByProfesorId(profesorId: number): Observable<any>{
+    const url = `${this.profesorsUrl}/cursos?id=${profesorId}`;
+    return this.http.get(url)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Profesor'));
+  }
+
 }
