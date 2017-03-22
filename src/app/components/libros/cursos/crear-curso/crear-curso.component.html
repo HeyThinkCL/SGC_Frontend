@@ -37,7 +37,7 @@
                      [width]="320 | select2WidthFix"
                      [options]="selectTiposOptions"
                      (valueChanged)="tipoChanged($event.value)"
-                     *ngIf="selectTiposData.length>0"></select2>
+                     *ngIf="selectTiposRender"></select2>
           </div>
           <label class="col-sm-1 control-label" for="form-control-4">Nivel</label>
           <div class="col-sm-4">
@@ -46,7 +46,7 @@
                      [width]="320 | select2WidthFix"
                      [options]="selectNivelesOptions"
                      (valueChanged)="nivelChanged($event.value)"
-                     *ngIf="selectNivelesData.length>0"></select2>
+                     *ngIf="selectNivelesRender"></select2>
           </div>
         </div>
       </div>

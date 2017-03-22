@@ -5,6 +5,7 @@ import { Select2OptionData } from 'ng2-select2';
 
 import { CursosService } from '../../../../services/libros/cursos.service';
 import { PlanDeEstudiosService } from '../../../../services/sistema/configuraciones/plan-de-estudios.service';
+import { ConfiguracionService } from '../../../../services/sistema/configuracion.service';
 
 @Component({
   selector: 'app-crear-curso',
@@ -32,10 +33,12 @@ export class CrearCursoComponent implements OnInit {
   //tipos de enseñanza select2
   public selectTiposData: Array<Select2OptionData> = [];
   public selectTiposOptions: Select2Options;
+  public selectTiposRender: boolean = true;
 
   //tipos de enseñanza select2
   public selectNivelesData: Array<Select2OptionData> = [];
   public selectNivelesOptions: Select2Options;
+  public selectNivelesRender: boolean = true;
 
   selectedPlan: any;
   selectedTipo: any;
@@ -62,22 +65,44 @@ export class CrearCursoComponent implements OnInit {
     private location: Location,
     private cursosService: CursosService,
     private planDeEStudiosService: PlanDeEstudiosService,
+    private configuracionService: ConfiguracionService,
   ) {
   }
 
   ngOnInit() {
 
+    this.configuracionService.getConfiguraciones().subscribe(configs => {
+      let configId = configs.find(c => c.glosa == 'Planes de Estudio y Tipos de Enseñanza').id;
 
-    this.planDeEStudiosService.getPlanesDeEstudio().subscribe(res => {
-      this.planesDeEstudio = res.planes;
+      this.planDeEStudiosService.getConfigPlanesDeEstudio(configId).subscribe(res => {
+        this.planesDeEstudio = res.planes;
 
-      for(let plan of this.planesDeEstudio){
         this.selectPlanesData.push({
-          id:plan.id,
-          text: plan.decreto.length>70 ? plan.decreto.substring(0,plan.decreto.length-18)+'...' : plan.decreto,
-        })
-      }
+          id:' ',
+          text:'Seleccionar Plan de Estudios'
+        });
+
+        for(let plan of this.planesDeEstudio){
+          if(this.selectPlanesData.length==0){
+          }
+          this.selectPlanesData.push({
+            id:plan.id,
+            text: plan.decreto.length>70 ? plan.decreto.substring(0,plan.decreto.length-18)+'...' : plan.decreto,
+          })
+        }
+
+        this.selectTiposData.push({
+          id:' ',
+          text:'Seleccionar Tipo de Enseñanza'
+        });
+
+        this.selectNivelesData.push({
+          id:' ',
+          text:'Seleccionar Nivel'
+        });
+      });
     });
+
 
     this.selectPlanesOptions = {
       closeOnSelect: true,
@@ -105,12 +130,25 @@ export class CrearCursoComponent implements OnInit {
   planChanged(e: any){
     if(e){
       this.curso.plan_id = +e;
+
+      this.selectTiposRender = false;
+      this.selectNivelesRender = false;
+
       this.selectedPlan = this.planesDeEstudio.find(plan => plan.id==+e);
       this.selectedTipo = null;
 
       this.selectNivelesData = [];
       this.selectTiposData = [];
 
+      this.selectTiposData.push({
+        id:' ',
+        text:'Seleccionar Tipo de Enseñanza'
+      });
+
+      this.selectNivelesData.push({
+        id:' ',
+        text:'Seleccionar Nivel'
+      });
 
       for(let tipo of this.selectedPlan.tipos){
         this.selectTiposData.push({
@@ -119,10 +157,27 @@ export class CrearCursoComponent implements OnInit {
         })
       }
 
+      this.selectTiposRender = true;
+      this.selectNivelesRender = true;
+
     } else {
       this.curso.plan_id = e;
+
+      this.selectTiposRender = false;
+      this.selectNivelesRender = false;
       this.selectTiposData = [];
       this.selectNivelesData = [];
+      this.selectTiposData.push({
+        id:' ',
+        text:'Seleccionar Tipo de Enseñanza'
+      });
+
+      this.selectNivelesData.push({
+        id:' ',
+        text:'Seleccionar Nivel'
+      });
+      this.selectTiposRender = true;
+      this.selectNivelesRender = true;
 
       this.selectedTipo = null;
       this.selectedPlan = null;
@@ -135,19 +190,32 @@ export class CrearCursoComponent implements OnInit {
       this.curso.ensenanza_id = +e;
       this.selectedTipo = this.selectedPlan.tipos.find(tipo => tipo.tipo.id == +e);
 
+      this.selectNivelesRender = false;
       this.selectNivelesData = [];
-
-
-      for(let nivel of this.selectedTipo.grados){
-        this.selectNivelesData.push({
-          id:nivel.id,
-          text:nivel.glosa,
-        })
+      this.selectNivelesData.push({
+        id:' ',
+        text:'Seleccionar Nivel'
+      });
+      if(this.selectedTipo){
+        for(let nivel of this.selectedTipo.grados){
+          this.selectNivelesData.push({
+            id:nivel.id,
+            text:nivel.glosa,
+          })
+        }
       }
+      this.selectNivelesRender = true;
+
     } else {
       this.curso.ensenanza_id = e;
+      this.selectNivelesRender = false;
       this.selectNivelesData = [];
 
+      this.selectNivelesData.push({
+        id:' ',
+        text:'Seleccionar Nivel'
+      });
+      this.selectNivelesRender = true;
       this.selectedTipo = null;
     }
 

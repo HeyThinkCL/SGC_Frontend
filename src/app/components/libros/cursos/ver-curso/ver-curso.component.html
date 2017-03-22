@@ -20,24 +20,28 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <app-spinner [timeoutMessage]="timeoutMessage" *ngIf="!(cursos.length>0)"></app-spinner>
-    <div class="panel" *ngIf="cursos.length>0">
+    <app-spinner [timeoutMessage]="timeoutMessage" *ngIf="!(cursos.length>0&&planesDeEstudio.length>0)"></app-spinner>
+    <div class="panel" *ngIf="cursos.length>0&&planesDeEstudio.length>0">
       <div class="panel-body">
         <div class="table-responsive">
-          <table class="table table-middle table-striped">
+          <table class="table table-middle table-striped table-hover">
             <thead>
             <tr class="bg-primary">
               <th>Curso</th>
+              <th>Plan de Estudios</th>
+              <th>Tipo de Enseñanza</th>
               <th>Profesor Jefe</th>
               <th>Contacto Profesor Jefe</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let curso of cursos |filterArray:filterData:filterKeys">
+            <tr *ngFor="let curso of cursos |filterArray:filterData:filterKeys" [routerLink]="['./',curso.curso.id]">
               <td class="maw-320">
-                <span><a [routerLink]="['./',curso.curso.id]">{{ curso.curso.grado }} {{ curso.curso.curso }}</a></span>
+                <span>{{ curso.curso.grado }} {{ curso.curso.curso }}</span>
               </td>
+              <td>{{ getPlanName(curso.curso.plan_id) }}</td>
+              <td>{{ getTipoName(curso.curso.plan_id,curso.curso.ensenanza_id) }}</td>
               <td>
                 <span class="truncate" *ngIf="(curso.curso.prof_jefe)"> {{ curso.profesor?.nombre }} {{curso.profesor?.apellido_paterno}} {{curso.profesor?.apellido_materno}}</span>
                 <div class="demo-btn-toolbar btn-toolbar" *ngIf="!(curso.curso.prof_jefe)">

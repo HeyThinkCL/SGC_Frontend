@@ -69,11 +69,13 @@ export class PlanesEnsenanzaComponent implements OnInit {
 
         this.planDeEstudiosService.getConfigPlanesDeEstudio(this.configId).subscribe(config => {
           if(config){
+
             this.configuracion = config;
-            this.lock = true;
+
             console.log('get',this.configuracion);
 
             if(config.planes.length>0){
+              this.lock = true;
               for(let plan of config.planes){
                 this.selectedPlanes.push(plan.id.toString());
 

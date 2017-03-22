@@ -7,6 +7,8 @@ import { MatriculaService } from '../../../../services/sistema/matricula.service
 import { PostulacionesService } from '../../../../services/sistema/postulaciones.service';
 import { ApoderadosService } from '../../../../services/sistema/apoderados.service';
 
+import { CursosService } from '../../../../services/libros/cursos.service';
+
 @Component({
   selector: 'app-crear-matricula',
   templateUrl: 'crear-matricula.component.html',
@@ -32,6 +34,9 @@ export class CrearMatriculaComponent implements OnInit {
   public selectData: Array<Select2OptionData> = [];
   public selectOptions: Select2Options;
 
+  public selectCursoData: Array<Select2OptionData> = [];
+  public selectCursoOptions: Select2Options;
+
   postulantes = [];
 
   postulante: any;
@@ -39,42 +44,11 @@ export class CrearMatriculaComponent implements OnInit {
   madre: any;
   apoderado: any;*/
 
-  grados = [
-    {"id":"1ro básico"},
-    {"id":"2do básico"},
-    {"id":"3ro básico"},
-    {"id":"4to básico"},
-    {"id":"5to básico"},
-    {"id":"6to básico"},
-    {"id":"7mo básico"},
-    {"id":"8vo básico"},
-    {"id":"1ro medio"},
-    {"id":"2do medio"},
-    {"id":"3ro medio"},
-    {"id":"4to medio"},
-  ];
-
-  letras = [
-    {"id":"A"},
-    {"id":"B"},
-    {"id":"C"},
-    {"id":"D"},
-    {"id":"E"},
-    {"id":"F"},
-    {"id":"G"},
-    {"id":"H"},
-    {"id":"I"},
-    {"id":"J"},
-    {"id":"K"},
-    {"id":"L"},
-    {"id":"M"},
-    {"id":"N"},
-    {"id":"O"},
-    {"id":"P"},
-  ];
+  curso: any;
 
   constructor(
     private location: Location,
+    private cursosService: CursosService,
     private matriculaService: MatriculaService,
     private postulacionesService: PostulacionesService,
   ) { }
@@ -91,6 +65,19 @@ export class CrearMatriculaComponent implements OnInit {
           id: postulante.id.toString(),
           text: `${postulante.nombre} ${postulante.apellido_paterno} ${postulante.apellido_materno}`
         })
+      }
+    });
+
+    this.cursosService.getCursos().subscribe(c => {
+      this.selectCursoData.push({
+        id: ' ',
+        text: 'Ninguno'
+      });
+      for(let curso of c){
+        this.selectCursoData.push({
+          id:curso.curso.id,
+          text:curso.curso.grado+' '+curso.curso.curso,
+        });
       }
     })
   }
@@ -111,6 +98,10 @@ export class CrearMatriculaComponent implements OnInit {
 
   selectChanged(e: any){
     this.postulante = this.postulantes.find(postulante => postulante.id == +e.value);
+  }
+
+  selectNivelChanged(e: any){
+    this.curso = +e.value;
   }
 
   saveMatricula() {

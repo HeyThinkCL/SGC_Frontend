@@ -9,6 +9,8 @@ import { ApoderadosService } from '../../../../services/sistema/apoderados.servi
 import { EtniasService } from '../../../../services/sistema/etnias.service';
 import { EstadosCivilesService } from '../../../../services/sistema/estados-civiles.service';
 
+import { CursosService } from '../../../../services/libros/cursos.service';
+
 import * as globalVars from '../../../../globals';
 
 
@@ -51,6 +53,11 @@ export class EditarMatriculaComponent implements OnInit {
   public selectEstadoCivilData: Array<Select2OptionData> = [];
   public selectEstadoCivilOptions: Select2Options;
 
+  public selectCursoData: Array<Select2OptionData> = [];
+  public selectCursoOptions: Select2Options;
+
+  curso: any;
+
   private matricula:any;
   private padre:any;
   private madre:any;
@@ -61,44 +68,11 @@ export class EditarMatriculaComponent implements OnInit {
   private selectedMadre:any;
   private selectedApoderado:any;
 
-  grados = [
-    {"id":"1ro básico"},
-    {"id":"2do básico"},
-    {"id":"3ro básico"},
-    {"id":"4to básico"},
-    {"id":"5to básico"},
-    {"id":"6to básico"},
-    {"id":"7mo básico"},
-    {"id":"8vo básico"},
-    {"id":"1ro medio"},
-    {"id":"2do medio"},
-    {"id":"3ro medio"},
-    {"id":"4to medio"},
-  ];
-
-  letras = [
-    {"id":"A"},
-    {"id":"B"},
-    {"id":"C"},
-    {"id":"D"},
-    {"id":"E"},
-    {"id":"F"},
-    {"id":"G"},
-    {"id":"H"},
-    {"id":"I"},
-    {"id":"J"},
-    {"id":"K"},
-    {"id":"L"},
-    {"id":"M"},
-    {"id":"N"},
-    {"id":"O"},
-    {"id":"P"},
-  ];
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
+    private cursosService: CursosService,
     private etniasService: EtniasService,
     private estadosCivilesService: EstadosCivilesService,
     private matriculasService: MatriculaService,
@@ -235,6 +209,19 @@ export class EditarMatriculaComponent implements OnInit {
       placeholder: 'Seleccionar Nacionalidad',
     };
 
+    this.cursosService.getCursos().subscribe(c => {
+      this.selectCursoData.push({
+        id: ' ',
+        text: 'Ninguno'
+      });
+      for(let curso of c){
+        this.selectCursoData.push({
+          id:curso.curso.id,
+          text:curso.curso.grado+' '+curso.curso.curso,
+        });
+      }
+    })
+
   }
 
   goBack(): void {
@@ -256,6 +243,10 @@ export class EditarMatriculaComponent implements OnInit {
     else if ( !changed.apoderado && other.apoderado ){
       this.apoderado = JSON.parse(JSON.stringify(other));
     }
+  }
+
+  selectNivelChanged(e: any){
+    this.curso = +e.value;
   }
 
   modalOpen(): void {
