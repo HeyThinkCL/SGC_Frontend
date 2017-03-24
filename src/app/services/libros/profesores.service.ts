@@ -71,7 +71,7 @@ export class ProfesoresService {
   const url = `${this.profesorsUrl}/asignaturas?id=${profesorId}`;
   let payload = {'asignaturas':asignaturas};
 
-  return this.http.put(url, JSON.stringify(payload), {headers: this.headers})
+  return this.http.post(url, JSON.stringify(payload), {headers: this.headers})
 .map(res => res.json())
   .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
 }

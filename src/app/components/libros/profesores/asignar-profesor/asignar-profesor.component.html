@@ -88,11 +88,11 @@
   <div class="col-md-10 col-md-offset-1">
     <div class="form form-horizontal">
       <div class="form-group">
-        <div class="col-sm-5">
+        <div class="col-sm-5" *ngIf="false">
           <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
         </div>
-        <div class="col-sm-7">
-          <button class="btn btn-primary btn-block" (click)="saveJefaturas()">Guardar</button>
+        <div class="col-sm-7 col-sm-offset-5">
+          <button class="btn btn-primary btn-block" (click)="saveJefaturas()">Guardar Jefaturas</button>
         </div>
       </div>
     </div>
@@ -176,8 +176,11 @@
   <div class="col-md-10 col-md-offset-1">
     <div class="form form-horizontal">
       <div class="form-group">
-        <div class="col-sm-7 col-sm-offset-5">
-          <button class="btn btn-primary btn-block" (click)="saveAsignaturasDictadas()">Guardar</button>
+        <div class="col-sm-5">
+          <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
+        </div>
+        <div class="col-sm-7">
+          <button class="btn btn-primary btn-block" (click)="saveAsignaturasDictadas()">Guardar Asignaturas</button>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { Curso } from '../curso';
 import { CursosService } from '../../../../services/libros/cursos.service';
 import { ProfesoresService } from '../../../../services/libros/profesores.service';
+import {ColegiosService} from '../../../../services/sistema/colegios.service';
 
 @Component({
   selector: 'app-modificar-curso',
@@ -23,14 +24,9 @@ export class ModificarCursoComponent implements OnInit {
   curso: any;
   selectedCurso: any;
 
-  profesores = [
-    {"nombre":"Pedro Fernandez","id":1,'id_asignaturas':[1]},
-    {"nombre":"Juan Carlos Giadach","id":2,'id_asignaturas':[2]},
-    {"nombre":"Ivan Arenas","id":3,'id_asignaturas':[1]},
-    {"nombre":"Valentin Trujillo","id":4,'id_asignaturas':[1,2]},
-  ];
+  profesores = [];
 
-  asignaturas = [
+  asignaturasCurso = [
     {'id':1,'nombre':'Lenguaje y Comunicación','obligatoria':true,'horas':null},
     {'id':2,'nombre':'Matemáticas','obligatoria':false,'horas':null},
   ];
@@ -44,13 +40,14 @@ export class ModificarCursoComponent implements OnInit {
 
   constructor(
     private location: Location,
+    private route: ActivatedRoute,
     private cursosService: CursosService,
     private profesoresService: ProfesoresService,
-    private route: ActivatedRoute,
+    private colegiosService: ColegiosService,
   ) { }
 
   ngOnInit() {
-    // this.getProfesores();
+
 
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
@@ -61,15 +58,36 @@ export class ModificarCursoComponent implements OnInit {
       .subscribe((curso) => {
         this.curso = curso;
         this.selectedCurso = JSON.parse(JSON.stringify(curso));
+
+        this.cursosService.getAsignaturasByCursoId(this.id).subscribe(asigns => {
+          let _asignaturas = [];
+          for(let asign of asigns.asignaturas){
+            _asignaturas.push(asign.asignatura.datos);
+          }
+          this.asignaturasCurso = _asignaturas;
+        })
+
       });
+
+    this.profesoresService.getProfesores().subscribe(profesores => {
+      this.profesores = profesores;
+      for(let profesor of this.profesores){
+        profesor['asignaturas'] = [];
+        this.profesoresService.getAsignaturasByProfesorId(profesor.id).subscribe(asigns => {
+          for(let asign of asigns){
+            profesor.asignaturas.push(asign.id);
+          }
+        })
+      }
+    });
+
+    this.colegiosService.getAsignaturasByColegioId(1).subscribe(asigns => {
+      console.log(asigns);
+      this.allAsignaturas = asigns;
+    })
   }
 
   //../services
-  getProfesores() {
-    this.profesoresService.getProfesores().subscribe((res) => {
-      this.profesores = res;
-    })
-  }
 
   saveCurso() {
     this.cursosService.updateCurso(this.curso.curso).subscribe((res) => {

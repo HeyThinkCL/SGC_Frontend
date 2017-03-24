@@ -3,13 +3,13 @@
   <p class="title bar description"></p>
 
 </div>
-<div class="row">
+<div class="row" *ngIf="curso && selectedCurso">
   <div class="col-md-9 col-sm-offset-1">
     <div class="card">
       <div class="card-header">
-        <h4 class="fw-l">Curso</h4>
+        <h4 class="fw-l">Curso {{ curso?.curso.grado}} {{ curso?.curso.curso}}</h4>
       </div>
-      <div class="card-body">
+      <div class="card-body" *ngIf="false">
         <div class="demo-form-wrapper">
           <div class="form form-horizontal">
             <div class="form-group">
@@ -39,7 +39,7 @@
       <div class="card-header">
         <h4 class="fw-l">Asignaturas</h4>
       </div>
-      <div class="card-header" *ngFor="let asignatura of asignaturas">
+      <div class="card-header" *ngFor="let asignatura of asignaturasCurso">
         <div class="demo-form-wrapper">
           <div class="form form-horizontal">
             <div class="form-group">
@@ -47,17 +47,17 @@
               <div class="col-sm-3">
                 <input class="form-control" type="text" readonly [(ngModel)]="asignatura.nombre">
               </div>
-              <label class="col-sm-1 control-label">Profesor</label>
+              <!--<label class="col-sm-1 control-label">Profesor</label>
               <div class="col-sm-3">
                 <select class="form-control" type="text">
-                  <!--                    <option *ngFor="let profesor of profesores | filterProfByAsign:profesor?.id_asignaturas:asignatura.id" [ngValue]="profesor.id">
+                  &lt;!&ndash;                    <option *ngFor="let profesor of profesores | filterProfByAsign:profesor?.id_asignaturas:asignatura.id" [ngValue]="profesor.id">
                                         {{ profesor?.usuario?.nombre }} {{ profesor?.usuario?.apellido_paterno }} {{ profesor?.usuario?.apellido_materno }}
-                                      </option>-->
+                                      </option>&ndash;&gt;
                   <option *ngFor="let profesor of profesores | filterProfByAsign:asignatura?.id" [ngValue]="profesor.id">
                     {{ profesor?.nombre }}
                   </option>
                 </select>
-              </div>
+              </div>-->
               <label class="col-sm-1 control-label">Horas</label>
               <div class="col-sm-1">
                 <input class="form-control" type="number" [(ngModel)]="asignatura.horas">
@@ -89,7 +89,7 @@
               <label class="col-sm-2 control-label">Agregar Asignatura</label>
               <div class="col-sm-8">
                 <select class="form-control" type="text">
-                  <option *ngFor="let asignatura of allAsignaturas | filterAsignaturas:asignaturas">
+                  <option *ngFor="let asignatura of allAsignaturas | filterAsignaturas:asignaturasCurso">
                     {{ asignatura.nombre }}
                   </option>
                 </select>

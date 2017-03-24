@@ -5,7 +5,7 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {ProfesoresService} from '../../../../services/libros/profesores.service';
 import {CursosService} from '../../../../services/libros/cursos.service';
 import {ColegiosService} from '../../../../services/sistema/colegios.service';
-import { Select2OptionData } from 'ng2-select2';
+
 
 @Component({
   selector: 'app-asignar-profesor',
@@ -39,7 +39,7 @@ export class AsignarProfesorComponent implements OnInit {
     private router: Router,
     private profesoresService: ProfesoresService,
     private cursosService: CursosService,
-    private colegiosService: ColegiosService
+    private colegiosService: ColegiosService,
   ) { }
 
   ngOnInit() {
