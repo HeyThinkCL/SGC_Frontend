@@ -19,6 +19,7 @@ import {FilterTablePipe} from "./pipes/filter-table.pipe";
 import {Select2WidthFixPipe } from "./pipes/select2-width-fix.pipe"
 import {FilterProfByAsign } from "./pipes/filter-prof-asignatura"
 import {FilterAsignaturas } from "./pipes/filter-asignaturas"
+import {FilterAsignarPipe} from './pipes/filter-asignar.pipe';
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -201,6 +202,7 @@ import {ConfigCalendarioAcademicoGuard} from './guards/config-guards/config-cale
     Select2WidthFixPipe,
     FilterProfByAsign,
     FilterAsignaturas,
+    FilterAsignarPipe,
     ConfiguracionComponent,
     ConfiguracionDashboardComponent,
     CalendarioAcademicoComponent,

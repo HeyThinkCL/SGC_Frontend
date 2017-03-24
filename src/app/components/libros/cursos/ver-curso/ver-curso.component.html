@@ -43,8 +43,8 @@
               <td>{{ getPlanName(curso.curso.plan_id) }}</td>
               <td>{{ getTipoName(curso.curso.plan_id,curso.curso.ensenanza_id) }}</td>
               <td>
-                <span class="truncate" *ngIf="(curso.curso.prof_jefe)"> {{ curso.profesor?.nombre }} {{curso.profesor?.apellido_paterno}} {{curso.profesor?.apellido_materno}}</span>
-                <div class="demo-btn-toolbar btn-toolbar" *ngIf="!(curso.curso.prof_jefe)">
+                <span class="truncate" *ngIf="(curso.curso.profesor_id)"> {{ curso.profesor?.nombre }} {{curso.profesor?.apellido_paterno}} {{curso.profesor?.apellido_materno}}</span>
+                <div class="demo-btn-toolbar btn-toolbar" *ngIf="!(curso.curso.profesor_id)">
                   <div class="btn-group btn-group-sm">
                     <a class="btn btn-outline-primary btn-sm" [routerLink]="['../',curso.curso.id,'profesores']">
                       <span class="icon icon-plus icon-fw"></span>
