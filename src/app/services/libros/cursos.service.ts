@@ -102,4 +102,14 @@ export class CursosService {
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Anotaciones of Curso'));
   }
+
+  updateAsignaturasByCursoId(cursoId: number, asignaturas){
+    const url = `${this.cursosUrl}/asignaturas/${cursoId}`;
+    let payload = {};
+    payload['asignaturas'] = JSON.parse(JSON.stringify(asignaturas));
+
+    return this.http.put(url, JSON.stringify(payload), {headers: this.headers})
+      .map(() => asignaturas)
+      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Asignaturas BY Curso ID'));
+  }
 }

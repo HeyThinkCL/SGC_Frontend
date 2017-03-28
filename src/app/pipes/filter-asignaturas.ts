@@ -4,19 +4,21 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 // # Filter Array of Objects
-@Pipe({ name: 'filterAsignaturas' })
+@Pipe({ name: 'filterAsignaturas', pure:false })
 export class FilterAsignaturas implements PipeTransform {
-  transform(data, asignaturas: any[]) {
-    if(!data && !asignaturas){
+  transform(data, asignaturas: any[], planId: number) {
+    if(!data && (!asignaturas || !planId)){
       return data;
     } else {
       return data.filter(item => {
-        for (let asignatura of asignaturas){
-          if(item.id == asignatura.id){
-            return false;
+        if(item.plan_id==planId){
+          for (let asignatura of asignaturas){
+            if(asignatura.id==item.id){
+              return false;
+            }
           }
-        }
-        return true;
+          return true;
+        } else return false;
       });
     }
   }

@@ -11,7 +11,7 @@ export class FilterProfByAsign implements PipeTransform {
       return data;
     } else {
       return data.filter(item => {
-        return item.id_asignaturas.indexOf(asignId) !== -1;
+        return item.asignaturas.indexOf(asignId) !== -1;
       });
     }
   }

@@ -17,10 +17,10 @@
           <div class="media-body media-middle">
             <div class="form-horizontal">
               <div class="form-group">
-                <div class="col-sm-10">
+                <div class="col-sm-10" id="form-control-1-wrapper">
                   <select2 id="form-control-1"
                            [data]="selectPlanesData"
-                           [width]="520 | select2WidthFix"
+                           [width]="520 | select2WidthFix:'form-control-1-wrapper'"
                            [options]="selectPlanesOptions"
                            [value]="selectedPlanes"
                            (valueChanged)="planChanged($event.value)"
@@ -43,10 +43,10 @@
             <div class="form-horizontal">
               <div class="form-group">
                 <label class="control-label" for="form-control-2">Tipos de Enseñanza</label>
-                <div class="col-sm-8">
+                <div class="col-sm-8" id="form-control-2-wrapper">
                   <select2 id="form-control-2"
                            [data]="getSelectTipoDataByPlanId(plan.id)"
-                           [width]="520 | select2WidthFix"
+                           [width]="520 | select2WidthFix:'form-control-2-wrapper'"
                            [options]="selectTiposOptions"
                            (valueChanged)="tipoChanged(plan,$event.value)"
                            *ngIf="getSelectTipoDataByPlanId(plan.id)"

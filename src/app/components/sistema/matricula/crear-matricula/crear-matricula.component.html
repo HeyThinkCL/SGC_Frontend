@@ -16,10 +16,10 @@
           <div class="form form-horizontal">
             <div class="form-group">
               <label class="control-label col-sm-1 col-sm-offset-1" for="select-form-1">Postulante</label>
-              <div class="col-sm-5" *ngIf="selectData.length>0">
+              <div class="col-sm-6" *ngIf="selectData.length>0" id="select-form-1-wrapper">
                 <select2 id="select-form-1"
                          [data]="selectData"
-                         [width]="310 | select2WidthFix"
+                         [width]="310 | select2WidthFix:'select-form-1-wrapper'"
                          [options]="selectOptions"
                          (valueChanged)="selectChanged($event)"></select2>
               </div>
@@ -167,10 +167,10 @@
       </div>
       <div class="card-body">
         <div class="form-group">
-          <div class="col-sm-5 col-sm-offset-2">
+          <div class="col-sm-5 col-sm-offset-2" id="select-form-2-wrapper">
             <select2 id="select-form-2"
                      [data]="selectCursoData"
-                     [width]="310 | select2WidthFix"
+                     [width]="310 | select2WidthFix:'select-form-2-wrapper'"
                      [options]="selectCursoOptions"
                      *ngIf="selectCursoData.length>0"
                      (valueChanged)="selectNivelChanged($event)"></select2>

@@ -86,21 +86,6 @@
 
 <div class="row">
   <div class="col-md-10 col-md-offset-1">
-    <div class="form form-horizontal">
-      <div class="form-group">
-        <div class="col-sm-5" *ngIf="false">
-          <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
-        </div>
-        <div class="col-sm-7 col-sm-offset-5">
-          <button class="btn btn-primary btn-block" (click)="saveJefaturas()">Guardar Jefaturas</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-10 col-md-offset-1">
     <div class="card">
       <div class="card-header">
         <h3 class="card-title fw-l">Asignaturas</h3>
@@ -180,7 +165,7 @@
           <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
         </div>
         <div class="col-sm-7">
-          <button class="btn btn-primary btn-block" (click)="saveAsignaturasDictadas()">Guardar Asignaturas</button>
+          <button class="btn btn-primary btn-block" (click)="save()">Guardar</button>
         </div>
       </div>
     </div>
@@ -245,4 +230,16 @@
       </div>
     </div>
   </modal-body>
+</modal>
+
+<modal [animation]="true" #confirmModal>
+  <modal-header [show-close]="true">
+    <h3 class="modal-title">Modificaciones realizadas exitosamente.</h3>
+  </modal-header>
+  <modal-body>
+    <p class="card-text">Presione Ok para continuar.</p>
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-primary" (click)="confirmModalClose()">Ok</button>
+  </modal-footer>
 </modal>

@@ -15,6 +15,7 @@ import {ColegiosService} from '../../../../services/sistema/colegios.service';
 export class AsignarProfesorComponent implements OnInit {
   @ViewChild('cursosModal') cursosModal: ModalComponent;
   @ViewChild('asignaturasModal') asignaturasModal: ModalComponent;
+  @ViewChild('confirmModal') confirmModal: ModalComponent;
 
   id: number;
   private sub: any;
@@ -142,6 +143,25 @@ export class AsignarProfesorComponent implements OnInit {
     })
   }
 
+  save(){
+    let checkJefaturas: boolean = false;
+    let checkAsignaturas: boolean = false;
+    this.profesoresService.asignarJefaturasByProfesorId(this.id,this.jefaturas).subscribe(res => {
+      console.log(res);
+      checkJefaturas = true;
+      if(checkAsignaturas&&checkJefaturas){
+        this.confirmModalOpen();
+      }
+    });
+    this.profesoresService.asignarAsignaturasByProfesorId(this.id,this.asignaturasDictadas).subscribe(res => {
+      console.log(res);
+      checkAsignaturas = true;
+      if(checkAsignaturas&&checkJefaturas){
+        this.confirmModalOpen();
+      }
+    })
+  }
+
   //modals
   ////Cursos modal
   cursosModalOpen(){
@@ -166,6 +186,13 @@ export class AsignarProfesorComponent implements OnInit {
 
   asignaturasModalDismiss(){
     this.asignaturasModal.dismiss();
+  }
+  //confirm modal
+  confirmModalOpen(){
+    this.confirmModal.open('sm');
+  }
+  confirmModalClose(){
+    this.confirmModal.close();
   }
 
   goBack(): void {

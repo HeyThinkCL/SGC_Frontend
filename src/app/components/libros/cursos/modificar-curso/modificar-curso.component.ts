@@ -26,17 +26,10 @@ export class ModificarCursoComponent implements OnInit {
 
   profesores = [];
 
-  asignaturasCurso = [
-    {'id':1,'nombre':'Lenguaje y Comunicación','obligatoria':true,'horas':null},
-    {'id':2,'nombre':'Matemáticas','obligatoria':false,'horas':null},
-  ];
+  asignaturasCurso = [];
 
-  allAsignaturas = [
-    {'id':1,'nombre':'Lenguaje y Comunicación','obligatoria':true},
-    {'id':2,'nombre':'Matemáticas','obligatoria':false},
-    {'id':3,'nombre':'Historia','obligatoria':false},
-    {'id':4,'nombre':'Religión','obligatoria':false},
-  ];
+  allAsignaturas = [];
+  selectedAsignaturaId: number;
 
   constructor(
     private location: Location,
@@ -57,6 +50,7 @@ export class ModificarCursoComponent implements OnInit {
       .switchMap((params: Params) => this.cursosService.getCurso(+params['id']))
       .subscribe((curso) => {
         this.curso = curso;
+        console.log(this.curso);
         this.selectedCurso = JSON.parse(JSON.stringify(curso));
 
         this.cursosService.getAsignaturasByCursoId(this.id).subscribe(asigns => {
@@ -82,17 +76,33 @@ export class ModificarCursoComponent implements OnInit {
     });
 
     this.colegiosService.getAsignaturasByColegioId(1).subscribe(asigns => {
-      console.log(asigns);
       this.allAsignaturas = asigns;
     })
+  }
+
+  addAsignatura(){
+    if(this.selectedAsignaturaId){
+      let asignatura = this.allAsignaturas.find(a => a.id == this.selectedAsignaturaId);
+      if(asignatura){
+        this.asignaturasCurso.push(asignatura);
+      }
+    }
+    this.selectedAsignaturaId = null;
+  }
+
+  deleteAsignatura(asignaturaId: number){
+    let asignaturaIdx = this.asignaturasCurso.findIndex(a => a.id == asignaturaId);
+    this.asignaturasCurso.splice(asignaturaIdx,1);
+
   }
 
   //../services
 
   saveCurso() {
-    this.cursosService.updateCurso(this.curso.curso).subscribe((res) => {
+    console.log(this.asignaturasCurso);
+    this.cursosService.updateAsignaturasByCursoId(this.id, this.asignaturasCurso).subscribe(asigns => {
       this.modalOpen();
-    });
+    })
   }
   //navigation
   goBack(): void {
