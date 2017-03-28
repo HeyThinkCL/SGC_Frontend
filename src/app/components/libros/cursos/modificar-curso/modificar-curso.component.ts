@@ -50,7 +50,6 @@ export class ModificarCursoComponent implements OnInit {
       .switchMap((params: Params) => this.cursosService.getCurso(+params['id']))
       .subscribe((curso) => {
         this.curso = curso;
-        console.log(this.curso);
         this.selectedCurso = JSON.parse(JSON.stringify(curso));
 
         this.cursosService.getAsignaturasByCursoId(this.id).subscribe(asigns => {
@@ -59,25 +58,30 @@ export class ModificarCursoComponent implements OnInit {
             _asignaturas.push(asign.asignatura.datos);
           }
           this.asignaturasCurso = _asignaturas;
+          console.log(this.asignaturasCurso);
+
+        });
+
+        this.profesoresService.getProfesores().subscribe(profesores => {
+          this.profesores = profesores;
+          this.selectedCurso['profesor'] = profesores.find(p => p.id == this.selectedCurso.curso.profesor_id);
+          for(let profesor of this.profesores){
+            profesor['asignaturas'] = [];
+            this.profesoresService.getAsignaturasByProfesorId(profesor.id).subscribe(asigns => {
+              for(let asign of asigns){
+                profesor.asignaturas.push(asign.id);
+              }
+            })
+          }
+        });
+
+        this.colegiosService.getAsignaturasByColegioId(1).subscribe(asigns => {
+          this.allAsignaturas = asigns;
         })
 
       });
 
-    this.profesoresService.getProfesores().subscribe(profesores => {
-      this.profesores = profesores;
-      for(let profesor of this.profesores){
-        profesor['asignaturas'] = [];
-        this.profesoresService.getAsignaturasByProfesorId(profesor.id).subscribe(asigns => {
-          for(let asign of asigns){
-            profesor.asignaturas.push(asign.id);
-          }
-        })
-      }
-    });
 
-    this.colegiosService.getAsignaturasByColegioId(1).subscribe(asigns => {
-      this.allAsignaturas = asigns;
-    })
   }
 
   addAsignatura(){
@@ -99,9 +103,19 @@ export class ModificarCursoComponent implements OnInit {
   //../services
 
   saveCurso() {
-    console.log(this.asignaturasCurso);
+    let asignaturasCheck: boolean = false;
+    let profesorCheck: boolean = false;
     this.cursosService.updateAsignaturasByCursoId(this.id, this.asignaturasCurso).subscribe(asigns => {
-      this.modalOpen();
+      asignaturasCheck = true;
+      if(asignaturasCheck&&profesorCheck){
+        this.modalOpen();
+      }
+    });
+    this.cursosService.updateCurso(this.curso.curso).subscribe(asigns => {
+      profesorCheck = true;
+      if(asignaturasCheck&&profesorCheck){
+        this.modalOpen();
+      }
     })
   }
   //navigation

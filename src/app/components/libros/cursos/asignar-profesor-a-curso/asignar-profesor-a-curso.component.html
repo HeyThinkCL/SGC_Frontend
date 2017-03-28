@@ -11,7 +11,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label" for="form-control-1">Profesor</label>
           <div class="col-sm-10">
-            <select class="form-control" id="form-control-1" type="text" [(ngModel)]="curso?.curso.prof_jefe">
+            <select class="form-control" id="form-control-1" type="text" [(ngModel)]="curso?.curso.profesor_id">
               <option *ngFor="let profesor of profesores"
                       [ngValue]="profesor?.id">
                 {{ profesor?.usuario?.nombre }} {{ profesor?.usuario.apellido_paterno }} {{ profesor?.usuario.apellido_materno }}

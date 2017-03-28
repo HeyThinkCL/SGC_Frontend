@@ -4,7 +4,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 // # Filter Array of Objects
-@Pipe({ name: 'filterProfByAsign' })
+@Pipe({ name: 'filterProfByAsign', pure: false })
 export class FilterProfByAsign implements PipeTransform {
   transform(data, asignId: number) {
     if(!data && !asignId){
