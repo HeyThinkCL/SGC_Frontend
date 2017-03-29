@@ -3,13 +3,14 @@
     <div class="login">
       <div class="login-body">
         <h3 class="fw-l">InnovaColegios</h3>
-        <a class="login-brand">
-        </a>
+        <!--<a class="login-brand">
+        </a>-->
+        <span class="fw-l card-subtitle text-center text-danger" *ngIf="error.length>0">{{error}}</span>
         <div class="login-form">
           <form class="login" name="form" #f="ngForm" (ngSubmit)="login()" novalidate>
             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !user.valid }">
               <label for="user">Usuario</label>
-              <input id="user" class="form-control" type="text" name="user" [(ngModel)]="model.user" #username="ngModel" required>
+              <input id="user" class="form-control" type="text" name="user" [(ngModel)]="model.user" #user="ngModel" required>
               <p *ngIf="f.submitted && !user.valid" class="alert-warning">Username is required</p>
 
             </div>

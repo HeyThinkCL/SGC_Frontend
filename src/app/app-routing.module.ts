@@ -213,6 +213,7 @@ const routes: Routes = [
       {path:'planes-ensenanza', component: PlanesEnsenanzaComponent },
     ]
   },
+  { path: '**', redirectTo: '404'},
 ];
 
 const rootRoutes: Routes = [

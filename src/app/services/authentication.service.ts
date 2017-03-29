@@ -2,74 +2,19 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from "rxjs";
 
+import * as globalVars from '../globals';
+
 @Injectable()
 export class AuthenticationService {
+  static get parameters(){
+    return [[Http]]
+  }
+
+  private authUrl: string = globalVars.apiUrl+'/authenticate';
+  private headers = new Headers({'Content-Type': 'application/json'});
 
   public token: string;
   public colegioId: number;
-
-  private users = [
-    {
-      'user':'test1',
-      'password':'test1',
-      'colegioId':1,
-      'rol':1,
-      'usuario':{
-        'nombre':'Manuel',
-        'apellido_paterno':'Alba'
-      }
-    },
-    {
-      'user':'test2',
-      'password':'test2',
-      'colegioId':1,
-      'rol':2,
-      'usuario':{
-        'nombre':'Manuel',
-        'apellido_paterno':'Alba'
-      }
-    },
-    {
-      'user':'test3',
-      'password':'test3',
-      'colegioId':1,
-      'rol':3,
-      'usuario':{
-        'nombre':'Manuel',
-        'apellido_paterno':'Alba'
-      }
-    },
-    {
-      'user':'test4',
-      'password':'test4',
-      'colegioId':1,
-      'rol':4,
-      'usuario':{
-        'nombre':'Manuel',
-        'apellido_paterno':'Alba'
-      }
-    },
-    {
-      'user':'test5',
-      'password':'test5',
-      'colegioId':1,
-      'rol':5,
-      'usuario':{
-        'nombre':'Manuel',
-        'apellido_paterno':'Alba'
-      }
-    },
-    {
-      'user':'test6',
-      'password':'test6',
-      'colegioId':2,
-      'rol':1,
-      'usuario':{
-        'nombre':'Manuel',
-        'apellido_paterno':'Alba'
-      }
-    },
-  ];
 
   private userRol = [
     {'rol':1,'glosa':'Sostenedor'},
@@ -78,30 +23,30 @@ export class AuthenticationService {
     {'rol':4,'glosa':'Administrador'},
     {'rol':5,'glosa':'Digitador'},
   ];
-  constructor() {
+
+
+  constructor(private http: Http) {
+    this.http=http;
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.token = currentUser && currentUser.token;
   }
 
-  login(user: string, password: string){
-    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzY290Y2guaW8iLCJleHAiOjEzMDA4MTkzODAsIm5hbWUiOiJDaHJpcyBTZXZpbGxlamEiLCJhZG1pbiI6dHJ1ZX0.03f329983b86f7d9a9f5fef85305880101d5e302afafa20154d094b229f75773';
+  login(token: string, userData: any){
+    if(token && userData){
+      this.token =JSON.parse(JSON.stringify(token));
 
-    let userData = this.users.find(u => u.user==user && u.password==password);
+      let rolName = this.userRol.find(r => r.rol == +userData.rol).glosa;
+      let currentUser = {
+        email: userData.email,
+        token: this.token,
+        colegioId: userData.colegio_id,
+        rol: btoa(btoa(token.substr(0,5)+userData.rol+token.substr(token.length-5,token.length))),
+        sesion: rolName,
+        nombre: userData.nombre,
+        apellido: userData.apellido_paterno,
+      };
 
-    if(userData && token){
-      this.token = token;
-      let sesion = this.userRol.find(r => r.rol==userData.rol).glosa;
-      localStorage.setItem('currentUser', JSON.stringify(
-          { username: user,
-            token: token,
-            colegioId: userData.colegioId,
-            rol: userData.rol,
-            sesion: sesion,
-            nombre: userData.usuario.nombre,
-            apellido: userData.usuario.apellido_paterno,
-          }
-        )
-      );
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
       return true;
     } else {
       return false;
@@ -111,6 +56,12 @@ export class AuthenticationService {
   logout(): void {
     this.token = null;
     localStorage.removeItem('currentUser');
+  }
+
+  authenticate(user: string, password: string): Observable<any>{
+    return this.http.post(this.authUrl,JSON.stringify({'credentials':{'email':user,'password':password}}),{headers: this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
 }

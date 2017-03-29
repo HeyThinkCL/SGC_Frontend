@@ -12,12 +12,14 @@ export class AsistenciaService {
 'http://localhost:3000/libro_clases/cursos/asistencias?mes=2016-01-01&curso_id=1'
   private asistenciaUrl = globalVar.apiUrl+'/libro_clases/cursos/asistencias';
 
+  private token;
   constructor(private http: Http) {
 
     this.http=http;
+    this.token = JSON.parse(localStorage.getItem('currentUser')).token;
   }
 
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private headers = new Headers({'Content-Type': 'application/json','Authentication': this.token});
 
   getInasistenciasByMonth(idCurso: number, day: Date){
     const url = `${this.asistenciaUrl}?anno=${day.getFullYear()}&mes=${day.getMonth()+1}&curso_id=${idCurso}`;

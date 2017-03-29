@@ -73,7 +73,7 @@ export class AppComponent implements OnInit {
 
   //currentUser
   getUserRol(){
-    return this.currentUser.rol;
+    return +atob(atob(this.currentUser.rol))[5];
   }
 
   logout(){

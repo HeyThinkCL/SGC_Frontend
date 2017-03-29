@@ -14,7 +14,10 @@ export class PostulacionesService {
 
   constructor( private http: Http) { }
 
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private token = JSON.parse(localStorage.getItem('currentUser')).token;
+  private colegioId = JSON.parse(localStorage.getItem('currentUser')).colegioId;
+  private userRol = JSON.parse(localStorage.getItem('currentUser')).rol;
+  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token, 'colegio_id': this.colegioId,'user_rol':this.userRol});
 
   createPostulacion(postulacion: any): Observable<any>{
     return this.http
@@ -24,35 +27,35 @@ export class PostulacionesService {
   }
 
   getAllPostulaciones(): Observable<any>{
-    return this.http.get(this.alumnosUrl)
+    return this.http.get(this.alumnosUrl,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
   getPostulaciones(): Observable<any>{
     const url:string = `${this.alumnosUrl}/postulantes`;
-    return this.http.get(url)
+    return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
   getAceptadas(): Observable<any>{
     const url:string = `${this.alumnosUrl}/aceptados`;
-    return this.http.get(url)
+    return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
   getListaEspera(): Observable<any>{
     const url:string = `${this.alumnosUrl}/lista_espera`;
-    return this.http.get(url)
+    return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
   getRechazadas(): Observable<any>{
     const url:string = `${this.alumnosUrl}/rechazados`;
-    return this.http.get(url)
+    return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }

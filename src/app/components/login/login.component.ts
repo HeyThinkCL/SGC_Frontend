@@ -26,18 +26,28 @@ export class LoginComponent implements OnInit {
 
   login(){
     this.loading = true;
-    if(this.authenticationService.login(this.model.user,this.model.password)){
-      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      if(currentUser.rol==1){
-        this.router.navigate(['after']);
-      } else {
-        this.router.navigate(['/']);
-      }
+    this.error='';
+    this.authenticationService.authenticate(this.model.user,this.model.password).subscribe(response => {
+      console.log(response);
+      let token = response.auth_token;
 
-    } else {
+      if (token && response.usuario){
+        if(this.authenticationService.login(token,response.usuario)){
+          let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+          if(+atob(atob(currentUser.rol))[5]==1){
+            this.router.navigate(['after']);
+          } else {
+            this.router.navigate(['/']);
+          }
+        }
+      } else {
+        this.error = 'Usuario o contraseña incorrectos';
+        this.loading = false;
+      }
+    }, error => {
       this.error = 'Usuario o contraseña incorrectos';
       this.loading = false;
-    }
+    });
   }
 
 }

@@ -17,10 +17,13 @@ export class ProfesoresService {
     this.http=http;
   }
 
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private token = JSON.parse(localStorage.getItem('currentUser')).token;
+  private colegioId = JSON.parse(localStorage.getItem('currentUser')).colegioId;
+  private userRol = JSON.parse(localStorage.getItem('currentUser')).rol;
+  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token, 'colegio_id': this.colegioId,'user_rol':this.userRol});
 
   getProfesores(): Observable<any> {
-    return this.http.get(this.profesorsUrl)
+    return this.http.get(this.profesorsUrl,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Profesores'));
   }
@@ -32,7 +35,7 @@ export class ProfesoresService {
 
   getProfesorById(id: number): Observable<any> {
     const url = `${this.profesorsUrl}/${id}`;
-    return this.http.get(url)
+    return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Profesor By Id'));
   }
@@ -46,14 +49,14 @@ export class ProfesoresService {
 
   getAsignaturasByProfesorId(profesorId: number): Observable<any>{
     const url = `${this.profesorsUrl}/asignaturas?id=${profesorId}`;
-    return this.http.get(url)
+    return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Profesor'));
   }
 
   getJefaturasByProfesorId(profesorId: number): Observable<any>{
     const url = `${this.profesorsUrl}/cursos?id=${profesorId}`;
-    return this.http.get(url)
+    return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Profesor'));
   }

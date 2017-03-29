@@ -8,12 +8,14 @@ import {Router, CanActivate, CanActivateChild} from '@angular/router';
 export class AdministradorGuard implements CanActivate {
 
   private currentUser;
+  private rol;
   constructor(private router: Router) {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.rol = +atob(atob(this.currentUser.rol))[5];
   }
 
   canActivate() {
-    if(!(this.currentUser.rol==4)){
+    if(!(this.rol==4)){
       return true;
     }
 
@@ -25,12 +27,14 @@ export class AdministradorGuard implements CanActivate {
 @Injectable()
 export class AdministradorGuardChild implements CanActivateChild {
   private currentUser;
+  private rol;
   constructor(private router: Router) {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.rol = +atob(atob(this.currentUser.rol))[5];
   }
 
   canActivateChild() {
-    if(!(this.currentUser.rol==4)){
+    if(!(this.rol==4)){
       return true;
     }
 

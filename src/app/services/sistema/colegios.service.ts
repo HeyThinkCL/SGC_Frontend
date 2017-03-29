@@ -14,15 +14,19 @@ export class ColegiosService {
 
   private colegiosUrl = globalVar.apiUrl+'/colegios';
 
-  constructor(private http: Http) {
+  private token = JSON.parse(localStorage.getItem('currentUser')).token;
+  private colegioId = JSON.parse(localStorage.getItem('currentUser')).colegioId;
+  private userRol = JSON.parse(localStorage.getItem('currentUser')).rol;
+  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token,'user_rol':this.userRol});
 
+  constructor(private http: Http) {
     this.http=http;
+    // this.token = JSON.parse(localStorage.getItem('currentUser')).token;
   }
 
-  private headers = new Headers({'Content-Type': 'application/json'});
 
   getColegios(): Observable<Colegio[]> {
-    return this.http.get(this.colegiosUrl)
+    return this.http.get(this.colegiosUrl,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Colegios'));
   }
@@ -53,11 +57,10 @@ export class ColegiosService {
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t DELETE Colegio'));
   }
 
-  getAsignaturasByColegioId(colegioId: number): Observable<any>{
-    const url = `${this.colegiosUrl}/asignaturas/${colegioId}`;
-    return this.http.get(url)
+  getAsignaturasByColegioId(): Observable<any>{
+    const url = `${this.colegiosUrl}/asignaturas/${this.colegioId}`;
+    return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Asignaturas BY Colegio Id'));
   }
-
 }

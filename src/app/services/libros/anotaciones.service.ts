@@ -15,13 +15,15 @@ export class AnotacionesService {
   constructor(private http: Http) {
     this.http=http;
   }
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private token = JSON.parse(localStorage.getItem('currentUser')).token;
+  private colegioId = JSON.parse(localStorage.getItem('currentUser')).colegioId;
+  private userRol = JSON.parse(localStorage.getItem('currentUser')).rol;
+  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token, 'colegio_id': this.colegioId,'user_rol':this.userRol});
 
   createAnotacion(anotacion): Observable<any>{
     let options = new RequestOptions({headers: this.headers});
     let payload = {};
     payload['anotaciones'] = JSON.parse(JSON.stringify(anotacion));
-    console.log(payload);
 
     return this.http.post(this.anotacionessUrl, JSON.stringify(payload), options)
       .map(res => res.json())

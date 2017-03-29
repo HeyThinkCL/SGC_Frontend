@@ -64,7 +64,7 @@ export class AsignarProfesorComponent implements OnInit {
       this.profesoresService.getAsignaturasByProfesorId(this.id).subscribe(asign => {
         this.asignaturasDictadas = asign;
         if(asign){
-          this.colegiosService.getAsignaturasByColegioId(1).subscribe(asignaturas => {
+          this.colegiosService.getAsignaturasByColegioId().subscribe(asignaturas => {
             this.allAsignaturas = asignaturas;
             console.log(this.allAsignaturas);
 

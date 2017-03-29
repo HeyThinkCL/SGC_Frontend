@@ -73,7 +73,7 @@ export class ModificarCursoComponent implements OnInit {
           }
         });
 
-        this.colegiosService.getAsignaturasByColegioId(1).subscribe(asigns => {
+        this.colegiosService.getAsignaturasByColegioId().subscribe(asigns => {
           this.allAsignaturas = asigns;
         })
 
