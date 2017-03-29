@@ -70,4 +70,8 @@ export class ConfiguracionDashboardComponent implements OnInit {
     this.router.navigate([`./${path}`],{relativeTo: this.route.parent});
   }
 
+  getColegioId(){
+    return JSON.parse(localStorage.getItem('currentUser')).colegioId
+  }
+
 }

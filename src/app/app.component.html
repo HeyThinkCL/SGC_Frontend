@@ -217,7 +217,9 @@
               </a>
               <ul class="sidenav-subnav collapse" routerLinkActive="active">
                 <li class="sidenav-subheading">Configuración</li>
-                <li routerLinkActive="active" *ngFor="let configRoute of configRoutes" [routerLink]="['sistema/configuracion/',configRoute.path]" (click)="goToConfigRoute(configRoute.id)"><a>{{configRoute.glosa}}</a></li>
+                <li routerLinkActive="active" *ngFor="let configRoute of configRoutes | filterConfigs:getColegioId()"
+                    [routerLink]="['sistema/configuracion/',configRoute.path]"
+                    (click)="goToConfigRoute(configRoute.id)"><a>{{configRoute.glosa}}</a></li>
               </ul>
             </li>
             <li class="sidenav-item has-subnav" routerLinkActive="active"  *ngIf="!(getUserRol()==4)">

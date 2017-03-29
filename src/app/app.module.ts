@@ -21,6 +21,8 @@ import {Select2WidthFixPipe } from "./pipes/select2-width-fix.pipe"
 import {FilterProfByAsign } from "./pipes/filter-prof-asignatura"
 import {FilterAsignaturas } from "./pipes/filter-asignaturas"
 import {FilterAsignarPipe} from './pipes/filter-asignar.pipe';
+import {FilterConfigsPipe} from './pipes/filter-configs.pipe'
+import {ColegioNameFilterPipe} from './pipes/colegio-name-filter.pipe';
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -216,6 +218,8 @@ import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/soste
     FilterProfByAsign,
     FilterAsignaturas,
     FilterAsignarPipe,
+    FilterConfigsPipe,
+    ColegioNameFilterPipe,
     ConfiguracionComponent,
     ConfiguracionDashboardComponent,
     CalendarioAcademicoComponent,

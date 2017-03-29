@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import {AuthenticationService} from './services/authentication.service';
 import {ConfiguracionService} from './services/sistema/configuracion.service';
+import {ColegiosService} from './services/sistema/colegios.service';
 
 import * as globalVars from './globals';
 
@@ -14,6 +15,8 @@ import * as globalVars from './globals';
 export class AppComponent implements OnInit {
 
   private currentUser;
+  private colegios;
+  private colegioName: string;
 
   configRoutes = [];
   configRoutesData = [
@@ -43,6 +46,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private configuracionService: ConfiguracionService,
+    private colegiosService: ColegiosService,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -52,6 +56,12 @@ export class AppComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.version = globalVars.version;
+
+    this.colegiosService.getColegios().subscribe(res => {
+      this.colegios = res;
+      this.colegioName = this.colegios.find(c => c.id == this.currentUser.colegioId)? this.colegios.find(c => c.id == this.currentUser.colegioId).nombre:'';
+    });
+
     this.configuracionService.getConfiguraciones().subscribe(res => {
       this.configRoutes = res;
       for(let r of this.configRoutes){
@@ -69,6 +79,10 @@ export class AppComponent implements OnInit {
       localStorage['idConfig'] = id;
     }
 
+  }
+
+  getColegioId(){
+    return JSON.parse(localStorage.getItem('currentUser')).colegioId
   }
 
   //currentUser

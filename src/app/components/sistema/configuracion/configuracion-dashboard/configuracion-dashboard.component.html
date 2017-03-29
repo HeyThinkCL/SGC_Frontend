@@ -10,7 +10,7 @@
 <div class="row" *ngIf="routes.length>0">
   <div class="col-md-10 col-md-offset-1">
     <div class="row gutter-xs">
-      <div class="col-sm-4" *ngFor="let route of routes">
+      <div class="col-sm-4" *ngFor="let route of routes | filterConfigs:getColegioId()">
         <div class="card">
           <div class="card-body" (click)="goToRoute(route.path,route.id)">
             <div class="media">

@@ -63,11 +63,17 @@ export class VerColegioComponent implements OnInit {
   }
 
   isSelected(colegioId){
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     return currentUser.colegioId==colegioId;
   }
 
   selectColegio(colegioId){
+    if(!this.isSelected(colegioId)){
+      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      currentUser.colegioId = colegioId;
+      localStorage.removeItem('currentUser');
+      localStorage.setItem('currentUser',JSON.stringify(currentUser));
+    }
 
   }
 

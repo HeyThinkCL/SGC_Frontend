@@ -65,9 +65,10 @@ export class PlanesEnsenanzaComponent implements OnInit {
         })
       }
       this.configuracionService.getConfiguraciones().subscribe(res => {
-        this.configId = res.find(c => c.glosa == 'Planes de Estudio y Tipos de Enseñanza').id;
+        this.configId = res.find(c => c.glosa == 'Planes de Estudio y Tipos de Enseñanza' && c.colegio_id==+JSON.parse(localStorage.getItem('currentUser')).colegioId).id;
 
         this.planDeEstudiosService.getConfigPlanesDeEstudio(this.configId).subscribe(config => {
+
           if(config){
 
             this.configuracion = config;
