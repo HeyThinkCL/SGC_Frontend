@@ -132,7 +132,7 @@
           <li class="dropdown hidden-xs">
             <button class="navbar-account-btn" data-toggle="dropdown" aria-haspopup="true">
               <!--<img class="rounded" width="36" height="36" src="/assets/img/0180441436.jpg" alt="Teddy Wilson">-->
-              <span class="fw-sb">Manuel Alba</span>
+              <span class="fw-sb">{{currentUser.nombre}} {{currentUser.apellido}}</span>
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
@@ -146,6 +146,8 @@
               </li>-->
               <li class="navbar-upgrade-version">Version: {{version}}</li>
               <li class="divider"></li>
+              <li><span class="navbar-upgrade-version">Sesión:</span> {{currentUser.sesion}}</li>
+              <li class="divider"></li>
               <li (click)="logout()">
                 <a>
                   <span class="icon icon-power-off icon-lg icon-fw"></span>
@@ -156,6 +158,7 @@
           </li>
           <li class="visible-xs-block">
             <span class="navbar-upgrade-version">Version: {{version}}</span>
+            <span><span class="navbar-upgrade-version">Sesión:</span> {{currentUser.sesion}}</span>
             <a (click)="logout()">
               <span class="icon icon-power-off icon-lg icon-fw"></span>
               Cerrar Sesión
@@ -191,8 +194,9 @@
                 <span class="sidenav-label">Dashboard</span>
               </a>
             </li>
-            <li class="sidenav-heading">Sistema</li>
-            <li class="sidenav-item has-subnav" routerLinkActive="active">
+
+            <li class="sidenav-heading" *ngIf="getUserRol()==1">Sostenedor</li>
+            <li class="sidenav-item has-subnav" routerLinkActive="active" *ngIf="getUserRol()==1">
               <a [routerLink]="['sistema/colegios']">
                 <span class="sidenav-icon icon icon-institution"></span>
                 <span class="sidenav-label">Colegios</span>
@@ -203,7 +207,10 @@
                 <li routerLinkActive="active" [routerLink]="['sistema/colegios/crear']"><a>Crear Colegio</a></li>
               </ul>
             </li>
-            <li class="sidenav-item has-subnav" routerLinkActive="active">
+
+            <li class="sidenav-heading">Sistema</li>
+
+            <li class="sidenav-item has-subnav" routerLinkActive="active"  *ngIf="!(getUserRol()==4)&&!(getUserRol()==5)">
               <a [routerLink]="['sistema/configuracion']">
                 <span class="sidenav-icon icon icon-cogs"></span>
                 <span class="sidenav-label">Configuración</span>
@@ -213,7 +220,7 @@
                 <li routerLinkActive="active" *ngFor="let configRoute of configRoutes" [routerLink]="['sistema/configuracion/',configRoute.path]" (click)="goToConfigRoute(configRoute.id)"><a>{{configRoute.glosa}}</a></li>
               </ul>
             </li>
-            <li class="sidenav-item has-subnav" routerLinkActive="active">
+            <li class="sidenav-item has-subnav" routerLinkActive="active"  *ngIf="!(getUserRol()==4)">
               <a [routerLink]="['sistema/funcionarios']">
                 <span class="sidenav-icon icon icon-users"></span>
                 <span class="sidenav-label">Funcionarios</span>
@@ -235,7 +242,7 @@
                 <li routerLinkActive="active" [routerLink]="['sistema/postulaciones/crear']"><a>Crear Postulación</a></li>
               </ul>
             </li>
-            <li class="sidenav-item has-subnav" routerLinkActive="active">
+            <li class="sidenav-item has-subnav" routerLinkActive="active" *ngIf="!(getUserRol()==5)">
               <a [routerLink]="['sistema/matriculas']">
                 <span class="sidenav-icon icon icon-folder"></span>
                 <span class="sidenav-label">Matriculas</span>
@@ -247,7 +254,7 @@
               </ul>
             </li>
             <li class="sidenav-heading">Modulos</li>
-            <li class="sidenav-item has-subnav" routerLinkActive="active">
+            <li class="sidenav-item has-subnav" routerLinkActive="active"  *ngIf="!(getUserRol()==4)">
               <a [routerLink]="['libros']">
                 <span class="sidenav-icon icon icon-book"></span>
                 <span class="sidenav-label">Libros de Clases</span>
@@ -259,7 +266,7 @@
                 <li routerLinkActive="active" [routerLink]="['libros/profesores']"><a>Ver Profesores</a></li>
               </ul>
             </li>
-            <li class="sidenav-item has-subnav" routerLinkActive="active">
+            <li class="sidenav-item has-subnav" routerLinkActive="active"  *ngIf="!(getUserRol()==5)">
               <a>
                 <span class="sidenav-icon icon icon-files-o"></span>
                 <span class="sidenav-label">Documentos</span>
@@ -271,7 +278,7 @@
                 <li routerLinkActive="active" [routerLink]="['docs/citaciones']"><a>Citaciones</a></li>
               </ul>
             </li>
-            <li class="sidenav-item" routerLinkActive="active">
+            <li class="sidenav-item" routerLinkActive="active"  *ngIf="false">
               <a [routerLink]="['cierre']">
                 <span class="sidenav-icon icon icon-calendar-check-o"></span>
                 <span class="sidenav-label">Cierre de Año</span>

@@ -12,7 +12,8 @@ import * as globalVars from './globals';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app works!';
+
+  private currentUser;
 
   configRoutes = [];
   configRoutesData = [
@@ -48,6 +49,8 @@ export class AppComponent implements OnInit {
   ){}
 
   ngOnInit(){
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
     this.version = globalVars.version;
     this.configuracionService.getConfiguraciones().subscribe(res => {
       this.configRoutes = res;
@@ -66,6 +69,11 @@ export class AppComponent implements OnInit {
       localStorage['idConfig'] = id;
     }
 
+  }
+
+  //currentUser
+  getUserRol(){
+    return this.currentUser.rol;
   }
 
   logout(){

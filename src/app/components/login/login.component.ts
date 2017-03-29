@@ -27,7 +27,13 @@ export class LoginComponent implements OnInit {
   login(){
     this.loading = true;
     if(this.authenticationService.login(this.model.user,this.model.password)){
-      this.router.navigate(['/']);
+      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      if(currentUser.rol==1){
+        this.router.navigate(['after']);
+      } else {
+        this.router.navigate(['/']);
+      }
+
     } else {
       this.error = 'Usuario o contraseña incorrectos';
       this.loading = false;

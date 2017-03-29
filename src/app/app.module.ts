@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -25,8 +26,13 @@ import { AppRoutingModule }     from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { RootComponent } from './root.component';
+//Login
 import { LoginComponent } from './components/login/login.component';
-
+import { SostenedorAfterLoginComponent } from './components/login/sostenedor-after-login/sostenedor-after-login.component';
+//Misc
+import { NotFoundComponent } from './components/misc/not-found/not-found.component';
+import { ForbiddenComponent } from './components/misc/forbidden/forbidden.component';
+import { ServerErrorComponent } from './components/misc/server-error/server-error.component';
 //Dashboard
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
@@ -135,6 +141,13 @@ import {PlanDeEstudiosService} from './services/sistema/configuraciones/plan-de-
 //Guards
 import {AuthGuard,AuthGuardChild} from './guards/auth.guard';
 import {ConfigCalendarioAcademicoGuard} from './guards/config-guards/config-calendario-academico.guard';
+import {AdministradorGuard,AdministradorGuardChild} from './guards/sesion-guards/administrador.guard';
+import {ConfiguracionesGuard,ConfiguracionesGuardChild} from './guards/sesion-guards/configuraciones.guard';
+import {DigitadorGuard,DigitadorGuardChild} from './guards/sesion-guards/digitador.guard';
+import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/sostenedor.guard';
+
+
+
 
 
 @NgModule({
@@ -214,6 +227,10 @@ import {ConfigCalendarioAcademicoGuard} from './guards/config-guards/config-cale
     AsignarProfesorComponent,
     SpinnerComponent,
     PlanesEnsenanzaComponent,
+    SostenedorAfterLoginComponent,
+    NotFoundComponent,
+    ForbiddenComponent,
+    ServerErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -229,6 +246,14 @@ import {ConfigCalendarioAcademicoGuard} from './guards/config-guards/config-cale
     AuthGuard,
     AuthGuardChild,
     ConfigCalendarioAcademicoGuard,
+    SostenedorGuard,
+    SostenedorGuardChild,
+    AdministradorGuard,
+    AdministradorGuardChild,
+    DigitadorGuard,
+    DigitadorGuardChild,
+    ConfiguracionesGuard,
+    ConfiguracionesGuardChild,
     AuthenticationService,
     DpaService,
     EtniasService,

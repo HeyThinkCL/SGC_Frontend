@@ -5,11 +5,19 @@ import { RootComponent } from './root.component';
 
 import { AppComponent } from './app.component';
 //guards
-import {AuthGuard, AuthGuardChild} from './guards/auth.guard';
+import {AuthGuard,AuthGuardChild} from './guards/auth.guard';
 import {ConfigCalendarioAcademicoGuard} from './guards/config-guards/config-calendario-academico.guard';
+import {AdministradorGuard,AdministradorGuardChild} from './guards/sesion-guards/administrador.guard';
+import {ConfiguracionesGuard,ConfiguracionesGuardChild} from './guards/sesion-guards/configuraciones.guard';
+import {DigitadorGuard,DigitadorGuardChild} from './guards/sesion-guards/digitador.guard';
+import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/sostenedor.guard';
 //Login
 import { LoginComponent } from './components/login/login.component';
-
+import { SostenedorAfterLoginComponent } from './components/login/sostenedor-after-login/sostenedor-after-login.component';
+//Misc
+import { NotFoundComponent } from './components/misc/not-found/not-found.component';
+import { ForbiddenComponent } from './components/misc/forbidden/forbidden.component';
+import { ServerErrorComponent } from './components/misc/server-error/server-error.component';
 //Dashboard
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
@@ -93,7 +101,11 @@ const routes: Routes = [
 
   { path: 'dashboard', component: DashboardComponent },
 
-	{ path: 'sistema/colegios',  component: ColegiosComponent,
+  { path: '403', component: ForbiddenComponent },
+  { path: '404', component: NotFoundComponent },
+  { path: '500', component: ServerErrorComponent },
+
+	{ path: 'sistema/colegios',  component: ColegiosComponent, canActivate: [SostenedorGuard], canActivateChild: [SostenedorGuardChild],
     children: [
       { path: '', redirectTo: 'ver', pathMatch: 'full' },
       { path: 'ver',  component: VerColegioComponent },
@@ -103,7 +115,7 @@ const routes: Routes = [
     ]
 	},
 
-  { path: 'sistema/matriculas',  component: MatriculaComponent,
+  { path: 'sistema/matriculas',  component: MatriculaComponent,canActivate:[DigitadorGuard],canActivateChild:[DigitadorGuardChild],
     children: [
       { path: '', redirectTo: 'ver', pathMatch: 'full'},
       { path: 'ver',  component: VerMatriculaComponent },
@@ -127,7 +139,7 @@ const routes: Routes = [
     ]
   },
 
-  { path: 'libros',  component: CursosComponent,
+  { path: 'libros',  component: CursosComponent, canActivate:[AdministradorGuard], canActivateChild:[AdministradorGuardChild],
     children: [
       { path: '', redirectTo: 'ver-cursos', pathMatch: 'full' },
       { path: 'ver-cursos', component: VerCursoComponent },
@@ -173,7 +185,8 @@ const routes: Routes = [
     ]
   },
   { path: 'cierre', component: CierreAnnoComponent },
-  { path: 'docs', component: DocumentosComponent,
+
+  { path: 'docs', component: DocumentosComponent, canActivate:[DigitadorGuard], canActivateChild:[DigitadorGuardChild],
     children: [
       { path: '', redirectTo: 'informes', pathMatch: 'full' },
       { path: 'informes', component: InformesComponent },
@@ -181,7 +194,7 @@ const routes: Routes = [
       { path: 'citaciones', component: CitacionesComponent },
     ]
   },
-  { path: 'sistema/funcionarios', component: FuncionariosComponent,
+  { path: 'sistema/funcionarios', component: FuncionariosComponent, canActivate:[AdministradorGuard],canActivateChild:[AdministradorGuardChild],
     children: [
       {path:'', redirectTo: 'ver', pathMatch:'full' },
       {path:'ver', component: VerFuncionariosComponent },
@@ -190,7 +203,7 @@ const routes: Routes = [
       {path:'editar/:id', component: EditarFuncionarioComponent },
     ]
   },
-  { path: 'sistema/configuracion', component: ConfiguracionComponent,
+  { path: 'sistema/configuracion', component: ConfiguracionComponent, canActivate: [ConfiguracionesGuard], canActivateChild: [ConfiguracionesGuardChild],
     children: [
       {path:'', redirectTo: 'dashboard', pathMatch:'full' },
       {path:'dashboard', component: ConfiguracionDashboardComponent},
@@ -206,6 +219,7 @@ const rootRoutes: Routes = [
   { path: '', redirectTo: 'app', pathMatch: 'full'},
   { path: 'app', component: AppComponent, children: routes, canActivate: [AuthGuard], canActivateChild: [AuthGuardChild] },
   { path: 'login', component: LoginComponent },
+  { path: 'after', component: SostenedorAfterLoginComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

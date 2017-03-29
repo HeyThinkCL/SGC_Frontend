@@ -58,8 +58,6 @@ export class ModificarCursoComponent implements OnInit {
             _asignaturas.push(asign.asignatura.datos);
           }
           this.asignaturasCurso = _asignaturas;
-          console.log(this.asignaturasCurso);
-
         });
 
         this.profesoresService.getProfesores().subscribe(profesores => {
@@ -105,6 +103,7 @@ export class ModificarCursoComponent implements OnInit {
   saveCurso() {
     let asignaturasCheck: boolean = false;
     let profesorCheck: boolean = false;
+    console.log(this.asignaturasCurso);
     this.cursosService.updateAsignaturasByCursoId(this.id, this.asignaturasCurso).subscribe(asigns => {
       asignaturasCheck = true;
       if(asignaturasCheck&&profesorCheck){
