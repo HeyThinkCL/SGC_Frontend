@@ -62,6 +62,15 @@ export class VerColegioComponent implements OnInit {
     this.modal.dismiss();
   }
 
+  isSelected(colegioId){
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    return currentUser.colegioId==colegioId;
+  }
+
+  selectColegio(colegioId){
+
+  }
+
 
   deleteColegio(id: number): void {
     this.colegiosService.deleteColegio(id).subscribe(()=>{

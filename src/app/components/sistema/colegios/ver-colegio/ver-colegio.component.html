@@ -38,7 +38,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let colegio of colegios | filterArray:filterData:filterKeys">
+            <tr *ngFor="let colegio of colegios | filterArray:filterData:filterKeys"
+                [ngClass]="{'bg-success': isSelected(colegio.id)}"
+                (click)="selectColegio()">
               <td>
 	                <!--<span class="icon-with-child m-r">
 	                  <img class="circle" width="36" height="36" src="assets/img/1099386850.jpg">
