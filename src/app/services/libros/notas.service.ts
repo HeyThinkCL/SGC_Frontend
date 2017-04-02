@@ -30,7 +30,7 @@ export class NotasService {
     const url = `${this.notasUrl}/${id}?colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Notas By Id'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //PUT
   updateNota(nota,asignatura_id){
@@ -41,7 +41,7 @@ export class NotasService {
 
     return this.http.put(url, JSON.stringify(payload), {headers: this.headers})
       .map(() => nota)
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Nota'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //POST
   createNota(curso_id:number, asignatura_id: number, nota: any){
@@ -57,7 +57,7 @@ export class NotasService {
     };
     return this.http.post(this.notasUrl, JSON.stringify(payload), options)
       .map(res => res.json())
-    .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Nota'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //DELETE
   deleteNotas(notas){
@@ -66,7 +66,7 @@ export class NotasService {
 
     return this.http.delete(url,{headers: this.headers})
       .map(() => null)
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t DELETE Notas'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
 

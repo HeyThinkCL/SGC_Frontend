@@ -32,7 +32,7 @@ export class CursosService {
   getCursos(): Observable<any> {
     return this.http.get(`this.cursosUrl?colegio_id=${this.getColegioId()}`,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Cursos'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
   getCurso(id: number): Observable<any> {
@@ -44,21 +44,21 @@ export class CursosService {
     const url = `${this.cursosUrl}/${id}?colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Curso BY ID'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //GET
   getAsignaturasByCursoId(id): Observable<any> {
     const url = `${this.cursosUrl}/asignaturas/${id}?colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Asignaturas by CursoID'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //GET
   getNotasAlumnosByCursoId(id,asignatura): Observable<any> {
     const url = `${this.cursosUrl}/notas/${id}?asignatura_id=${asignatura}&colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Notas Alumnos by CursoID'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //PUT
   updateCurso(curso: Curso){
@@ -69,7 +69,7 @@ export class CursosService {
 
     return this.http.put(url, JSON.stringify(payload), {headers: this.headers})
       .map(() => curso)
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Curso'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //PUT
   createCurso(curso: Curso): Observable<any>{
@@ -86,7 +86,7 @@ export class CursosService {
     const url = `${this.cursosUrl}/${id}?colegio_id=${this.getColegioId()}`;
     return this.http.delete(url, {headers: this.headers})
       .map(() => null)
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t DELETE Curso'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //GET
   getAnotacionesGenerales(id: number): Observable<any>{
@@ -94,7 +94,7 @@ export class CursosService {
 
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Anotaciones of Curso'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //POST
   asignarAlumnoACurso(cursoId: number, alumnoId: number): Observable<any>{
@@ -110,7 +110,7 @@ export class CursosService {
     return this.http
       .post(url, JSON.stringify(payload), {headers: this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Anotaciones of Curso'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //POST
   updateAsignaturasByCursoId(cursoId: number, asignaturas){
@@ -121,6 +121,6 @@ export class CursosService {
 
     return this.http.put(url, JSON.stringify(payload), {headers: this.headers})
       .map(() => asignaturas)
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Asignaturas BY Curso ID'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 }

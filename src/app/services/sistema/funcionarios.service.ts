@@ -50,7 +50,7 @@ export class FuncionariosService {
     return this.http
       .post(this.funcionariosUrl, JSON.stringify({'funcionario':funcionario,'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Funcionario'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //PUT
   updateFuncionario(funcionario){
@@ -59,7 +59,7 @@ export class FuncionariosService {
     return this.http
       .put(url, JSON.stringify({funcionario}), {headers: this.headers})
       .map(() => funcionario)
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Funcionario'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //DELETE
   deleteFuncionario(id: number){
@@ -67,6 +67,6 @@ export class FuncionariosService {
     return this.http
       .delete(url, {headers: this.headers})
       .map(() => null)
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t DELETE Funcionario'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 }

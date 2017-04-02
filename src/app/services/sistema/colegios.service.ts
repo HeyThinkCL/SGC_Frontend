@@ -34,7 +34,7 @@ export class ColegiosService {
   getColegios(): Observable<Colegio[]> {
     return this.http.get(`${this.colegiosUrl}?colegio_id=${this.getColegioId()}`,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Colegios'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
   getColegio(id: number): Observable<Colegio> {
@@ -46,27 +46,27 @@ export class ColegiosService {
     const url = `${this.colegiosUrl}/${colegio.id}`;
     return this.http.put(url, JSON.stringify(colegio), {headers: this.headers})
       .map(() => colegio)
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Colegio'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //POST
   createColegio(colegio: Colegio): Observable<Colegio>{
     let options = new RequestOptions({headers: this.headers});
     return this.http.post(this.colegiosUrl, JSON.stringify(colegio), options)
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Colegio'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //DELETE
   deleteColegio(id: number): Observable<void>{
     const url = `${this.colegiosUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
       .map(() => null)
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t DELETE Colegio'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //GET
   getAsignaturasByColegioId(): Observable<any>{
     const url = `${this.colegiosUrl}/asignaturas/${this.colegioId}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Asignaturas BY Colegio Id'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 }

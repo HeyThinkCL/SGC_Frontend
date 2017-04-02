@@ -42,7 +42,7 @@ export class AsistenciaService {
     return this.http
       .post(this.asistenciaUrl, JSON.stringify({'asistencias':payload,'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(() => {})
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Asistencia'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
 }

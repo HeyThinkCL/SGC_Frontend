@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import {AuthenticationService} from './services/authentication.service';
+import {RedirectService} from './services/redirect.service'
 import {ConfiguracionService} from './services/sistema/configuracion.service';
 import {ColegiosService} from './services/sistema/colegios.service';
 
@@ -50,6 +51,7 @@ export class AppComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
+    private redirectService: RedirectService,
   ){}
 
   ngOnInit(){
@@ -60,6 +62,10 @@ export class AppComponent implements OnInit {
     this.colegiosService.getColegios().subscribe(res => {
       this.colegios = res;
       this.colegioName = this.colegios.find(c => c.id == this.currentUser.colegioId)? this.colegios.find(c => c.id == this.currentUser.colegioId).nombre:'';
+    }, error => {
+      if(error==0 || error==500){
+        this.redirectService.onServerError500();
+      }
     });
 
     this.configuracionService.getConfiguraciones().subscribe(res => {
@@ -69,7 +75,11 @@ export class AppComponent implements OnInit {
         r['path'] = data.path;
         r['icon'] = data.icon;
       }
-    })
+    }, error => {
+      if(error==0 || error==500) {
+        this.redirectService.onServerError500();
+      }
+    });
   }
 
   goToConfigRoute(id: number){

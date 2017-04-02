@@ -29,7 +29,7 @@ export class ApoderadosService {
     return this.http
       .post(this.apoderadosUrl, JSON.stringify({'apoderado':apoderado,'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Apoderadoo'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //GET
   getApoderadoById(apoderadoId: number): Observable<any>{

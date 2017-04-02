@@ -139,6 +139,7 @@ import {CalendarioService} from './services/sistema/configuraciones/calendario.s
 import {ConfigNotasService} from './services/sistema/configuraciones/config-notas.service';
 import {AsistenciaService} from "./services/libros/asistencia.service";
 import {PlanDeEstudiosService} from './services/sistema/configuraciones/plan-de-estudios.service';
+import {RedirectService} from './services/redirect.service';
 
 //Guards
 import {AuthGuard,AuthGuardChild} from './guards/auth.guard';
@@ -277,6 +278,7 @@ import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/soste
     CalendarioService,
     ConfigNotasService,
     PlanDeEstudiosService,
+    RedirectService,
   ],
   bootstrap: [RootComponent]
 })

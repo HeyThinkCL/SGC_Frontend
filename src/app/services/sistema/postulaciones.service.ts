@@ -77,6 +77,6 @@ export class PostulacionesService {
     return this.http
       .put(url, JSON.stringify(postulante), {headers: this.headers})
       .map(() => postulante)
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Postulante'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 }

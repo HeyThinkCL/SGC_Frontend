@@ -28,7 +28,7 @@ export class MatriculaService {
     const url = `${this.matriculasUrl}/matriculados?colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Alumnos'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
   getMatricula(id: number): Observable<any> {
@@ -42,7 +42,7 @@ export class MatriculaService {
     return this.http
       .put(url, JSON.stringify(matricula), {headers: this.headers})
       .map(() => matricula)
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Alumno'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //POST
   createMatricula(matricula: any, cursoId: number): Observable<any> {
@@ -50,7 +50,7 @@ export class MatriculaService {
     return this.http
       .post(url, JSON.stringify({'nombre': matricula.nombre,'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(res => res.json().data)
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Alumno'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //DELETE
   deleteMatricula(id: number): Observable<any> {
@@ -58,7 +58,7 @@ export class MatriculaService {
     return this.http
       .delete(url, {headers: this.headers})
       .map(() => null)
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t DELETE Alumno'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
 
   }
   //GET
@@ -67,7 +67,7 @@ export class MatriculaService {
 
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Anotaciones by Alumno Id'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
 }

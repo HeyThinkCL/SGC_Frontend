@@ -30,7 +30,7 @@ export class CursoAlumnosService {
   getCursos(): Observable<any> {
     return this.http.get(`this.cursoAlumnosUrl?colegio_id=${this.getColegioId()}`,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Cursos'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
   getCurso(id: number): Observable<any> {

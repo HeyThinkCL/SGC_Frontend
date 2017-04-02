@@ -30,7 +30,7 @@ export class ProfesoresService {
   getProfesores(): Observable<any> {
     return this.http.get(`this.profesorsUrl?colegio_id=${this.getColegioId()}`,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Profesores'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
   getProfesor(id: number): Observable<any> {
@@ -42,7 +42,7 @@ export class ProfesoresService {
     const url = `${this.profesorsUrl}/${id}?colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Profesor By Id'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //POST
   createProfesor(profesor: any): Observable<any>{
@@ -50,21 +50,21 @@ export class ProfesoresService {
     profesor['colegio_id']=this.getColegioId();
     return this.http.post(this.profesorsUrl, JSON.stringify(profesor), options)
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Profesor'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //GET
   getAsignaturasByProfesorId(profesorId: number): Observable<any>{
     const url = `${this.profesorsUrl}/asignaturas?id=${profesorId}&colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Profesor'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //GET
   getJefaturasByProfesorId(profesorId: number): Observable<any>{
     const url = `${this.profesorsUrl}/cursos?id=${profesorId}&colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Profesor'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //PUT
   asignarJefaturasByProfesorId(profesorId: number, cursos){
@@ -76,7 +76,7 @@ export class ProfesoresService {
 
     return this.http.put(url, JSON.stringify(payload), {headers: this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //POST
   asignarAsignaturasByProfesorId(profesorId: number, asignaturas){
@@ -88,6 +88,6 @@ export class ProfesoresService {
 
     return this.http.post(url, JSON.stringify(payload), {headers: this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 }
