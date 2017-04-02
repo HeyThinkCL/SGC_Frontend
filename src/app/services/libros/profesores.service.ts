@@ -18,12 +18,17 @@ export class ProfesoresService {
   }
 
   private token = JSON.parse(localStorage.getItem('currentUser')).token;
-  private colegioId = JSON.parse(localStorage.getItem('currentUser')).colegioId;
-  private userRol = JSON.parse(localStorage.getItem('currentUser')).rol;
-  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token, 'colegio_id': this.colegioId,'user_rol':this.userRol});
+  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token});
 
+  getColegioId(){
+    return JSON.parse(localStorage.getItem('currentUser')).colegioId;
+  }
+  getUserRol(){
+    return JSON.parse(localStorage.getItem('currentUser')).userRol;
+  }
+  //GET
   getProfesores(): Observable<any> {
-    return this.http.get(this.profesorsUrl,{headers:this.headers})
+    return this.http.get(`this.profesorsUrl?colegio_id=${this.getColegioId()}`,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Profesores'));
   }
@@ -32,51 +37,57 @@ export class ProfesoresService {
     return this.getProfesores()
       .map(profesors => profesors.find(profesor => profesor.id == id));
   }
-
+  //GET
   getProfesorById(id: number): Observable<any> {
-    const url = `${this.profesorsUrl}/${id}`;
+    const url = `${this.profesorsUrl}/${id}?colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t GET Profesor By Id'));
   }
-
+  //POST
   createProfesor(profesor: any): Observable<any>{
     let options = new RequestOptions({headers: this.headers});
+    profesor['colegio_id']=this.getColegioId();
     return this.http.post(this.profesorsUrl, JSON.stringify(profesor), options)
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Profesor'));
   }
-
+  //GET
   getAsignaturasByProfesorId(profesorId: number): Observable<any>{
-    const url = `${this.profesorsUrl}/asignaturas?id=${profesorId}`;
+    const url = `${this.profesorsUrl}/asignaturas?id=${profesorId}&colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Profesor'));
   }
-
+  //GET
   getJefaturasByProfesorId(profesorId: number): Observable<any>{
-    const url = `${this.profesorsUrl}/cursos?id=${profesorId}`;
+    const url = `${this.profesorsUrl}/cursos?id=${profesorId}&colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Profesor'));
   }
-
+  //PUT
   asignarJefaturasByProfesorId(profesorId: number, cursos){
     const url = `${this.profesorsUrl}/cursos/${profesorId}`;
-    let payload = {'cursos':cursos};
+    let payload = {
+      'cursos':cursos,
+      'colegio_id':this.getColegioId()
+    };
 
     return this.http.put(url, JSON.stringify(payload), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
   }
-
+  //POST
   asignarAsignaturasByProfesorId(profesorId: number, asignaturas){
-  const url = `${this.profesorsUrl}/asignaturas?id=${profesorId}`;
-  let payload = {'asignaturas':asignaturas};
+    const url = `${this.profesorsUrl}/asignaturas?id=${profesorId}`;
+    let payload = {
+      'asignaturas':asignaturas,
+      'colegio_id':this.getColegioId()
+    };
 
-  return this.http.post(url, JSON.stringify(payload), {headers: this.headers})
-.map(res => res.json())
-  .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
-}
-
+    return this.http.post(url, JSON.stringify(payload), {headers: this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || 'Server Error'));
+  }
 }

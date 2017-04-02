@@ -231,7 +231,7 @@ export class PlanesEnsenanzaComponent implements OnInit {
     this.planDeEstudiosService.updateConfigPlanesDeEstudio(this.configId,this.configuracion).subscribe(configRes => {
       console.log(configRes);
       if(configRes){
-        this.planDeEstudiosService.createCursosWithConfigPlanesDeEstudio(this.configId,this.configuracion,1).subscribe(res => {
+        this.planDeEstudiosService.createCursosWithConfigPlanesDeEstudio(this.configId,this.configuracion).subscribe(res => {
           this.modalClose();
         })
       }

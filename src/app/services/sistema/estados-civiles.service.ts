@@ -15,10 +15,15 @@ export class EstadosCivilesService {
     this.http=http;
   }
   private token = JSON.parse(localStorage.getItem('currentUser')).token;
-  private colegioId = JSON.parse(localStorage.getItem('currentUser')).colegioId;
-  private userRol = JSON.parse(localStorage.getItem('currentUser')).rol;
-  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token, 'colegio_id': this.colegioId,'user_rol':this.userRol});
+  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token});
 
+  getColegioId(){
+    return JSON.parse(localStorage.getItem('currentUser')).colegioId;
+  }
+  getUserRol(){
+    return JSON.parse(localStorage.getItem('currentUser')).userRol;
+  }
+  //GET
   getEstadosCiviles(){
     return this.http.get(this.estadosCivilesUrl,{headers:this.headers})
       .map(res => res.json())

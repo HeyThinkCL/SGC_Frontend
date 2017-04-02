@@ -15,29 +15,34 @@ export class ApoderadosService {
   constructor( private http: Http) { }
 
   private token = JSON.parse(localStorage.getItem('currentUser')).token;
-  private colegioId = JSON.parse(localStorage.getItem('currentUser')).colegioId;
-  private userRol = JSON.parse(localStorage.getItem('currentUser')).rol;
-  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token, 'colegio_id': this.colegioId,'user_rol':this.userRol});
+  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token});
 
+  getColegioId(){
+    return JSON.parse(localStorage.getItem('currentUser')).colegioId;
+  }
+  getUserRol(){
+    return JSON.parse(localStorage.getItem('currentUser')).userRol;
+  }
+  //POST
   createApoderado(alumnoId: number, apoderado: any): Observable<any>{
     apoderado['alumno_id'] = alumnoId;
     return this.http
-      .post(this.apoderadosUrl, JSON.stringify({'apoderado':apoderado}), {headers: this.headers})
+      .post(this.apoderadosUrl, JSON.stringify({'apoderado':apoderado,'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Apoderadoo'));
   }
-
+  //GET
   getApoderadoById(apoderadoId: number): Observable<any>{
-    const url = `${this.apoderadosUrl}/${apoderadoId}`;
+    const url = `${this.apoderadosUrl}/${apoderadoId}?colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //PUT
   updateApoderado(apoderado: any): Observable<any>{
     const url = `${this.apoderadosUrl}/${apoderado.id}`;
     return this.http
-      .put(url, JSON.stringify({'apoderado':apoderado}), {headers: this.headers})
+      .put(url, JSON.stringify({'apoderado':apoderado,'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(() => apoderado)
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }

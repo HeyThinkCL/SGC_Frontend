@@ -18,12 +18,17 @@ export class FuncionariosService {
   }
 
   private token = JSON.parse(localStorage.getItem('currentUser')).token;
-  private colegioId = JSON.parse(localStorage.getItem('currentUser')).colegioId;
-  private userRol = JSON.parse(localStorage.getItem('currentUser')).rol;
-  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token, 'colegio_id': this.colegioId,'user_rol':this.userRol});
+  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token});
 
+  getColegioId(){
+    return JSON.parse(localStorage.getItem('currentUser')).colegioId;
+  }
+  getUserRol(){
+    return JSON.parse(localStorage.getItem('currentUser')).userRol;
+  }
+  //GET
   getFuncionarios(): Observable<any>{
-    return this.http.get(this.funcionariosUrl,{headers:this.headers})
+    return this.http.get(`${this.funcionariosUrl}?colegio_id=${this.getColegioId()}`,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
@@ -32,31 +37,33 @@ export class FuncionariosService {
     return this.getFuncionarios()
       .map(funcionario => funcionario.find(func => func.id == id));
   }
-
+  //GET
   getFuncionarioById(id: number){
-    const url = `${this.funcionariosUrl}/${id}`;
+    const url = `${this.funcionariosUrl}/${id}?colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //POST
   createFuncionario(funcionario: any): Observable<any>{
+    console.log(funcionario);
     return this.http
-      .post(this.funcionariosUrl, JSON.stringify({'funcionario':funcionario}), {headers: this.headers})
+      .post(this.funcionariosUrl, JSON.stringify({'funcionario':funcionario,'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Funcionario'));
   }
-
+  //PUT
   updateFuncionario(funcionario){
     const url = `${this.funcionariosUrl}/${funcionario.id}`;
+    funcionario['colegio_id']=this.getColegioId();
     return this.http
-      .put(url, JSON.stringify(funcionario), {headers: this.headers})
+      .put(url, JSON.stringify({funcionario}), {headers: this.headers})
       .map(() => funcionario)
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t UPDATE Funcionario'));
   }
-
+  //DELETE
   deleteFuncionario(id: number){
-    const url = `${this.funcionariosUrl}/${id}`;
+    const url = `${this.funcionariosUrl}/${id}?colegio_id=${this.getColegioId()}`;
     return this.http
       .delete(url, {headers: this.headers})
       .map(() => null)

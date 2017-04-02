@@ -230,7 +230,7 @@ export class CrearCursoComponent implements OnInit {
   }
 
   saveCurso() {
-    this.cursosService.createCurso(this.curso,1).subscribe((res) => {
+    this.cursosService.createCurso(this.curso).subscribe((res) => {
       this.modalMessage = 'Curso creado con éxito.';
       this.modalOpen();
     });

@@ -18,24 +18,29 @@ export class CalendarioService {
   }
 
   private token = JSON.parse(localStorage.getItem('currentUser')).token;
-  private colegioId = JSON.parse(localStorage.getItem('currentUser')).colegioId;
-  private userRol = JSON.parse(localStorage.getItem('currentUser')).rol;
-  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token, 'colegio_id': this.colegioId,'user_rol':this.userRol});
+  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token});
 
+  getColegioId(){
+    return JSON.parse(localStorage.getItem('currentUser')).colegioId;
+  }
+  getUserRol(){
+    return JSON.parse(localStorage.getItem('currentUser')).userRol;
+  }
+  //GET
   getConfigCalendarioAcademico(idConfig: number): Observable<any>{
-    let url = `${this.configuracionUrl}/configuraciones/calendario_academicos/${idConfig}`;
+    let url = `${this.configuracionUrl}/configuraciones/calendario_academicos/${idConfig}?colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //GET
   getConfigCalendarioAcademicoById(idConfig: number): Observable<any>{
-    let url = `${this.configuracionUrl}/configuraciones/calendario_academicos?id=${idConfig}`;
+    let url = `${this.configuracionUrl}/configuraciones/calendario_academicos?id=${idConfig}&colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //POST
   createConfigCalendarioAcademico(idConfig: number): Observable<any>{
     let url = `${this.configuracionUrl}/configuraciones/calendario_academicos?id=${idConfig}`;
 
@@ -61,11 +66,11 @@ export class CalendarioService {
       ]
     };
 
-    return this.http.post(url, JSON.stringify({'calendario': payload}), {headers: this.headers})
+    return this.http.post(url, JSON.stringify({'calendario': payload,'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //POST
   createEventCalendarioAcademico(vacaciones: boolean, idConfig: number): Observable<any>{
     let url = `${this.configuracionUrl}/configuraciones/calendario_academico/eventos`;
 
@@ -77,21 +82,21 @@ export class CalendarioService {
       'fecha_termino':null,
     };
 
-    return this.http.post(url, JSON.stringify({'evento': payload}), {headers: this.headers})
+    return this.http.post(url, JSON.stringify({'evento': payload, 'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //PUT
   updateConfigCalendarioAcademico(idConfig: number,config: any): Observable<any>{
     let url = `${this.configuracionUrl}/configuraciones/calendario_academicos/${idConfig}`;
 
-    return this.http.put(url, JSON.stringify({'calendario': config}), {headers: this.headers})
+    return this.http.put(url, JSON.stringify({'calendario': config,'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //DELETE
   deleteEventCalendarioAcademico(idEvent: number): Observable<any>{
-    let url = `${this.configuracionUrl}/configuraciones/calendario_academico/eventos/${idEvent}`;
+    let url = `${this.configuracionUrl}/configuraciones/calendario_academico/eventos/${idEvent}?colegio_id=${this.getColegioId()}`;
 
     return this.http.delete(url, {headers: this.headers})
       .map(() => null)

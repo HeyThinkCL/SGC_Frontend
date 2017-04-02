@@ -15,46 +15,52 @@ export class PostulacionesService {
   constructor( private http: Http) { }
 
   private token = JSON.parse(localStorage.getItem('currentUser')).token;
-  private colegioId = JSON.parse(localStorage.getItem('currentUser')).colegioId;
-  private userRol = JSON.parse(localStorage.getItem('currentUser')).rol;
-  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token, 'colegio_id': this.colegioId,'user_rol':this.userRol});
+  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token});
 
+  getColegioId(){
+    return JSON.parse(localStorage.getItem('currentUser')).colegioId;
+  }
+  getUserRol(){
+    return JSON.parse(localStorage.getItem('currentUser')).userRol;
+  }
+  //POST
   createPostulacion(postulacion: any): Observable<any>{
+    postulacion['colegio_id']=this.getColegioId();
     return this.http
       .post(this.alumnosUrl, JSON.stringify(postulacion), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Alumno'));
   }
-
+  //GET
   getAllPostulaciones(): Observable<any>{
-    return this.http.get(this.alumnosUrl,{headers:this.headers})
+    return this.http.get(`this.alumnosUrl?colegio_id=${this.getColegioId()}`,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //GET
   getPostulaciones(): Observable<any>{
-    const url:string = `${this.alumnosUrl}/postulantes`;
+    const url:string = `${this.alumnosUrl}/postulantes?colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //GET
   getAceptadas(): Observable<any>{
-    const url:string = `${this.alumnosUrl}/aceptados`;
+    const url:string = `${this.alumnosUrl}/aceptados?colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //GET
   getListaEspera(): Observable<any>{
-    const url:string = `${this.alumnosUrl}/lista_espera`;
+    const url:string = `${this.alumnosUrl}/lista_espera?colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //GET
   getRechazadas(): Observable<any>{
-    const url:string = `${this.alumnosUrl}/rechazados`;
+    const url:string = `${this.alumnosUrl}/rechazados?colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
@@ -64,9 +70,10 @@ export class PostulacionesService {
     return this.getAllPostulaciones()
       .map(postulante => postulante.find(postulante => postulante.id == postulanteId));
   }
-
+  //PUT
   updatePostulante(postulante: any): Observable<any>{
     const url = `${this.alumnosUrl}/${postulante.id}`;
+    postulante['colegio_id']=this.getColegioId();
     return this.http
       .put(url, JSON.stringify(postulante), {headers: this.headers})
       .map(() => postulante)

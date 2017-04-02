@@ -17,54 +17,59 @@ export class PlanDeEstudiosService {
     this.http=http;
   }
   private token = JSON.parse(localStorage.getItem('currentUser')).token;
-  private colegioId = JSON.parse(localStorage.getItem('currentUser')).colegioId;
-  private userRol = JSON.parse(localStorage.getItem('currentUser')).rol;
-  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token, 'colegio_id': this.colegioId,'user_rol':this.userRol});
+  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token});
 
+  getColegioId(){
+    return JSON.parse(localStorage.getItem('currentUser')).colegioId;
+  }
+  getUserRol(){
+    return JSON.parse(localStorage.getItem('currentUser')).userRol;
+  }
+
+  //GET
   getPlanesDeEstudio(): Observable<any>{
-    return this.http.get(this.planesDeEstudiosUrl,{headers:this.headers})
+    return this.http.get(`${this.planesDeEstudiosUrl}?colegio_id=${this.getColegioId()}`,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //GET
   getConfigPlanesDeEstudio(idConfig: number): Observable<any>{
-    return this.http.get(`${this.planesDeEstudiosUrl}/${idConfig}`,{headers:this.headers})
+    return this.http.get(`${this.planesDeEstudiosUrl}/${idConfig}?colegio_id=${this.getColegioId()}`,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //GET
   getConfigPlanesDeEstudioById(idConfig: number): Observable<any>{
-    return this.http.get(`${this.planesDeEstudiosUrl}?id=${idConfig}`,{headers:this.headers})
+    return this.http.get(`${this.planesDeEstudiosUrl}?id=${idConfig}?colegio_id=${this.getColegioId()}`,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //POST
   createConfigPlanesDeEstudio(idConfig: number): Observable<any>{
     let url = `${this.planesDeEstudiosUrl}?id=${idConfig}`;
 
     let payload = {};
 
-    return this.http.post(url, JSON.stringify({'config': payload}), {headers: this.headers})
+    return this.http.post(url, JSON.stringify({'config': payload,'colegio_id': this.getColegioId()}), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //PUT
   updateConfigPlanesDeEstudio(idConfig: number,config: any): Observable<any>{
     let url = `${this.planesDeEstudiosUrl}/${idConfig}`;
 
-    return this.http.put(url, JSON.stringify({'config': config}), {headers: this.headers})
+    return this.http.put(url, JSON.stringify({'config': config,'colegio_id': this.getColegioId()}), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
   //creación automática de cursos
-  createCursosWithConfigPlanesDeEstudio(idConfig:number, configuracion: any, idColegio): Observable<any>{
+  //POST
+  createCursosWithConfigPlanesDeEstudio(idConfig:number, configuracion: any): Observable<any>{
 
-    let url = `${globalVar.apiUrl}/configuraciones/cursos`;
+    let url = `${globalVar.apiUrl}/configuraciones/cursos?colegio_id=${this.getColegioId()}`;
 
-    configuracion['colegio_id']=idColegio;
-
-    return this.http.post(url, JSON.stringify({'config':configuracion}),{headers: this.headers})
+    return this.http.post(url, JSON.stringify({'config': configuracion,'colegio_id': this.getColegioId()}),{headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }

@@ -58,6 +58,7 @@ export class AuthenticationService {
     localStorage.removeItem('currentUser');
   }
 
+  //POST
   authenticate(user: string, password: string): Observable<any>{
     return this.http.post(this.authUrl,JSON.stringify({'credentials':{'email':user,'password':password}}),{headers: this.headers})
       .map(res => res.json())

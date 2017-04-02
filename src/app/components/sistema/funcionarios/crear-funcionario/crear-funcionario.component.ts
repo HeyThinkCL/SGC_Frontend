@@ -61,7 +61,6 @@ export class CrearFuncionarioComponent implements OnInit {
     'horas_profesor':{
       'valor':null,
     },
-    'colegio_id':1,
   };
   private rolesDocentes = [];
   private rolesNoDocentes = [];

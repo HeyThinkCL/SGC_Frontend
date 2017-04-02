@@ -16,43 +16,48 @@ export class ConfigNotasService {
     this.http=http;
   }
   private token = JSON.parse(localStorage.getItem('currentUser')).token;
-  private colegioId = JSON.parse(localStorage.getItem('currentUser')).colegioId;
-  private userRol = JSON.parse(localStorage.getItem('currentUser')).rol;
-  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token, 'colegio_id': this.colegioId,'user_rol':this.userRol});
+  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token});
 
+  getColegioId(){
+    return JSON.parse(localStorage.getItem('currentUser')).colegioId;
+  }
+  getUserRol(){
+    return JSON.parse(localStorage.getItem('currentUser')).userRol;
+  }
+  //GET
   getConfigNotas(idConfig: number): Observable<any>{
-    let url = `${this.configuracionUrl}/configuraciones/notas_ponderaciones/${idConfig}`;
+    let url = `${this.configuracionUrl}/configuraciones/notas_ponderaciones/${idConfig}?colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //GET
   getConfigNotasById(idConfig: number): Observable<any>{
-    let url = `${this.configuracionUrl}/configuraciones/notas_ponderaciones?id=${idConfig}`;
+    let url = `${this.configuracionUrl}/configuraciones/notas_ponderaciones?id=${idConfig}&colegio_id=${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //POST
   createConfigNotas(idConfig: number): Observable<any>{
     let url = `${this.configuracionUrl}/configuraciones/notas_ponderaciones?id=${idConfig}`;
 
     let payload = {
       'notas':{
         'decimales':null,
-        'aprox':null, // 0->aprox. hacia arriba, 1->truncado
+        'aprox':null, // 1->aprox. hacia arriba, 0->truncado
       }
     };
 
-    return this.http.post(url, JSON.stringify({'notas': payload}), {headers: this.headers})
+    return this.http.post(url, JSON.stringify({'notas': payload.notas,'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //PUT
   updateConfigNotas(idConfig: number,config: any): Observable<any>{
     let url = `${this.configuracionUrl}/configuraciones/notas_ponderaciones/${idConfig}`;
 
-    return this.http.put(url, JSON.stringify(config), {headers: this.headers})
+    return this.http.put(url, JSON.stringify({'notas': config.notas,'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }

@@ -16,10 +16,15 @@ export class DpaService {
     this.http=http;
   }
   private token = JSON.parse(localStorage.getItem('currentUser')).token;
-  private colegioId = JSON.parse(localStorage.getItem('currentUser')).colegioId;
-  private userRol = JSON.parse(localStorage.getItem('currentUser')).rol;
-  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token, 'colegio_id': this.colegioId,'user_rol':this.userRol});
+  private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token});
 
+  getColegioId(){
+    return JSON.parse(localStorage.getItem('currentUser')).colegioId;
+  }
+  getUserRol(){
+    return JSON.parse(localStorage.getItem('currentUser')).userRol;
+  }
+  //GET
   getRegiones(): Observable<any> {
     const url =`${this.dpaUrl}/regiones`;
 
@@ -27,7 +32,7 @@ export class DpaService {
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //GET
   getProvinciasByRegionId(regionId: string): Observable<any> {
     const url =`${this.dpaUrl}/regiones/${regionId}/provincias`;
 
@@ -35,7 +40,7 @@ export class DpaService {
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //GET
   getComunasByProvinciaIdRegionId(provinciaId: string): Observable<any> {
     const url =`${this.dpaUrl}/provincias/${provinciaId}/comunas`;
 
@@ -43,7 +48,7 @@ export class DpaService {
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //GET
   getDeptoProvincialbyComunaId(comunaId: string): Observable<any> {
     const url =`${this.dpaUrl}/comunas/${comunaId}/depto_prov`;
 

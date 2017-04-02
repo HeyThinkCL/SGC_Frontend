@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, trigger, transition, style, animate } from '@angular/core';
 import { Location } from '@angular/common';
 import {ModalComponent} from 'ng2-bs3-modal/ng2-bs3-modal';
+import { ConfiguracionService } from '../../../../services/sistema/configuracion.service';
 
 /** date-fns**/
 import {
@@ -36,6 +37,7 @@ import {CalendarioService} from '../../../../services/sistema/configuraciones/ca
 export class CalendarioAcademicoComponent implements OnInit {
   @ViewChild('modal') modal: ModalComponent;
 
+  private configId;
   private configuracion = {
     'periodo_academico':{
       'glosa':'',
@@ -61,24 +63,30 @@ export class CalendarioAcademicoComponent implements OnInit {
   constructor(
     private location: Location,
     private calendarioService: CalendarioService,
+    private configuracionService: ConfiguracionService,
   ) { }
 
   ngOnInit() {
-    this.calendarioService.getConfigCalendarioAcademico(+localStorage.getItem('idConfig')).subscribe(res => {
-      if(res){
-        this.calendarioService.getConfigCalendarioAcademicoById(+localStorage.getItem('idConfig')).subscribe(subRes => {
-          this.configuracion = subRes;
-          this.formatDates(this.configuracion);
-        })
-      } else {
-        this.calendarioService.createConfigCalendarioAcademico(+localStorage.getItem('idConfig')).subscribe(subRes => {
-          this.calendarioService.getConfigCalendarioAcademicoById(+localStorage.getItem('idConfig')).subscribe(subSubRes => {
-            this.configuracion = subSubRes;
+    this.configuracionService.getConfiguraciones().subscribe(res => {
+      this.configId = res.find(c => c.glosa == 'Notas y Ponderaciones' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser')).colegioId).id;
+
+      this.calendarioService.getConfigCalendarioAcademico(this.configId).subscribe(res => {
+        if(res){
+          this.calendarioService.getConfigCalendarioAcademicoById(this.configId).subscribe(subRes => {
+            this.configuracion = subRes;
             this.formatDates(this.configuracion);
           })
-        })
-      }
-    })
+        } else {
+          this.calendarioService.createConfigCalendarioAcademico(this.configId).subscribe(subRes => {
+            this.calendarioService.getConfigCalendarioAcademicoById(this.configId).subscribe(subSubRes => {
+              this.configuracion = subSubRes;
+              this.formatDates(this.configuracion);
+            })
+          })
+        }
+      })
+    });
+
   }
 
   addDays(day: Date,amount: number){
@@ -123,8 +131,8 @@ export class CalendarioAcademicoComponent implements OnInit {
   }
 
   addVacaciones(){
-    this.calendarioService.createEventCalendarioAcademico(true,+localStorage.getItem('idConfig')).subscribe(res => {
-      this.calendarioService.getConfigCalendarioAcademicoById(+localStorage.getItem('idConfig')).subscribe(subRes => {
+    this.calendarioService.createEventCalendarioAcademico(true,this.configId).subscribe(res => {
+      this.calendarioService.getConfigCalendarioAcademicoById(this.configId).subscribe(subRes => {
         this.configuracion = subRes;
         this.formatDates(this.configuracion);
       })
@@ -132,8 +140,8 @@ export class CalendarioAcademicoComponent implements OnInit {
   }
 
   addFechaEspecial(){
-    this.calendarioService.createEventCalendarioAcademico(false,+localStorage.getItem('idConfig')).subscribe(res => {
-      this.calendarioService.getConfigCalendarioAcademicoById(+localStorage.getItem('idConfig')).subscribe(subRes => {
+    this.calendarioService.createEventCalendarioAcademico(false,this.configId).subscribe(res => {
+      this.calendarioService.getConfigCalendarioAcademicoById(this.configId).subscribe(subRes => {
         this.configuracion = subRes;
         this.formatDates(this.configuracion);
       })
@@ -142,7 +150,7 @@ export class CalendarioAcademicoComponent implements OnInit {
 
   deleteFecha(id: number){
     this.calendarioService.deleteEventCalendarioAcademico(id).subscribe(() => {
-      this.calendarioService.getConfigCalendarioAcademicoById(+localStorage.getItem('idConfig')).subscribe(subRes => {
+      this.calendarioService.getConfigCalendarioAcademicoById(this.configId).subscribe(subRes => {
         this.configuracion = subRes;
         this.formatDates(this.configuracion);
       })
@@ -150,7 +158,7 @@ export class CalendarioAcademicoComponent implements OnInit {
   }
 
   saveConfig(){
-    this.calendarioService.updateConfigCalendarioAcademico(+localStorage.getItem('idConfig'),this.configuracion).subscribe(res => {});
+    this.calendarioService.updateConfigCalendarioAcademico(this.configId,this.configuracion).subscribe(res => {});
     this.modalClose();
   }
 
