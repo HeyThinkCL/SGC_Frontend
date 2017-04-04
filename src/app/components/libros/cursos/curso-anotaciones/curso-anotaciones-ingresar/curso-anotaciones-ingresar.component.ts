@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
+import {RedirectService} from '../../../../../services/redirect.service'
 import { CursosService } from '../../../../../services/libros/cursos.service';
 import { ProfesoresService } from '../../../../../services/libros/profesores.service';
 import { AnotacionesService } from '../../../../../services/libros/anotaciones.service';
@@ -37,6 +38,7 @@ export class CursoAnotacionesIngresarComponent implements OnInit {
     private anotacionesService: AnotacionesService,
     private profesoresService: ProfesoresService,
     private route: ActivatedRoute,
+    private redirectService: RedirectService,
   ) { }
 
   ngOnInit() {
@@ -50,14 +52,26 @@ export class CursoAnotacionesIngresarComponent implements OnInit {
       .subscribe((curso) => {
         this.curso = curso;
         this.alumnos = curso.alumnos;
-    });
+    }, error => {
+        if(error==500) {
+          this.redirectService.onServerError500();
+        }
+      });
 
     this.cursosService.getAsignaturasByCursoId(this.id).subscribe(res => {
       this.asignaturas = res.asignaturas;
+    }, error => {
+      if(error==500) {
+        this.redirectService.onServerError500();
+      }
     });
 
     this.profesoresService.getProfesores().subscribe(res => {
       this.funcionarios = res;
+    }, error => {
+      if(error==500) {
+        this.redirectService.onServerError500();
+      }
     });
 
     this.selectedAlumno = {
@@ -128,10 +142,10 @@ export class CursoAnotacionesIngresarComponent implements OnInit {
       this.confirmOpen();
       this.clearAnotacion();
 
-    }, (error:any) => {
-      this.confirmMessage = 'Error al intentar crear anotación.';
-      this.confirmErrorMessage = 'Presione Continuar e intentelo nuevamente.';
-      this.confirmOpen();
+    }, error => {
+      if(error==500) {
+        this.redirectService.onServerError500();
+      }
     })
   }
 

@@ -119,11 +119,11 @@
                          [data]="selectRolesDocentesData"
                          [width]="350 | select2WidthFix"
                          [options]="selectRolesOptions"
-                         (valueChanged)="rolesDocentes = $event.value;profesorCheck()"></select2>
+                         (valueChanged)="rolesDocentes = $event.value"></select2>
               </div>
             </div>
-            <div class="col-sm-12 p-b-md" *ngIf="rolesDocentes.includes('profesor')">
-              <div class="form group" >
+            <div class="col-sm-12 p-b-md" *ngIf="false | includeProfesor:rolesDocentes">
+              <div class="form group" *ngIf="funcionario.profesor">
                 <label class="col-sm-4 control-label" for="form-control-29">Horas Profesor</label>
                 <div class="col-sm-2 col-sm-offset-1">
                   <input id="form-control-29" class="form-control" type="number" [(ngModel)]="funcionario.horas_profesor.valor">

@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
       this.colegios = res;
       this.colegioName = this.colegios.find(c => c.id == this.currentUser.colegioId)? this.colegios.find(c => c.id == this.currentUser.colegioId).nombre:'';
     }, error => {
-      if(error==0 || error==500){
+      if(error==500){
         this.redirectService.onServerError500();
       }
     });
@@ -76,7 +76,7 @@ export class AppComponent implements OnInit {
         r['icon'] = data.icon;
       }
     }, error => {
-      if(error==0 || error==500) {
+      if(error==500) {
         this.redirectService.onServerError500();
       }
     });

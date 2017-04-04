@@ -56,7 +56,16 @@ export class EditarFuncionarioComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.funcionariosService.getFuncionario(this.id).subscribe(res => {
+        if(!res.horas_profesor){
+          res['horas_profesor'] = {
+            'valor':null,
+          }
+        } else if(!res.horas_profesor.valor){
+          res.horas_profesor = {'valor': null}
+        }
+
         this.funcionario = res;
+
         this.selectedFuncionario = JSON.parse(JSON.stringify(res));
         this.setRolesDocentes();
         this.setRolesNoDocentes();
@@ -173,7 +182,6 @@ export class EditarFuncionarioComponent implements OnInit {
     }
 
     this.funcionariosService.updateFuncionario(this.funcionario).subscribe(res => {
-      console.log(res);
       this.modalOpen();
     });
   }

@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common'
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { Select2OptionData } from 'ng2-select2';
-
+import {RedirectService} from '../../../../services/redirect.service'
 import { CursosService } from '../../../../services/libros/cursos.service';
 import { PlanDeEstudiosService } from '../../../../services/sistema/configuraciones/plan-de-estudios.service';
 import { ConfiguracionService } from '../../../../services/sistema/configuracion.service';
@@ -66,6 +66,7 @@ export class CrearCursoComponent implements OnInit {
     private cursosService: CursosService,
     private planDeEStudiosService: PlanDeEstudiosService,
     private configuracionService: ConfiguracionService,
+    private redirectService: RedirectService,
   ) {
   }
 
@@ -233,6 +234,10 @@ export class CrearCursoComponent implements OnInit {
     this.cursosService.createCurso(this.curso).subscribe((res) => {
       this.modalMessage = 'Curso creado con éxito.';
       this.modalOpen();
+    }, error => {
+      if(error==500) {
+        this.redirectService.onServerError500();
+      }
     });
   }
 

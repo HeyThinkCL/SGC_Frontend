@@ -5,6 +5,7 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import {emptyArrayMsg,connectionErrorMsg} from '../../../spinner/spinner.component';
 
+import {RedirectService} from '../../../../services/redirect.service'
 import { Curso } from '../curso';
 import { CursosService } from '../../../../services/libros/cursos.service';
 import { ProfesoresService } from '../../../../services/libros/profesores.service';
@@ -32,6 +33,7 @@ export class AsignarProfesorACursoComponent implements OnInit {
     private cursosService: CursosService,
     private profesoresService: ProfesoresService,
     private route: ActivatedRoute,
+    private redirectService: RedirectService,
   ) { }
 
   ngOnInit() {
@@ -57,12 +59,20 @@ export class AsignarProfesorACursoComponent implements OnInit {
       if(this.profesores.length<1){
         this.timeoutMessage = emptyArrayMsg('Profesores');
       }
+    }, error => {
+      if(error==500) {
+        this.redirectService.onServerError500();
+      }
     })
   }
 
   saveCurso() {
     this.cursosService.updateCurso(this.curso.curso).subscribe((res) => {
       this.modalOpen();
+    }, error => {
+      if(error==500) {
+        this.redirectService.onServerError500();
+      }
     });
   }
   //navigation

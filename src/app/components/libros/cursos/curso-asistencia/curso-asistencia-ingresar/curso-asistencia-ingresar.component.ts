@@ -27,6 +27,7 @@ import { CursosService } from '../../../../../services/libros/cursos.service';
 import {ConfiguracionService} from '../../../../../services/sistema/configuracion.service';
 import {CalendarioService} from '../../../../../services/sistema/configuraciones/calendario.service';
 import {AsistenciaService} from '../../../../../services/libros/asistencia.service';
+import {RedirectService} from '../../../../../services/redirect.service'
 
 @Component({
   selector: 'app-curso-asistencia-ingresar',
@@ -58,6 +59,7 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
     private configuracionService: ConfiguracionService,
     private calendarioService: CalendarioService,
     private asistenciaService: AsistenciaService,
+    private redirectService: RedirectService,
   ) { }
 
   ngOnInit() {
@@ -68,6 +70,10 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
 
       this.cursosService.getCursoById(this.id).subscribe(curso => {
         this.alumnos = curso.alumnos;
+      }, error => {
+        if(error==500) {
+          this.redirectService.onServerError500();
+        }
       });
 
       this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
@@ -85,9 +91,25 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
             this.view = this.getMonthView({
               viewDate: this.viewDate,
             });
+          }, error => {
+            if(error==500) {
+              this.redirectService.onServerError500();
+            }
           });
+        }, error => {
+          if(error==500) {
+            this.redirectService.onServerError500();
+          }
         });
+      }, error => {
+        if(error==500) {
+          this.redirectService.onServerError500();
+        }
       })
+    }, error => {
+      if(error==500) {
+        this.redirectService.onServerError500();
+      }
     });
 
     this.selectedDay = {'dia': new Date() , 'alumnos':[]};
@@ -164,7 +186,15 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
         }
 
         this.modalClose();
+      }, error => {
+        if(error==500) {
+          this.redirectService.onServerError500();
+        }
       });
+    }, error => {
+      if(error==500) {
+        this.redirectService.onServerError500();
+      }
     });
 
 

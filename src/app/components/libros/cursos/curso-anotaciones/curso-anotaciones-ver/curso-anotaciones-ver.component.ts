@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
-
+import {RedirectService} from '../../../../../services/redirect.service'
 import { CursosService } from '../../../../../services/libros/cursos.service';
 import { ProfesoresService } from '../../../../../services/libros/profesores.service';
 import { MatriculaService } from '../../../../../services/sistema/matricula.service';
@@ -27,6 +27,7 @@ export class CursoAnotacionesVerComponent implements OnInit {
     private profesoresService: ProfesoresService,
     private matriculaService: MatriculaService,
     private route: ActivatedRoute,
+    private redirectService: RedirectService,
   ) { }
 
   ngOnInit() {
@@ -68,12 +69,24 @@ export class CursoAnotacionesVerComponent implements OnInit {
                 anotacion['asignatura'] = {
                   'nombre': asignatura.asignatura.datos.nombre,
                 }
+              }, error => {
+                if(error==500) {
+                  this.redirectService.onServerError500();
+                }
               })
             } else {
               anotacion['asignatura'] = {}
             }
           }
+        }, error => {
+          if(error==500) {
+            this.redirectService.onServerError500();
+          }
         });
+      }
+    }, error => {
+      if(error==500) {
+        this.redirectService.onServerError500();
       }
     });
 

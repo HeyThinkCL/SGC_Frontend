@@ -11,7 +11,7 @@
   <div class="col-md-10 col-md-offset-1">
     <div class="row gutter-xs">
       <div class="col-sm-4" *ngFor="let route of routes | filterConfigs:getColegioId()">
-        <div class="card">
+        <div class="card" *ngIf="!(route.glosa=='Jornada')">
           <div class="card-body" (click)="goToRoute(route.path,route.id)">
             <div class="media">
               <div class="media-middle media-left">

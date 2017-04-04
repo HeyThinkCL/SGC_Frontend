@@ -55,9 +55,8 @@ export class FuncionariosService {
   //PUT
   updateFuncionario(funcionario){
     const url = `${this.funcionariosUrl}/${funcionario.id}`;
-    funcionario['colegio_id']=this.getColegioId();
     return this.http
-      .put(url, JSON.stringify({funcionario}), {headers: this.headers})
+      .put(url, JSON.stringify({'funcionario':funcionario,'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(() => funcionario)
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }

@@ -23,6 +23,7 @@ import {FilterAsignaturas } from "./pipes/filter-asignaturas"
 import {FilterAsignarPipe} from './pipes/filter-asignar.pipe';
 import {FilterConfigsPipe} from './pipes/filter-configs.pipe'
 import {ColegioNameFilterPipe} from './pipes/colegio-name-filter.pipe';
+import { IncludeProfesorPipe } from './pipes/include-profesor.pipe';
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -221,6 +222,7 @@ import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/soste
     FilterAsignarPipe,
     FilterConfigsPipe,
     ColegioNameFilterPipe,
+    IncludeProfesorPipe,
     ConfiguracionComponent,
     ConfiguracionDashboardComponent,
     CalendarioAcademicoComponent,

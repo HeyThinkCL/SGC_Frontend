@@ -27,6 +27,7 @@ import {
 import {ConfiguracionService} from '../../../../../services/sistema/configuracion.service';
 import {CalendarioService} from '../../../../../services/sistema/configuraciones/calendario.service';
 import {AsistenciaService} from '../../../../../services/libros/asistencia.service';
+import {RedirectService} from '../../../../../services/redirect.service'
 
 @Component({
   selector: 'app-curso-asistencia-ver',
@@ -55,6 +56,7 @@ export class CursoAsistenciaVerComponent implements OnInit {
     private configuracionService: ConfiguracionService,
     private calendarioService: CalendarioService,
     private asistenciaService: AsistenciaService,
+    private redirectService: RedirectService,
   ) { }
 
   ngOnInit() {
@@ -76,9 +78,25 @@ export class CursoAsistenciaVerComponent implements OnInit {
             this.view = this.getMonthView({
               viewDate: this.viewDate,
             });
+          }, error => {
+            if(error==500) {
+              this.redirectService.onServerError500();
+            }
           });
+        }, error => {
+          if(error==500) {
+            this.redirectService.onServerError500();
+          }
         });
+      }, error => {
+        if(error==500) {
+          this.redirectService.onServerError500();
+        }
       })
+    }, error => {
+      if(error==500) {
+        this.redirectService.onServerError500();
+      }
     });
 
     this.selectedDay = {'day': new Date() ,'cant':0,'alumnos':[]};

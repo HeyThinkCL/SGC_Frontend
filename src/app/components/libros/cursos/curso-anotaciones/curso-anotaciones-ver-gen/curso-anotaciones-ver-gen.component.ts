@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
-
+import {RedirectService} from '../../../../../services/redirect.service'
 import { CursosService } from '../../../../../services/libros/cursos.service';
 import { ProfesoresService } from '../../../../../services/libros/profesores.service';
 
@@ -25,11 +25,16 @@ export class CursoAnotacionesVerGenComponent implements OnInit {
     private cursosService: CursosService,
     private profesoresService: ProfesoresService,
     private route: ActivatedRoute,
+    private redirectService: RedirectService,
   ) { }
 
   ngOnInit() {
     this.sub = this.route.parent.parent.params.subscribe(params => {
       this.id = +params['id'];
+    }, error => {
+      if(error==500) {
+        this.redirectService.onServerError500();
+      }
     });
 
     this.cursosService.getAnotacionesGenerales(this.id).subscribe((anotaciones) =>{
@@ -43,6 +48,10 @@ export class CursoAnotacionesVerGenComponent implements OnInit {
               'nombre':profesor.usuario.nombre,
               'apellido_paterno': profesor.usuario.apellido_paterno,
               'apellido_materno': profesor.usuario.apellido_materno
+            }
+          }, error => {
+            if(error==500) {
+              this.redirectService.onServerError500();
             }
           });
         } else {
@@ -60,6 +69,10 @@ export class CursoAnotacionesVerGenComponent implements OnInit {
             anotacion['asignatura'] = {
               'nombre': asignatura.asignatura.datos.nombre,
             };
+          }, error => {
+            if(error==500) {
+              this.redirectService.onServerError500();
+            }
           })
         } else {
           anotacion['asignatura'] = {
