@@ -26,14 +26,15 @@ export class PostulacionesService {
   //POST
   createPostulacion(postulacion: any): Observable<any>{
     postulacion['colegio_id']=this.getColegioId();
+    console.log(postulacion);
     return this.http
       .post(this.alumnosUrl, JSON.stringify(postulacion), {headers: this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server Error: Couldn\'t CREATE Alumno'));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //GET
   getAllPostulaciones(): Observable<any>{
-    return this.http.get(`this.alumnosUrl?colegio_id=${this.getColegioId()}`,{headers:this.headers})
+    return this.http.get(`${this.alumnosUrl}?colegio_id=${this.getColegioId()}`,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }

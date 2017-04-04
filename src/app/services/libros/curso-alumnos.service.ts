@@ -26,9 +26,9 @@ export class CursoAlumnosService {
   getUserRol(){
     return JSON.parse(localStorage.getItem('currentUser')).userRol;
   }
-  //GET
+/*  //GET
   getCursos(): Observable<any> {
-    return this.http.get(`this.cursoAlumnosUrl?colegio_id=${this.getColegioId()}`,{headers:this.headers})
+    return this.http.get(`${this.cursoAlumnosUrl}?colegio_id=${this.getColegioId()}`,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
@@ -36,7 +36,7 @@ export class CursoAlumnosService {
   getCurso(id: number): Observable<any> {
     return this.getCursos()
       .map(cursos => cursos.find(curso => curso.curso.id == id));
-  }
+  }*/
 
   /*updateCurso(curso: Curso){
     const url = `${this.alumnosCursoUrl}/${curso.id}`;

@@ -15,8 +15,6 @@ export class ColegiosService {
   private colegiosUrl = globalVar.apiUrl+'/colegios';
 
   private token = JSON.parse(localStorage.getItem('currentUser')).token;
-  private colegioId;
-  private userRol;
   private headers = new Headers({'Content-Type': 'application/json','Authorization': this.token});
 
   constructor(private http: Http) {
@@ -64,7 +62,7 @@ export class ColegiosService {
   }
   //GET
   getAsignaturasByColegioId(): Observable<any>{
-    const url = `${this.colegiosUrl}/asignaturas/${this.colegioId}`;
+    const url = `${this.colegiosUrl}/asignaturas/${this.getColegioId()}`;
     return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));

@@ -30,7 +30,7 @@ export class CursosService {
   }
   //GET
   getCursos(): Observable<any> {
-    return this.http.get(`this.cursosUrl?colegio_id=${this.getColegioId()}`,{headers:this.headers})
+    return this.http.get(`${this.cursosUrl}?colegio_id=${this.getColegioId()}`,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }

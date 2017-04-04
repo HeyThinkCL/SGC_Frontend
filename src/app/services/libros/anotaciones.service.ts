@@ -10,7 +10,7 @@ export class AnotacionesService {
     return [[Http]]
   }
 
-  private anotacionessUrl = globalVar.apiUrl+'/anotaciones';
+  private anotacionessUrl = globalVar.apiUrl+'libro_clases/cursos/anotaciones';
 
   constructor(private http: Http) {
     this.http=http;
