@@ -108,11 +108,11 @@
               </div>
             </div>
 
-            <div class="col-sm-12 p-b-md" *ngIf="false | includeProfesor:rolesDocentes">
-              <div class="form group" *ngIf="funcionario.horas_profesor">
+            <div class="col-sm-12 p-b-md" *ngIf="rolesDocentesCheck">
+              <div class="form group" *ngIf="false | includeProfesor:rolesDocentes">
                 <label class="col-sm-4 control-label" for="form-control-30">Horas Profesor</label>
                 <div class="col-sm-2 col-sm-offset-1">
-                  <input id="form-control-30" class="form-control" type="number" [(ngModel)]="funcionario.horas_profesor.valor">
+                  <input id="form-control-30" class="form-control" type="number" [value]="funcionario.horas_profesor" [(ngModel)]="funcionario.horas_profesor" readonly>
                 </div>
               </div>
             </div>

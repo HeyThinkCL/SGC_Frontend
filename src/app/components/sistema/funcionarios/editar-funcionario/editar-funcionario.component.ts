@@ -57,11 +57,7 @@ export class EditarFuncionarioComponent implements OnInit {
       this.id = +params['id'];
       this.funcionariosService.getFuncionario(this.id).subscribe(res => {
         if(!res.horas_profesor){
-          res['horas_profesor'] = {
-            'valor':null,
-          }
-        } else if(!res.horas_profesor.valor){
-          res.horas_profesor = {'valor': null}
+          res['horas_profesor'] = null;
         }
 
         this.funcionario = res;

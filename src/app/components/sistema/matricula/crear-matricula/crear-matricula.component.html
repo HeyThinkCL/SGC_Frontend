@@ -168,12 +168,15 @@
       <div class="card-body">
         <div class="form-group">
           <div class="col-sm-5 col-sm-offset-2" id="select-form-2-wrapper">
-            <select2 id="select-form-2"
+            <select class="form-control no-arrows" type="text" id="form-control-130" [(ngModel)]="curso">
+              <option *ngFor="let curso of selectCursoData | filterCursoByGrado:postulante.grado" [value]="+curso.id">{{curso.text}}</option>
+            </select>
+            <!--<select2 id="select-form-2"
                      [data]="selectCursoData"
                      [width]="310 | select2WidthFix:'select-form-2-wrapper'"
                      [options]="selectCursoOptions"
                      *ngIf="selectCursoData.length>0"
-                     (valueChanged)="selectNivelChanged($event)"></select2>
+                     (valueChanged)="selectNivelChanged($event)"></select2>-->
           </div>
         </div>
       </div>

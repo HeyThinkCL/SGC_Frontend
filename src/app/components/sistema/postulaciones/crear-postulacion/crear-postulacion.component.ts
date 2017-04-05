@@ -7,7 +7,8 @@ import  { Ng2DatetimePickerComponent } from 'ng2-datetime-picker';
 import { PostulacionesService } from '../../../../services/sistema/postulaciones.service'
 import { ApoderadosService } from '../../../../services/sistema/apoderados.service'
 import { EtniasService } from '../../../../services/sistema/etnias.service'
-import { EstadosCivilesService } from '../../../../services/sistema/estados-civiles.service'
+import { EstadosCivilesService } from '../../../../services/sistema/estados-civiles.service';
+import { CursosService } from '../../../../services/libros/cursos.service';
 
 import * as globalVars from '../../../../globals';
 
@@ -30,6 +31,7 @@ import * as globalVars from '../../../../globals';
     )
   ],
 })
+
 export class CrearPostulacionComponent implements OnInit {
   @ViewChild('modal')
   modal: ModalComponent;
@@ -46,6 +48,8 @@ export class CrearPostulacionComponent implements OnInit {
   public selectEstadoCivilData: Array<Select2OptionData> = [];
   public selectEstadoCivilOptions: Select2Options;
 
+  private grados = [];
+
   private postulante: Postulante;
   private padre: Apoderado;
   private madre: Apoderado;
@@ -57,6 +61,7 @@ export class CrearPostulacionComponent implements OnInit {
     private estadosCivilesService: EstadosCivilesService,
     private postulacionesService: PostulacionesService,
     private apoderadosService: ApoderadosService,
+    private cursosService: CursosService,
   ) { }
 
   ngOnInit() {
@@ -134,7 +139,13 @@ export class CrearPostulacionComponent implements OnInit {
           'flag':'flag-icon-'+country.alpha2Code.toLowerCase()})
       }
     }*/
-
+    this.cursosService.getCursos().subscribe(cursos => {
+      for(let c of cursos){
+        if(this.grados.length<1 || this.grados.indexOf(c.curso.grado)==-1){
+          this.grados.push(c.curso.grado);
+        }
+      }
+    })
   }
   goBack(): void {
     this.location.back();
@@ -167,6 +178,10 @@ export class CrearPostulacionComponent implements OnInit {
   }
 
   savePostulante(){
+    if(!this.postulante.sep){
+      this.postulante.prioritario = false;
+      this.postulante.preferente = false;
+    }
     this.postulacionesService.createPostulacion(this.postulante).subscribe(postulante => {
       this.apoderadosService.createApoderado(postulante.id,this.padre).subscribe();
       this.apoderadosService.createApoderado(postulante.id,this.madre).subscribe();
@@ -207,6 +222,7 @@ export class Postulante{
   proretencion: boolean;
   preferente: boolean;
   pie: boolean;
+  sep: boolean;
   intercambio: boolean;
   excedente: boolean;
   lista: number;
@@ -223,6 +239,7 @@ export class Postulante{
   sexo: string;
   nacionalidad: string;
   fecha_nacimiento: string;
+  grado: string;
 
   constructor(public postulante: boolean){}
 }

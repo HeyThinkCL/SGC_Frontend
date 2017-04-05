@@ -31,7 +31,7 @@
               <th rowspan="2">#</th>
               <th rowspan="2" >Nombre</th>
               <th rowspan="2">Apellidos</th>
-              <th rowspan="1" [attr.colspan]="selectedAsignatura.cantidad + 1" class="text-center">
+              <th rowspan="1" [attr.colspan]="selectedAsignatura.info_notas.length + 1" class="text-center">
                 <div class="btn-group pull-right">
                   <button class="btn btn-info btn-sm" (click)="modalCreateOpen()"><span class="icon icon-fw icon-plus"></span></button>
                 </div>
@@ -43,7 +43,7 @@
             </tr>
             <tr class="bg-primary">
               <th rowspan="1" colspan="1"
-                  *ngFor="let item of createRange(selectedAsignatura.cantidad); let currentIndex = index"
+                  *ngFor="let item of createRange(selectedAsignatura.info_notas.length); let currentIndex = index"
                   (click)="modalInfoOpen(currentIndex)">{{currentIndex+1}}<span class="pull-right icon icon-commenting-o"></span></th>
               <th rowspan="1" colspan="1" (click)="modalConfigInfoOpen()">Prom<span class="pull-right icon icon-commenting-o"></span></th>
             </tr>
