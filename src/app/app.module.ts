@@ -121,6 +121,7 @@ import { CalendarioAcademicoComponent } from './components/sistema/configuracion
 import { NotasPonderacionesComponent } from './components/sistema/configuracion/notas-ponderaciones/notas-ponderaciones.component';
 import { JornadaComponent } from './components/sistema/configuracion/jornada/jornada.component';
 import { PlanesEnsenanzaComponent } from './components/sistema/configuracion/planes-ensenanza/planes-ensenanza.component';
+import { AsignaturasEspecialesComponent } from './components/sistema/configuracion/asignaturas-especiales/asignaturas-especiales.component';
 //Servicios
 import {AuthenticationService} from './services/authentication.service';
 import { MatriculaService } from "./services/sistema/matricula.service";
@@ -139,6 +140,7 @@ import {FuncionariosService} from './services/sistema/funcionarios.service';
 import {ConfiguracionService} from './services/sistema/configuracion.service';
 import {CalendarioService} from './services/sistema/configuraciones/calendario.service';
 import {ConfigNotasService} from './services/sistema/configuraciones/config-notas.service';
+import {AsignaturasEspecialesService} from './services/sistema/configuraciones/asignaturas-especiales.service';
 import {AsistenciaService} from "./services/libros/asistencia.service";
 import {PlanDeEstudiosService} from './services/sistema/configuraciones/plan-de-estudios.service';
 import {RedirectService} from './services/redirect.service';
@@ -226,6 +228,7 @@ import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/soste
     IncludeProfesorPipe,
     FilterCursoByGrado,
     ConfiguracionComponent,
+    AsignaturasEspecialesComponent,
     ConfiguracionDashboardComponent,
     CalendarioAcademicoComponent,
     NotasPonderacionesComponent,
@@ -282,6 +285,7 @@ import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/soste
     CalendarioService,
     ConfigNotasService,
     PlanDeEstudiosService,
+    AsignaturasEspecialesService,
     RedirectService,
   ],
   bootstrap: [RootComponent]

@@ -33,6 +33,11 @@ export class ConfiguracionDashboardComponent implements OnInit {
       'glosa':'Planes de Estudio y Tipos de Enseñanza',
       'path':'planes-ensenanza',
       'icon':'icon-graduation-cap',
+    },
+    {
+      'glosa':'Asignaturas Especiales',
+      'path':'asignaturas-especiales',
+      'icon':'icon-pencil',
     }
   ];
 

@@ -90,6 +90,7 @@ import { CalendarioAcademicoComponent } from './components/sistema/configuracion
 import { NotasPonderacionesComponent } from './components/sistema/configuracion/notas-ponderaciones/notas-ponderaciones.component';
 import { JornadaComponent } from './components/sistema/configuracion/jornada/jornada.component';
 import { PlanesEnsenanzaComponent } from './components/sistema/configuracion/planes-ensenanza/planes-ensenanza.component';
+import { AsignaturasEspecialesComponent } from './components/sistema/configuracion/asignaturas-especiales/asignaturas-especiales.component';
 //Documentos
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { InformesComponent } from './components/documentos/informes/informes.component';
@@ -211,6 +212,7 @@ const routes: Routes = [
       {path:'notas', component: NotasPonderacionesComponent },
       {path:'jornada', component: JornadaComponent },
       {path:'planes-ensenanza', component: PlanesEnsenanzaComponent },
+      {path:'asignaturas-especiales', component: AsignaturasEspecialesComponent },
     ]
   },
   { path: '**', redirectTo: '404'},
