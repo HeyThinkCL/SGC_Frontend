@@ -68,12 +68,13 @@ export class CalendarioAcademicoComponent implements OnInit {
 
   ngOnInit() {
     this.configuracionService.getConfiguraciones().subscribe(res => {
-      this.configId = res.find(c => c.glosa == 'Notas y Ponderaciones' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser')).colegioId).id;
+      this.configId = res.find(c => c.glosa == 'Calendario Académico' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser')).colegioId).id;
 
       this.calendarioService.getConfigCalendarioAcademico(this.configId).subscribe(res => {
         if(res){
           this.calendarioService.getConfigCalendarioAcademicoById(this.configId).subscribe(subRes => {
             this.configuracion = subRes;
+            console.log(subRes);
             this.formatDates(this.configuracion);
           })
         } else {

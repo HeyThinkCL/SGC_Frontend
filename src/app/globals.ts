@@ -12,13 +12,11 @@
   *.*.y.* minor update number
   *.*.*.z bug fig update number
 */
-export let version: string = '0.4.5.0';
+export let version: string = '0.4.5.2';
 
 export let apiUrl: string = 'http://192.168.1.175:3000';//dev
 
 // export let apiUrl: string = 'https://api.innovacolegio.cl';//production
-
-// export let apiUrl: string = 'http://office.heythink.cl:3000';//test
 
 export let rolesDocentes = [
   {'rol':'profesor'},

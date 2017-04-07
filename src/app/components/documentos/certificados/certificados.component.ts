@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import {CertificadosService} from '../../../services/documentos/certificados.service'
+
 @Component({
   selector: 'app-certificados',
   templateUrl: './certificados.component.html',
@@ -8,28 +10,31 @@ import { Component, OnInit } from '@angular/core';
 export class CertificadosComponent implements OnInit {
 
   docs = [
-    {'id':'cMatricula','nombre':'Certificado Matricula'},
-    {'id':'cAlumnoRegular','nombre':'Certificado Alumno Regular'},
-    {'id':'cInscripcion','nombre':'Certificado de Inscripción'},
-    {'id':'cAsistencia','nombre':'Certificado de Asistencia'},
-    {'id':'cTRaslado','nombre':'Certificado de Traslado'},
-    {'id':'cRanking','nombre':'Ranking 4tos Medios'},
-    {'id':'cAccidenteEscolar','nombre':'Certificado de Accidente Escolar'},
-    {'id':'cPermisoSalida','nombre':'Permiso de Salida'},
+    {'id':1,'nombre':'Certificado Matricula'},
+    {'id':2,'nombre':'Certificado Alumno Regular'},
+    {'id':3,'nombre':'Certificado de Inscripción'},
+    {'id':4,'nombre':'Certificado de Asistencia'},
+    {'id':5,'nombre':'Certificado de Traslado'},
+    {'id':6,'nombre':'Ranking 4tos Medios'},
+    {'id':7,'nombre':'Certificado de Accidente Escolar'},
+    {'id':8,'nombre':'Permiso de Salida'},
   ];
 
   options = [
-    {'id':'fTipoEnsenanza','nombre':'Por Tipo de Enseñanza','icon':'icon-institution'},
-    {'id':'fGrado','nombre':'Por Grado','icon':'icon-mortar-board'},
-    {'id':'fCurso','nombre':'Por Curso','icon':'icon-users'},
-    {'id':'fAlumno','nombre':'Por Alumno','icon':'icon-user'},
+    {'id':1,'nombre':'Por Plan de Estudios','icon':'icon-institution'},
+    {'id':2,'nombre':'Por Tipo de Enseñanza','icon':'icon-institution'},
+    {'id':3,'nombre':'Por Nivel','icon':'icon-mortar-board'},
+    {'id':4,'nombre':'Por Curso','icon':'icon-users'},
+    {'id':5,'nombre':'Por Alumno','icon':'icon-user'},
   ];
 
-  docsId: string[] = [];
-  optionId: string;
-  subjectsId: string[] = [];
+  docsId: any[] = [];
+  optionId: number;
+  subjectsId: any[] = [];
 
-  constructor() { }
+  constructor(
+    private certificadosService: CertificadosService,
+  ) { }
 
   ngOnInit() {
   }
@@ -42,7 +47,7 @@ export class CertificadosComponent implements OnInit {
     }
   }
 
-  setOption(id: string){
+  setOption(id){
     this.subjectsId = [];
     if(this.optionId == id){
       this.optionId = null;
@@ -70,6 +75,16 @@ export class CertificadosComponent implements OnInit {
       'filtro': this.optionId,
       'sujetos':this.subjectsId,
     };
+
+    console.log(payload);
+
+    for(let docId of this.docsId){
+      if(docId==2){
+        this.certificadosService.generateAlumnoRegular(this.optionId,this.subjectsId).subscribe(res => {
+          console.log(res);
+        })
+      }
+    }
 
   }
 

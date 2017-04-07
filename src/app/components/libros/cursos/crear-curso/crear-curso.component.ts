@@ -74,7 +74,7 @@ export class CrearCursoComponent implements OnInit {
   ngOnInit() {
 
     this.configuracionService.getConfiguraciones().subscribe(configs => {
-      let configId = configs.find(c => c.glosa == 'Planes de Estudio y Tipos de Enseñanza').id;
+      let configId = configs.find(c => c.glosa == 'Planes de Estudio y Tipos de Enseñanza' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser'))).id;
 
       this.planDeEStudiosService.getConfigPlanesDeEstudio(configId).subscribe(res => {
         this.planesDeEstudio = res.planes;

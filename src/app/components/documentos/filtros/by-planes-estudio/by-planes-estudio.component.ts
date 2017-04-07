@@ -5,11 +5,11 @@ import { PlanDeEstudiosService } from '../../../../services/sistema/configuracio
 import { ConfiguracionService } from '../../../../services/sistema/configuracion.service';
 
 @Component({
-  selector: 'app-by-tipo-ensenanza',
-  templateUrl: './by-tipo-ensenanza.component.html',
-  styleUrls: ['./by-tipo-ensenanza.component.css']
+  selector: 'app-by-planes-estudio',
+  templateUrl: './by-planes-estudio.component.html',
+  styleUrls: ['./by-planes-estudio.component.css']
 })
-export class ByTipoEnsenanzaComponent implements OnInit {
+export class ByPlanesEstudioComponent implements OnInit {
   @Input('docs') docs: string[];
   @Output() onSelect = new EventEmitter<any>();
 
@@ -39,16 +39,14 @@ export class ByTipoEnsenanzaComponent implements OnInit {
         this.selectData = [
           {
             id:' ',
-            text:'Seleccionar Tipo de Enseñanza'
+            text:'Seleccionar Planes de Estudio'
           }
         ];
         for(let plan of this.planesDeEstudio){
-          for(let tipo of plan.tipos){
-            this.selectData.push({
-              id:tipo.tipo.id,
-              text:tipo.tipo.glosa
-            })
-          }
+          this.selectData.push({
+            id:plan.id,
+            text: plan.decreto.length>70 ? plan.decreto.substring(0,plan.decreto.length-18)+'...' : plan.decreto,
+          })
         }
       });
     });
@@ -56,7 +54,7 @@ export class ByTipoEnsenanzaComponent implements OnInit {
     this.selectOptions = {
       multiple: true,
       closeOnSelect: false,
-      placeholder: 'Seleccione Tipo de Enseñanza',
+      placeholder: 'Seleccionar Planes de Estudio',
       allowClear: true,
     };
 

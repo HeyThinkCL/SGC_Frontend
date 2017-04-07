@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+import {CursosService} from '../../../../services/libros/cursos.service';
+
 @Component({
   selector: 'app-by-curso',
   templateUrl: './by-curso.component.html',
@@ -9,24 +11,7 @@ export class ByCursoComponent implements OnInit {
   @Input('docs') docs: string[];
   @Output() onSelect = new EventEmitter<any>();
 
-  cursos = [
-    {
-      'curso':{'id':'1','grado':'1ero Básico','curso':'D','anio':'2017'},
-      'profesor':{'nombre':'Juan','apellido_paterno':'Jose','apellido_materno':'Miguel'}
-    },
-    {
-      'curso':{'id':'2','grado':'4to Medio','curso':'A','anio':'2017'},
-      'profesor':{'nombre':'Juan','apellido_paterno':'Jose','apellido_materno':'Miguel'}
-    },
-    {
-      'curso':{'id':'3','grado':'8vo Básico','curso':'C','anio':'2017'},
-      'profesor':{'nombre':'Pedro','apellido_paterno':'Peirano','apellido_materno':'Etcetera'}
-    },
-    {
-      'curso':{'id':'4','grado':'7mo Básico','curso':'B','anio':'2017'},
-      'profesor':{'nombre':'Pedro','apellido_paterno':'Peirano','apellido_materno':'Etcetera'}
-    },
-  ];
+  cursos = [];
 
   filterData = '';
   filterKeys = [
@@ -40,10 +25,15 @@ export class ByCursoComponent implements OnInit {
   selected = [];
   selectedHolder = [];
 
-  constructor() { }
+  constructor(
+    private cursosService: CursosService,
+  ) { }
 
   ngOnInit() {
     this.disabledSelect = false;
+    this.cursosService.getCursos().subscribe(cursos => {
+      this.cursos = cursos;
+    })
   }
 
   selectCurso(id){

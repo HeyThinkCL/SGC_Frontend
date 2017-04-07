@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+import {MatriculaService} from '../../../../services/sistema/matricula.service';
+
 @Component({
   selector: 'app-by-alumno',
   templateUrl: './by-alumno.component.html',
@@ -9,12 +11,7 @@ export class ByAlumnoComponent implements OnInit {
   @Input('docs') docs: string[];
   @Output() onSelect = new EventEmitter<any>();
 
-  alumnos = [
-    {'id':'1','nombre':'Ivan','apellido_paterno':'Arenas','apellido_materno':'Sands','rut':1111111,'dv':'1'},
-    {'id':'2','nombre':'Don','apellido_paterno':'Carter','apellido_materno':'Mailman','rut':2222222,'dv':'2'},
-    {'id':'3','nombre':'Richard','apellido_paterno':'Gere','apellido_materno':'Gere','rut':3333333,'dv':'3'},
-    {'id':'4','nombre':'Marcelo','apellido_paterno':'Compa','apellido_materno':'Rini','rut':1433233,'dv':'k'},
-  ];
+  alumnos = [];
 
   public disabledSelect: boolean;
   selected = [];
@@ -23,10 +20,15 @@ export class ByAlumnoComponent implements OnInit {
   filterData = '';
   filterKeys = ['nombre','apellido_paterno','apellido_materno','rut'];
 
-  constructor() { }
+  constructor(
+    private matriculaService: MatriculaService,
+  ) { }
 
   ngOnInit() {
     this.disabledSelect = false;
+    this.matriculaService.getMatriculas().subscribe(alumnos => {
+      this.alumnos = alumnos;
+    })
   }
 
   selectAlumno(id){

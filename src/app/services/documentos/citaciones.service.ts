@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class CertificadosService {
+export class CitacionesService {
 
   constructor() { }
-
-
 
 }

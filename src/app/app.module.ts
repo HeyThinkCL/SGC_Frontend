@@ -144,6 +144,9 @@ import {AsignaturasEspecialesService} from './services/sistema/configuraciones/a
 import {AsistenciaService} from "./services/libros/asistencia.service";
 import {PlanDeEstudiosService} from './services/sistema/configuraciones/plan-de-estudios.service';
 import {RedirectService} from './services/redirect.service';
+import {CertificadosService} from './services/documentos/certificados.service';
+import {CitacionesService} from './services/documentos/citaciones.service';
+import {InformesService} from './services/documentos/informes.service';
 
 //Guards
 import {AuthGuard,AuthGuardChild} from './guards/auth.guard';
@@ -152,6 +155,7 @@ import {AdministradorGuard,AdministradorGuardChild} from './guards/sesion-guards
 import {ConfiguracionesGuard,ConfiguracionesGuardChild} from './guards/sesion-guards/configuraciones.guard';
 import {DigitadorGuard,DigitadorGuardChild} from './guards/sesion-guards/digitador.guard';
 import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/sostenedor.guard';
+import { ByPlanesEstudioComponent } from './components/documentos/filtros/by-planes-estudio/by-planes-estudio.component';
 
 
 
@@ -243,6 +247,7 @@ import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/soste
     NotFoundComponent,
     ForbiddenComponent,
     ServerErrorComponent,
+    ByPlanesEstudioComponent,
   ],
   imports: [
     BrowserModule,
@@ -287,6 +292,9 @@ import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/soste
     PlanDeEstudiosService,
     AsignaturasEspecialesService,
     RedirectService,
+    CertificadosService,
+    InformesService,
+    CitacionesService,
   ],
   bootstrap: [RootComponent]
 })

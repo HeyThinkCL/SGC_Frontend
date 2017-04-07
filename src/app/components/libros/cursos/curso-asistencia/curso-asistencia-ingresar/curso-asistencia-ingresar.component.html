@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-12">
     <app-spinner *ngIf="!(inasistenciaMonth.length>0)" ></app-spinner>
-    <div class="card" *ngIf="inasistenciaMonth.length>0">
+    <div class="card" *ngIf="inasistenciaMonth.length>0 && calendarConfig">
     <!--<div class="card">-->
       <div class="card-header">
         <div class="row">
@@ -18,7 +18,7 @@
 
       </div>
       <app-spinner *ngIf="!(view)"></app-spinner>
-      <div class="card-body" *ngIf="view">
+      <div class="card-body" *ngIf="view && calendarConfig">
       <!--<div class="card-body">-->
         <div *ngIf="view">
           <div *ngFor="let rowIndex of view.rowOffsets">

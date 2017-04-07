@@ -72,8 +72,9 @@ export class CursoAsistenciaVerComponent implements OnInit {
         this.inasistenciaMonth = res.mes;
 
         this.configuracionService.getConfiguraciones().subscribe(configs => {
-          let config = configs.find(c => c.glosa == 'Calendario Académico');
+          let config = configs.find(c => c.glosa == 'Calendario Académico' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser')).colegioId);
           this.calendarioService.getConfigCalendarioAcademicoById(config.id).subscribe(subRes => {
+            console.log(subRes);
             this.calendarConfig = subRes;
             this.view = this.getMonthView({
               viewDate: this.viewDate,

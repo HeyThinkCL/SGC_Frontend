@@ -23,6 +23,7 @@ export class MatriculaService {
   getUserRol(){
     return JSON.parse(localStorage.getItem('currentUser')).userRol;
   }
+
   //GET
   getMatriculas(): Observable<any[]> {
     const url = `${this.matriculasUrl}/matriculados?colegio_id=${this.getColegioId()}`;

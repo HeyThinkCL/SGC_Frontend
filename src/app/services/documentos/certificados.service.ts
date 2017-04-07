@@ -5,12 +5,12 @@ import { Observable } from "rxjs";
 import * as globalVar from '../../globals';
 
 @Injectable()
-export class AsistenciaService {
+export class CertificadosService {
   static get parameters(){
     return [[Http]]
   }
 
-  private asistenciaUrl = globalVar.apiUrl+'/libro_clases/cursos/asistencias';
+  private documentosUrl = globalVar.apiUrl+'/certificados';
 
   constructor(private http: Http) {
 
@@ -27,21 +27,17 @@ export class AsistenciaService {
     return JSON.parse(localStorage.getItem('currentUser')).userRol;
   }
 
-  //GET
-  getInasistenciasByMonth(idCurso: number, day: Date){
-    const url = `${this.asistenciaUrl}?anno=${day.getFullYear()}&mes=${day.getMonth()+1}&curso_id=${idCurso}`;
-    return this.http.get(`${url}&colegio_id=${this.getColegioId()}`, {headers: this.headers})
+  generateAlumnoRegular(idFilter: number, subjects: any[]){
+    let payload = {
+      'filtro': {
+        'id': idFilter,
+        'sujetos': subjects,
+      },
+      'colegio_id':this.getColegioId(),
+    };
+
+    return this.http.post(`${this.documentosUrl}/alumnos_regulares`, JSON.stringify(payload),{headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status));
   }
-
-  //POST
-  updateInasistencia(payload: any, cursoId: number){
-    payload['curso_id'] = cursoId;
-    return this.http
-      .post(this.asistenciaUrl, JSON.stringify({'asistencias':payload,'colegio_id':this.getColegioId()}), {headers: this.headers})
-      .map(() => {})
-      .catch((error:any) => Observable.throw(error.json().error || error.status ));
-  }
-
 }

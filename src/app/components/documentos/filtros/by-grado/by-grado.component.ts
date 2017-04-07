@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Select2OptionData } from 'ng2-select2';
 
+import {CursosService} from '../../../../services/libros/cursos.service';
+
 @Component({
   selector: 'app-by-grado',
   templateUrl: './by-grado.component.html',
@@ -17,32 +19,37 @@ export class ByGradoComponent implements OnInit {
   selected: any;
   selectedHolder: any;
 
-  constructor() { }
+  private grados = [];
+
+  constructor(
+    private cursosService: CursosService,
+  ) { }
 
   ngOnInit() {
-    this.selectData = [
-      {
-        id: 'opt1',
-        text: 'Options 1'
-      },
-      {
-        id: 'opt2',
-        text: 'Options 2'
-      },
-      {
-        id: 'opt3',
-        text: 'Options 3'
-      },
-      {
-        id: 'opt4',
-        text: 'Options 4'
+    this.cursosService.getCursos().subscribe(cursos => {
+      for(let c of cursos){
+        if(this.grados.length<1 || this.grados.indexOf(c.curso.grado)==-1){
+          this.grados.push(c.curso.grado);
+        }
       }
-    ];
+      this.selectData = [
+        {
+          id: ' ',
+          text: 'Seleccionar Nivel'
+        },
+      ];
+      for(let grado of this.grados){
+        this.selectData.push({
+          id: grado,
+          text: grado
+        })
+      }
+    });
 
     this.selectOptions = {
       multiple: true,
       closeOnSelect: false,
-      placeholder: 'Seleccione Grado',
+      placeholder: 'Seleccione Nivel',
       allowClear: true,
     };
 
@@ -54,7 +61,10 @@ export class ByGradoComponent implements OnInit {
       this.selectedHolder = this.selected;
       let selectedBuffer = [];
       for (let option of this.selectData){
-        selectedBuffer.push(option.id);
+        if(!(option.id==' ')){
+          selectedBuffer.push(option.id);
+        }
+
       }
       this.selected = selectedBuffer;
     } else {
