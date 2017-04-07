@@ -50,7 +50,7 @@
   </div>
   <div class="col-md-10 col-sm-offset-1">
     <div class="row gutter-xs">
-      <div class="col-md-3" *ngFor="let option of options">
+      <div class="col-md-4" *ngFor="let option of options">
         <div class="card" (click)="setOption(option.id)">
           <div class="card-body">
             <div class="media">
@@ -70,11 +70,11 @@
     </div>
   </div>
 </div>
-
-<app-by-tipo-ensenanza [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 'fTipoEnsenanza'"></app-by-tipo-ensenanza>
-<app-by-grado [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 'fGrado'"></app-by-grado>
-<app-by-curso [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 'fCurso'"></app-by-curso>
-<app-by-alumno [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 'fAlumno'"></app-by-alumno>
+<app-by-planes-estudio [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 1"></app-by-planes-estudio>
+<app-by-tipo-ensenanza [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 2"></app-by-tipo-ensenanza>
+<app-by-grado [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 3"></app-by-grado>
+<app-by-curso [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 4"></app-by-curso>
+<app-by-alumno [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 5"></app-by-alumno>
 
 <div class="row" *ngIf="(docsId.length > 0)||optionId">
   <div class="col-md-10 col-md-offset-1">

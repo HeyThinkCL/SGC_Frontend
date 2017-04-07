@@ -36,12 +36,7 @@ export class ByTipoEnsenanzaComponent implements OnInit {
       this.planDeEStudiosService.getConfigPlanesDeEstudio(configId).subscribe(res => {
         this.planesDeEstudio = res.planes;
 
-        this.selectData = [
-          {
-            id:' ',
-            text:'Seleccionar Tipo de Enseñanza'
-          }
-        ];
+        this.selectData = [];
         for(let plan of this.planesDeEstudio){
           for(let tipo of plan.tipos){
             this.selectData.push({

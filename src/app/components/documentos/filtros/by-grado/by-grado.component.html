@@ -6,10 +6,10 @@
           <div class="demo-form-wrapper">
             <div class="form-group">
               <label class="control-label col-sm-1 col-sm-offset-1" for="select-form-1">Grado</label>
-              <div class="col-sm-6">
+              <div class="col-sm-6" id="select-form-1-wrapper">
                 <select2 id="select-form-1"
                          [data]="selectData"
-                         [width]="350 | select2WidthFix"
+                         [width]="350 | select2WidthFix:'select-form-1-wrapper'"
                          [options]="selectOptions"
                          [disabled]="disabledSelect"
                          [value]="selectValue"

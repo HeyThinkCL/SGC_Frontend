@@ -13,10 +13,11 @@ export class InformesComponent implements OnInit {
   ];
 
   options = [
-    {'id':'fTipoEnsenanza','nombre':'Por Tipo de Enseñanza','icon':'icon-institution'},
-    {'id':'fGrado','nombre':'Por Grado','icon':'icon-mortar-board'},
-    {'id':'fCurso','nombre':'Por Curso','icon':'icon-users'},
-    {'id':'fAlumno','nombre':'Por Alumno','icon':'icon-user'},
+    {'id':1,'nombre':'Por Plan de Estudios','icon':'icon-institution'},
+    {'id':2,'nombre':'Por Tipo de Enseñanza','icon':'icon-institution'},
+    {'id':3,'nombre':'Por Nivel','icon':'icon-mortar-board'},
+    {'id':4,'nombre':'Por Curso','icon':'icon-users'},
+    {'id':5,'nombre':'Por Alumno','icon':'icon-user'},
   ];
 
   docsId: string[] = [];
@@ -36,7 +37,7 @@ export class InformesComponent implements OnInit {
     }
   }
 
-  setOption(id: string){
+  setOption(id){
     this.subjectsId = [];
     if(this.optionId == id){
       this.optionId = null;

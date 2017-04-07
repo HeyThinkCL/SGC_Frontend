@@ -36,12 +36,7 @@ export class ByPlanesEstudioComponent implements OnInit {
       this.planDeEStudiosService.getConfigPlanesDeEstudio(configId).subscribe(res => {
         this.planesDeEstudio = res.planes;
 
-        this.selectData = [
-          {
-            id:' ',
-            text:'Seleccionar Planes de Estudio'
-          }
-        ];
+        this.selectData = [];
         for(let plan of this.planesDeEstudio){
           this.selectData.push({
             id:plan.id,

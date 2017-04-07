@@ -32,12 +32,7 @@ export class ByGradoComponent implements OnInit {
           this.grados.push(c.curso.grado);
         }
       }
-      this.selectData = [
-        {
-          id: ' ',
-          text: 'Seleccionar Nivel'
-        },
-      ];
+      this.selectData = [];
       for(let grado of this.grados){
         this.selectData.push({
           id: grado,
