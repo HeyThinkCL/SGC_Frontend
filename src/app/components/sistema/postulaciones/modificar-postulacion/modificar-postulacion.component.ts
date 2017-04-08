@@ -86,8 +86,10 @@ export class ModificarPostulacionComponent implements OnInit {
     });
 
     this.route.params
-      .switchMap((params: Params) => this.postulacionesService.getPostulante(+params['id']))
-      .subscribe((postulante) => {
+      .switchMap((params: Params) => this.postulacionesService.getPostulante(+params['id'])).subscribe((postulante) => {
+        if(postulante.prioritario || postulante.preferente){
+          postulante['sep']=true;
+        }
         this.postulante = postulante;
         this.selectedPostulante = JSON.parse(JSON.stringify(this.postulante));
 

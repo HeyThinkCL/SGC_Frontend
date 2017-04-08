@@ -78,28 +78,10 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-md-1 col-md-offset-1"> Prioritario </label>
+              <label class="control-label col-md-1 col-md-offset-1"> SEP </label>
               <div class="col-md-1">
                 <label class="switch switch-info">
-                  <input class="switch-input" type="checkbox" [(ngModel)]="postulante.prioritario" disabled="disabled">
-                  <span class="switch-track"></span>
-                  <span class="switch-thumb"></span>
-                </label>
-              </div>
-
-              <label class="control-label col-md-1"> Vulnerable </label>
-              <div class="col-md-1">
-                <label class="switch switch-info">
-                  <input class="switch-input" type="checkbox" [(ngModel)]="postulante.vulnerable" disabled="disabled">
-                  <span class="switch-track"></span>
-                  <span class="switch-thumb"></span>
-                </label>
-              </div>
-
-              <label class="control-label col-md-1"> Preferente </label>
-              <div class="col-md-1">
-                <label class="switch switch-info">
-                  <input class="switch-input" type="checkbox" [(ngModel)]="postulante.preferente" disabled="disabled">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="postulante.sep" disabled="disabled">
                   <span class="switch-track"></span>
                   <span class="switch-thumb"></span>
                 </label>
@@ -114,10 +96,38 @@
                 </label>
               </div>
 
+              <label class="control-label col-md-2"> Pro Retención </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="postulante.proretencion" disabled="disabled">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+
               <label class="control-label col-md-2"> Intercambio </label>
               <div class="col-md-1">
                 <label class="switch switch-info">
                   <input class="switch-input" type="checkbox" [(ngModel)]="postulante.intercambio" disabled="disabled">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+            </div>
+            <div class="form-group" *ngIf="postulante && postulante.sep">
+              <label class="control-label col-md-1 col-md-offset-1"> Prioritario </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="postulante.prioritario" disabled="disabled">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+
+              <label class="control-label col-md-1"> Preferente </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="postulante.preferente" disabled="disabled">
                   <span class="switch-track"></span>
                   <span class="switch-thumb"></span>
                 </label>

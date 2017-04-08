@@ -49,6 +49,9 @@ export class PostulacionDetailComponent implements OnInit {
         if(!(postulante)){
           this.timeoutMessage = invalidRequestMsg();
         }
+        if(postulante.prioritario || postulante.preferente){
+          postulante['sep']=true;
+        }
 
         let pCheck = false;
         let mCheck = false;
