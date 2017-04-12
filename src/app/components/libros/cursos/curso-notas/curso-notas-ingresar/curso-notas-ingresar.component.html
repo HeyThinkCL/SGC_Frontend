@@ -50,7 +50,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let alumno of selectedAsignaturaAlumnos">
-              <td>{{alumno.alumno.id}}</td>
+              <td>{{alumno.alumno.lista}}</td>
               <td>{{alumno.alumno.nombre}}</td>
               <td>{{alumno.alumno.apellido_paterno}} {{alumno.alumno.apellido_materno}}</td>
               <td *ngFor="let nota of alumno.notas"

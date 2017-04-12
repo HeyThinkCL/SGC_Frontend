@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 
@@ -36,6 +36,7 @@ export class VerCursoComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private cursosService: CursosService,
     private planDeEStudiosService: PlanDeEstudiosService,
     private configuracionService: ConfiguracionService,
@@ -104,13 +105,28 @@ export class VerCursoComponent implements OnInit {
     return '';
 
   }
+
+  goToCurso(cursoId: number){
+    let check = this.cursos.find(c => c.curso.id == cursoId).curso.preparado;
+    if(check){
+      this.router.navigate(['./',cursoId],{relativeTo:this.route})
+    }
+  }
   //preparar cursos
   prepararCurso(cursoId: number){
-
+    this.cursosService.prepareCurso(cursoId).subscribe(res => {
+      let updatedCurso = this.cursos.find(c => c.curso.id==cursoId);
+      updatedCurso.curso.preparado = true;
+      console.log(this.cursos);
+    })
   }
 
   prepararCursosAll(){
-
+    for(let curso of this.cursos){
+      this.cursosService.prepareCurso(curso.curso.id).subscribe(res => {
+        curso.curso.preparado = true;
+      })
+    }
   }
 
   modalOpen(id: number): void {

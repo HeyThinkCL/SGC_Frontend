@@ -71,7 +71,7 @@ export class CursosService {
       .map(() => curso)
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-  //PUT
+  //POST
   createCurso(curso: Curso): Observable<any>{
     let options = new RequestOptions({headers: this.headers});
     curso['colegio_id'] = this.getColegioId();
@@ -112,7 +112,7 @@ export class CursosService {
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-  //POST
+  //PUT
   updateAsignaturasByCursoId(cursoId: number, asignaturas){
     const url = `${this.cursosUrl}/asignaturas/${cursoId}`;
     let payload = {};
@@ -121,6 +121,14 @@ export class CursosService {
 
     return this.http.put(url, JSON.stringify(payload), {headers: this.headers})
       .map(() => asignaturas)
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
+  }
+
+  prepareCurso(cursoId: number): Observable<any>{
+    const url = `${this.cursosUrl}/listas/${cursoId}?colegio_id=${this.getColegioId()}`;
+    let payload = {};
+    return this.http.put(url,JSON.stringify(payload), {headers: this.headers})
+      .map(()=> null )
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 }

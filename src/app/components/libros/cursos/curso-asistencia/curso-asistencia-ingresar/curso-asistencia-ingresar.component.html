@@ -84,6 +84,7 @@
                             <table class="table table-bordered table-hover">
                               <thead>
                               <tr class="bg-info">
+                                <th></th>
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
                                 <th>Rut</th>
@@ -93,6 +94,7 @@
                               <tr *ngFor="let alumno of selectedDay.alumnos"
                                   [ngClass]="{'bg-danger':!(alumno.asistencia)}"
                                   (click)="toggleValue(alumno)">
+                                <td>{{alumno.lista}}</td>
                                 <td>{{alumno.nombre}}</td>
                                 <td>{{alumno.apellido_paterno}} {{alumno.apellido_materno}}</td>
                                 <td>{{alumno.rut}}</td>

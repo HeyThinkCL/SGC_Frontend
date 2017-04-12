@@ -28,9 +28,13 @@ export class ColegiosService {
     return JSON.parse(localStorage.getItem('currentUser')).userRol;
   }
 
+  getUserId(){
+    return JSON.parse(localStorage.getItem('currentUser')).userId;
+  }
+
   //GET
   getColegios(): Observable<Colegio[]> {
-    return this.http.get(`${this.colegiosUrl}?colegio_id=${this.getColegioId()}`,{headers:this.headers})
+    return this.http.get(`${this.colegiosUrl}?colegio_id=${this.getColegioId()}&user_id=${this.getUserId()}`,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
@@ -49,6 +53,7 @@ export class ColegiosService {
   //POST
   createColegio(colegio: Colegio): Observable<Colegio>{
     let options = new RequestOptions({headers: this.headers});
+    colegio['user_id']=this.getUserId();
     return this.http.post(this.colegiosUrl, JSON.stringify(colegio), options)
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));

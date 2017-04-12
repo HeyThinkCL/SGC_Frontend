@@ -67,6 +67,7 @@
                         <table class="table table-bordered table-hover">
                           <thead>
                             <tr class="bg-info">
+                              <th></th>
                               <th>Nombre</th>
                               <th>Apellidos</th>
                               <th>Rut</th>
@@ -74,6 +75,7 @@
                           </thead>
                           <tbody>
                             <tr *ngFor="let alumno of selectedDay?.alumnos">
+                              <td>{{alumno.alumno.lista}}</td>
                               <td>{{alumno.alumno.nombre}}</td>
                               <td>{{alumno.alumno.apellido_paterno}} {{alumno.alumno.apellido_materno}}</td>
                               <td>{{alumno.alumno.rut}}-{{alumno.alumno.dv}}</td>

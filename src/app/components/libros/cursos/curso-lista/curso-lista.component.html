@@ -7,6 +7,7 @@
           <table class="table table-middle table-striped table-bordered table-hover">
             <thead>
             <tr class="bg-primary">
+              <th></th>
               <th>Nombre</th>
               <th>Apellidos</th>
               <th>Rut</th>
@@ -16,6 +17,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let alumno of alumnos">
+              <td>{{alumno.lista}}</td>
               <td>{{alumno.nombre}}</td>
               <td>{{alumno.apellido_paterno}} {{alumno.apellido_materno}}</td>
               <td>{{alumno.rut}}-{{alumno.dv}}</td>

@@ -39,7 +39,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let curso of cursos |filterArray:filterData:filterKeys" [routerLink]="['./',curso.curso.id]">
+            <tr *ngFor="let curso of cursos |filterArray:filterData:filterKeys" (click)="goToCurso(curso.curso.id)">
               <td class="maw-320">
                 <span>{{ curso.curso.grado }} {{ curso.curso.curso }}</span>
               </td>

@@ -41,6 +41,7 @@ export class AuthenticationService {
         rolName = '';
       }
       let currentUser = {
+        userId:userData.id,
         email: userData.email,
         token: this.token,
         colegioId: userData.colegio_id,
