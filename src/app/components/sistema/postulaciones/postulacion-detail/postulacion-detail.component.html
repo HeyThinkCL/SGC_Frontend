@@ -113,6 +113,15 @@
                   <span class="switch-thumb"></span>
                 </label>
               </div>
+
+              <label class="control-label col-md-1"> Internado </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="postulante.internado" disabled="disabled">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
             </div>
             <div class="form-group" *ngIf="postulante && postulante.sep">
               <label class="control-label col-md-1 col-md-offset-1"> Prioritario </label>

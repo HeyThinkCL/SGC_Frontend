@@ -224,6 +224,7 @@ export class Postulante{
   pie: boolean;
   sep: boolean;
   intercambio: boolean;
+  internado: boolean;
   excedente: boolean;
   lista: number;
   nombre: string;

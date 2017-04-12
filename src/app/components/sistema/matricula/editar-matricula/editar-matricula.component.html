@@ -104,28 +104,10 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-md-1"> Prioritario </label>
+              <label class="control-label col-md-1 col-md-offset-1"> SEP </label>
               <div class="col-md-1">
                 <label class="switch switch-info">
-                  <input class="switch-input" type="checkbox" [(ngModel)]="matricula.prioritario">
-                  <span class="switch-track"></span>
-                  <span class="switch-thumb"></span>
-                </label>
-              </div>
-
-              <label class="control-label col-md-1"> Vulnerable </label>
-              <div class="col-md-1">
-                <label class="switch switch-info">
-                  <input class="switch-input" type="checkbox" [(ngModel)]="matricula.vulnerable">
-                  <span class="switch-track"></span>
-                  <span class="switch-thumb"></span>
-                </label>
-              </div>
-
-              <label class="control-label col-md-1"> Preferente </label>
-              <div class="col-md-1">
-                <label class="switch switch-info">
-                  <input class="switch-input" type="checkbox" [(ngModel)]="matricula.preferente">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="matricula.sep">
                   <span class="switch-track"></span>
                   <span class="switch-thumb"></span>
                 </label>
@@ -140,10 +122,48 @@
                 </label>
               </div>
 
+              <label class="control-label col-md-1"> Pro Retencion </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="matricula.proretencion">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+
               <label class="control-label col-md-2"> Intercambio </label>
               <div class="col-md-1">
                 <label class="switch switch-info">
                   <input class="switch-input" type="checkbox" [(ngModel)]="matricula.intercambio">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+
+              <label class="control-label col-md-1"> Internado </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="matricula.internado">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group" *ngIf="matricula && matricula.sep">
+              <label class="control-label col-md-1 col-md-offset-1"> Prioritario </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="matricula.prioritario">
+                  <span class="switch-track"></span>
+                  <span class="switch-thumb"></span>
+                </label>
+              </div>
+
+              <label class="control-label col-md-1"> Preferente </label>
+              <div class="col-md-1">
+                <label class="switch switch-info">
+                  <input class="switch-input" type="checkbox" [(ngModel)]="matricula.preferente">
                   <span class="switch-track"></span>
                   <span class="switch-thumb"></span>
                 </label>

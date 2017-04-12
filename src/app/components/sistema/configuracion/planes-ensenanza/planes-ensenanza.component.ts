@@ -200,7 +200,7 @@ export class PlanesEnsenanzaComponent implements OnInit {
         if(!plan.tipos.find(t => t.tipo.id==+tipo)){
           let tipoData = selectedPlan.tipos.find(t => t.tipo.id==+tipo);
           let _tipoData = JSON.parse(JSON.stringify(tipoData));
-          _tipoData['cursos_nivel'] = null;
+          _tipoData['cursos_nivel'] = 1;
           plan.tipos.push(_tipoData);
         }
       }
@@ -220,7 +220,6 @@ export class PlanesEnsenanzaComponent implements OnInit {
 
   modalClose(){
     this.modal.close();
-    this.goBack();
   }
 
   goBack(): void {
@@ -229,10 +228,11 @@ export class PlanesEnsenanzaComponent implements OnInit {
 
   saveConfig(){
     this.planDeEstudiosService.updateConfigPlanesDeEstudio(this.configId,this.configuracion).subscribe(configRes => {
-      console.log(configRes);
       if(configRes){
+        console.log('config saved', configRes);
         this.planDeEstudiosService.createCursosWithConfigPlanesDeEstudio(this.configId,this.configuracion).subscribe(res => {
           this.modalClose();
+          this.goBack();
         })
       }
     });
