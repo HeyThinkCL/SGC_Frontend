@@ -39,8 +39,9 @@ export class FuncionarioDetailComponent implements OnInit {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
-      this.funcionariosService.getFuncionario(this.id).subscribe(res => {
+      this.funcionariosService.getFuncionarioById(this.id).subscribe(res => {
         this.funcionario = res;
+        console.log(this.funcionario);
         this.setRolesDocentes();
         this.setRolesNoDocentes();
       })

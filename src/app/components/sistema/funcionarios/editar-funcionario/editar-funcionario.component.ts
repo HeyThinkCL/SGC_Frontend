@@ -55,7 +55,7 @@ export class EditarFuncionarioComponent implements OnInit {
 
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
-      this.funcionariosService.getFuncionario(this.id).subscribe(res => {
+      this.funcionariosService.getFuncionarioById(this.id).subscribe(res => {
         if(!res.horas_profesor){
           res['horas_profesor'] = null;
         }

@@ -104,6 +104,14 @@ export class VerCursoComponent implements OnInit {
     return '';
 
   }
+  //preparar cursos
+  prepararCurso(cursoId: number){
+
+  }
+
+  prepararCursosAll(){
+
+  }
 
   modalOpen(id: number): void {
     this.modal.open();
