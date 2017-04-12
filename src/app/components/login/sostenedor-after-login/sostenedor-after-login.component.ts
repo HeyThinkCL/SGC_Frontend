@@ -16,7 +16,12 @@ export class SostenedorAfterLoginComponent implements OnInit {
 
   ngOnInit() {
     this.colegiosService.getColegios().subscribe((response) => {
-      this.colegios = response;
+      if(response.length>0){
+        this.colegios = response;
+      } else {
+        this.router.navigate(['app/sistema/colegios/crear']);
+      }
+
     });
   }
 

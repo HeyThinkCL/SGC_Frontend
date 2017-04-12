@@ -45,18 +45,18 @@ export class CalendarioAcademicoComponent implements OnInit {
       'fecha_termino':null,
     },
     'vacaciones':[
-      {
+      /*{
         'glosa':'',
         'fecha_inicio':null,
         'fecha_termino':null,
-      }
+      }*/
     ],
     'fechas_especiales':[
-      {
+      /*{
         'glosa':'',
         'fecha_inicio':null,
         'fecha_termino':null,
-      }
+      }*/
     ]
   };
 
@@ -134,8 +134,12 @@ export class CalendarioAcademicoComponent implements OnInit {
   addVacaciones(){
     this.calendarioService.createEventCalendarioAcademico(true,this.configId).subscribe(res => {
       this.calendarioService.getConfigCalendarioAcademicoById(this.configId).subscribe(subRes => {
-        this.configuracion = subRes;
-        this.formatDates(this.configuracion);
+        this.formatDates(subRes);
+        for(let vacacion of subRes.vacaciones){
+          if(this.configuracion.vacaciones.findIndex(v => v.id==vacacion.id)==-1){
+            this.configuracion.vacaciones.push(vacacion);
+          }
+        }
       })
     })
   }
@@ -143,8 +147,12 @@ export class CalendarioAcademicoComponent implements OnInit {
   addFechaEspecial(){
     this.calendarioService.createEventCalendarioAcademico(false,this.configId).subscribe(res => {
       this.calendarioService.getConfigCalendarioAcademicoById(this.configId).subscribe(subRes => {
-        this.configuracion = subRes;
-        this.formatDates(this.configuracion);
+        this.formatDates(subRes);
+        for(let fecha of subRes.fechas_especiales){
+          if(this.configuracion.fechas_especiales.findIndex(f => f.id==fecha.id)==-1){
+            this.configuracion.fechas_especiales.push(fecha);
+          }
+        }
       })
     })
   }
@@ -152,8 +160,19 @@ export class CalendarioAcademicoComponent implements OnInit {
   deleteFecha(id: number){
     this.calendarioService.deleteEventCalendarioAcademico(id).subscribe(() => {
       this.calendarioService.getConfigCalendarioAcademicoById(this.configId).subscribe(subRes => {
-        this.configuracion = subRes;
-        this.formatDates(this.configuracion);
+        this.formatDates(subRes);
+        for(let vacacion of this.configuracion.vacaciones){
+          let vIdx = subRes.vacaciones.findIndex(v => v.id==vacacion.id);
+          if(vIdx==-1){
+            this.configuracion.vacaciones.splice(this.configuracion.vacaciones.indexOf(vacacion),1);
+          }
+        }
+        for(let fecha of this.configuracion.fechas_especiales){
+          let fIdx = subRes.fechas_especiales.findIndex(f => f.id==fecha.id);
+          if(fIdx==-1){
+            this.configuracion.fechas_especiales.splice(this.configuracion.fechas_especiales.indexOf(fecha),1);
+          }
+        }
       })
     })
   }
