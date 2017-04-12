@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild } from '@angular/core';
+import {Router} from "@angular/router";
 import { Location } from '@angular/common'
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { Select2OptionData } from 'ng2-select2';
@@ -7,6 +8,7 @@ import {RedirectService} from '../../../../services/redirect.service'
 import { CursosService } from '../../../../services/libros/cursos.service';
 import { PlanDeEstudiosService } from '../../../../services/sistema/configuraciones/plan-de-estudios.service';
 import { ConfiguracionService } from '../../../../services/sistema/configuracion.service';
+
 
 @Component({
   selector: 'app-crear-curso',
@@ -64,6 +66,7 @@ export class CrearCursoComponent implements OnInit {
 
   constructor(
     private location: Location,
+    private router: Router,
     private cursosService: CursosService,
     private planDeEStudiosService: PlanDeEstudiosService,
     private configuracionService: ConfiguracionService,
@@ -74,34 +77,45 @@ export class CrearCursoComponent implements OnInit {
   ngOnInit() {
 
     this.configuracionService.getConfiguraciones().subscribe(configs => {
-      let configId = configs.find(c => c.glosa == 'Planes de Estudio y Tipos de Enseñanza' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser'))).id;
+      let configId = configs.find(c => c.glosa == 'Planes de Estudio y Tipos de Enseñanza' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser')).colegioId).id;
 
       this.planDeEStudiosService.getConfigPlanesDeEstudio(configId).subscribe(res => {
-        this.planesDeEstudio = res.planes;
+        if(res && res.planes && res.planes.length>0){
+          this.planesDeEstudio = res.planes;
 
-        this.selectPlanesData.push({
-          id:' ',
-          text:'Seleccionar Plan de Estudios'
-        });
-
-        for(let plan of this.planesDeEstudio){
-          if(this.selectPlanesData.length==0){
-          }
           this.selectPlanesData.push({
-            id:plan.id,
-            text: plan.decreto.length>70 ? plan.decreto.substring(0,plan.decreto.length-18)+'...' : plan.decreto,
-          })
+            id:' ',
+            text:'Seleccionar Plan de Estudios'
+          });
+
+          for(let plan of this.planesDeEstudio){
+            if(this.selectPlanesData.length==0){
+            }
+            this.selectPlanesData.push({
+              id:plan.id,
+              text: plan.decreto.length>70 ? plan.decreto.substring(0,plan.decreto.length-18)+'...' : plan.decreto,
+            })
+          }
+
+          this.selectTiposData.push({
+            id:' ',
+            text:'Seleccionar Tipo de Enseñanza'
+          });
+
+          this.selectNivelesData.push({
+            id:' ',
+            text:'Seleccionar Nivel'
+          });
+
+        } else {
+          let currentRol = +atob(atob(JSON.parse(localStorage.getItem('currentUser')).rol))[5];
+          if(currentRol==4||currentRol==5){
+            this.router.navigate(['app/alerta-configuracion',3]);
+          } else {
+            this.router.navigate(['app/sistema/configuracion/planes-ensenanza']);
+          }
         }
 
-        this.selectTiposData.push({
-          id:' ',
-          text:'Seleccionar Tipo de Enseñanza'
-        });
-
-        this.selectNivelesData.push({
-          id:' ',
-          text:'Seleccionar Nivel'
-        });
       });
     });
 

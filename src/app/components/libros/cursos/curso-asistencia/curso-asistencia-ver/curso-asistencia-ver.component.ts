@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 /** date-fns**/
@@ -53,6 +53,7 @@ export class CursoAsistenciaVerComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private configuracionService: ConfiguracionService,
     private calendarioService: CalendarioService,
     private asistenciaService: AsistenciaService,
@@ -74,11 +75,20 @@ export class CursoAsistenciaVerComponent implements OnInit {
         this.configuracionService.getConfiguraciones().subscribe(configs => {
           let config = configs.find(c => c.glosa == 'Calendario Académico' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser')).colegioId);
           this.calendarioService.getConfigCalendarioAcademicoById(config.id).subscribe(subRes => {
-            console.log(subRes);
-            this.calendarConfig = subRes;
-            this.view = this.getMonthView({
-              viewDate: this.viewDate,
-            });
+            if(subRes && subRes.periodo_academico){
+              console.log(subRes);
+              this.calendarConfig = subRes;
+              this.view = this.getMonthView({
+                viewDate: this.viewDate,
+              });
+            } else {
+              let currentRol = +atob(atob(JSON.parse(localStorage.getItem('currentUser')).rol))[5];
+              if(currentRol==4||currentRol==5){
+                this.router.navigate(['app/alerta-configuracion',1]);
+              } else {
+                this.router.navigate(['app/sistema/configuracion/calendario']);
+              }
+            }
           }, error => {
             if(error==500) {
               this.redirectService.onServerError500();

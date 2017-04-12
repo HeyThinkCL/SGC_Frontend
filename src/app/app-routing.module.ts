@@ -18,6 +18,8 @@ import { SostenedorAfterLoginComponent } from './components/login/sostenedor-aft
 import { NotFoundComponent } from './components/misc/not-found/not-found.component';
 import { ForbiddenComponent } from './components/misc/forbidden/forbidden.component';
 import { ServerErrorComponent } from './components/misc/server-error/server-error.component';
+import { AlertaConfigComponent } from './components/misc/alerta-config/alerta-config.component';
+
 //Dashboard
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
@@ -105,6 +107,7 @@ const routes: Routes = [
   { path: '403', component: ForbiddenComponent },
   { path: '404', component: NotFoundComponent },
   { path: '500', component: ServerErrorComponent },
+  { path: 'alerta-configuracion/:id', component: AlertaConfigComponent },
 
 	{ path: 'sistema/colegios',  component: ColegiosComponent, canActivate: [SostenedorGuard], canActivateChild: [SostenedorGuardChild],
     children: [

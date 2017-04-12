@@ -7,6 +7,7 @@ import { ConfiguracionService } from '../../../../services/sistema/configuracion
 import { PlanDeEstudiosService } from '../../../../services/sistema/configuraciones/plan-de-estudios.service';
 import { AsignaturasEspecialesService } from '../../../../services/sistema/configuraciones/asignaturas-especiales.service';
 import {ColegiosService} from '../../../../services/sistema/colegios.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-asignaturas-especiales',
@@ -34,6 +35,7 @@ export class AsignaturasEspecialesComponent implements OnInit {
 
   constructor(
     private location: Location,
+    private router: Router,
     private asignaturasEspecialesService: AsignaturasEspecialesService,
     private planDeEStudiosService: PlanDeEstudiosService,
     private configuracionService: ConfiguracionService,
@@ -45,25 +47,27 @@ export class AsignaturasEspecialesComponent implements OnInit {
       this.configId = res.find(c => c.glosa == 'Asignaturas Especiales' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser')).colegioId).id;
       let _planConfigId = res.find(c => c.glosa == 'Planes de Estudio y Tipos de Enseñanza' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser')).colegioId).id;
       this.planDeEStudiosService.getConfigPlanesDeEstudio(_planConfigId).subscribe(res => {
-        console.log(res);
-        this.planesDeEstudio = res.planes;
+        if(res && res.planes && res.planes.length>0){
+          this.planesDeEstudio = res.planes;
 
-        this.selectPlanesRender = false;
-        this.selectPlanesData.push({
-          id: ' ',
-          text: 'Seleccionar Plan de Estudios'
-        });
-
-        for (let plan of this.planesDeEstudio) {
-          if (this.selectPlanesData.length == 0) {
+          this.selectPlanesRender = false;
+          for (let plan of this.planesDeEstudio) {
+            if (this.selectPlanesData.length == 0) {
+            }
+            this.selectPlanesData.push({
+              id: plan.id,
+              text: plan.decreto.length > 70 ? plan.decreto.substring(0, plan.decreto.length - 18) + '...' : plan.decreto,
+            })
           }
-          this.selectPlanesData.push({
-            id: plan.id,
-            text: plan.decreto.length > 70 ? plan.decreto.substring(0, plan.decreto.length - 18) + '...' : plan.decreto,
-          })
+          this.selectPlanesRender = true;
+        } else {
+          let currentRol = +atob(atob(JSON.parse(localStorage.getItem('currentUser')).rol))[5];
+          if(currentRol==4||currentRol==5){
+            this.router.navigate(['app/alerta-configuracion',3]);
+          } else {
+            this.router.navigate(['app/sistema/configuracion/planes-ensenanza']);
+          }
         }
-        this.selectPlanesRender = true;
-        console.log(this.planesDeEstudio);
       });
     });
 
@@ -76,17 +80,63 @@ export class AsignaturasEspecialesComponent implements OnInit {
     this.colegiosService.getAsignaturasByColegioId().subscribe(asigns => {
       for(let asignatura of asigns){
         if(asignatura.especial && !asignatura.obligatoria){
-          this.allAsignaturas.push(asignatura);
+          if(this.allAsignaturas.length<1 || this.allAsignaturas.findIndex(a => a.nombre == asignatura.nombre)==-1){
+
+            let a = JSON.parse(JSON.stringify(asignatura));
+            delete a.id;
+            delete a.plan_id;
+
+            a['asignaturas_id'] = [asignatura.id];
+            a['planes_id']=[asignatura.plan_id];
+            this.allAsignaturas.push(a);
+
+          } else if (this.allAsignaturas.length>0 && !(this.allAsignaturas.findIndex(a => a.nombre == asignatura.nombre)==-1)){
+            let a = this.allAsignaturas.find(a => a.nombre == asignatura.nombre);
+            a.asignaturas_id.push(asignatura.id);
+            a.planes_id.push(asignatura.plan_id);
+          }
         }
       }
     });
   }
 
   saveAsignatura(){
+    this.asignaturasEspecialesService.createAsignaturaEspecial(this.configuracion,this.configId).subscribe(res => {
+      if(res){
+        this.configuracion.asignatura.nombre = null;
+        this.configuracion.planes_estudio = [];
 
+        this.colegiosService.getAsignaturasByColegioId().subscribe(asigns => {
+          for(let asignatura of asigns){
+            if(asignatura.especial && !asignatura.obligatoria){
+              if(this.allAsignaturas.length<1 || this.allAsignaturas.findIndex(a => a.nombre == asignatura.nombre)==-1){
+                let a = JSON.parse(JSON.stringify(asignatura));
+                delete a.id;
+                delete a.plan_id;
+
+                a['asignaturas_id'] = [asignatura.id];
+                a['planes_id']=[asignatura.plan_id];
+                this.allAsignaturas.push(a);
+
+              } else if (this.allAsignaturas.length>0 && !(this.allAsignaturas.findIndex(a => a.nombre == asignatura.nombre)==-1)){
+                let a = this.allAsignaturas.find(a => a.nombre == asignatura.nombre);
+                if(a.asignaturas_id.findIndex(id => id == asignatura.id)==-1){
+                  a.asignaturas_id.push(asignatura.id);
+                  a.planes_id.push(asignatura.plan_id);
+                }
+              }
+            }
+          }
+        });
+      }
+    })
   }
 
-  deleteAsignatura(){
+  deleteAsignatura(asignatura){
+    this.asignaturasEspecialesService.deleteAsignaturaEspecial(asignatura.asignaturas_id).subscribe(res => {
+      let asignaturaIdx = this.allAsignaturas.findIndex(a => a.nombre == asignatura.nombre);
+      this.allAsignaturas.splice(asignaturaIdx,1);
+    })
 
   }
 

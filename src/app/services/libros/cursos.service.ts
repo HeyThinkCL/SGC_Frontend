@@ -26,7 +26,7 @@ export class CursosService {
     return JSON.parse(localStorage.getItem('currentUser')).colegioId;
   }
   getUserRol(){
-    return JSON.parse(localStorage.getItem('currentUser')).userRol;
+    return JSON.parse(localStorage.getItem('currentUser')).rol;
   }
   //GET
   getCursos(): Observable<any> {

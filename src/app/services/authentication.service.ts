@@ -34,7 +34,12 @@ export class AuthenticationService {
     if(token && userData){
       this.token =JSON.parse(JSON.stringify(token));
 
-      let rolName = this.userRol.find(r => r.rol == +userData.rol).glosa;
+      let rolName: string;
+      if(this.userRol.find(r => r.rol == +userData.rol)){
+        rolName = this.userRol.find(r => r.rol == +userData.rol).glosa;
+      } else {
+        rolName = '';
+      }
       let currentUser = {
         email: userData.email,
         token: this.token,

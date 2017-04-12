@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import {Router} from "@angular/router";
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 
@@ -34,6 +35,7 @@ export class VerCursoComponent implements OnInit {
   timeoutMessage: string;
 
   constructor(
+    private router: Router,
     private cursosService: CursosService,
     private planDeEStudiosService: PlanDeEstudiosService,
     private configuracionService: ConfiguracionService,
@@ -53,10 +55,20 @@ export class VerCursoComponent implements OnInit {
     });
 
     this.configuracionService.getConfiguraciones().subscribe(configs => {
-      let configId = configs.find(c => c.glosa == 'Planes de Estudio y Tipos de Enseñanza').id;
+      let configId = configs.find(c => c.glosa == 'Planes de Estudio y Tipos de Enseñanza' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser')).colegioId).id;
 
       this.planDeEStudiosService.getConfigPlanesDeEstudio(configId).subscribe(res => {
-        this.planesDeEstudio = res.planes;
+        if(res && res.planes && res.planes.length>0){
+          this.planesDeEstudio = res.planes;
+        } else {
+          let currentRol = +atob(atob(JSON.parse(localStorage.getItem('currentUser')).rol))[5];
+          if(currentRol==4||currentRol==5){
+            this.router.navigate(['app/alerta-configuracion',3]);
+          } else {
+            this.router.navigate(['app/sistema/configuracion/planes-ensenanza']);
+          }
+        }
+
       })
     })
   }

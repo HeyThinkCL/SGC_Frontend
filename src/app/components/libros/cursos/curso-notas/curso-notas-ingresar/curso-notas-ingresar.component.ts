@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { CursosService } from '../../../../../services/libros/cursos.service';
@@ -64,6 +64,7 @@ export class CursoNotasIngresarComponent implements OnInit {
   constructor(
     private cursosService: CursosService,
     private notasService: NotasService,
+    private router: Router,
     private route: ActivatedRoute,
     private configuracionService: ConfiguracionService,
     private configNotasService: ConfigNotasService,
@@ -82,7 +83,7 @@ export class CursoNotasIngresarComponent implements OnInit {
 
         this.configuracionService.getConfiguraciones().subscribe(configs => {
 
-          let config = configs.find(c => c.glosa == 'Notas y Ponderaciones');
+          let config = configs.find(c => c.glosa == 'Notas y Ponderaciones' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser')).colegioId);
 
           this.notasCongif = {
             'notas': {
@@ -92,12 +93,23 @@ export class CursoNotasIngresarComponent implements OnInit {
           };
 
           this.configNotasService.getConfigNotasById(config.id).subscribe(subRes => {
-           this.notasCongif.notas.decimales = subRes.notas.decimales;
-           this.notasCongif.notas.aprox = subRes.notas.aprox;
+            if(subRes && subRes.notas && subRes.notas.decimales && subRes.notas.aprox){
+              this.notasCongif.notas.decimales = subRes.notas.decimales;
+              this.notasCongif.notas.aprox = subRes.notas.aprox;
 
-           this.decimals = '1.1-'+this.notasCongif.notas.decimales.toString();
+              this.decimals = '1.1-'+this.notasCongif.notas.decimales.toString();
 
-           this.renderView = true;
+              this.renderView = true;
+
+            } else {
+              let currentRol = +atob(atob(JSON.parse(localStorage.getItem('currentUser')).rol))[5];
+              if(currentRol==4||currentRol==5){
+                this.router.navigate(['app/alerta-configuracion',2]);
+              } else {
+                this.router.navigate(['app/sistema/configuracion/notas']);
+              }
+            }
+
           });
         });
       });

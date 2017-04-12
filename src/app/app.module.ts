@@ -37,6 +37,7 @@ import { SostenedorAfterLoginComponent } from './components/login/sostenedor-aft
 import { NotFoundComponent } from './components/misc/not-found/not-found.component';
 import { ForbiddenComponent } from './components/misc/forbidden/forbidden.component';
 import { ServerErrorComponent } from './components/misc/server-error/server-error.component';
+import { AlertaConfigComponent } from './components/misc/alerta-config/alerta-config.component';
 //Dashboard
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
@@ -156,6 +157,8 @@ import {ConfiguracionesGuard,ConfiguracionesGuardChild} from './guards/sesion-gu
 import {DigitadorGuard,DigitadorGuardChild} from './guards/sesion-guards/digitador.guard';
 import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/sostenedor.guard';
 import { ByPlanesEstudioComponent } from './components/documentos/filtros/by-planes-estudio/by-planes-estudio.component';
+import { RedirectComponent } from './components/misc/redirect/redirect.component';
+
 
 
 
@@ -248,6 +251,8 @@ import { ByPlanesEstudioComponent } from './components/documentos/filtros/by-pla
     ForbiddenComponent,
     ServerErrorComponent,
     ByPlanesEstudioComponent,
+    AlertaConfigComponent,
+    RedirectComponent,
   ],
   imports: [
     BrowserModule,
