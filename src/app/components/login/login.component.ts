@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 import {AuthenticationService} from '../../services/authentication.service';
 
@@ -18,7 +18,19 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
-  ) { }
+  ) {
+    //find better way to reload js
+    this.router.events.filter(e => e instanceof NavigationEnd)
+      .pairwise().subscribe((e) => {
+      console.log(e);
+      for(let event of e){
+        console.log(event.url);
+        if(event.url=='/'){
+          window.location.reload(true);
+        }
+      }
+    });
+  }
 
   ngOnInit() {
     this.authenticationService.logout();

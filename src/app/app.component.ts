@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
+import 'rxjs/add/operator/pairwise';
 
 import {AuthenticationService} from './services/authentication.service';
 import {RedirectService} from './services/redirect.service'
@@ -57,9 +58,19 @@ export class AppComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private redirectService: RedirectService,
-  ){}
+  ){
+    ////reload only .js script files
+    /*for(let i:number = 2;i< document.getElementsByTagName("script").length;i=i+1){
+      let oldSrc = document.getElementsByTagName("script")[i].src;
+      document.getElementsByTagName("script")[i].src = '';
+      setTimeout(function(){document.getElementsByTagName("script")[i].src = oldSrc; console.log(document.getElementsByTagName("script")[i].src);},25);
+      // document.getElementsByTagName("script")[i].src = oldSrc+'?v1.1';
+      // console.log(document.getElementsByTagName("script")[i].src);
+    }*/
+  }
 
   ngOnInit(){
+
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.version = globalVars.version;

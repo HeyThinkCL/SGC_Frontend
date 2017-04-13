@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 import { ColegiosService } from '../../../services/sistema/colegios.service'
 
@@ -12,7 +12,19 @@ export class SostenedorAfterLoginComponent implements OnInit {
 
   private colegios = [];
 
-  constructor(private router: Router,private colegiosService: ColegiosService,) { }
+  constructor(private router: Router,private colegiosService: ColegiosService,) {
+    //find better way to reload js
+    this.router.events.filter(e => e instanceof NavigationEnd)
+      .pairwise().subscribe((e) => {
+      console.log(e);
+      for(let event of e){
+        console.log(event.url);
+        if(event.url=='/'){
+          window.location.reload(true);
+        }
+      }
+    });
+  }
 
   ngOnInit() {
     this.colegiosService.getColegios().subscribe((response) => {
