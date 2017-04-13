@@ -21,7 +21,7 @@
             </div>
             <div class="col-sm-2">
               <div class="btn-group-sm">
-                <button class="btn btn-outline-primary" (click)="saveAsignatura()"><span class="btn-icon icon icon-fw icon-lg icon-plus"></span></button>
+                <button class="btn btn-outline-primary" (click)="saveAsignatura()" [disabled]="configuracion.planes_estudio.length<1"><span class="btn-icon icon icon-fw icon-lg icon-plus"></span></button>
               </div>
             </div>
           </div>

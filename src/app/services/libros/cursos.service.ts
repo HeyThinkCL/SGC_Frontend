@@ -123,7 +123,14 @@ export class CursosService {
       .map(() => asignaturas)
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
-
+  //DELETE
+  deleteAsignaturaById(asignaturaId: number,cursoId: number): Observable<void>{
+    const url = `${this.cursosUrl}/asignaturas/${cursoId}?asignatura_id=${asignaturaId}&colegio_id=${this.getColegioId()}`;
+    return this.http.delete(url, {headers: this.headers})
+      .map(() => null)
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
+  }
+  //PUT
   prepareCurso(cursoId: number): Observable<any>{
     const url = `${this.cursosUrl}/listas/${cursoId}?colegio_id=${this.getColegioId()}`;
     let payload = {};

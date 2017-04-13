@@ -93,8 +93,20 @@ export class ModificarCursoComponent implements OnInit {
   }
 
   deleteAsignatura(asignaturaId: number){
-    let asignaturaIdx = this.asignaturasCurso.findIndex(a => a.id == asignaturaId);
-    this.asignaturasCurso.splice(asignaturaIdx,1);
+
+    this.cursosService.getAsignaturasByCursoId(this.id).subscribe(asigns => {
+      if(asigns.asignaturas.find(a => a.asignatura.datos.id==asignaturaId)){
+        this.cursosService.deleteAsignaturaById(asignaturaId, this.id).subscribe(res => {
+          let asignaturaIdx = this.asignaturasCurso.findIndex(a => a.id == asignaturaId);
+          this.asignaturasCurso.splice(asignaturaIdx,1);
+        });
+      } else {
+        let asignaturaIdx = this.asignaturasCurso.findIndex(a => a.id == asignaturaId);
+        this.asignaturasCurso.splice(asignaturaIdx,1);
+      }
+    });
+
+
 
   }
 
@@ -103,7 +115,6 @@ export class ModificarCursoComponent implements OnInit {
   saveCurso() {
     let asignaturasCheck: boolean = false;
     let profesorCheck: boolean = false;
-    console.log(this.asignaturasCurso);
     this.cursosService.updateAsignaturasByCursoId(this.id, this.asignaturasCurso).subscribe(asigns => {
       asignaturasCheck = true;
       if(asignaturasCheck&&profesorCheck){
