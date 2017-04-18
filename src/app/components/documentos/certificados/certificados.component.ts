@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import {CertificadosService} from '../../../services/documentos/certificados.service'
+import {CertificadosService} from '../../../services/documentos/certificados.service';
+
+import * as globalVar from '../../../globals';
 
 @Component({
   selector: 'app-certificados',
@@ -76,12 +78,14 @@ export class CertificadosComponent implements OnInit {
       'sujetos':this.subjectsId,
     };
 
-    console.log(payload);
-
     for(let docId of this.docsId){
       if(docId==2){
         this.certificadosService.generateAlumnoRegular(this.optionId,this.subjectsId).subscribe(res => {
           console.log(res);
+          if(res && res.status){
+            let url: string = globalVar.apiUrl+'/'+res.status;
+            window.open(url)
+          }
         })
       }
     }
