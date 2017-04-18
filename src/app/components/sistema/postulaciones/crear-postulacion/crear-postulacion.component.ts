@@ -183,9 +183,13 @@ export class CrearPostulacionComponent implements OnInit {
       this.postulante.preferente = false;
     }
     this.postulacionesService.createPostulacion(this.postulante).subscribe(postulante => {
-      this.apoderadosService.createApoderado(postulante.id,this.padre).subscribe();
-      this.apoderadosService.createApoderado(postulante.id,this.madre).subscribe();
-      if(!this.padre.apoderado && !this.madre.apoderado){
+      if(this.padre.usuario.rut){
+        this.apoderadosService.createApoderado(postulante.id,this.padre).subscribe();
+      }
+      if(this.madre.usuario.rut){
+        this.apoderadosService.createApoderado(postulante.id,this.madre).subscribe();
+      }
+      if(!this.padre.apoderado && !this.madre.apoderado && this.apoderado.usuario.rut){
         this.apoderadosService.createApoderado(postulante.id,this.apoderado).subscribe()
       }
       this.modalOpen();

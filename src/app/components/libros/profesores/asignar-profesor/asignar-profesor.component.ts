@@ -5,6 +5,8 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import {ProfesoresService} from '../../../../services/libros/profesores.service';
 import {CursosService} from '../../../../services/libros/cursos.service';
 import {ColegiosService} from '../../../../services/sistema/colegios.service';
+import {ConfiguracionService} from "../../../../services/sistema/configuracion.service";
+import {PlanDeEstudiosService} from "../../../../services/sistema/configuraciones/plan-de-estudios.service";
 
 
 @Component({
@@ -35,12 +37,16 @@ export class AsignarProfesorComponent implements OnInit {
 
   allAsignaturas = [];
 
+  planesDeEstudio = [];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private profesoresService: ProfesoresService,
     private cursosService: CursosService,
     private colegiosService: ColegiosService,
+    private configuracionService: ConfiguracionService,
+    private planesDeEstudiosService: PlanDeEstudiosService
   ) { }
 
   ngOnInit() {
@@ -66,12 +72,30 @@ export class AsignarProfesorComponent implements OnInit {
         if(asign){
           this.colegiosService.getAsignaturasByColegioId().subscribe(asignaturas => {
             this.allAsignaturas = asignaturas;
-            console.log(this.allAsignaturas);
+
 
           })
         }
       })
     });
+
+    this.configuracionService.getConfiguraciones().subscribe(configs => {
+      let configId = configs.find(c => c.glosa == 'Planes de Estudio y Tipos de Enseñanza' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser')).colegioId).id;
+
+      this.planesDeEstudiosService.getConfigPlanesDeEstudio(configId).subscribe(res => {
+        if(res && res.planes && res.planes.length>0){
+
+          this.planesDeEstudio = res.planes;
+        } else {
+          let currentRol = +atob(atob(JSON.parse(localStorage.getItem('currentUser')).rol))[5];
+          if(currentRol==4||currentRol==5){
+            this.router.navigate(['app/alerta-configuracion',3]);
+          } else {
+            this.router.navigate(['app/sistema/configuracion/planes-ensenanza']);
+          }
+        }
+      })
+    })
   }
 
   selectCurso(cursoId: number){
@@ -105,6 +129,16 @@ export class AsignarProfesorComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  getPlanEstudiosByAsignaturaId(planId: number): string{
+    let plan = this.planesDeEstudio.find(p => p.id == planId);
+    if(plan){
+      return plan.decreto.length>60 ? plan.decreto.substring(0,plan.decreto.length-28)+'...' : plan.decreto;
+    }
+    return '';
+
+
   }
 
   selectAsignatura(asignaturaId: number){
@@ -177,7 +211,7 @@ export class AsignarProfesorComponent implements OnInit {
   }
   ////Asignaturas modal
   asignaturasModalOpen(){
-    this.asignaturasModal.open();
+    this.asignaturasModal.open('lg');
   }
 
   asignaturasModalClose(){

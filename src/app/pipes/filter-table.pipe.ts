@@ -4,7 +4,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 // # Filter Array of Objects
-@Pipe({ name: 'filterArray' })
+@Pipe({ name: 'filterArray', pure:false })
 export class FilterTablePipe implements PipeTransform {
   transform(data, filter, keys: any[]){
     if (!filter || keys.length == 0){

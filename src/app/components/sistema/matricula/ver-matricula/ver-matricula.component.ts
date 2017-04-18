@@ -65,7 +65,7 @@ export class VerMatriculaComponent implements OnInit {
 
   deleteMatricula(id: number){
     this.matriculaService.deleteMatricula(id).subscribe(() => {
-      let index = this.indexOfObj(id);
+      let index = this.matriculas.findIndex(m => m.id == id);
       this.matriculas.splice(index,1);
       this.modal.close();
       this.selectedMatricula_id = null;

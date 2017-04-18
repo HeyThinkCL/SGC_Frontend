@@ -88,7 +88,6 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
 
           this.calendarioService.getConfigCalendarioAcademicoById(config.id).subscribe(subRes => {
             if(subRes && subRes.periodo_academico && (subRes.periodo_academico.fecha_inicio && subRes.periodo_academico.fecha_termino)){
-              console.log(subRes);
               this.calendarConfig = subRes;
               this.view = this.getMonthView({
                 viewDate: this.viewDate,
@@ -153,8 +152,9 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
     };
 
     let dayInfo = this.view.days.find(day => day.date.toDateString() == selectedDay.toDateString());
-
-    this.selectedDay.alumnos = JSON.parse(JSON.stringify(dayInfo.alumnos));
+    if(dayInfo && dayInfo.alumnos){
+      this.selectedDay.alumnos = JSON.parse(JSON.stringify(dayInfo.alumnos));
+    }
 
     this.selectedDay.inasistentes = this.getInasistenciaByDia(selectedDay);
     this.selectedDay.asistentes = this.selectedDay.alumnos.length - this.selectedDay.inasistentes;
@@ -301,6 +301,7 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
       day['isFeriado'] = this.isFeriado(date);
 
       let inasistenciaListDay = this.inasistenciaMonth.find(res => res.dia.toDateString() == date.toDateString());
+
       if(inasistenciaListDay){
 
         day.alumnos = JSON.parse(JSON.stringify(this.alumnos));
@@ -335,32 +336,34 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
   };
 
   increment(): void {
-
+    this.inasistenciaMonth = [];
     this.viewDate = addMonths(this.viewDate,1);
-    this.view = this.getMonthView({
-      viewDate: this.viewDate,
-      weekStartsOn: this.weekStartsOn
-    });
+
     this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
       for (let dia of res.mes){
         dia.dia = addDays(new Date(dia.dia),1);
       }
       this.inasistenciaMonth = res.mes;
+      this.view = this.getMonthView({
+        viewDate: this.viewDate,
+        weekStartsOn: this.weekStartsOn
+      });
     })
   }
 
   decrement(): void {
-
+    this.inasistenciaMonth = [];
     this.viewDate = subMonths(this.viewDate,1);
-    this.view = this.getMonthView({
-      viewDate: this.viewDate,
-      weekStartsOn: this.weekStartsOn
-    });
+
     this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
       for (let dia of res.mes){
         dia.dia = addDays(new Date(dia.dia),1);
       }
       this.inasistenciaMonth = res.mes;
+      this.view = this.getMonthView({
+        viewDate: this.viewDate,
+        weekStartsOn: this.weekStartsOn
+      });
     })
   }
 

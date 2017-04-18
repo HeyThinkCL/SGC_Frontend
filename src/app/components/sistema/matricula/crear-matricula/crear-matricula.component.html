@@ -188,6 +188,7 @@
         <div class="form-group">
           <div class="col-sm-5 col-sm-offset-2" id="select-form-2-wrapper">
             <select class="form-control no-arrows" type="text" id="form-control-130" [(ngModel)]="curso">
+              <option [value]="null" disabled selected>Seleccionar Curso</option>
               <option *ngFor="let curso of selectCursoData | filterCursoByGrado:postulante.grado" [value]="+curso.id">{{curso.text}}</option>
             </select>
             <!--<select2 id="select-form-2"

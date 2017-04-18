@@ -208,32 +208,34 @@ export class CursoAsistenciaVerComponent implements OnInit {
   };
 
   increment(): void {
-
+    this.inasistenciaMonth = [];
     this.viewDate = addMonths(this.viewDate,1);
-    this.view = this.getMonthView({
-      viewDate: this.viewDate,
-      weekStartsOn: this.weekStartsOn
-    });
+
     this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
       for (let dia of res.mes){
         dia.dia = addDays(new Date(dia.dia),1);
       }
       this.inasistenciaMonth = res.mes;
+      this.view = this.getMonthView({
+        viewDate: this.viewDate,
+        weekStartsOn: this.weekStartsOn
+      });
     })
   }
 
   decrement(): void {
-
+    this.inasistenciaMonth = [];
     this.viewDate = subMonths(this.viewDate,1);
-    this.view = this.getMonthView({
-      viewDate: this.viewDate,
-      weekStartsOn: this.weekStartsOn
-    });
+
     this.asistenciaService.getInasistenciasByMonth(this.id,startOfMonth(this.viewDate)).subscribe(res => {
       for (let dia of res.mes){
         dia.dia = addDays(new Date(dia.dia),1);
       }
       this.inasistenciaMonth = res.mes;
+      this.view = this.getMonthView({
+        viewDate: this.viewDate,
+        weekStartsOn: this.weekStartsOn
+      });
     })
   }
 

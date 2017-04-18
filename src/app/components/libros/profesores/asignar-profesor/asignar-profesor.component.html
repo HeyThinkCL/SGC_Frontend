@@ -110,7 +110,7 @@
                                     [disabled]="!(selectedAsignatura)"
                                     *ngIf="selectedAsignatura">
                               <span class="icon icon-close icon-fw"></span></button>
-                            <button class="btn btn-primary" (click)="asignaturasModalOpen()"><span class="icon icon-pencil-square-o icon-fw"></span></button>
+                            <button class="btn btn-primary" (click)="asignaturasModalOpen()" [disabled]="!(this.planesDeEstudio.length>0)"><span class="icon icon-pencil-square-o icon-fw"></span></button>
                           </div>
                         </div>
                       </div>
@@ -212,6 +212,7 @@
             <thead>
             <tr class="bg-primary">
               <th>Asignatura</th>
+              <th>Plan de Estudios</th>
               <th>Formación</th>
             </tr>
             </thead>
@@ -220,6 +221,7 @@
               <td class="maw-320" (click)="selectAsignatura(asignatura.id)">
                 <span>{{ asignatura.nombre }}</span>
               </td>
+              <td>{{getPlanEstudiosByAsignaturaId(asignatura.plan_id)}}</td>
               <td>
                 <span>{{ asignatura.formacion }}</span>
               </td>

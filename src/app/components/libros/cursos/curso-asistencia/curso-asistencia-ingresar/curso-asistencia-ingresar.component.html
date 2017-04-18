@@ -25,8 +25,7 @@
             <div class="row gutter-xs">
               <div *ngFor="let day of view.days | slice : rowIndex : rowIndex + 7">
 
-                <div *ngIf="!(day.date.getDay()==0)"
-                     class="col-md-2">
+                <div *ngIf="!(day.date.getDay()==0)" class="col-md-2">
                   <button class="btn btn-block"
                           [ngClass]="{'btn-outline-info': day.inMonth && (getInasistenciaByDia(day.date)<=5),
                                       'btn-outline-danger': day.inMonth && (getInasistenciaByDia(day.date)>5),
