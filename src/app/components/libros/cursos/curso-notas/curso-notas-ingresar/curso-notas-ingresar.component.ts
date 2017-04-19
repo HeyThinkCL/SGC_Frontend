@@ -246,6 +246,27 @@ export class CursoNotasIngresarComponent implements OnInit {
     index = null;
   }
 
+  //TAB behaviour
+  checkTab(e, alumnoIdx: number, notaIdx: number){
+    if(e.keyCode == 9){
+      e.preventDefault();
+      if(alumnoIdx+1 < this.selectedAsignaturaAlumnos.length){
+
+        let nextNotaId: number = this.selectedAsignaturaAlumnos[alumnoIdx+1].notas[notaIdx].id;
+        let nextNotaElement = document.getElementById(nextNotaId.toString());
+        nextNotaElement.focus();
+
+      } else if(notaIdx+1 < this.selectedAsignaturaAlumnos[0].notas.length){
+
+        let nextNotaId: number = this.selectedAsignaturaAlumnos[0].notas[notaIdx+1].id;
+        let nextNotaElement = document.getElementById(nextNotaId.toString());
+        nextNotaElement.focus();
+
+      }
+
+    }
+  }
+
   ////modals
 
   //delete

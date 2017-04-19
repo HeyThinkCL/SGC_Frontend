@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-xs-12">
-    <app-spinner *ngIf="!(asignaturas.length>0)"></app-spinner>
-    <div class="panel" *ngIf="asignaturas.length>0 && notasCongif.notas">
+    <app-spinner *ngIf="!(asignaturas.length>0 && notasCongif.notas && notasCongif.notas.decimales && notasCongif.notas.aprox)"></app-spinner>
+    <div class="panel" *ngIf="asignaturas.length>0 && notasCongif.notas && notasCongif.notas.decimales && notasCongif.notas.aprox">
       <div class="panel-heading">
         <div class="row gutter-xs">
           <div class="col-md-8">
@@ -49,14 +49,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let alumno of selectedAsignaturaAlumnos">
+
+            <tr *ngFor="let alumno of selectedAsignaturaAlumnos; let alumnoIdx = index">
               <td>{{alumno.alumno.lista}}</td>
               <td>{{alumno.alumno.nombre}}</td>
               <td>{{alumno.alumno.apellido_paterno}} {{alumno.alumno.apellido_materno}}</td>
-              <td *ngFor="let nota of alumno.notas"
+              <td *ngFor="let nota of alumno.notas; let notaIdx = index"
                   [ngClass]="{'has-warning':(nota.valor == null),
                               'has-error': !((nota.valor < 7.0)||(nota.valor > 1.0))}">
-                <input class="form-control"
+                <input class="form-control" id="{{nota.id}}"
                        style="width:50px"
                        type="number"
                        min="1.0"
@@ -65,7 +66,7 @@
                        value="nota.valor"
                        [(ngModel)]="nota.valor"
                        (keypress)="restrictValue(nota)"
-                       (keydown)="restrictValue(nota)"
+                       (keydown)="restrictValue(nota); checkTab($event,alumnoIdx,notaIdx)"
                        (keyup)="restrictValue(nota)"
                        (ngModelChange)="restrictValue(nota)"
                        (change)="onChange(nota)"/>
