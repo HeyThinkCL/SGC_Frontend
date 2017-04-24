@@ -11,6 +11,8 @@ import {AdministradorGuard,AdministradorGuardChild} from './guards/sesion-guards
 import {ConfiguracionesGuard,ConfiguracionesGuardChild} from './guards/sesion-guards/configuraciones.guard';
 import {DigitadorGuard,DigitadorGuardChild} from './guards/sesion-guards/digitador.guard';
 import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/sostenedor.guard';
+
+import {ScriptsGuard, ScriptsGuardChild} from './guards/scripts.guard';
 //Login
 import { LoginComponent } from './components/login/login.component';
 import { SostenedorAfterLoginComponent } from './components/login/sostenedor-after-login/sostenedor-after-login.component';
@@ -100,7 +102,7 @@ import { CertificadosComponent } from './components/documentos/certificados/cert
 import { CitacionesComponent } from './components/documentos/citaciones/citaciones.component';
 
 const routes: Routes = [
-	{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+	{ path: '', redirectTo: 'dashboard', pathMatch: 'full'},
 
   { path: 'dashboard', component: DashboardComponent },
 
@@ -223,7 +225,13 @@ const routes: Routes = [
 
 const rootRoutes: Routes = [
   { path: '', redirectTo: 'app', pathMatch: 'full'},
-  { path: 'app', component: AppComponent, children: routes, canActivate: [AuthGuard], canActivateChild: [AuthGuardChild] },
+
+  { path: 'app',
+    component: AppComponent,
+    children: routes,
+    canActivate: [AuthGuard,ScriptsGuard],
+    canActivateChild: [AuthGuardChild,ScriptsGuardChild] },
+
   { path: 'login', component: LoginComponent },
   { path: 'after', component: SostenedorAfterLoginComponent, canActivate: [AuthGuard] },
 ];

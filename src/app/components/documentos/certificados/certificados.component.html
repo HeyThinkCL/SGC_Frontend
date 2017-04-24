@@ -11,7 +11,6 @@
   </div>
   <h1 class="title-bar-title"><span class="icon icon-fw icon-files-o"></span> Certificados</h1>
   <p class="title-bar-description">
-    sample text
   </p>
 </div>
 
@@ -70,11 +69,11 @@
     </div>
   </div>
 </div>
-<app-by-planes-estudio [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 1"></app-by-planes-estudio>
-<app-by-tipo-ensenanza [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 2"></app-by-tipo-ensenanza>
-<app-by-grado [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 3"></app-by-grado>
+<!--<app-by-planes-estudio [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 1"></app-by-planes-estudio>-->
+<!--<app-by-tipo-ensenanza [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 2"></app-by-tipo-ensenanza>-->
+<!--<app-by-grado [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 3"></app-by-grado>-->
 <app-by-curso [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 4"></app-by-curso>
-<app-by-alumno [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 5"></app-by-alumno>
+<!--<app-by-alumno [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 5"></app-by-alumno>-->
 
 <div class="row" *ngIf="(docsId.length > 0)||optionId">
   <div class="col-md-10 col-md-offset-1">

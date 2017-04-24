@@ -12,7 +12,7 @@
   *.*.y.* minor update number
   *.*.*.z bug fig update number
 */
-export let version: string = '0.4.10.15';
+export let version: string = '0.4.12.16';
 
 // export let apiUrl: string = 'http://192.168.1.175:3000';//dev
 

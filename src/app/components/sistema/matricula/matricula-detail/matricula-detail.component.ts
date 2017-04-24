@@ -7,7 +7,9 @@ import { connectionErrorMsg, invalidRequestMsg } from '../../../spinner/spinner.
 
 import { Alumno, Apoderado } from '../matricula';
 import { MatriculaService } from '../../../../services/sistema/matricula.service';
-import { ApoderadosService } from '../../../../services/sistema/apoderados.service'
+import { ApoderadosService } from '../../../../services/sistema/apoderados.service';
+
+import { CursosService } from '../../../../services/libros/cursos.service';
 
 @Component({
   selector: 'app-matricula-detail',
@@ -27,11 +29,13 @@ export class MatriculaDetailComponent implements OnInit {
   private apoderado: any;
 
   timeoutMessage: string;
+  private curso: any;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
+    private cursosService: CursosService,
     private matriculaService: MatriculaService,
     private apoderadosService: ApoderadosService,
   ) { }
@@ -48,6 +52,10 @@ export class MatriculaDetailComponent implements OnInit {
       .switchMap((params: Params) => this.matriculaService.getMatricula(+params['id']))
       .subscribe((postulante) => {
         this.alumno = postulante;
+        console.log(this.alumno);
+        this.cursosService.getCursos().subscribe(c => {
+          this.curso = c.find(curso => curso.curso.id == this.alumno);
+        });
 
         if(!(postulante)){
           this.timeoutMessage = invalidRequestMsg();

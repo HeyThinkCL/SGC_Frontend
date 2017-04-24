@@ -129,6 +129,10 @@ export class VerCursoComponent implements OnInit {
     }
   }
 
+  checkPrepararAll(): boolean{
+    return this.cursos.findIndex(c => c.curso.preparado == false)==-1;
+  }
+
   modalOpen(id: number): void {
     this.modal.open();
     this.selectedCurso_id = id;

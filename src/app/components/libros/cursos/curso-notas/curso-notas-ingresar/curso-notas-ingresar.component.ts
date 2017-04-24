@@ -41,6 +41,7 @@ export class CursoNotasIngresarComponent implements OnInit {
       {
         'alumno': {
           'id':null,
+          'lista':null,
           'nombre':'',
           'apellido_paterno':'',
           'apellido_materno':'',
@@ -235,6 +236,7 @@ export class CursoNotasIngresarComponent implements OnInit {
         {
           'alumno': {
             'id':alumno.alumno.id,
+            'lista':alumno.alumno.lista,
             'nombre':alumno.alumno.nombre,
             'apellido_paterno':alumno.alumno.apellido_paterno,
             'apellido_materno':alumno.alumno.apellido_materno,

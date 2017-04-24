@@ -8,16 +8,16 @@ import { Component, OnInit } from '@angular/core';
 export class CitacionesComponent implements OnInit {
 
   docs = [
-    {'id':'citApoderados','nombre':'Citación para Apoderados'},
-    {'id':'citReunion','nombre':'Citación a Reunión'},
+    // {'id':'citApoderados','nombre':'Citación para Apoderados'},
+    // {'id':'citReunion','nombre':'Citación a Reunión'},
   ];
 
   options = [
-    {'id':1,'nombre':'Por Plan de Estudios','icon':'icon-institution'},
-    {'id':2,'nombre':'Por Tipo de Enseñanza','icon':'icon-institution'},
-    {'id':3,'nombre':'Por Nivel','icon':'icon-mortar-board'},
+    // {'id':1,'nombre':'Por Plan de Estudios','icon':'icon-institution'},
+    // {'id':2,'nombre':'Por Tipo de Enseñanza','icon':'icon-institution'},
+    // {'id':3,'nombre':'Por Nivel','icon':'icon-mortar-board'},
     {'id':4,'nombre':'Por Curso','icon':'icon-users'},
-    {'id':5,'nombre':'Por Alumno','icon':'icon-user'},
+    // {'id':5,'nombre':'Por Alumno','icon':'icon-user'},
   ];
 
   docsId: string[] = [];

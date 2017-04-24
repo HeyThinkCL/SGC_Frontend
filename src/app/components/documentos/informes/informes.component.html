@@ -11,7 +11,6 @@
   </div>
   <h1 class="title-bar-title"><span class="icon icon-fw icon-files-o"></span> Informes</h1>
   <p class="title-bar-description">
-    sample text
   </p>
 </div>
 
@@ -70,11 +69,11 @@
     </div>
   </div>
 </div>
-<app-by-planes-estudio [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 1"></app-by-planes-estudio>
-<app-by-tipo-ensenanza [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 2"></app-by-tipo-ensenanza>
-<app-by-grado [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 3"></app-by-grado>
+<!--<app-by-planes-estudio [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 1"></app-by-planes-estudio>-->
+<!--<app-by-tipo-ensenanza [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 2"></app-by-tipo-ensenanza>-->
+<!--<app-by-grado [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 3"></app-by-grado>-->
 <app-by-curso [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 4"></app-by-curso>
-<app-by-alumno [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 5"></app-by-alumno>
+<!--<app-by-alumno [docs]="docsId" (onSelect)="onSelectSubjects($event)" *ngIf="optionId == 5"></app-by-alumno>-->
 
 <div class="row" *ngIf="(docsId.length > 0)||optionId">
   <div class="col-md-10 col-md-offset-1">
@@ -87,5 +86,20 @@
   </div>
 </div>
 
+<modal [animation]="true" #modal>
+  <modal-header [show-close]="true">
+    <h4 class="modal-title">Generando documentos.</h4>
+  </modal-header>
+  <modal-body>
+    <div class="panel">
+      <div class="panel-body text-center">
+        <div class="spinner spinner-primary spinner-lg pos-r sq-100"></div>
+      </div>
+    </div>
+  </modal-body>
+  <!--<modal-footer>
+    <button type="button" class="btn btn-primary" (click)="modalClose()">Ok</button>
+  </modal-footer>-->
+</modal>
 
 

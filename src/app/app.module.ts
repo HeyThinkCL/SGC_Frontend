@@ -38,6 +38,7 @@ import { NotFoundComponent } from './components/misc/not-found/not-found.compone
 import { ForbiddenComponent } from './components/misc/forbidden/forbidden.component';
 import { ServerErrorComponent } from './components/misc/server-error/server-error.component';
 import { AlertaConfigComponent } from './components/misc/alerta-config/alerta-config.component';
+import { RedirectComponent } from './components/misc/redirect/redirect.component';
 //Dashboard
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
@@ -103,6 +104,7 @@ import { DocumentosComponent } from './components/documentos/documentos.componen
 import { InformesComponent } from './components/documentos/informes/informes.component';
 import { CertificadosComponent } from './components/documentos/certificados/certificados.component';
 import { CitacionesComponent } from './components/documentos/citaciones/citaciones.component';
+import { ByPlanesEstudioComponent } from './components/documentos/filtros/by-planes-estudio/by-planes-estudio.component';
 import { ByTipoEnsenanzaComponent } from './components/documentos/filtros/by-tipo-ensenanza/by-tipo-ensenanza.component';
 import { ByGradoComponent } from './components/documentos/filtros/by-grado/by-grado.component';
 import { ByCursoComponent } from './components/documentos/filtros/by-curso/by-curso.component';
@@ -151,13 +153,12 @@ import {InformesService} from './services/documentos/informes.service';
 
 //Guards
 import {AuthGuard,AuthGuardChild} from './guards/auth.guard';
+import {ScriptsGuard, ScriptsGuardChild} from './guards/scripts.guard';
 import {ConfigCalendarioAcademicoGuard} from './guards/config-guards/config-calendario-academico.guard';
 import {AdministradorGuard,AdministradorGuardChild} from './guards/sesion-guards/administrador.guard';
 import {ConfiguracionesGuard,ConfiguracionesGuardChild} from './guards/sesion-guards/configuraciones.guard';
 import {DigitadorGuard,DigitadorGuardChild} from './guards/sesion-guards/digitador.guard';
 import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/sostenedor.guard';
-import { ByPlanesEstudioComponent } from './components/documentos/filtros/by-planes-estudio/by-planes-estudio.component';
-import { RedirectComponent } from './components/misc/redirect/redirect.component';
 
 
 
@@ -267,6 +268,8 @@ import { RedirectComponent } from './components/misc/redirect/redirect.component
   providers: [
     AuthGuard,
     AuthGuardChild,
+    ScriptsGuard,
+    ScriptsGuardChild,
     ConfigCalendarioAcademicoGuard,
     SostenedorGuard,
     SostenedorGuardChild,

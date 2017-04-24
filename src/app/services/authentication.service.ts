@@ -40,6 +40,7 @@ export class AuthenticationService {
       } else {
         rolName = '';
       }
+
       let currentUser = {
         userId:userData.id,
         email: userData.email,

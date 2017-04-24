@@ -95,45 +95,48 @@ export class ModificarPostulacionComponent implements OnInit {
 
         let pCheck = false;
         let mCheck = false;
+        if(this.postulante.padre_id){
+          this.apoderadosService.getApoderadoById(postulante.padre_id).subscribe(padre => {
+            this.padre = padre;
+            this.selectedPadre = JSON.parse(JSON.stringify(this.padre));
+            this.padre['apoderado']=false;
+            pCheck = true;
 
-        this.apoderadosService.getApoderadoById(postulante.padre_id).subscribe(padre => {
-          this.padre = padre;
-          this.selectedPadre = JSON.parse(JSON.stringify(this.padre));
-          this.padre['apoderado']=false;
-          pCheck = true;
+            if(pCheck && mCheck){
+              this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+                this.apoderado = apoderado;
+                this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
 
-          if(pCheck && mCheck){
-            this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
-              this.apoderado = apoderado;
-              this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
+                if(this.padre.usuario.rut == apoderado.usuario.rut){
+                  this.padre.apoderado = true;
+                } else if (this.madre.usuario.rut == apoderado.usuario.rut){
+                  this.madre.apoderado = true;
+                }
+              });
+            }
+          });
+        }
+        if(this.postulante.madre_id){
+          this.apoderadosService.getApoderadoById(postulante.madre_id).subscribe(madre => {
+            this.madre = madre;
+            this.selectedMadre = JSON.parse(JSON.stringify(this.madre));
+            this.madre['apoderado']=false;
+            mCheck = true;
 
-              if(this.padre.usuario.rut == apoderado.usuario.rut){
-                this.padre.apoderado = true;
-              } else if (this.madre.usuario.rut == apoderado.usuario.rut){
-                this.madre.apoderado = true;
-              }
-            });
-          }
-        });
-        this.apoderadosService.getApoderadoById(postulante.madre_id).subscribe(madre => {
-          this.madre = madre;
-          this.selectedMadre = JSON.parse(JSON.stringify(this.madre));
-          this.madre['apoderado']=false;
-          mCheck = true;
+            if(pCheck && mCheck){
+              this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+                this.apoderado = apoderado;
+                this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
 
-          if(pCheck && mCheck){
-            this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
-              this.apoderado = apoderado;
-              this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
-
-              if(this.padre.usuario.rut == apoderado.usuario.rut){
-                this.padre.apoderado = true;
-              } else if (this.madre.usuario.rut == apoderado.usuario.rut){
-                this.madre.apoderado = true;
-              }
-            });
-          }
-        });
+                if(this.padre.usuario.rut == apoderado.usuario.rut){
+                  this.padre.apoderado = true;
+                } else if (this.madre.usuario.rut == apoderado.usuario.rut){
+                  this.madre.apoderado = true;
+                }
+              });
+            }
+          });
+        }
       });
 
     this.selectEtniaData = [{
@@ -246,28 +249,34 @@ export class ModificarPostulacionComponent implements OnInit {
 
       let pCheck = false;
       let mCheck = false;
-
-      this.apoderadosService.updateApoderado(this.padre).subscribe(padre => {
-        this.padre = JSON.parse(JSON.stringify(padre));
-        pCheck = true;
-        if(pCheck && mCheck){
-          this.apoderadosService.updateApoderado(this.apoderado).subscribe(apoderado => {
-            this.apoderado = JSON.parse(JSON.stringify(apoderado));
-            this.modalOpen();
+      if(this.postulante.padre_id || this.postulante.madre_id || this.postulante.apoderado_id){
+        if(this.postulante.padre_id){
+          this.apoderadosService.updateApoderado(this.padre).subscribe(padre => {
+            this.padre = JSON.parse(JSON.stringify(padre));
+            pCheck = true;
+            if(pCheck && mCheck && this.apoderado.rut){
+              this.apoderadosService.updateApoderado(this.apoderado).subscribe(apoderado => {
+                this.apoderado = JSON.parse(JSON.stringify(apoderado));
+                this.modalOpen();
+              });
+            }
           });
         }
-      });
-      this.apoderadosService.updateApoderado(this.madre).subscribe(madre => {
-        this.madre = JSON.parse(JSON.stringify(madre));
-        mCheck = true;
-        if(pCheck && mCheck){
-          this.apoderadosService.updateApoderado(this.apoderado).subscribe(apoderado => {
-            this.apoderado = JSON.parse(JSON.stringify(apoderado));
-            this.modalOpen();
+        if(this.postulante.madre_id){
+          this.apoderadosService.updateApoderado(this.madre).subscribe(madre => {
+            this.madre = JSON.parse(JSON.stringify(madre));
+            mCheck = true;
+            if(pCheck && mCheck && this.apoderado.rut){
+              this.apoderadosService.updateApoderado(this.apoderado).subscribe(apoderado => {
+                this.apoderado = JSON.parse(JSON.stringify(apoderado));
+                this.modalOpen();
+              });
+            }
           });
         }
-      });
-
+      } else {
+        this.modalOpen();
+      }
     });
   }
 

@@ -28,6 +28,7 @@ export class SostenedorAfterLoginComponent implements OnInit {
 
   ngOnInit() {
     this.colegiosService.getColegios().subscribe((response) => {
+      console.log(response);
       if(response.length>0){
         this.colegios = response;
       } else {

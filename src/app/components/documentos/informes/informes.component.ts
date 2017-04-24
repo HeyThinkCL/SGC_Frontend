@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
+
+import {InformesService} from '../../../services/documentos/informes.service';
+
+import * as globalVar from '../../../globals';
 
 @Component({
   selector: 'app-informes',
@@ -6,25 +11,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./informes.component.css']
 })
 export class InformesComponent implements OnInit {
+  @ViewChild('modal')
+  modal: ModalComponent;
 
   docs = [
-    {'id':'iNotas','nombre':'Informe de Notas'},
-    {'id':'iAsistencia','nombre':'Informe de Asistencia'},
+    {'id':1,'nombre':'Informe de Notas'},
+    // {'id':2,'nombre':'Informe de Asistencia'},
   ];
 
   options = [
-    {'id':1,'nombre':'Por Plan de Estudios','icon':'icon-institution'},
-    {'id':2,'nombre':'Por Tipo de Enseñanza','icon':'icon-institution'},
-    {'id':3,'nombre':'Por Nivel','icon':'icon-mortar-board'},
+    // {'id':1,'nombre':'Por Plan de Estudios','icon':'icon-institution'},
+    // {'id':2,'nombre':'Por Tipo de Enseñanza','icon':'icon-institution'},
+    // {'id':3,'nombre':'Por Nivel','icon':'icon-mortar-board'},
     {'id':4,'nombre':'Por Curso','icon':'icon-users'},
-    {'id':5,'nombre':'Por Alumno','icon':'icon-user'},
+    // {'id':5,'nombre':'Por Alumno','icon':'icon-user'},
   ];
 
-  docsId: string[] = [];
-  optionId: string;
-  subjectsId: string[] = [];
+  docsId: any[] = [];
+  optionId: number;
+  subjectsId: any[] = [];
 
-  constructor() { }
+  constructor(
+    private informesService: InformesService,
+  ) { }
 
   ngOnInit() {
   }
@@ -59,12 +68,36 @@ export class InformesComponent implements OnInit {
 
   }
 
+  modalOpen(): void {
+    this.modal.open();
+  }
+
+  modalClose(): void {
+    this.modal.close();
+  }
+
   generateDocs(){
     let payload = {
       'docs':this.docsId,
       'filtro': this.optionId,
       'sujetos':this.subjectsId,
     };
+
+    for(let docId of this.docsId){
+      if(docId==1){
+
+        this.modalOpen();
+        this.informesService.generateInformeNotas(this.optionId,this.subjectsId).subscribe(res => {
+          console.log(res);
+          if(res && res.status){
+            let url: string = globalVar.apiUrl+'/'+res.status;
+            window.open(url);
+            this.modalClose();
+          }
+        })
+
+      }
+    }
 
   }
 
