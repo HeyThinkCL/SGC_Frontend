@@ -30,7 +30,7 @@ export class VerProfesoresComponent implements OnInit {
   ngOnInit() {
     this.timeoutMessage = connectionErrorMsg();
     this.profesoresService.getProfesores().subscribe(res => {
-      this.profesores = res
+      this.profesores = res;
       if((res.length>0)){
         this.timeoutMessage = emptyArrayMsg("Profesores");
       }

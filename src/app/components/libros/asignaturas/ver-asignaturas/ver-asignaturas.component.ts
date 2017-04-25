@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ColegiosService} from "../../../../services/sistema/colegios.service";
 
 @Component({
   selector: 'app-ver-asignaturas',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VerAsignaturasComponent implements OnInit {
 
-  constructor() { }
+  filterData:string  = '';
+  filterKeys = [
+    {
+      'mainKey':['nombre'],
+    }
+  ];
+
+  private asignaturas = [];
+
+  constructor(
+    private colegioService: ColegiosService,
+  ) { }
 
   ngOnInit() {
+    this.colegioService.getAsignaturasByColegioId().subscribe(asigns => {
+      this.asignaturas = asigns;
+    })
   }
 
 }
