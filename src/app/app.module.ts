@@ -99,6 +99,11 @@ import { ProfesoresComponent } from './components/libros/profesores/profesores.c
 import { VerProfesoresComponent } from './components/libros/profesores/ver-profesores/ver-profesores.component';
 import { AsignarProfesorComponent } from './components/libros/profesores/asignar-profesor/asignar-profesor.component';
 
+//Asignaturas
+import { AsignaturasComponent } from './components/libros/asignaturas/asignaturas.component';
+import { VerAsignaturasComponent } from './components/libros/asignaturas/ver-asignaturas/ver-asignaturas.component';
+import { ModificarAsignaturaComponent } from './components/libros/asignaturas/modificar-asignatura/modificar-asignatura.component';
+
 //Documentos
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { InformesComponent } from './components/documentos/informes/informes.component';
@@ -159,10 +164,6 @@ import {AdministradorGuard,AdministradorGuardChild} from './guards/sesion-guards
 import {ConfiguracionesGuard,ConfiguracionesGuardChild} from './guards/sesion-guards/configuraciones.guard';
 import {DigitadorGuard,DigitadorGuardChild} from './guards/sesion-guards/digitador.guard';
 import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/sostenedor.guard';
-
-
-
-
 
 
 @NgModule({
@@ -245,6 +246,9 @@ import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/soste
     CursosComponent,
     VerProfesoresComponent,
     AsignarProfesorComponent,
+    AsignaturasComponent,
+    VerAsignaturasComponent,
+    ModificarAsignaturaComponent,
     SpinnerComponent,
     PlanesEnsenanzaComponent,
     SostenedorAfterLoginComponent,

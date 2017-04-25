@@ -80,6 +80,11 @@ import { ProfesoresComponent } from './components/libros/profesores/profesores.c
 import { VerProfesoresComponent } from './components/libros/profesores/ver-profesores/ver-profesores.component';
 import { AsignarProfesorComponent } from './components/libros/profesores/asignar-profesor/asignar-profesor.component';
 
+//Asignaturas
+import { AsignaturasComponent } from './components/libros/asignaturas/asignaturas.component';
+import { VerAsignaturasComponent } from './components/libros/asignaturas/ver-asignaturas/ver-asignaturas.component';
+import { ModificarAsignaturaComponent } from './components/libros/asignaturas/modificar-asignatura/modificar-asignatura.component';
+
 //Funcionarios
 import { FuncionariosComponent } from './components/sistema/funcionarios/funcionarios.component';
 import { CrearFuncionarioComponent } from './components/sistema/funcionarios/crear-funcionario/crear-funcionario.component';
@@ -186,6 +191,13 @@ const routes: Routes = [
           {path: '', redirectTo:'ver', pathMatch: 'full'},
           {path:'ver', component: VerProfesoresComponent },
           {path:'asignar/:id',component:AsignarProfesorComponent}
+        ]
+      },
+      { path: 'asignaturas', component: AsignaturasComponent,
+        children:[
+          {path: '', redirectTo:'ver', pathMatch: 'full'},
+          {path:'ver', component: VerAsignaturasComponent },
+          {path:'editar/:id',component:ModificarAsignaturaComponent}
         ]
       }
     ]
