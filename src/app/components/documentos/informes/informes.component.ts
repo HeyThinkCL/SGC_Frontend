@@ -24,7 +24,7 @@ export class InformesComponent implements OnInit {
     // {'id':2,'nombre':'Por Tipo de Enseñanza','icon':'icon-institution'},
     // {'id':3,'nombre':'Por Nivel','icon':'icon-mortar-board'},
     {'id':4,'nombre':'Por Curso','icon':'icon-users'},
-    // {'id':5,'nombre':'Por Alumno','icon':'icon-user'},
+    {'id':5,'nombre':'Por Alumno','icon':'icon-user'},
   ];
 
   docsId: any[] = [];

@@ -188,7 +188,7 @@
   </modal-body>
   <modal-footer>
     <button type="button" class="btn btn-default" (click)="modalCreateDismiss()">Cancelar</button>
-    <button type="button" class="btn btn-primary" (click)="modalCreateClose()">Continuar</button>
+    <button type="button" class="btn btn-primary" (click)="modalCreateClose()" [disabled]="!(createdNota.coeficiente)">Continuar</button>
   </modal-footer>
 </modal>
 

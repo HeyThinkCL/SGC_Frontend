@@ -28,6 +28,7 @@ import { ConfiguracionService } from '../../../../services/sistema/configuracion
 
 export class PlanesEnsenanzaComponent implements OnInit {
   @ViewChild('modal') modal: ModalComponent;
+  @ViewChild('modalLoad') modalLoad: ModalComponent;
 
   configId: number;
   view: boolean = false;
@@ -222,16 +223,42 @@ export class PlanesEnsenanzaComponent implements OnInit {
     this.modal.close();
   }
 
+  modalLoadOpen(): void {
+    this.modalLoad.open();
+  }
+
+  modalLoadClose(): void {
+    this.modalLoad.close();
+  }
+
   goBack(): void {
     this.location.back();
+  }
+
+  saveLock(){
+    if(!this.configuracion || !this.configuracion.planes){
+      return true;
+    } else if(this.configuracion.planes.length<1){
+      return true;
+    }
+
+    for(let plan of this.configuracion.planes){
+      if(plan.tipos.length<1){
+        return true;
+      }
+    }
+
+    return false;
   }
 
   saveConfig(){
     this.planDeEstudiosService.updateConfigPlanesDeEstudio(this.configId,this.configuracion).subscribe(configRes => {
       if(configRes){
         console.log('config saved', configRes);
+        this.modalClose();
+        this.modalLoadOpen();
         this.planDeEstudiosService.createCursosWithConfigPlanesDeEstudio(this.configId,this.configuracion).subscribe(res => {
-          this.modalClose();
+          this.modalLoadClose();
           this.goBack();
         })
       }

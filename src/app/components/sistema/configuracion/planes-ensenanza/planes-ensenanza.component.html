@@ -87,7 +87,7 @@
           <button class="btn btn-default btn-block" (click)="goBack()">Volver</button>
         </div>
         <div class="col-sm-8">
-          <button class="btn btn-primary btn-block" (click)="modalOpen()" [disabled]="configuracion.planes<1 || lock">Guardar</button>
+          <button class="btn btn-primary btn-block" (click)="modalOpen()" [disabled]="saveLock() || lock">Guardar</button>
 
           <modal [animation]="true" #modal>
             <modal-header [show-close]="true">
@@ -111,3 +111,19 @@
     </div>
   </div>
 </div>
+
+<modal [animation]="true" #modalLoad>
+  <modal-header [show-close]="true">
+    <h4 class="modal-title">Creando Cursos.</h4>
+  </modal-header>
+  <modal-body>
+    <div class="panel">
+      <div class="panel-body text-center">
+        <div class="spinner spinner-primary spinner-lg pos-r sq-100"></div>
+      </div>
+    </div>
+  </modal-body>
+  <!--<modal-footer>
+    <button type="button" class="btn btn-primary" (click)="modalClose()">Ok</button>
+  </modal-footer>-->
+</modal>
