@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 
 import {MatriculaService} from '../../../../services/sistema/matricula.service';
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 
 @Component({
   selector: 'app-by-alumno',
@@ -8,6 +9,7 @@ import {MatriculaService} from '../../../../services/sistema/matricula.service';
   styleUrls: ['./by-alumno.component.css']
 })
 export class ByAlumnoComponent implements OnInit {
+  @ViewChild('warningModal') warningModal: ModalComponent;
   @Input('docs') docs: string[];
   @Output() onSelect = new EventEmitter<any>();
 
@@ -35,7 +37,12 @@ export class ByAlumnoComponent implements OnInit {
     if (this.include(this.selected,id)){
       this.selected.splice(this.selected.indexOf(id),1);
     } else {
-      this.selected.push(id);
+      if(this.selected.length<25){
+        this.selected.push(id);
+      } else {
+        this.warningModalOpen();
+      }
+
     }
     this.emitSelection();
   }
@@ -69,4 +76,11 @@ export class ByAlumnoComponent implements OnInit {
     this.onSelect.emit(this.selected);
   }
 
+  warningModalOpen(){
+    this.warningModal.open();
+  }
+
+  warningModalClose(){
+    this.warningModal.close();
+  }
 }

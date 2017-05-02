@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import {Observable} from "rxjs/Observable";
 
+import {AuthenticationService} from '../../../services/authentication.service';
 import { ColegiosService } from '../../../services/sistema/colegios.service'
 
 @Component({
@@ -21,13 +23,24 @@ export class SostenedorAfterLoginComponent implements OnInit {
         console.log(event.url);
         if(event.url=='/'){
           window.location.reload(true);
+
         }
       }
     });
   }
 
   ngOnInit() {
-    this.colegiosService.getColegios().subscribe((response) => {
+
+    this.colegiosService.getColegios().retry(1)
+      .catch(initError => {
+        if(initError && initError.satus==401){
+          //refresh token && retry request (return this.colegioService.getcolegios())
+          return Observable.throw(initError);
+        } else {
+          return Observable.throw(initError);
+        }
+      })
+      .subscribe((response) => {
       console.log(response);
       if(response.length>0){
         this.colegios = response;
@@ -35,6 +48,10 @@ export class SostenedorAfterLoginComponent implements OnInit {
         this.router.navigate(['app/sistema/colegios/crear']);
       }
 
+    }, error => {
+      console.log(error);
+      console.log(this.colegiosService.getUserId());
+      console.log(JSON.parse(localStorage.getItem('currentUser')));
     });
   }
 

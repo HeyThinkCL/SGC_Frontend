@@ -74,6 +74,21 @@ export class VerCursoComponent implements OnInit {
     })
   }
 
+  checkMultiplesCursos(grado: string){
+    return this.getAllInstancesByGrado(this.cursos,grado).length>1? true : false;
+  }
+
+  getAllInstancesByGrado(array, grado): any[]{
+    let instances = [];
+
+    for(let a of array){
+      if(a.curso.grado==grado){
+        instances.push(a);
+      }
+    }
+    return instances;
+  }
+
   indexOfObj(id: number): number {
     for (let i = 0; i < this.cursos.length; i++) {
       if ( this.cursos[i].curso.id == id) {

@@ -40,6 +40,7 @@ export class ByCursoComponent implements OnInit {
     if (this.include(this.selected,id)){
       this.selected.splice(this.selected.indexOf(id),1);
     } else {
+      this.selected = [];
       this.selected.push(id);
     }
     this.emitSelection();

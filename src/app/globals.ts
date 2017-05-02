@@ -12,11 +12,11 @@
   *.*.y.* minor update number
   *.*.*.z bug fig update number
 */
-export let version: string = '0.4.14.16';
+export let version: string = '0.4.15.17';
 
-export let apiUrl: string = 'http://192.168.1.175:3000';//dev
+// export let apiUrl: string = 'http://192.168.1.175:3000';//local dev
 
-// export let apiUrl: string = 'https://demoapi.innovacolegio.cl';//remote dev
+export let apiUrl: string = 'https://demoapi.innovacolegio.cl';//remote dev
 
 // export let apiUrl: string = 'https://api.innovacolegio.cl';//production
 

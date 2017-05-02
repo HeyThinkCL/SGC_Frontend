@@ -49,3 +49,15 @@
   </div>
 </div>
 
+<modal [animation]="true" #warningModal>
+  <modal-header [show-close]="true">
+    <h4 class="modal-title">Máximo número de alumnos alcanzado.</h4>
+  </modal-header>
+  <modal-body>
+    <p class="card-text">Ha seleccionado el máximo número de alumnos posible. Presiones Ok para continuar.</p>
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-primary" (click)="warningModalClose()">Ok</button>
+  </modal-footer>
+</modal>
+

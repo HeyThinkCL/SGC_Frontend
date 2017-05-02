@@ -1,4 +1,4 @@
-<div class="row gutter-xs">
+<div class="row gutter-xs" *ngIf="curso && cursos.length>0">
   <div class="col-md-10 col-md-offset-1">
     <div class="card">
       <div class="card-body">
@@ -13,7 +13,7 @@
           </div>
           <div class="media-middle media-body">
             <p class="card-text">
-              <strong>{{curso?.curso.grado }}-{{curso?.curso.curso }}</strong>
+              <strong>{{curso?.curso.grado }} <span *ngIf="checkMultiplesCursos(curso?.curso.grado)">{{curso?.curso.curso }}</span></strong>
             </p>
             <p class="card-text">
               <strong>Profesor Jefe</strong> {{curso?.profesor.nombre }} {{curso?.profesor.apellido_paterno }} {{curso?.profesor.apellido_materno }}

@@ -36,7 +36,7 @@ export class ColegiosService {
   getColegios(): Observable<Colegio[]> {
     return this.http.get(`${this.colegiosUrl}?colegio_id=${this.getColegioId()}&user_id=${this.getUserId()}`,{headers:this.headers})
       .map(res => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || error.status ));
+      .catch((error:any) => Observable.throw(error.json().error || error.status ))
   }
 
   getColegio(id: number): Observable<Colegio> {

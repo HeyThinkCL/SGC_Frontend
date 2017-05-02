@@ -257,7 +257,7 @@ export class ModificarPostulacionComponent implements OnInit {
             if(pCheck && mCheck && this.apoderado.rut){
               this.apoderadosService.updateApoderado(this.apoderado).subscribe(apoderado => {
                 this.apoderado = JSON.parse(JSON.stringify(apoderado));
-                this.modalOpen();
+                // this.modalOpen();
               });
             }
           });
@@ -269,14 +269,15 @@ export class ModificarPostulacionComponent implements OnInit {
             if(pCheck && mCheck && this.apoderado.rut){
               this.apoderadosService.updateApoderado(this.apoderado).subscribe(apoderado => {
                 this.apoderado = JSON.parse(JSON.stringify(apoderado));
-                this.modalOpen();
+                // this.modalOpen();
               });
             }
           });
         }
       } else {
-        this.modalOpen();
+        // this.modalOpen();
       }
+      this.modalOpen();
     });
   }
 

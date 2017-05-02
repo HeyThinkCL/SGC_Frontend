@@ -13,6 +13,7 @@ export class CursoDetailComponent implements OnInit {
   private sub: any;
 
   private curso: any;
+  private cursos = [];
 
   private currentTabPath: string = '';
   private tabs = [
@@ -44,7 +45,24 @@ export class CursoDetailComponent implements OnInit {
         this.curso = curso;
       });
 
+    this.cursosService.getCursos().subscribe(cursos => {
+      this.cursos = cursos;
+    });
+  }
 
+  checkMultiplesCursos(grado: string){
+    return this.getAllInstancesByGrado(this.cursos,grado).length>1? true : false;
+  }
+
+  getAllInstancesByGrado(array, grado): any[]{
+    let instances = [];
+
+    for(let a of array){
+      if(a.curso.grado==grado){
+        instances.push(a);
+      }
+    }
+    return instances;
   }
 
   //navigation

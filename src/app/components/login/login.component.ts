@@ -22,9 +22,7 @@ export class LoginComponent implements OnInit {
     //find better way to reload js
     this.router.events.filter(e => e instanceof NavigationEnd)
       .pairwise().subscribe((e) => {
-      console.log(e);
       for(let event of e){
-        console.log(event.url);
         if(event.url=='/'){
           window.location.reload(true);
         }

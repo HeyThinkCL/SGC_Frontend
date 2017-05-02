@@ -31,6 +31,7 @@ export class AuthenticationService {
   }
 
   login(token: string, userData: any){
+    localStorage.clear();
     if(token && userData){
       this.token =JSON.parse(JSON.stringify(token));
 
@@ -71,5 +72,20 @@ export class AuthenticationService {
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
+
+  /*refresh(): Observable<any>{
+    // let params:string = 'refresh_token=' + this.refreshToken + '&grant_type=refresh_token';
+    let headers = new Headers({'Content-Type': 'application/json','Authorization': this.token});
+    return this._http.post('http://localhost:8080/oauth/token', params, {
+      headers : headers
+    })
+      .map(res => res.json())
+      .map(data => {
+          this.accessToken = data.access_token;
+          observer.next(this.accessToken);
+          observer.complete();
+        },
+      ).catch(error) => Observable.throw(error));
+  }*/
 
 }

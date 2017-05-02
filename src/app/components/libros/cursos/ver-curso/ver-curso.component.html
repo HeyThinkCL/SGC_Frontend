@@ -43,7 +43,7 @@
             <tbody>
             <tr *ngFor="let curso of cursos |filterArray:filterData:filterKeys" (click)="goToCurso(curso.curso.id)">
               <td class="maw-320">
-                <span>{{ curso.curso.grado }} {{ curso.curso.curso }}</span>
+                <span>{{ curso.curso.grado }} <span *ngIf="checkMultiplesCursos(curso.curso.grado)">{{ curso.curso.curso }}</span></span>
               </td>
               <td>{{ getPlanName(curso.curso.plan_id) }}</td>
               <td>{{ getTipoName(curso.curso.plan_id,curso.curso.ensenanza_id) }}</td>

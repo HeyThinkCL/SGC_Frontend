@@ -26,12 +26,21 @@
             <tr class="bg-primary">
               <th>Nombre</th>
               <th></th>
+              <th>Plan de Estudios</th>
+              <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let asignaturas of asignaturas | filterArray:filterData:filterKeys">
+            <tr *ngFor="let asignatura of asignaturas | filterArray:filterData:filterKeys">
               <td>
-
+                {{asignatura.nombre}}
+              </td>
+              <td>
+                <span class="label label-outline-info label-pill" *ngIf="asignatura.obligatoria">Obligatoria</span>
+                <span class="label label-outline-info label-pill" *ngIf="asignatura.especial">Especial</span>
+              </td>
+              <td>
+                {{getPlanEstudiosByPlanId(asignatura.plan_id)}}
               </td>
               <td>
                 <div class="btn-toolbar pull-right">
