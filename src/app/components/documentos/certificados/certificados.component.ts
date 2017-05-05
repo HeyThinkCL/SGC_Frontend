@@ -18,7 +18,6 @@ export class CertificadosComponent implements OnInit {
     {'id':4,'nombre':'Certificado de Asistencia'},
     {'id':5,'nombre':'Certificado de Traslado'},
     // {'id':6,'nombre':'Ranking 4tos Medios'},
-    // {'id':7,'nombre':'Certificado de Accidente Escolar'},
     // {'id':8,'nombre':'Permiso de Salida'},
   ];
 
@@ -68,7 +67,10 @@ export class CertificadosComponent implements OnInit {
     } else {
       this.subjectsId = [];
     }
+  }
 
+  getCertificadoAccidente(){
+    window.open(globalVar.apiUrl+'/'+'certificados/descargas/certificado_accidente.pdf');
   }
 
   generateDocs(){

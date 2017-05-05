@@ -41,4 +41,18 @@ export class InformesService {
       .catch((error:any) => Observable.throw(error.json().error || error.status));
   }
 
+  generateListaDeCurso(idFilter: number, subjects: any[]){
+    let payload = {
+      'filtro': {
+        'id': idFilter,
+        'sujetos': subjects,
+      },
+      'colegio_id':this.getColegioId(),
+    };
+    console.log('payload',payload);
+    return this.http.post(`${this.documentosUrl}/lista_alumnos`, JSON.stringify(payload),{headers: this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status));
+  }
+
 }

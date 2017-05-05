@@ -16,6 +16,7 @@ export class InformesComponent implements OnInit {
 
   docs = [
     {'id':1,'nombre':'Informe de Notas'},
+    {'id':2,'nombre':'Lista de Curso'},
     // {'id':2,'nombre':'Informe de Asistencia'},
   ];
 
@@ -51,7 +52,9 @@ export class InformesComponent implements OnInit {
     if(this.optionId == id){
       this.optionId = null;
     } else {
-      this.optionId = id;
+      if(!(this.checkListaDeCurso() && id==5)){
+        this.optionId = id;
+      }
     }
   }
 
@@ -76,6 +79,10 @@ export class InformesComponent implements OnInit {
     this.modal.close();
   }
 
+  checkListaDeCurso(): boolean{
+    return this.include(this.docsId,2);
+  }
+
   generateDocs(){
     let payload = {
       'docs':this.docsId,
@@ -85,7 +92,6 @@ export class InformesComponent implements OnInit {
 
     for(let docId of this.docsId){
       if(docId==1){
-
         this.modalOpen();
         this.informesService.generateInformeNotas(this.optionId,this.subjectsId).subscribe(res => {
           console.log(res);
@@ -93,6 +99,15 @@ export class InformesComponent implements OnInit {
             let url: string = globalVar.apiUrl+'/'+res.status;
             window.open(url);
             this.modalClose();
+          }
+        })
+
+      }
+      if(docId==2){
+        this.informesService.generateListaDeCurso(this.optionId,this.subjectsId).subscribe(res => {
+          if(res && res.status){
+            let url: string = globalVar.apiUrl+'/'+res.status;
+            window.open(url);
           }
         })
 
