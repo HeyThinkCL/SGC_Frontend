@@ -12,11 +12,11 @@ import * as globalVar from '../../../globals';
 export class CertificadosComponent implements OnInit {
 
   docs = [
-    // {'id':1,'nombre':'Certificado Matricula'},
+    {'id':1,'nombre':'Certificado Matricula'},
     {'id':2,'nombre':'Certificado Alumno Regular'},
-    // {'id':3,'nombre':'Certificado de Inscripción'},
-    // {'id':4,'nombre':'Certificado de Asistencia'},
-    // {'id':5,'nombre':'Certificado de Traslado'},
+    {'id':3,'nombre':'Certificado de Inscripción'},
+    {'id':4,'nombre':'Certificado de Asistencia'},
+    {'id':5,'nombre':'Certificado de Traslado'},
     // {'id':6,'nombre':'Ranking 4tos Medios'},
     // {'id':7,'nombre':'Certificado de Accidente Escolar'},
     // {'id':8,'nombre':'Permiso de Salida'},
@@ -79,9 +79,40 @@ export class CertificadosComponent implements OnInit {
     };
 
     for(let docId of this.docsId){
+      if(docId==1){
+        this.certificadosService.generateMatricula(this.optionId,this.subjectsId).subscribe(res => {
+          if(res && res.status){
+            let url: string = globalVar.apiUrl+'/'+res.status;
+            window.open(url)
+          }
+        })
+      }
       if(docId==2){
         this.certificadosService.generateAlumnoRegular(this.optionId,this.subjectsId).subscribe(res => {
-          console.log(res);
+          if(res && res.status){
+            let url: string = globalVar.apiUrl+'/'+res.status;
+            window.open(url)
+          }
+        })
+      }
+      if(docId==3){
+        this.certificadosService.generateInscripcion(this.optionId,this.subjectsId).subscribe(res => {
+          if(res && res.status){
+            let url: string = globalVar.apiUrl+'/'+res.status;
+            window.open(url)
+          }
+        })
+      }
+      if(docId==4){
+        this.certificadosService.generateAsistencia(this.optionId,this.subjectsId).subscribe(res => {
+          if(res && res.status){
+            let url: string = globalVar.apiUrl+'/'+res.status;
+            window.open(url)
+          }
+        })
+      }
+      if(docId==5){
+        this.certificadosService.generateTraslado(this.optionId,this.subjectsId).subscribe(res => {
           if(res && res.status){
             let url: string = globalVar.apiUrl+'/'+res.status;
             window.open(url)

@@ -40,4 +40,60 @@ export class CertificadosService {
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status));
   }
+
+  generateMatricula(idFilter: number, subjects: any[]){
+    let payload = {
+      'filtro': {
+        'id': idFilter,
+        'sujetos': subjects,
+      },
+      'colegio_id':this.getColegioId(),
+    };
+
+    return this.http.post(`${this.documentosUrl}/matriculas`, JSON.stringify(payload),{headers: this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status));
+  }
+
+  generateInscripcion(idFilter: number, subjects: any[]){
+    let payload = {
+      'filtro': {
+        'id': idFilter,
+        'sujetos': subjects,
+      },
+      'colegio_id':this.getColegioId(),
+    };
+
+    return this.http.post(`${this.documentosUrl}/certificado_inscripcions`, JSON.stringify(payload),{headers: this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status));
+  }
+
+  generateAsistencia(idFilter: number, subjects: any[]){
+    let payload = {
+      'filtro': {
+        'id': idFilter,
+        'sujetos': subjects,
+      },
+      'colegio_id':this.getColegioId(),
+    };
+
+    return this.http.post(`${this.documentosUrl}/certificado_asistencias`, JSON.stringify(payload),{headers: this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status));
+  }
+
+  generateTraslado(idFilter: number, subjects: any[]){
+    let payload = {
+      'filtro': {
+        'id': idFilter,
+        'sujetos': subjects,
+      },
+      'colegio_id':this.getColegioId(),
+    };
+
+    return this.http.post(`${this.documentosUrl}/certificado_traslados`, JSON.stringify(payload),{headers: this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status));
+  }
 }
