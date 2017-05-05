@@ -39,11 +39,14 @@ export class InformesComponent implements OnInit {
   ngOnInit() {
   }
 
-  setDocumento(id: string){
+  setDocumento(id){
     if(this.include(this.docsId,id)){
       this.docsId.splice(this.docsId.indexOf(id),1);
     } else {
       this.docsId.push(id);
+      if(this.checkPorAlumno() && id==2){
+        this.setOption(null);
+      }
     }
   }
 
@@ -81,6 +84,10 @@ export class InformesComponent implements OnInit {
 
   checkListaDeCurso(): boolean{
     return this.include(this.docsId,2);
+  }
+
+  checkPorAlumno(): boolean{
+    return this.optionId==5;
   }
 
   generateDocs(){
