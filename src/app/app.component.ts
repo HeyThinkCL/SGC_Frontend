@@ -17,7 +17,7 @@ import * as globalVars from './globals';
 export class AppComponent implements OnInit {
 
   private currentUser;
-  private colegios;
+  private colegios = [];
   private colegioName: string;
 
   configRoutes = [];
@@ -58,16 +58,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private redirectService: RedirectService,
-  ){
-    ////reload only .js script files
-    /*for(let i:number = 2;i< document.getElementsByTagName("script").length;i=i+1){
-      let oldSrc = document.getElementsByTagName("script")[i].src;
-      document.getElementsByTagName("script")[i].src = '';
-      setTimeout(function(){document.getElementsByTagName("script")[i].src = oldSrc; console.log(document.getElementsByTagName("script")[i].src);},25);
-      // document.getElementsByTagName("script")[i].src = oldSrc+'?v1.1';
-      // console.log(document.getElementsByTagName("script")[i].src);
-    }*/
-  }
+  ){}
 
   ngOnInit(){
 

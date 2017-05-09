@@ -9,15 +9,18 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ColegioNameFilterPipe implements PipeTransform {
   transform(data,colegios){
-    let colegioId = JSON.parse(localStorage.getItem('currentUser')).id;
-    let selectedColegio = colegios.find(c => c.nombre==data);
-    if(!(selectedColegio.id==colegioId)){
-      let _colegio = colegios.find(c => c.id == colegioId);
-      if(_colegio){
-        return _colegio.nombre;
+    let colegioId = JSON.parse(localStorage.getItem('currentUser')).colegioId;
+    if(data && colegios){
+      let selectedColegio = colegios.find(c => c.nombre==data);
+      if(!(selectedColegio.id==colegioId)){
+        let _colegio = colegios.find(c => c.id == colegioId);
+        if(_colegio){
+          return _colegio.nombre;
+        }
+      } else {
+        return data;
       }
-    } else {
-      return data;
-    }
+    } else return data;
+
   }
 }

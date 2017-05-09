@@ -35,8 +35,12 @@
             <span class="bar-line bar-line-6 in"></span>
           </span>
         </button>
+
         <ul class="nav navbar-nav navbar-right">
-          <li class="visible-xs-block">
+          <li class="hidden-xs">
+            <span class="navbar-btn navbar-account-btn fw-n">
+              {{colegioName | colegioNameFilter:colegios }}
+            </span>
           </li>
           <!--<li class="hidden-xs hidden-sm">
             <form class="navbar-search navbar-search-collapsed">
@@ -130,9 +134,9 @@
             </div>
           </li>-->
           <li class="dropdown hidden-xs">
-            <button class="navbar-account-btn" data-toggle="dropdown" aria-haspopup="true">
-              <!--<img class="rounded" width="36" height="36" src="/assets/img/0180441436.jpg" alt="Teddy Wilson">-->
-              <span class="fw-sb">{{currentUser.nombre}} {{currentUser.apellido}}</span>
+            <button class="navbar-btn navbar-account-btn" data-toggle="dropdown" aria-haspopup="true">
+              <span class="rounded icon icon-user"></span>
+              <span class="fz-sm fw-n">{{currentUser.nombre}} {{currentUser.apellido}}</span>
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
