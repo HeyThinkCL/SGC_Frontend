@@ -50,7 +50,9 @@
   <div class="col-md-10 col-sm-offset-1">
     <div class="row gutter-xs">
       <div class="col-md-4" *ngFor="let option of options">
-        <div class="card" (click)="setOption(option.id)">
+        <div class="card"
+             [ngClass]="{'no-background': (porAlumnosLock() && option.id==5) || (porCursosLock() && option.id==4) || (porColegioLock() && option.id==0) }"
+             (click)="setOption(option.id)">
           <div class="card-body">
             <div class="media">
               <div class="media-middle media-left">
