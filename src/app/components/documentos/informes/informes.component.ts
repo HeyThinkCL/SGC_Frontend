@@ -22,7 +22,6 @@ export class InformesComponent implements OnInit {
     {'id':5,'nombre':'Asistencia del Colegio'},
     {'id':6,'nombre':'Extranjeros'},
     {'id':7,'nombre':'Indigenas'},
-    // {'id':2,'nombre':'Informe de Asistencia'},
   ];
 
   options = [
@@ -148,6 +147,39 @@ export class InformesComponent implements OnInit {
           }
         })
 
+      }
+      if(docId==3){
+        this.informesService.generateInasistenciaCurso(this.optionId,this.subjectsId).subscribe(res => {
+          if(res && res.status){
+            let url: string = globalVar.apiUrl+'/'+res.status;
+            window.open(url);
+          }
+        })
+
+      }
+      if(docId==5){
+        this.informesService.generateAsistenciaColegio(this.optionId,this.subjectsId).subscribe(res => {
+          if(res && res.status){
+            let url: string = globalVar.apiUrl+'/'+res.status;
+            window.open(url);
+          }
+        })
+      }
+      if(docId==6){
+        this.informesService.generateInformeExtranjeros(this.optionId,this.subjectsId).subscribe(res => {
+          if(res && res.status){
+            let url: string = globalVar.apiUrl+'/'+res.status;
+            window.open(url);
+          }
+        })
+      }
+      if(docId==7){
+        this.informesService.generateInformeIndigenas(this.optionId,this.subjectsId).subscribe(res => {
+          if(res && res.status){
+            let url: string = globalVar.apiUrl+'/'+res.status;
+            window.open(url);
+          }
+        })
       }
     }
 

@@ -35,7 +35,7 @@ export class InformesService {
       },
       'colegio_id':this.getColegioId(),
     };
-    console.log('payload',payload);
+
     return this.http.post(`${this.documentosUrl}/notas`, JSON.stringify(payload),{headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status));
@@ -49,8 +49,61 @@ export class InformesService {
       },
       'colegio_id':this.getColegioId(),
     };
-    console.log('payload',payload);
+
     return this.http.post(`${this.documentosUrl}/lista_alumnos`, JSON.stringify(payload),{headers: this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status));
+  }
+
+  generateInasistenciaCurso(idFilter: number, subjects: any[]){
+    let payload = {
+      'filtro': {
+        'id': idFilter,
+        'sujetos': subjects,
+      },
+      'colegio_id':this.getColegioId(),
+    };
+
+    return this.http.post(`${this.documentosUrl}/inasistencia_cursos`, JSON.stringify(payload),{headers: this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status));
+  }
+
+  generateAsistenciaColegio(idFilter: number, subjects: any[]){
+    let payload = {
+      'filtro': {
+        'id': idFilter,
+        'sujetos': subjects,
+      },
+      'colegio_id':this.getColegioId(),
+    };
+    return this.http.post(`${this.documentosUrl}/asistencia_colegios`, JSON.stringify(payload),{headers: this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status));
+  }
+
+  generateInformeExtranjeros(idFilter: number, subjects: any[]){
+    let payload = {
+      'filtro': {
+        'id': idFilter,
+        'sujetos': subjects,
+      },
+      'colegio_id':this.getColegioId(),
+    };
+    return this.http.post(`${this.documentosUrl}/extranjeros`, JSON.stringify(payload),{headers: this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status));
+  }
+
+  generateInformeIndigenas(idFilter: number, subjects: any[]){
+    let payload = {
+      'filtro': {
+        'id': idFilter,
+        'sujetos': subjects,
+      },
+      'colegio_id':this.getColegioId(),
+    };
+    return this.http.post(`${this.documentosUrl}/etnias`, JSON.stringify(payload),{headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status));
   }

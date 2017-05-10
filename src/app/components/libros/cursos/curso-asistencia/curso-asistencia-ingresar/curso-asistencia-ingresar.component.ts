@@ -81,11 +81,11 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
         for (let dia of res.mes){
           dia.dia = addDays(new Date(dia.dia),1);
         }
+
         this.inasistenciaMonth = res.mes;
 
         this.configuracionService.getConfiguraciones().subscribe(configs => {
           let config = configs.find(c => c.glosa == 'Calendario Académico' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser')).colegioId);
-
           this.calendarioService.getConfigCalendarioAcademicoById(config.id).subscribe(subRes => {
             if(subRes && subRes.periodo_academico && (subRes.periodo_academico.fecha_inicio && subRes.periodo_academico.fecha_termino)){
               this.calendarConfig = subRes;
@@ -306,7 +306,6 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
 
         day.alumnos = JSON.parse(JSON.stringify(this.alumnos));
         day.inasistenciaList = inasistenciaListDay.alumnos;
-
         for(let alumno of day.alumnos){
 
           alumno['cambio']=false;

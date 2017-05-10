@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
 import 'rxjs/add/operator/pairwise';
 
@@ -15,6 +15,10 @@ import * as globalVars from './globals';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  /*@HostListener('window:unload',['$event'])
+  beforeunloadHandler(event) {
+    this.logout();
+  } use when js reload is solved */
 
   private currentUser;
   private colegios = [];
@@ -88,6 +92,7 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
 
   goToConfigRoute(id: number){
     if(localStorage.getItem('idConfig')){

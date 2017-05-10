@@ -44,6 +44,9 @@ export class LoginComponent implements OnInit {
       if (token && response.usuario){
         if(this.authenticationService.login(token,response.usuario)){
           let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+          // this.authenticationService.verifyToken(currentUser.email,currentUser.token);
+
           if(+atob(atob(currentUser.rol))[5]==1){
             this.router.navigate(['after']);
           } else {

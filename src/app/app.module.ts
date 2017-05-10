@@ -267,7 +267,7 @@ import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/soste
     Ng2Bs3ModalModule,
     Select2Module,
     Ng2DatetimePickerModule,
-    MomentModule,
+    MomentModule
   ],
   providers: [
     AuthGuard,

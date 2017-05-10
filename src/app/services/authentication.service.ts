@@ -73,19 +73,62 @@ export class AuthenticationService {
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
-  /*refresh(): Observable<any>{
-    // let params:string = 'refresh_token=' + this.refreshToken + '&grant_type=refresh_token';
-    let headers = new Headers({'Content-Type': 'application/json','Authorization': this.token});
-    return this._http.post('http://localhost:8080/oauth/token', params, {
+  verifyToken(email: string, token: string){
+    let headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + token);
+    this.http.get('http://localhost:8080/rest/resource', {
       headers : headers
     })
+      .catch(initialError =>{
+        if (initialError && initialError.status === 401) {
+          this.refresh(email,token).flatMap((accessToken) => {
+            // retry with new token
+            headers = new Headers();
+            headers.append('Authorization', 'Bearer ' +  accessToken);
+            return this.http.get('http://localhost:8080/rest/resource', {
+              headers : headers });
+          });
+        } else {
+          return Observable.throw(initialError);
+        }
+      })
       .map(res => res.json())
-      .map(data => {
-          this.accessToken = data.access_token;
-          observer.next(this.accessToken);
-          observer.complete();
-        },
-      ).catch(error) => Observable.throw(error));
-  }*/
+      .subscribe(
+        res => {},
+        error => {
+          console.log("error="+JSON.stringify(error));
+        }
+      );
+  }
 
+  refresh(email: string, token: string): Observable<any>{
+    console.log("refreshing token");
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+    return Observable.create(
+      observer => {
+        this.http.post('http://localhost:8080/oauth/token', JSON.stringify({email:email,token:token}), {
+          headers : headers
+        })
+          .map(res => res.json()).subscribe(
+          (data) => {
+            let newToken = data.access_token;
+
+            let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            currentUser.token = newToken;
+            localStorage.removeItem('currentUser');
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+            observer.next(newToken);
+            observer.complete();
+          },
+          (error) => {
+            Observable.throw(error);
+          }
+        );
+      }
+    );
+  }
 }
+
