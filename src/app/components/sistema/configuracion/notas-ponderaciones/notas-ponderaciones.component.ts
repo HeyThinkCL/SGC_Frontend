@@ -56,7 +56,7 @@ export class NotasPonderacionesComponent implements OnInit {
         if(res){
           this.configNotasService.getConfigNotasById(this.configId).subscribe(subRes => {
             this.configuracion = subRes;
-            console.log(this.configuracion);
+
           })
         } else {
           this.configNotasService.createConfigNotas(this.configId).subscribe(subRes => {
@@ -105,7 +105,7 @@ export class NotasPonderacionesComponent implements OnInit {
   }
 
   saveConfig(){
-    console.log(this.configuracion);
+
     this.configNotasService.updateConfigNotas(this.configId,this.configuracion).subscribe(res => {});
     this.modalClose();
   }

@@ -74,7 +74,7 @@ export class CalendarioAcademicoComponent implements OnInit {
         if(res){
           this.calendarioService.getConfigCalendarioAcademicoById(this.configId).subscribe(subRes => {
             this.configuracion = subRes;
-            console.log(subRes);
+
             this.formatDates(this.configuracion);
           })
         } else {
@@ -101,7 +101,7 @@ export class CalendarioAcademicoComponent implements OnInit {
           let _b1 = config.periodo_academico[key.toString()].toString().split('T');
           let _b2 = _b1[0].split('-').reverse();
           config.periodo_academico[key.toString()] = _b2.join('-');
-          console.log(key,config.periodo_academico[key.toString()]);
+
         }
       }
     }
@@ -112,7 +112,7 @@ export class CalendarioAcademicoComponent implements OnInit {
             let _b1 = periodo[key.toString()].toString().split('T');
             let _b2 = _b1[0].split('-').reverse();
             periodo[key.toString()] = _b2.join('-');
-            console.log(key,periodo[key.toString()]);
+
           }
         }
       }
@@ -124,7 +124,7 @@ export class CalendarioAcademicoComponent implements OnInit {
             let _b1 = periodo[key.toString()].toString().split('T');
             let _b2 = _b1[0].split('-').reverse();
             periodo[key.toString()] = _b2.join('-');
-            console.log(key,periodo[key.toString()]);
+
           }
         }
       }

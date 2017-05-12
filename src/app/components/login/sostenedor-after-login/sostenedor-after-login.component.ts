@@ -18,9 +18,9 @@ export class SostenedorAfterLoginComponent implements OnInit {
     //find better way to reload js
     this.router.events.filter(e => e instanceof NavigationEnd)
       .pairwise().subscribe((e) => {
-      console.log(e);
+
       for(let event of e){
-        console.log(event.url);
+
         if(event.url=='/'){
           window.location.reload(true);
 
@@ -41,7 +41,7 @@ export class SostenedorAfterLoginComponent implements OnInit {
         }
       })
       .subscribe((response) => {
-      console.log(response);
+
       if(response.length>0){
         this.colegios = response;
       } else {
@@ -49,9 +49,7 @@ export class SostenedorAfterLoginComponent implements OnInit {
       }
 
     }, error => {
-      console.log(error);
-      console.log(this.colegiosService.getUserId());
-      console.log(JSON.parse(localStorage.getItem('currentUser')));
+
     });
   }
 

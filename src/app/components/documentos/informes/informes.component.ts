@@ -130,7 +130,7 @@ export class InformesComponent implements OnInit {
       if(docId==1){
         this.modalOpen();
         this.informesService.generateInformeNotas(this.optionId,this.subjectsId).subscribe(res => {
-          console.log(res);
+
           if(res && res.status){
             let url: string = globalVar.apiUrl+'/'+res.status;
             window.open(url);

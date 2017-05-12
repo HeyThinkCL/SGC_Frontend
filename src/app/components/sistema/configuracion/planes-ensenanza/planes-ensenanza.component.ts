@@ -74,8 +74,6 @@ export class PlanesEnsenanzaComponent implements OnInit {
 
             this.configuracion = config;
 
-            console.log('get',this.configuracion);
-
             if(config.planes.length>0){
               this.lock = true;
               for(let plan of config.planes){
@@ -110,7 +108,7 @@ export class PlanesEnsenanzaComponent implements OnInit {
                       'selectTiposData':selectTiposData,
                       'tipos':_tipos,
                     });
-                    console.log('init',this.selectedTipos);
+
                   }
                 }
               }
@@ -120,7 +118,7 @@ export class PlanesEnsenanzaComponent implements OnInit {
           } else {
             this.planDeEstudiosService.createConfigPlanesDeEstudio(this.configId).subscribe(configCreated => {
               this.configuracion = configCreated;
-              console.log('create',this.configuracion);
+
               this.view=true;
             })
           }
@@ -254,7 +252,6 @@ export class PlanesEnsenanzaComponent implements OnInit {
   saveConfig(){
     this.planDeEstudiosService.updateConfigPlanesDeEstudio(this.configId,this.configuracion).subscribe(configRes => {
       if(configRes){
-        console.log('config saved', configRes);
         this.modalClose();
         this.modalLoadOpen();
         this.planDeEstudiosService.createCursosWithConfigPlanesDeEstudio(this.configId,this.configuracion).subscribe(res => {

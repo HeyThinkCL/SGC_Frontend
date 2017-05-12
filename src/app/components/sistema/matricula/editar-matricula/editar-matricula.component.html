@@ -245,10 +245,10 @@
 
               <label class="col-sm-1 col-md-offset-7 md-control-label" for="form-control-19"><b>Rut</b></label>
               <div class="col-sm-3">
-                <input class="form-control no-arrows" type="number" id="form-control-19" [(ngModel)]="padre.usuario.rut" readonly>
+                <input class="form-control no-arrows" type="number" id="form-control-19" [(ngModel)]="padre.usuario.rut" [disabled]="this.matricula.padre_id">
               </div>
               <div class="col-sm-1">
-                <input class="form-control" type="text" id="form-control-20" [(ngModel)]="padre.usuario.dv" readonly>
+                <input class="form-control" type="text" id="form-control-20" [(ngModel)]="padre.usuario.dv" [disabled]="this.matricula.padre_id">
               </div>
             </div>
 
@@ -365,10 +365,10 @@
 
               <label class="col-sm-1 col-md-offset-7 md-control-label" for="form-control-33"><b>Rut</b></label>
               <div class="col-sm-3">
-                <input class="form-control no-arrows" type="number" id="form-control-33" [(ngModel)]="madre.usuario.rut" readonly>
+                <input class="form-control no-arrows" type="number" id="form-control-33" [(ngModel)]="madre.usuario.rut" [disabled]="this.matricula.madre_id">
               </div>
               <div class="col-sm-1">
-                <input class="form-control" type="text" id="form-control-34" [(ngModel)]="madre.usuario.dv" readonly>
+                <input class="form-control" type="text" id="form-control-34" [(ngModel)]="madre.usuario.dv" [disabled]="this.matricula.madre_id">
               </div>
             </div>
 
@@ -476,10 +476,10 @@
 
               <label class="col-sm-1 col-md-offset-7 md-control-label" for="form-control-47"><b>Rut</b></label>
               <div class="col-sm-3">
-                <input class="form-control no-arrows" type="number" id="form-control-47" [(ngModel)]="apoderado.usuario.rut" readonly>
+                <input class="form-control no-arrows" type="number" id="form-control-47" [(ngModel)]="apoderado.usuario.rut" [disabled]="this.matricula.apoderado_id">
               </div>
               <div class="col-sm-1">
-                <input class="form-control" type="text" id="form-control-48" [(ngModel)]="apoderado.usuario.dv" readonly>
+                <input class="form-control" type="text" id="form-control-48" [(ngModel)]="apoderado.usuario.dv" [disabled]="this.matricula.apoderado_id">
               </div>
             </div>
 

@@ -132,7 +132,7 @@ export class VerCursoComponent implements OnInit {
     this.cursosService.prepareCurso(cursoId).subscribe(res => {
       let updatedCurso = this.cursos.find(c => c.curso.id==cursoId);
       updatedCurso.curso.preparado = true;
-      console.log(this.cursos);
+
     })
   }
 

@@ -52,7 +52,7 @@ export class MatriculaDetailComponent implements OnInit {
       .switchMap((params: Params) => this.matriculaService.getMatricula(+params['id']))
       .subscribe((postulante) => {
         this.alumno = postulante;
-        console.log(this.alumno);
+
         this.cursosService.getCursos().subscribe(c => {
           this.curso = c.find(curso => curso.curso.id == this.alumno);
         });
@@ -61,39 +61,81 @@ export class MatriculaDetailComponent implements OnInit {
           this.timeoutMessage = invalidRequestMsg();
         }
 
-        let pCheck = false;
-        let mCheck = false;
+        if(this.alumno.prioritario || this.alumno.preferente){
+          this.alumno['sep']=true;
+        }
 
-        this.apoderadosService.getApoderadoById(postulante.padre_id).subscribe(padre => {
-          this.padre = padre;
-          this.padre['apoderado']=false;
-          pCheck = true;
-          if(pCheck && mCheck){
-            this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
-              this.apoderado = apoderado;
-              if(this.padre.usuario.rut == apoderado.usuario.rut){
-                this.padre.apoderado = true;
-              } else if (this.madre.usuario.rut == apoderado.usuario.rut){
-                this.madre.apoderado = true;
-              }
-            });
-          }
-        });
-        this.apoderadosService.getApoderadoById(postulante.madre_id).subscribe(madre => {
-          this.madre = madre;
-          this.madre['apoderado']=false;
-          mCheck = true;
-          if(pCheck && mCheck){
-            this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
-              this.apoderado = apoderado;
-              if(this.padre.usuario.rut == apoderado.usuario.rut){
-                this.padre.apoderado = true;
-              } else if (this.madre.usuario.rut == apoderado.usuario.rut){
-                this.madre.apoderado = true;
-              }
-            });
-          }
-        });
+        if(this.alumno.padre_id && this.alumno.madre_id){
+
+          let pCheck = false;
+          let mCheck = false;
+
+          this.apoderadosService.getApoderadoById(postulante.padre_id).subscribe(padre => {
+            this.padre = padre;
+            this.padre['apoderado']=false;
+            pCheck = true;
+            if(this.alumno.apoderado_id &&  pCheck && mCheck){
+              this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+                this.apoderado = apoderado;
+                if(this.padre.usuario.rut == apoderado.usuario.rut){
+                  this.padre.apoderado = true;
+                } else if (this.madre.usuario.rut == apoderado.usuario.rut){
+                  this.madre.apoderado = true;
+                }
+              });
+            }
+          });
+
+          this.apoderadosService.getApoderadoById(postulante.madre_id).subscribe(madre => {
+            this.madre = madre;
+            this.madre['apoderado']=false;
+            mCheck = true;
+            if(this.alumno.apoderado_id && pCheck && mCheck){
+              this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+                this.apoderado = apoderado;
+                if(this.padre.usuario.rut == apoderado.usuario.rut){
+                  this.padre.apoderado = true;
+                } else if (this.madre.usuario.rut == apoderado.usuario.rut){
+                  this.madre.apoderado = true;
+                }
+              });
+            }
+          });
+
+        } else if(this.alumno.padre_id && !this.alumno.madre_id){
+          this.apoderadosService.getApoderadoById(postulante.padre_id).subscribe(padre => {
+            this.padre = padre;
+            this.padre['apoderado']=false;
+
+            if(this.alumno.apoderado_id){
+              this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+                this.apoderado = apoderado;
+                if(this.padre.usuario.rut == apoderado.usuario.rut){
+                  this.padre.apoderado = true;
+                }
+              });
+            }
+          });
+        } else if(this.alumno.madre_id && !postulante.padre_id){
+          this.apoderadosService.getApoderadoById(postulante.madre_id).subscribe(madre => {
+            this.madre = madre;
+            this.madre['apoderado']=false;
+
+            if(this.alumno.apoderado_id){
+              this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+                this.apoderado = apoderado;
+                if (this.madre.usuario.rut == apoderado.usuario.rut){
+                  this.madre.apoderado = true;
+                }
+              });
+            }
+          });
+        } else if(this.alumno.apoderado_id){
+          this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+            this.apoderado = apoderado;
+          });
+        }
+
       });
   }
 

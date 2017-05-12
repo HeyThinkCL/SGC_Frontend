@@ -39,7 +39,9 @@ export class ApoderadosService {
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //PUT
-  updateApoderado(apoderado: any): Observable<any>{
+  updateApoderado(alumnoId: number, apoderado: any): Observable<any>{
+    apoderado['alumno_id'] = alumnoId;
+
     const url = `${this.apoderadosUrl}/${apoderado.id}`;
     return this.http
       .put(url, JSON.stringify({'apoderado':apoderado,'colegio_id':this.getColegioId()}), {headers: this.headers})

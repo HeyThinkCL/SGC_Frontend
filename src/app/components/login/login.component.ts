@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.error='';
     this.authenticationService.authenticate(this.model.user,this.model.password).subscribe(response => {
-      console.log(response);
+
       let token = response.auth_token;
 
       if (token && response.usuario){

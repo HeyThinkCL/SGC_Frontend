@@ -41,7 +41,7 @@ export class FuncionarioDetailComponent implements OnInit {
       this.id = +params['id'];
       this.funcionariosService.getFuncionarioById(this.id).subscribe(res => {
         this.funcionario = res;
-        console.log(this.funcionario);
+
         this.setRolesDocentes();
         this.setRolesNoDocentes();
       })
@@ -76,7 +76,7 @@ export class FuncionarioDetailComponent implements OnInit {
       }
     }
     this.rolesDocentesCheck = true;
-    console.log(this.rolesDocentes);
+
   }
 
   setRolesNoDocentes(){

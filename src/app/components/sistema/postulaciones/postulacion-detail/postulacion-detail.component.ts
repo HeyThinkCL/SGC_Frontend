@@ -49,43 +49,81 @@ export class PostulacionDetailComponent implements OnInit {
         if(!(postulante)){
           this.timeoutMessage = invalidRequestMsg();
         }
-        if(postulante.prioritario || postulante.preferente){
-          postulante['sep']=true;
+
+        if(this.postulante.prioritario || this.postulante.preferente){
+          this.postulante['sep']=true;
         }
 
-        let pCheck = false;
-        let mCheck = false;
+        if(this.postulante.padre_id && this.postulante.madre_id){
 
-        this.apoderadosService.getApoderadoById(postulante.padre_id).subscribe(padre => {
-          this.padre = padre;
-          this.padre['apoderado']=false;
-          pCheck = true;
-          if(pCheck && mCheck){
-            this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
-              this.apoderado = apoderado;
-              if(this.padre.usuario.rut == apoderado.usuario.rut){
-                this.padre.apoderado = true;
-              } else if (this.madre.usuario.rut == apoderado.usuario.rut){
-                this.madre.apoderado = true;
-              }
-            });
-          }
-        });
-        this.apoderadosService.getApoderadoById(postulante.madre_id).subscribe(madre => {
-          this.madre = madre;
-          this.madre['apoderado']=false;
-          mCheck = true;
-          if(pCheck && mCheck){
-            this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
-              this.apoderado = apoderado;
-              if(this.padre.usuario.rut == apoderado.usuario.rut){
-                this.padre.apoderado = true;
-              } else if (this.madre.usuario.rut == apoderado.usuario.rut){
-                this.madre.apoderado = true;
-              }
-            });
-          }
-        });
+          let pCheck = false;
+          let mCheck = false;
+
+          this.apoderadosService.getApoderadoById(postulante.padre_id).subscribe(padre => {
+            this.padre = padre;
+            this.padre['apoderado']=false;
+            pCheck = true;
+            if(this.postulante.apoderado_id &&  pCheck && mCheck){
+              this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+                this.apoderado = apoderado;
+                if(this.padre.usuario.rut == apoderado.usuario.rut){
+                  this.padre.apoderado = true;
+                } else if (this.madre.usuario.rut == apoderado.usuario.rut){
+                  this.madre.apoderado = true;
+                }
+              });
+            }
+          });
+
+          this.apoderadosService.getApoderadoById(postulante.madre_id).subscribe(madre => {
+            this.madre = madre;
+            this.madre['apoderado']=false;
+            mCheck = true;
+            if(this.postulante.apoderado_id && pCheck && mCheck){
+              this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+                this.apoderado = apoderado;
+                if(this.padre.usuario.rut == apoderado.usuario.rut){
+                  this.padre.apoderado = true;
+                } else if (this.madre.usuario.rut == apoderado.usuario.rut){
+                  this.madre.apoderado = true;
+                }
+              });
+            }
+          });
+
+        } else if(this.postulante.padre_id && !this.postulante.madre_id){
+          this.apoderadosService.getApoderadoById(postulante.padre_id).subscribe(padre => {
+            this.padre = padre;
+            this.padre['apoderado']=false;
+
+            if(this.postulante.apoderado_id){
+              this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+                this.apoderado = apoderado;
+                if(this.padre.usuario.rut == apoderado.usuario.rut){
+                  this.padre.apoderado = true;
+                }
+              });
+            }
+          });
+        } else if(this.postulante.madre_id && !postulante.padre_id){
+          this.apoderadosService.getApoderadoById(postulante.madre_id).subscribe(madre => {
+            this.madre = madre;
+            this.madre['apoderado']=false;
+
+            if(this.postulante.apoderado_id){
+              this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+                this.apoderado = apoderado;
+                if (this.madre.usuario.rut == apoderado.usuario.rut){
+                  this.madre.apoderado = true;
+                }
+              });
+            }
+          });
+        } else if(this.postulante.apoderado_id){
+          this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+            this.apoderado = apoderado;
+          });
+        }
       });
   }
 

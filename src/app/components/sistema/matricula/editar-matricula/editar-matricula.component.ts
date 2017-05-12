@@ -97,21 +97,24 @@ export class EditarMatriculaComponent implements OnInit {
     this.route.params
       .switchMap((params: Params) => this.matriculasService.getMatricula(+params['id']))
       .subscribe((postulante) => {
+        if(postulante.prioritario || postulante.preferente){
+          postulante['sep']=true;
+        }
         this.matricula = postulante;
+
         this.selectedMatricula = JSON.parse(JSON.stringify(this.matricula));
 
-        let pCheck = false;
-        let mCheck = false;
+        if(postulante.padre_id && postulante.madre_id){
+          let pCheck = false;
+          let mCheck = false;
 
-        if(postulante.padre_id){
           this.apoderadosService.getApoderadoById(postulante.padre_id).subscribe(padre => {
             this.padre = padre;
             this.selectedPadre = JSON.parse(JSON.stringify(this.padre));
             this.padre['apoderado']=false;
             pCheck = true;
 
-
-            if(pCheck && mCheck && postulante.apoderado_id){
+            if(this.matricula.apoderado_id && pCheck && mCheck){
               this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
                 this.apoderado = apoderado;
                 this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
@@ -124,15 +127,14 @@ export class EditarMatriculaComponent implements OnInit {
               });
             }
           });
-        }
-        if(postulante.madre_id){
+
           this.apoderadosService.getApoderadoById(postulante.madre_id).subscribe(madre => {
             this.madre = madre;
             this.selectedMadre = JSON.parse(JSON.stringify(this.madre));
             this.madre['apoderado']=false;
             mCheck = true;
 
-            if(pCheck && mCheck && postulante.apoderado_id){
+            if(this.matricula.apoderado_id && pCheck && mCheck){
               this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
                 this.apoderado = apoderado;
                 this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
@@ -144,6 +146,47 @@ export class EditarMatriculaComponent implements OnInit {
                 }
               });
             }
+          });
+
+        } else if (this.matricula.padre_id && !this.matricula.madre_id){
+          this.apoderadosService.getApoderadoById(postulante.padre_id).subscribe(padre => {
+            this.padre = padre;
+            this.selectedPadre = JSON.parse(JSON.stringify(this.padre));
+            this.padre['apoderado']=false;
+
+
+            if(this.matricula.apoderado_id){
+              this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+                this.apoderado = apoderado;
+                this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
+
+                if(this.padre.usuario.rut == apoderado.usuario.rut){
+                  this.padre.apoderado = true;
+                }
+              });
+            }
+          });
+        } else if(!this.matricula.padre_id && this.matricula.madre_id){
+          this.apoderadosService.getApoderadoById(postulante.madre_id).subscribe(madre => {
+            this.madre = madre;
+            this.selectedMadre = JSON.parse(JSON.stringify(this.madre));
+            this.madre['apoderado']=false;
+
+            if(this.matricula.apoderado_id){
+              this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+                this.apoderado = apoderado;
+                this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
+
+                if (this.madre.usuario.rut == apoderado.usuario.rut){
+                  this.madre.apoderado = true;
+                }
+              });
+            }
+          });
+        } else if(this.matricula.apoderado_id){
+          this.apoderadosService.getApoderadoById(postulante.apoderado_id).subscribe(apoderado => {
+            this.apoderado = apoderado;
+            this.selectedApoderado = JSON.parse(JSON.stringify(this.apoderado));
           });
         }
       });
@@ -269,29 +312,31 @@ export class EditarMatriculaComponent implements OnInit {
     this.matriculasService.updateMatricula(this.matricula).subscribe((mat) => {
       this.matricula = JSON.parse(JSON.stringify(mat));
 
-      let pCheck = false;
-      let mCheck = false;
+      if(this.matricula.padre_id){
+        this.apoderadosService.updateApoderado(this.id,this.padre).subscribe(padre => {
+          this.padre = JSON.parse(JSON.stringify(padre));
+        })
+      } else if (this.padre.usuario.rut){
+        this.apoderadosService.createApoderado(this.id,this.padre).subscribe();
+      }
 
-      this.apoderadosService.updateApoderado(this.padre).subscribe(padre => {
-        this.padre = JSON.parse(JSON.stringify(padre));
-        pCheck = true;
-        if(pCheck && mCheck){
-          this.apoderadosService.updateApoderado(this.apoderado).subscribe(apoderado => {
-            this.apoderado = JSON.parse(JSON.stringify(apoderado));
-            this.modalOpen();
-          });
-        }
-      });
-      this.apoderadosService.updateApoderado(this.madre).subscribe(madre => {
-        this.madre = JSON.parse(JSON.stringify(madre));
-        mCheck = true;
-        if(pCheck && mCheck){
-          this.apoderadosService.updateApoderado(this.apoderado).subscribe(apoderado => {
-            this.apoderado = JSON.parse(JSON.stringify(apoderado));
-            this.modalOpen();
-          });
-        }
-      });
+      if(this.matricula.madre_id){
+        this.apoderadosService.updateApoderado(this.id,this.madre).subscribe(madre => {
+          this.madre = JSON.parse(JSON.stringify(madre));
+        })
+      } else if (this.madre.usuario.rut){
+        this.apoderadosService.createApoderado(this.id,this.madre).subscribe();
+      }
+
+      if(this.matricula.apoderado_id && !(this.madre.apoderado || this.padre.apoderado)){
+        this.apoderadosService.updateApoderado(this.id,this.apoderado).subscribe(madre => {
+          this.apoderado = JSON.parse(JSON.stringify(madre));
+        })
+      } else if(this.apoderado.usuario.rut && !(this.madre.apoderado || this.padre.apoderado)){
+        this.apoderadosService.createApoderado(this.id,this.apoderado).subscribe();
+      }
+
+      this.modalOpen();
 
     });
   }

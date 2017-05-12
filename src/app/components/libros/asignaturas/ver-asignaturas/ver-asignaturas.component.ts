@@ -27,7 +27,7 @@ export class VerAsignaturasComponent implements OnInit {
 
   ngOnInit() {
     this.colegioService.getAsignaturasByColegioId().subscribe(asigns => {
-      console.log(asigns);
+
       this.asignaturas = asigns;
     });
 

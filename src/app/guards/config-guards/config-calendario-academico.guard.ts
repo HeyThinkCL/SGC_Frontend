@@ -18,7 +18,7 @@ export class ConfigCalendarioAcademicoGuard implements CanActivate {
       let config = configs.find(c => c.glosa == 'Calendario Académico');
 
       this.calendarioService.getConfigCalendarioAcademicoById(config.id).subscribe(subRes => {
-        console.log(subRes);
+
       });
     });
   }

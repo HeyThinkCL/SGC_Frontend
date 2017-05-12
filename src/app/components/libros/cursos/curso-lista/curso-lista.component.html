@@ -12,7 +12,7 @@
               <th>Apellidos</th>
               <th>Rut</th>
               <th>Estados</th>
-              <th></th>
+              <th class="maw-320"></th>
             </tr>
             </thead>
             <tbody>
@@ -29,12 +29,17 @@
                 <span class="label label-outline-info label-pill" *ngIf="alumno.extranjero">Extranjero/a</span>
               </td>
               <td>
-                <!--<div class="demo-btn-toolbar btn-toolbar pull-right">
+                <div class="demo-btn-toolbar btn-toolbar">
                   <div class="btn-group btn-group-sm">
-                    <button class="btn btn-sm" [ngClass]="{'btn-danger':!alumno.desiste, 'btn-success':alumno.desiste}"
-                            (click)="modalOpen(alumno)">
+                    <button class="btn btn-sm btn-danger"
+                            (click)="modalOpen(alumno)"
+                            *ngIf="!alumno.desiste">
                       <span class="icon icon-times-circle-o icon-fw" *ngIf="!alumno.desiste"></span>
-                      <span class="icon icon-check-circle-o icon-fw" *ngIf="alumno.desiste"></span>
+                    </button>
+
+                    <button class="btn btn-sm btn-info"
+                            (click)="activarModalOpen(alumno)" *ngIf="alumno.desiste">
+                      <span class="icon icon-circle-o icon-fw" *ngIf="alumno.desiste"></span>
                     </button>
 
                     <modal [animation]="true" #modal>
@@ -46,11 +51,24 @@
                       </modal-body>
                       <modal-footer>
                         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalDismiss()">Cancelar</button>
-                        <button type="button" class="btn btn-primary" (click)="modalClose()">Ok</button>
+                        <button type="button" class="btn btn-danger" (click)="modalClose()">Ok</button>
+                      </modal-footer>
+                    </modal>
+
+                    <modal [animation]="true" #activarModal>
+                      <modal-header [show-close]="true">
+                        <h4 class="modal-title">Activar Alumno</h4>
+                      </modal-header>
+                      <modal-body>
+                        Haga click en Ok para continuar activando el alumno seleccionado.
+                      </modal-body>
+                      <modal-footer>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="activarModalDismiss()">Cancelar</button>
+                        <button type="button" class="btn btn-info" (click)="activarModalClose()">Ok</button>
                       </modal-footer>
                     </modal>
                   </div>
-                </div>-->
+                </div>
               </td>
             </tr>
             </tbody>

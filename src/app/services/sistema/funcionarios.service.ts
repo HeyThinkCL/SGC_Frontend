@@ -46,7 +46,7 @@ export class FuncionariosService {
   }
   //POST
   createFuncionario(funcionario: any): Observable<any>{
-    console.log(funcionario);
+
     return this.http
       .post(this.funcionariosUrl, JSON.stringify({'funcionario':funcionario,'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(res => res.json())

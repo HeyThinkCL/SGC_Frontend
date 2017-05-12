@@ -167,13 +167,13 @@ export class AsignarProfesorComponent implements OnInit {
   //Save
   saveJefaturas(){
     this.profesoresService.asignarJefaturasByProfesorId(this.id,this.jefaturas).subscribe(res => {
-      console.log(res);
+
     })
   }
 
   saveAsignaturasDictadas(){
     this.profesoresService.asignarAsignaturasByProfesorId(this.id,this.asignaturasDictadas).subscribe(res => {
-      console.log(res);
+
     })
   }
 
@@ -181,14 +181,14 @@ export class AsignarProfesorComponent implements OnInit {
     let checkJefaturas: boolean = false;
     let checkAsignaturas: boolean = false;
     this.profesoresService.asignarJefaturasByProfesorId(this.id,this.jefaturas).subscribe(res => {
-      console.log(res);
+
       checkJefaturas = true;
       if(checkAsignaturas&&checkJefaturas){
         this.confirmModalOpen();
       }
     });
     this.profesoresService.asignarAsignaturasByProfesorId(this.id,this.asignaturasDictadas).subscribe(res => {
-      console.log(res);
+
       checkAsignaturas = true;
       if(checkAsignaturas&&checkJefaturas){
         this.confirmModalOpen();

@@ -26,7 +26,7 @@ export class PostulacionesService {
   //POST
   createPostulacion(postulacion: any): Observable<any>{
     postulacion['colegio_id']=this.getColegioId();
-    console.log(postulacion);
+
     return this.http
       .post(this.alumnosUrl, JSON.stringify(postulacion), {headers: this.headers})
       .map(res => res.json())

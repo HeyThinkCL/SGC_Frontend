@@ -61,7 +61,7 @@ export class NotasService {
   }
   //DELETE
   deleteNotas(notas){
-    console.log(notas);
+
     const url = `${this.notasUrl}/${notas[0]}?nota=${JSON.stringify(notas)}&colegio_id=${this.getColegioId()}`;
 
     return this.http.delete(url,{headers: this.headers})
