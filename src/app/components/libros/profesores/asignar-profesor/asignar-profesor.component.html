@@ -212,6 +212,7 @@
             <thead>
             <tr class="bg-primary">
               <th>Asignatura</th>
+              <th></th>
               <th>Plan de Estudios</th>
               <th>Formación</th>
             </tr>
@@ -220,6 +221,10 @@
             <tr *ngFor="let asignatura of allAsignaturas | filterAsignar:'asignaturas':asignaturasDictadas:[]">
               <td class="maw-320" (click)="selectAsignatura(asignatura.id)">
                 <span>{{ asignatura.nombre }}</span>
+              </td>
+              <td>
+                <span class="label label-outline-info label-pill" *ngIf="asignatura.obligatoria">Obligatoria</span>
+                <span class="label label-outline-info label-pill" *ngIf="asignatura.especial">Especial</span>
               </td>
               <td>{{getPlanEstudiosByAsignaturaId(asignatura.plan_id)}}</td>
               <td>

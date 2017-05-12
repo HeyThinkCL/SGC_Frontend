@@ -142,10 +142,12 @@ export class CrearFuncionarioComponent implements OnInit {
     }
 
     for (let rol of globalVars.rolesNoDocentes){
-      this.selectRolesNoDocentesData.push({
-        id:rol.rol,
-        text: rol.rol,
-      })
+      if(rol.rol != 'director'){
+        this.selectRolesNoDocentesData.push({
+          id:rol.rol,
+          text: rol.rol,
+        })
+      }
     }
 
     this.selectRolesOptions = {

@@ -45,10 +45,10 @@ export class FuncionariosService {
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
   //POST
-  createFuncionario(funcionario: any): Observable<any>{
+  createFuncionario(funcionario: any, colegioId = this.getColegioId() ): Observable<any>{
 
     return this.http
-      .post(this.funcionariosUrl, JSON.stringify({'funcionario':funcionario,'colegio_id':this.getColegioId()}), {headers: this.headers})
+      .post(this.funcionariosUrl, JSON.stringify({'funcionario':funcionario,'colegio_id':colegioId}), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }

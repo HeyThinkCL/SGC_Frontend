@@ -110,6 +110,16 @@ export class ModificarCursoComponent implements OnInit {
 
   }
 
+  getAsignaturaFlag(asignaturaId): string{
+    let asignatura = this.allAsignaturas.find(a => a.id == asignaturaId);
+
+    if(asignatura){
+      if(asignatura.especial){
+        return '[Especial]'
+      }
+    } else return '';
+  }
+
   //../services
 
   saveCurso() {
