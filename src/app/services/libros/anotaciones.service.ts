@@ -10,7 +10,7 @@ export class AnotacionesService {
     return [[Http]]
   }
 
-  private anotacionessUrl = globalVar.apiUrl+'libro_clases/cursos/anotaciones';
+  private anotacionessUrl = globalVar.apiUrl+'/libro_clases/cursos/anotaciones';
 
   constructor(private http: Http) {
     this.http=http;
@@ -30,8 +30,17 @@ export class AnotacionesService {
     let payload = {};
     payload['anotaciones'] = JSON.parse(JSON.stringify(anotacion));
     payload['colegio_id'] = this.getColegioId();
+    console.log(payload);
 
     return this.http.post(this.anotacionessUrl, JSON.stringify(payload), options)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
+  }
+
+  getAnotacionesByAlumnoId(alumnoId): Observable<any>{
+    const url = `${this.anotacionessUrl}/${alumnoId}?colegio_id=${this.getColegioId()}`;
+
+    return this.http.get(url,{headers:this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }

@@ -6,6 +6,7 @@ import {RedirectService} from '../../../../../services/redirect.service'
 import { CursosService } from '../../../../../services/libros/cursos.service';
 import { ProfesoresService } from '../../../../../services/libros/profesores.service';
 import { MatriculaService } from '../../../../../services/sistema/matricula.service';
+import {AnotacionesService} from "../../../../../services/libros/anotaciones.service";
 
 @Component({
   selector: 'app-curso-anotaciones-ver',
@@ -26,6 +27,7 @@ export class CursoAnotacionesVerComponent implements OnInit {
     private cursosService: CursosService,
     private profesoresService: ProfesoresService,
     private matriculaService: MatriculaService,
+    private anotacionesService: AnotacionesService,
     private route: ActivatedRoute,
     private redirectService: RedirectService,
   ) { }
@@ -42,8 +44,8 @@ export class CursoAnotacionesVerComponent implements OnInit {
     this.cursosService.getCursoById(this.id).subscribe(curso => {
       this.alumnos = curso.alumnos;
       for (let alumno of this.alumnos){
-        this.matriculaService.getAnotacionesById(alumno.id,this.id).subscribe((anotaciones) =>{
-          alumno['anotaciones'] = anotaciones.anotaciones;
+        this.anotacionesService.getAnotacionesByAlumnoId(alumno.id).subscribe((anotaciones) =>{
+          alumno['anotaciones'] = anotaciones;
           for (let anotacion of alumno.anotaciones){
             anotacion['show'] = false;
             if(anotacion.profesor_id){
