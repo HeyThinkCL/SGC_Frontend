@@ -157,6 +157,15 @@ export class InformesComponent implements OnInit {
         })
 
       }
+      if(docId==4){
+        this.informesService.generateResumenCurso(this.optionId,this.subjectsId).subscribe(res => {
+          if(res && res.status){
+            let url: string = globalVar.apiUrl+'/'+res.status;
+            window.open(url);
+          }
+        })
+
+      }
       if(docId==5){
         this.informesService.generateAsistenciaColegio(this.optionId,this.subjectsId).subscribe(res => {
           if(res && res.status){

@@ -69,6 +69,20 @@ export class InformesService {
       .catch((error:any) => Observable.throw(error.json().error || error.status));
   }
 
+  generateResumenCurso(idFilter: number, subjects: any[]){
+    let payload = {
+      'filtro': {
+        'id': idFilter,
+        'sujetos': subjects,
+      },
+      'colegio_id':this.getColegioId(),
+    };
+
+    return this.http.post(`${this.documentosUrl}/resumen_cursos`, JSON.stringify(payload),{headers: this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status));
+  }
+
   generateAsistenciaColegio(idFilter: number, subjects: any[]){
     let payload = {
       'filtro': {

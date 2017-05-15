@@ -148,6 +148,11 @@ export class CrearFuncionarioComponent implements OnInit {
           text: rol.rol,
         })
       }
+
+      /*this.selectRolesNoDocentesData.push({
+        id:rol.rol,
+        text: rol.rol,
+      })*/
     }
 
     this.selectRolesOptions = {

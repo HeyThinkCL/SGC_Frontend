@@ -219,9 +219,13 @@ export class CrearColegioComponent implements OnInit {
     this.colegiosService.createColegio(this.colegio).subscribe(res => {
       this.colegio = res;
       this.funcionario.director = true;
-      this.funcionariosService.createFuncionario(this.funcionario,this.colegio.id).subscribe(funcionario => {
-        this.modalOpen();
-      });
+      if(this.funcionario.usuario.rut){
+        this.funcionariosService.createFuncionario(this.funcionario,this.colegio.id).subscribe(funcionario => {
+          this.modalOpen();
+        });
+      } else {
+        this.modalOpen()
+      }
     });
   }
 

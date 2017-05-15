@@ -156,32 +156,32 @@
         <div class="demo-form-wrapper">
           <div class="form form-horizontal">
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="form-control-14">Nombre</label>
+              <label class="col-sm-2 control-label" for="form-control-21">Nombre</label>
               <div class="col-sm-3">
-                <input class="form-control" type="text" id="form-control-14" [(ngModel)]="funcionario.usuario.nombre">
+                <input class="form-control" type="text" id="form-control-21" [(ngModel)]="funcionario.usuario.nombre">
               </div>
-              <label class="col-sm-1 control-label" for="form-control-15">Apellido Paterno</label>
+              <label class="col-sm-1 control-label" for="form-control-22">Apellido Paterno</label>
               <div class="col-sm-2">
-                <input class="form-control" type="text" id="form-control-15" [(ngModel)]="funcionario.usuario.apellido_paterno">
+                <input class="form-control" type="text" id="form-control-22" [(ngModel)]="funcionario.usuario.apellido_paterno">
               </div>
-              <label class="col-sm-1 control-label" for="form-control-16">Apellido Materno</label>
+              <label class="col-sm-1 control-label" for="form-control-23">Apellido Materno</label>
               <div class="col-sm-2">
-                <input class="form-control" type="text" id="form-control-16" [(ngModel)]="funcionario.usuario.apellido_materno">
+                <input class="form-control" type="text" id="form-control-23" [(ngModel)]="funcionario.usuario.apellido_materno">
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-17">Sexo</label>
+              <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-24">Sexo</label>
               <div class="col-sm-1">
-                <select class="form-control no-arrows" type="text" id="form-control-17" [(ngModel)]="funcionario.usuario.sexo">
+                <select class="form-control no-arrows" type="text" id="form-control-24" [(ngModel)]="funcionario.usuario.sexo">
                   <option value="&hellip;" selected="selected"></option>
                   <option value="M">M</option>
                   <option value="F">F</option>
                 </select>
               </div>
-              <label class="col-sm-2 control-label" for="form-control-18">Fecha de Nacimiento</label>
+              <label class="col-sm-2 control-label" for="form-control-25">Fecha de Nacimiento</label>
               <div class="col-sm-3">
                 <div class="input-with-icon">
-                  <input class="form-control" id="form-control-18"
+                  <input class="form-control" id="form-control-25"
                          [(ngModel)]="funcionario.usuario.fecha_nacimiento"
                          ng2-datetime-picker
                          close-on-select="true"
@@ -190,40 +190,40 @@
                   <span class="icon icon-calendar input-icon"></span>
                 </div>
               </div>
-              <label class="col-sm-1 control-label" for="form-control-19">Rut</label>
+              <label class="col-sm-1 control-label" for="form-control-26">Rut</label>
               <div class="col-sm-2">
-                <input class="form-control no-arrows" type="number" id="form-control-19" [(ngModel)]="funcionario.usuario.rut">
+                <input class="form-control no-arrows" type="number" id="form-control-26" [(ngModel)]="funcionario.usuario.rut">
               </div>
               <div class="col-sm-1">
-                <input class="form-control" type="text" id="form-control-20" [(ngModel)]="funcionario.usuario.dv">
+                <input class="form-control" type="text" id="form-control-27" [(ngModel)]="funcionario.usuario.dv">
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-21">Teléfono Fijo</label>
+              <label class="col-sm-1 col-sm-offset-1 control-label" for="form-control-28">Teléfono Fijo</label>
               <div class="col-sm-2">
-                <input id="form-control-21" class="form-control" type="text" [(ngModel)]="funcionario.usuario.fono_casa">
+                <input id="form-control-28" class="form-control" type="text" [(ngModel)]="funcionario.usuario.fono_casa">
               </div>
-              <label class="col-sm-1 control-label" for="form-control-22">Teléfono Móvil</label>
+              <label class="col-sm-1 control-label" for="form-control-29">Teléfono Móvil</label>
               <div class="col-sm-2">
-                <input id="form-control-22" class="form-control" type="text" [(ngModel)]="funcionario.usuario.fono_movil">
+                <input id="form-control-29" class="form-control" type="text" [(ngModel)]="funcionario.usuario.fono_movil">
               </div>
-              <label class="col-sm-1 control-label" for="form-control-23">Email</label>
+              <label class="col-sm-1 control-label" for="form-control-30">Email</label>
               <div class="col-sm-4">
-                <input id="form-control-23" class="form-control" type="text" [(ngModel)]="funcionario.usuario.mail">
+                <input id="form-control-30" class="form-control" type="text" [(ngModel)]="funcionario.usuario.mail">
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="form-control-24">Nacionalidad</label>
+              <label class="col-sm-2 control-label" for="form-control-31">Nacionalidad</label>
               <div class="col-sm-5">
-                <select2 id="form-control-24"
+                <select2 id="form-control-31"
                          [data]="selectNacionalidadData"
                          [width]="350 | select2WidthFix"
                          [options]="selectNacionalidadOptions"
                          (valueChanged)="funcionario.usuario.nacionalidad = $event.value"></select2>
               </div>
-              <label class="col-sm-2 control-label" for="form-control-25">Estado Civil</label>
+              <label class="col-sm-2 control-label" for="form-control-32">Estado Civil</label>
               <div class="col-sm-3">
-                <select2 id="form-control-25"
+                <select2 id="form-control-32"
                          [data]="selectEstadoCivilData"
                          *ngIf="selectEstadoCivilData.length > 0"
                          [width]="150"
