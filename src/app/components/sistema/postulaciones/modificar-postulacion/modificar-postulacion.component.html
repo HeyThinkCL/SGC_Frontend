@@ -66,19 +66,19 @@
 
             <div class="md-form-group md-label-static">
               <label class="col-sm-1 md-control-label" for="form-control-8"><b>Nacionalidad:</b> {{selectedPostulante.nacionalidad}}</label>
-              <div class="col-sm-5">
+              <div class="col-sm-5" id="form-control-8-wrapper">
                 <select2 id="form-control-8"
                          [data]="selectNacionalidadData"
-                         [width]="300 | select2WidthFix"
+                         [width]="300 | select2WidthFix:'form-control-8-wrapper'"
                          [options]="selectNacionalidadOptions"
                          (valueChanged)="postulante.nacionalidad = $event.value"></select2>
               </div>
               <label class="col-sm-1 col-sm-offset-5 md-control-label" for="form-control-9"><b>Etnia:</b> {{selectedPostulante.etnia}}</label>
-              <div class="col-sm-3">
+              <div class="col-sm-3" id="form-control-9-wrapper">
                 <select2 id="form-control-9"
                          [data]="selectEtniaData"
                          *ngIf="selectEtniaData.length > 0"
-                         [width]="150"
+                         [width]="150 | select2WidthFix:'form-control-9-wrapper'"
                          [options]="selectEtniaOptions"
                          (valueChanged)="postulante.etnia = $event.value"></select2>
               </div>
@@ -268,19 +268,19 @@
 
             <div class="md-form-group md-label-static">
               <label class="col-sm-1 md-control-label" for="form-control-24"><b>Nacionalidad:</b> {{selectedPadre.usuario.nacionalidad}}</label>
-              <div class="col-sm-6">
+              <div class="col-sm-6" id="form-control-24-wrapper">
                 <select2 id="form-control-24"
                          [data]="selectNacionalidadData"
-                         [width]="350 | select2WidthFix"
+                         [width]="350 | select2WidthFix:'form-control-24-wrapper'"
                          [options]="selectNacionalidadOptions"
                          (valueChanged)="padre.usuario.nacionalidad = $event.value"></select2>
               </div>
               <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-25"><b>Estado Civil:</b> {{selectedPadre.usuario.estado_civil}}</label>
-              <div class="col-sm-5">
+              <div class="col-sm-5" id="form-control-25-wrapper">
                 <select2 id="form-control-25"
                          [data]="selectEstadoCivilData"
                          *ngIf="selectEstadoCivilData.length > 0"
-                         [width]="150"
+                         [width]="150 | select2WidthFix:'form-control-25-wrapper'"
                          [options]="selectEstadoCivilOptions"
                          (valueChanged)="padre.usuario.estado_civil = $event.value"></select2>
               </div>
@@ -388,19 +388,19 @@
 
             <div class="md-form-group md-label-static">
               <label class="col-sm-1 md-control-label" for="form-control-38"><b>Nacionalidad:</b> {{selectedMadre.usuario.nacionalidad}}</label>
-              <div class="col-sm-6">
+              <div class="col-sm-6" id="form-control-38-wrapper">
                 <select2 id="form-control-38"
                          [data]="selectNacionalidadData"
-                         [width]="350 | select2WidthFix"
+                         [width]="350 | select2WidthFix:'form-control-38-wrapper'"
                          [options]="selectNacionalidadOptions"
                          (valueChanged)="madre.usuario.nacionalidad = $event.value"></select2>
               </div>
               <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-39"><b>Estado Civil:</b> {{selectedMadre.usuario.estado_civil}}</label>
-              <div class="col-sm-5">
+              <div class="col-sm-5" id="form-control-39-wrapper">
                 <select2 id="form-control-39"
                          [data]="selectEstadoCivilData"
                          *ngIf="selectEstadoCivilData.length > 0"
-                         [width]="150"
+                         [width]="150 | select2WidthFix:'form-control-29-wrapper'"
                          [options]="selectEstadoCivilOptions"
                          (valueChanged)="madre.usuario.estado_civil = $event.value"></select2>
               </div>
@@ -499,19 +499,19 @@
 
             <div class="md-form-group md-label-static">
               <label class="col-sm-1 md-control-label" for="form-control-52"><b>Nacionalidad:</b> {{selectedApoderado.usuario.nacionalidad}}</label>
-              <div class="col-sm-6">
+              <div class="col-sm-6" id="form-control-52-wrapper">
                 <select2 id="form-control-52"
                          [data]="selectNacionalidadData"
-                         [width]="350 | select2WidthFix"
+                         [width]="350 | select2WidthFix:'form-control-52-wrapper'"
                          [options]="selectNacionalidadOptions"
                          (valueChanged)="apoderado.usuario.nacionalidad = $event.value"></select2>
               </div>
               <label class="col-sm-1 col-sm-offset-6 md-control-label" for="form-control-53"><b>Estado Civil:</b> {{selectedApoderado.usuario.estado_civil}}</label>
-              <div class="col-sm-5">
+              <div class="col-sm-5" id="form-control-53-wrapper">
                 <select2 id="form-control-53"
                          [data]="selectEstadoCivilData"
                          *ngIf="selectEstadoCivilData.length > 0"
-                         [width]="150"
+                         [width]="150 | select2WidthFix:'form-control-53-wrapper'"
                          [options]="selectEstadoCivilOptions"
                          (valueChanged)="apoderado.usuario.estado_civil = $event.value"></select2>
               </div>

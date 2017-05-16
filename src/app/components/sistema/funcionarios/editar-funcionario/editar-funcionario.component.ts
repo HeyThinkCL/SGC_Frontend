@@ -170,11 +170,15 @@ export class EditarFuncionarioComponent implements OnInit {
         this.funcionario[key.toString()] = false;
       }
     }
-    for(let rol of this.rolesDocentes){
-      this.funcionario[rol.toString()] = true;
+    if(this.rolesDocentes && this.rolesDocentes.length>0){
+      for(let rol of this.rolesDocentes){
+        this.funcionario[rol.toString()] = true;
+      }
     }
-    for(let rol of this.rolesNoDocentes){
-      this.funcionario[rol.toString()] = true;
+    if(this.rolesNoDocentes && this.rolesNoDocentes.length>0){
+      for(let rol of this.rolesNoDocentes){
+        this.funcionario[rol.toString()] = true;
+      }
     }
 
     this.funcionariosService.updateFuncionario(this.funcionario).subscribe(res => {

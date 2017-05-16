@@ -25,6 +25,7 @@ import {FilterConfigsPipe} from './pipes/filter-configs.pipe'
 import {ColegioNameFilterPipe} from './pipes/colegio-name-filter.pipe';
 import { IncludeProfesorPipe } from './pipes/include-profesor.pipe';
 import { FilterCursoByGrado } from './pipes/filter-curso-by-grado.pipe';
+import { LimitCursosPipe } from './pipes/limit-cursos.pipe';
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -236,6 +237,7 @@ import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/soste
     ColegioNameFilterPipe,
     IncludeProfesorPipe,
     FilterCursoByGrado,
+    LimitCursosPipe,
     ConfiguracionComponent,
     AsignaturasEspecialesComponent,
     ConfiguracionDashboardComponent,

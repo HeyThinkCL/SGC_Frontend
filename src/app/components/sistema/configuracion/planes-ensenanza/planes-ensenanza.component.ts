@@ -213,6 +213,24 @@ export class PlanesEnsenanzaComponent implements OnInit {
     }
   }
 
+  limitCursos(value){
+    if(value && typeof value === 'number'){
+      if(value<1){
+        value = 1;
+      } else if(value> 26){
+        value = 26;
+      } else if (!Number.isInteger(value)){
+        value = Math.trunc(value);
+      }
+    } else if(Number.isNaN(value)){
+      value = 1;
+    } else if(value === null){
+      value = 1;
+    }
+
+
+  }
+
   modalOpen(){
     this.modal.open('sm');
   }

@@ -68,7 +68,13 @@
               <div class="form-group">
                 <label class="control-label col-sm-2">Cursos Minimos por Nivel</label>
                 <div class="col-sm-2">
-                  <input class="form-control" type="number" [(ngModel)]="tipo.cursos_nivel" [readonly]="lock">
+                  <input class="form-control" type="number" [(ngModel)]="tipo.cursos_nivel"
+                         [value]="tipo.cursos_nivel | limitCursos"
+                         (ngModelChange)="limitCursos(tipo.cursos_nivel)"
+                         (keypress)="limitCursos(tipo.cursos_nivel)"
+                         (keyup)="limitCursos(tipo.cursos_nivel)"
+                         (keydown)="limitCursos(tipo.cursos_nivel)"
+                         [readonly]="lock">
                 </div>
               </div>
             </div>

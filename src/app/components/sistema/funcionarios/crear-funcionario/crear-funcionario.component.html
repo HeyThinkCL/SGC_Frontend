@@ -75,19 +75,19 @@
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label" for="form-control-24">Nacionalidad</label>
-              <div class="col-sm-5">
+              <div class="col-sm-5" id="form-control-24-wrapper">
                 <select2 id="form-control-24"
                          [data]="selectNacionalidadData"
-                         [width]="350 | select2WidthFix"
+                         [width]="350 | select2WidthFix:'form-control-24-wrapper'"
                          [options]="selectNacionalidadOptions"
                          (valueChanged)="funcionario.usuario.nacionalidad = $event.value"></select2>
               </div>
               <label class="col-sm-2 control-label" for="form-control-25">Estado Civil</label>
-              <div class="col-sm-3">
+              <div class="col-sm-3" id="form-control-25-wrapper">
                 <select2 id="form-control-25"
                          [data]="selectEstadoCivilData"
                          *ngIf="selectEstadoCivilData.length > 0"
-                         [width]="150"
+                         [width]="150 | select2WidthFix:'form-control-25-wrapper'"
                          [options]="selectEstadoCivilOptions"
                          (valueChanged)="funcionario.usuario.estado_civil = $event.value"></select2>
               </div>
@@ -114,10 +114,10 @@
           <div class="form form-horizontal">
             <div class="form-group">
               <label class="col-sm-4 control-label" for="form-control-28">Roles Docentes</label>
-              <div class="col-sm-8">
+              <div class="col-sm-8" id="form-control-28-wrapper">
                 <select2 id="form-control-28"
                          [data]="selectRolesDocentesData"
-                         [width]="350 | select2WidthFix"
+                         [width]="350 | select2WidthFix:'form-control-28-wrapper'"
                          [options]="selectRolesOptions"
                          (valueChanged)="rolesDocentes = $event.value"></select2>
               </div>
@@ -133,10 +133,10 @@
 
             <div class="form-group">
               <label class="col-sm-4 control-label" for="form-control-30">Roles No Docentes</label>
-              <div class="col-sm-8">
+              <div class="col-sm-8" id="form-control-30-wrapper">
                 <select2 id="form-control-30"
                          [data]="selectRolesNoDocentesData"
-                         [width]="350 | select2WidthFix"
+                         [width]="350 | select2WidthFix:'form-control-30-wrapper'"
                          [options]="selectRolesOptions"
                          (valueChanged)="rolesNoDocentes = $event.value"></select2>
               </div>

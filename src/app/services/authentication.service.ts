@@ -73,7 +73,17 @@ export class AuthenticationService {
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
-  verifyToken(email: string, token: string){
+
+  verifyToken(token: string): Observable<any>{
+    let headers = new Headers({'Content-Type': 'application/json','Authorization': token});
+    let url = `${globalVars.apiUrl}/verifies`;
+
+    return this.http.get(url,{headers: headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status));
+  }
+
+  /*verifyToken(email: string, token: string){
     let headers = new Headers();
     headers.append('Authorization', 'Bearer ' + token);
     this.http.get('http://localhost:8080/rest/resource', {
@@ -99,9 +109,9 @@ export class AuthenticationService {
           console.log("error="+JSON.stringify(error));
         }
       );
-  }
+  }*/
 
-  refresh(email: string, token: string): Observable<any>{
+  /*refresh(email: string, token: string): Observable<any>{
     console.log("refreshing token");
     let headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -129,6 +139,6 @@ export class AuthenticationService {
         );
       }
     );
-  }
+  }*/
 }
 

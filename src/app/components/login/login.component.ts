@@ -42,17 +42,23 @@ export class LoginComponent implements OnInit {
       let token = response.auth_token;
 
       if (token && response.usuario){
-        if(this.authenticationService.login(token,response.usuario)){
-          let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.authenticationService.verifyToken(token).subscribe(verification_response => {
+          if(verification_response){
+            if(this.authenticationService.login(token,response.usuario)){
+              let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-          // this.authenticationService.verifyToken(currentUser.email,currentUser.token);
-
-          if(+atob(atob(currentUser.rol))[5]==1){
-            this.router.navigate(['after']);
-          } else {
-            this.router.navigate(['/']);
+              if(+atob(atob(currentUser.rol))[5]==1){
+                this.router.navigate(['after']);
+              } else {
+                this.router.navigate(['/']);
+              }
+            }
           }
-        }
+        }, error => {
+          if(error && (error===401 || error==='Not Authorized')){
+            this.login();
+          }
+        });
       } else {
         this.error = 'Usuario o contraseña incorrectos';
         this.loading = false;

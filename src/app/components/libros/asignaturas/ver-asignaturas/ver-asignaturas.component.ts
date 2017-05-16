@@ -56,8 +56,10 @@ export class VerAsignaturasComponent implements OnInit {
       return plan.decreto.length>60 ? plan.decreto.substring(0,plan.decreto.length-28)+'...' : plan.decreto;
     }
     return '';
+  }
 
-
+  activarAsignatura(asign: any, activo: boolean){
+    asign.activo = activo;
   }
 
 }

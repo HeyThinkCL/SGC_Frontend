@@ -98,11 +98,11 @@
           <div class="form form-horizontal">
             <div class="form-group">
               <label class="col-sm-4 control-label" for="form-control-28">Roles Docentes</label>
-              <div class="col-sm-8">
+              <div class="col-sm-8" id="form-control-28-wrapper">
                 <select2 id="form-control-28"
                          [data]="selectRolesDocentesData"
                          [options]="selectRolesOptions"
-                         [width]="350 | select2WidthFix"
+                         [width]="350 | select2WidthFix:'form-control-28-wrapper'"
                          [value]="rolesDocentes"
                          [disabled]="true" *ngIf="rolesDocentesCheck"></select2>
               </div>
@@ -119,11 +119,11 @@
 
             <div class="form-group">
               <label class="col-sm-4 control-label" for="form-control-29">Roles No Docentes</label>
-              <div class="col-sm-8">
+              <div class="col-sm-8" id="form-control-29-wrapper">
                 <select2 id="form-control-29"
                          [data]="selectRolesNoDocentesData"
                          [options]="selectRolesOptions"
-                         [width]="350 | select2WidthFix"
+                         [width]="350 | select2WidthFix:'form-control-wrapper-29'"
                          [value]="rolesNoDocentes"
                          [disabled]="true" *ngIf="rolesNoDocentesCheck"></select2>
               </div>
