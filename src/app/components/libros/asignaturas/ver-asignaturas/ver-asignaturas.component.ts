@@ -58,8 +58,4 @@ export class VerAsignaturasComponent implements OnInit {
     return '';
   }
 
-  activarAsignatura(asign: any, activo: boolean){
-    asign.activo = activo;
-  }
-
 }

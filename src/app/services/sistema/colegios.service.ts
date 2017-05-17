@@ -72,4 +72,16 @@ export class ColegiosService {
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
+
+  getAsignatura(id): Observable<Colegio>{
+    return this.getAsignaturasByColegioId()
+      .map(asignaturas => asignaturas.find(asignaturas => asignaturas.id == id));
+  }
+
+  updateAsignatura(asignatura: any){
+    const url = `${this.colegiosUrl}/asignaturas/${asignatura.id}?colegio_id=${this.getColegioId()}`;
+    return this.http.put(url, JSON.stringify(asignatura), {headers: this.headers})
+      .map(() => asignatura)
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
+  }
 }

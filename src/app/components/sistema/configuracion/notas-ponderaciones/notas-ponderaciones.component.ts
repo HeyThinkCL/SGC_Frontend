@@ -33,7 +33,8 @@ export class NotasPonderacionesComponent implements OnInit {
     'notas':{
       'decimales':null,
       'aprox':null,
-    }
+    },
+    'escalas':''
   };
 
   //planes de estudio select2
@@ -56,12 +57,23 @@ export class NotasPonderacionesComponent implements OnInit {
         if(res){
           this.configNotasService.getConfigNotasById(this.configId).subscribe(subRes => {
             this.configuracion = subRes;
+            if(subRes.escalas && JSON.parse(subRes.escalas)){
+              this.selectedEscalas = JSON.parse(subRes.escalas);
+            } else{
+              this.selectedEscalas = [];
+            }
 
           })
         } else {
           this.configNotasService.createConfigNotas(this.configId).subscribe(subRes => {
             this.configNotasService.getConfigNotasById(this.configId).subscribe(subSubRes => {
               this.configuracion = subSubRes;
+              if(subSubRes.escalas && JSON.parse(subSubRes.escalas)){
+                this.selectedEscalas = JSON.parse(subSubRes.escalas);
+              } else{
+                this.selectedEscalas = [];
+              }
+
             })
           })
         }
@@ -97,7 +109,12 @@ export class NotasPonderacionesComponent implements OnInit {
   }
 
   escalaChanged(value: any){
-    this.selectedEscalas = value;
+    if(value){
+      this.selectedEscalas = value;
+    } else{
+      this.selectedEscalas = [];
+    }
+
   }
 
   checkEscala(id){
@@ -105,9 +122,10 @@ export class NotasPonderacionesComponent implements OnInit {
   }
 
   saveConfig(){
-
-    this.configNotasService.updateConfigNotas(this.configId,this.configuracion).subscribe(res => {});
-    this.modalClose();
+    this.configuracion.escalas = JSON.stringify(this.selectedEscalas);
+    this.configNotasService.updateConfigNotas(this.configId,this.configuracion).subscribe(res => {
+      this.modalClose();
+    });
   }
 
   modalOpen(){

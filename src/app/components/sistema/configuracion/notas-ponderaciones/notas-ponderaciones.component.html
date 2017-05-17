@@ -62,6 +62,7 @@
                 <label class="control-label col-sm-2" for="form-control-3">Escalas Disponibles</label>
                 <div class="col-sm-8" id="form-control-3-wrapper">
                   <select2 id="form-control-3"
+                           [value]="selectedEscalas"
                            [data]="selectEscalasData"
                            [width]="520 | select2WidthFix:'form-control-3-wrapper'"
                            [options]="selectEscalasOptions"

@@ -46,10 +46,11 @@ export class ConfigNotasService {
       'notas':{
         'decimales':null,
         'aprox':null, // 1->aprox. hacia arriba, 0->truncado
-      }
+      },
+      'escalas':''
     };
 
-    return this.http.post(url, JSON.stringify({'notas': payload.notas,'colegio_id':this.getColegioId()}), {headers: this.headers})
+    return this.http.post(url, JSON.stringify({'notas': payload.notas,'escalas':payload.escalas,'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
@@ -57,7 +58,7 @@ export class ConfigNotasService {
   updateConfigNotas(idConfig: number,config: any): Observable<any>{
     let url = `${this.configuracionUrl}/configuraciones/notas_ponderaciones/${idConfig}`;
 
-    return this.http.put(url, JSON.stringify({'notas': config.notas,'colegio_id':this.getColegioId()}), {headers: this.headers})
+    return this.http.put(url, JSON.stringify({'notas': config.notas,'escalas':config.escalas,'colegio_id':this.getColegioId()}), {headers: this.headers})
       .map(res => res.json())
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }

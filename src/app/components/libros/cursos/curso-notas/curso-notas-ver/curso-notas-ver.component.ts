@@ -51,8 +51,8 @@ export class CursoNotasVerComponent implements OnInit {
     this.route.parent.parent.params
       .switchMap((params: Params) => this.cursosService.getAsignaturasByCursoId(params['id']))
       .subscribe((res) => {
-
         this.asignaturas = res.asignaturas;
+        console.log(this.asignaturas);
         this.setAsignatura(this.asignaturas[0].asignatura.datos.id);
 
         this.configuracionService.getConfiguraciones().subscribe(configs => {

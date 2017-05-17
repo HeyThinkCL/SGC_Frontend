@@ -90,7 +90,7 @@ export class CursoNotasIngresarComponent implements OnInit {
             'notas': {
               'decimales':null,
               'aprox':null,
-            }
+            },
           };
 
           this.configNotasService.getConfigNotasById(config.id).subscribe(subRes => {
