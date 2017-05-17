@@ -15,9 +15,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let alumno of alumnos" (click)="modalOpen(alumno)" [ngClass]="{'bg-info': alumno.id == selectedAlumno.id}">
-              <td>{{alumno.nombre}}</td>
-              <td>{{alumno.apellido_paterno}} {{alumno.apellido_materno}}</td>
-              <td>{{alumno.rut}}</td>
+              <td [ngClass]="{'desiste':alumno.desiste }">{{alumno.nombre}}</td>
+              <td [ngClass]="{'desiste':alumno.desiste }">{{alumno.apellido_paterno}} {{alumno.apellido_materno}}</td>
+              <td [ngClass]="{'desiste':alumno.desiste }">{{alumno.rut}}-{{alumno.dv}}</td>
               <td>{{alumno?.anotaciones?.length}}</td>
             </tr>
             </tbody>

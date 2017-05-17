@@ -12,7 +12,7 @@
               <th>Apellidos</th>
               <th>Rut</th>
               <th>Estados</th>
-              <th class="maw-320"></th>
+              <th class="maw-320"> Desiste</th>
             </tr>
             </thead>
             <tbody>
@@ -44,10 +44,10 @@
 
                     <modal [animation]="true" #modal>
                       <modal-header [show-close]="true">
-                        <h4 class="modal-title">Desactivar Alumno</h4>
+                        <h4 class="modal-title">Retirar Alumno</h4>
                       </modal-header>
                       <modal-body>
-                        Haga click en Ok para continuar desactivando el alumno seleccionado.
+                        Haga click en Ok para continuar retirando al alumno seleccionado.
                       </modal-body>
                       <modal-footer>
                         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalDismiss()">Cancelar</button>
@@ -57,10 +57,10 @@
 
                     <modal [animation]="true" #activarModal>
                       <modal-header [show-close]="true">
-                        <h4 class="modal-title">Activar Alumno</h4>
+                        <h4 class="modal-title">Reintegrar Alumno</h4>
                       </modal-header>
                       <modal-body>
-                        Haga click en Ok para continuar activando el alumno seleccionado.
+                        Haga click en Ok para continuar reintegrandp al alumno seleccionado.
                       </modal-body>
                       <modal-footer>
                         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="activarModalDismiss()">Cancelar</button>

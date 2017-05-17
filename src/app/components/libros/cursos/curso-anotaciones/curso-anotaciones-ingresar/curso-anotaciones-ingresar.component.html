@@ -106,10 +106,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let alumno of alumnos" (click)="setSelectedAlumno(alumno)" [ngClass]="{'bg-info': alumno.rut == anotacion.alumno.rut}">
-                  <td>{{alumno.numero}}</td>
-                  <td>{{alumno.nombre}}</td>
-                  <td>{{alumno.apellido_paterno}} {{alumno.apellido_materno}}</td>
+                <tr *ngFor="let alumno of alumnos" (click)="setSelectedAlumno(alumno)" [ngClass]="{'bg-info': alumno.rut == anotacion.alumno.rut,'bg-default':alumno.desiste}">
+                  <td [ngClass]="{'desiste':alumno.desiste }">{{alumno.numero}}</td>
+                  <td [ngClass]="{'desiste':alumno.desiste }">{{alumno.nombre}}</td>
+                  <td [ngClass]="{'desiste':alumno.desiste }">{{alumno.apellido_paterno}} {{alumno.apellido_materno}}</td>
                 </tr>
                 </tbody>
               </table>

@@ -91,12 +91,12 @@
                               </thead>
                               <tbody>
                               <tr *ngFor="let alumno of selectedDay.alumnos"
-                                  [ngClass]="{'bg-danger':!(alumno.asistencia)}"
+                                  [ngClass]="{'bg-danger':!(alumno.asistencia),'bg-default':alumno.desiste}"
                                   (click)="toggleValue(alumno)">
-                                <td>{{alumno.lista}}</td>
-                                <td>{{alumno.nombre}}</td>
-                                <td>{{alumno.apellido_paterno}} {{alumno.apellido_materno}}</td>
-                                <td>{{alumno.rut}}</td>
+                                <td [ngClass]="{'desiste':alumno.desiste }">{{alumno.lista}}</td>
+                                <td [ngClass]="{'desiste':alumno.desiste }">{{alumno.nombre}}</td>
+                                <td [ngClass]="{'desiste':alumno.desiste }">{{alumno.apellido_paterno}} {{alumno.apellido_materno}}</td>
+                                <td [ngClass]="{'desiste':alumno.desiste }">{{alumno.rut}}-{{alumno.dv}}</td>
                               </tr>
                               </tbody>
                             </table>

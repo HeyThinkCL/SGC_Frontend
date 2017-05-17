@@ -105,10 +105,13 @@ export class CursoAnotacionesIngresarComponent implements OnInit {
   };
 
   setSelectedAlumno(alumno){
-    this.selectedAlumno.rut = alumno.rut;
-    this.selectedAlumno['fullname'] = alumno.nombre + ' ' + alumno.apellido_paterno + ' ' + alumno.apellido_materno;
-    this.selectedAlumno['id'] = alumno.id;
-    this.anotacion.alumno = this.selectedAlumno;
+    if(!alumno.desiste){
+      this.selectedAlumno.rut = alumno.rut;
+      this.selectedAlumno['fullname'] = alumno.nombre + ' ' + alumno.apellido_paterno + ' ' + alumno.apellido_materno;
+      this.selectedAlumno['id'] = alumno.id;
+      this.anotacion.alumno = this.selectedAlumno;
+    }
+
   }
 
   clearSelectedAlumno(){

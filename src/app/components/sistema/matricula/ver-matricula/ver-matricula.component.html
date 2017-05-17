@@ -34,11 +34,12 @@
               <th>Sexo</th>
               <th>Telefono</th>
               <th>Estado</th>
+              <th>Desiste</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let matricula of matriculas | filterArray:filterData:filterKeys">
+            <tr *ngFor="let matricula of matriculas | filterArray:filterData:filterKeys" [ngClass]="{'desiste':matricula.desiste }">
               <td>
 	                <!--<span class="icon-with-child m-r">
 	                  <img class="circle" width="36" height="36" src="assets/img/3975409957.jpg">
@@ -65,14 +66,52 @@
                 {{matricula.estado}}
               </td>
               <td>
+                <button class="btn btn-sm btn-danger"
+                        (click)="desactivarModalOpen(matricula)"
+                        *ngIf="!matricula.desiste">
+                  <span class="icon icon-times-circle-o icon-fw" *ngIf="!matricula.desiste"></span>
+                </button>
+
+                <button class="btn btn-sm btn-info"
+                        (click)="activarModalOpen(matricula)" *ngIf="matricula.desiste">
+                  <span class="icon icon-circle-o icon-fw" *ngIf="matricula.desiste"></span>
+                </button>
+
+                <modal [animation]="true" #desactivarModal>
+                  <modal-header [show-close]="true">
+                    <h4 class="modal-title">Retirar Alumno</h4>
+                  </modal-header>
+                  <modal-body>
+                    Haga click en Ok para continuar retirando al alumno seleccionado.
+                  </modal-body>
+                  <modal-footer>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="desactivarModalDismiss()">Cancelar</button>
+                    <button type="button" class="btn btn-danger" (click)="desactivarModalClose()">Ok</button>
+                  </modal-footer>
+                </modal>
+
+                <modal [animation]="true" #activarModal>
+                  <modal-header [show-close]="true">
+                    <h4 class="modal-title">Reintegrar Alumno</h4>
+                  </modal-header>
+                  <modal-body>
+                    Haga click en Ok para continuar reintegrando al alumno seleccionado.
+                  </modal-body>
+                  <modal-footer>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="activarModalDismiss()">Cancelar</button>
+                    <button type="button" class="btn btn-info" (click)="activarModalClose()">Ok</button>
+                  </modal-footer>
+                </modal>
+              </td>
+              <td>
                 <div class="btn-toolbar pull-right">
                   <div class="btn-group btn-group-sm">
                     <a class="btn btn-primary btn-sm" [routerLink]="['./',matricula.id]">
                       <span class="icon icon-eye icon-fw"></span>
                     </a>
-                    <a class="btn btn-primary btn-sm" [routerLink]="['../editar',matricula.id]">
+                    <button class="btn btn-primary btn-sm" [routerLink]="['../editar',matricula.id]" [disabled]="matricula.desiste">
                       <span class="icon icon-pencil-square-o icon-fw"></span>
-                    </a>
+                    </button>
                     <button class="btn btn-danger btn-sm" (click)="modalOpen(matricula.id)">
                       <span class="icon icon-times icon-fw"></span>
                     </button>

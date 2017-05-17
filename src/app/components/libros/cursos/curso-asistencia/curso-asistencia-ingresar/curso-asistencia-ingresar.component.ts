@@ -213,17 +213,20 @@ export class CursoAsistenciaIngresarComponent implements OnInit {
   }
 
   toggleValue(alumno: any) {
-    if(alumno.asistencia){
-      this.selectedDay.inasistentes += 1;
-      this.selectedDay.asistentes -= 1;
-    } else {
-      this.selectedDay.inasistentes -= 1;
-      this.selectedDay.asistentes += 1;
+    if(!alumno.desiste){
+      if(alumno.asistencia){
+        this.selectedDay.inasistentes += 1;
+        this.selectedDay.asistentes -= 1;
+      } else {
+        this.selectedDay.inasistentes -= 1;
+        this.selectedDay.asistentes += 1;
+      }
+      alumno.asistencia = !(alumno.asistencia);
+      if(!(alumno.cambio)){
+        alumno.cambio = !(alumno.cambio);
+      }
     }
-    alumno.asistencia = !(alumno.asistencia);
-    if(!(alumno.cambio)){
-      alumno.cambio = !(alumno.cambio);
-    }
+
   }
 
   toggleAll(){

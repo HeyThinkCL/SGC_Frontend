@@ -4,3 +4,7 @@
 .switch-danger-special .switch-input ~ .switch-thumb {
   border-color: #d50000;
 }
+
+.desiste{
+  text-decoration: line-through;
+}

@@ -11,8 +11,9 @@ import { MatriculaService } from '../../../../services/sistema/matricula.service
   styleUrls: ['ver-matricula.component.css']
 })
 export class VerMatriculaComponent implements OnInit {
-  @ViewChild('modal')
-  modal: ModalComponent;
+  @ViewChild('modal') modal: ModalComponent;
+  @ViewChild('desactivarModal') desactivarModal: ModalComponent;
+  @ViewChild('activarModal') activarModal: ModalComponent;
 
   filterData:string = '';
   filterKeys = ['nombre', 'apellido_paterno', 'apellido-materno', 'rut'];
@@ -20,6 +21,7 @@ export class VerMatriculaComponent implements OnInit {
   private matriculas = [];
 
   selectedMatricula_id: number;
+  selectedMatricula: any;
 
   timeoutMessage: string;
 
@@ -70,6 +72,41 @@ export class VerMatriculaComponent implements OnInit {
       this.modal.close();
       this.selectedMatricula_id = null;
     });
+  }
+
+  desiste(alumno: any, value: boolean){
+    alumno.desiste = value;
+    this.matriculaService.updateMatricula(alumno).subscribe(res => {
+
+    });
+  }
+
+  desactivarModalOpen(alumno: any){
+    this.desactivarModal.open('sm');
+    this.selectedMatricula = alumno;
+  }
+
+  desactivarModalClose(){
+    this.desiste(this.selectedMatricula,true);
+    this.desactivarModal.close();
+  }
+
+  desactivarModalDismiss(){
+    this.desactivarModal.dismiss();
+  }
+
+  activarModalOpen(alumno: any){
+    this.activarModal.open('sm');
+    this.selectedMatricula = alumno;
+  }
+
+  activarModalClose(){
+    this.desiste(this.selectedMatricula,false);
+    this.activarModal.close();
+  }
+
+  activarModalDismiss(){
+    this.activarModal.dismiss();
   }
 
 }

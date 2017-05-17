@@ -30,9 +30,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let alumno of selectedAsignaturaAlumnos">
-              <td>{{alumno.alumno.lista}}</td>
-              <td>{{alumno.alumno.nombre}}</td>
-              <td>{{alumno.alumno.apellido_paterno}} {{alumno.alumno.apellido_materno}}</td>
+              <td [ngClass]="{'desiste':alumno.alumno.desiste }">{{alumno.alumno.lista}}</td>
+              <td [ngClass]="{'desiste':alumno.alumno.desiste }">{{alumno.alumno.nombre}}</td>
+              <td [ngClass]="{'desiste':alumno.alumno.desiste }">{{alumno.alumno.apellido_paterno}} {{alumno.alumno.apellido_materno}}</td>
               <td *ngFor="let nota of alumno.notas" style="width:60px">{{nota.valor | number:decimals }}</td>
               <td>{{alumno.notas | calcPromedio:selectedAsignatura.info_notas:notasCongif | number:decimals }}</td>
             </tr>

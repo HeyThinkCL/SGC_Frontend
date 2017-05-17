@@ -51,9 +51,9 @@
             <tbody>
 
             <tr *ngFor="let alumno of selectedAsignaturaAlumnos; let alumnoIdx = index">
-              <td>{{alumno.alumno.lista}}</td>
-              <td>{{alumno.alumno.nombre}}</td>
-              <td>{{alumno.alumno.apellido_paterno}} {{alumno.alumno.apellido_materno}}</td>
+              <td [ngClass]="{'desiste':alumno.alumno.desiste }">{{alumno.alumno.lista}}</td>
+              <td [ngClass]="{'desiste':alumno.alumno.desiste }">{{alumno.alumno.nombre}}</td>
+              <td [ngClass]="{'desiste':alumno.alumno.desiste }">{{alumno.alumno.apellido_paterno}} {{alumno.alumno.apellido_materno}}</td>
               <td *ngFor="let nota of alumno.notas; let notaIdx = index"
                   [ngClass]="{'has-warning':(nota.valor == null),
                               'has-error': !((nota.valor < 7.0)||(nota.valor > 1.0))}">
@@ -65,6 +65,7 @@
                        step="0.01"
                        value="nota.valor"
                        [(ngModel)]="nota.valor"
+                       [disabled]="alumno.alumno.desiste"
                        (keypress)="restrictValue(nota)"
                        (keydown)="restrictValue(nota); checkTab($event,alumnoIdx,notaIdx)"
                        (keyup)="restrictValue(nota)"
