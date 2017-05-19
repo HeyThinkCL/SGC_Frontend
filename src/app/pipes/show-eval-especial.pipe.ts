@@ -14,17 +14,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ShowEvalEspecialPipe implements PipeTransform {
   transform(nota,evalId) {
       if(nota){
-        if(evalId){
-
+        if(evalId)
           if(evalId==1){
-            if(nota <=4.0){
-              return Math.floor((nota-1.0)*(60/3.0));
-            } else if(nota > 4.0 && nota <=7.0){
-              return Math.floor((40/3.0)*(nota-4.0)+60);
-            }
-          }
-
-          if(evalId==2){
+            return Math.trunc(nota);
+          } else if(evalId==2){
             if(nota <4.0){
               return 'NL';
             } else if(nota >= 4.0 && nota <5.0){
@@ -36,9 +29,7 @@ export class ShowEvalEspecialPipe implements PipeTransform {
             } else {
               return 'SE'
             }
-          }
-
-          if(evalId==3){
+          }else if(evalId==3){
             if(nota <4.0){
               return 'NL';
             } else if(nota >= 4.0 && nota <5.0){
@@ -48,9 +39,7 @@ export class ShowEvalEspecialPipe implements PipeTransform {
             } else if(nota >=6.0 && nota <= 7.0) {
               return 'L'
             }
-          }
-
-          if(evalId==4){
+          }else if(evalId==4){
             if(nota <4.0){
               return 'I';
             } else if(nota >= 4.0 && nota <5.0){
@@ -60,7 +49,8 @@ export class ShowEvalEspecialPipe implements PipeTransform {
             } else if(nota >=6.0 && nota <= 7.0) {
               return 'MB'
             }
-          }
+          } else {
+            return nota;
         } else{
           return nota;
         }

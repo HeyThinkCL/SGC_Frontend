@@ -151,15 +151,25 @@ export class CursoNotasIngresarComponent implements OnInit {
 
   //logic
   restrictValue(nota: any){
-    if(nota.valor > 7.0){
-      nota.valor=7.0;
-    }  else if(nota.valor == 0){
-      nota.valor = null;
-    } else if(nota.valor < 1.0 && nota.valor!=null){
-      nota.valor=1.0;
-    } else{
-      nota.valor=null;
+    if(!this.selectedAsignatura.eval){
+      if(nota.valor > 7.0){
+        nota.valor=7.0;
+      }  else if(nota.valor == 0){
+        nota.valor = null;
+      } else if(nota.valor < 1.0 && nota.valor!=null){
+        nota.valor=1.0;
+      }
+    } else if(this.selectedAsignatura.eval==1){
+      nota.valor = Math.trunc(nota.valor)
+      if(nota.valor > 100){
+        nota.valor=100;
+      }  else if(nota.valor == 0){
+        nota.valor = null;
+      } else if(nota.valor < 0 && nota.valor!=null){
+        nota.valor=0;
+      }
     }
+
   }
 
   discreteValue(nota: any){

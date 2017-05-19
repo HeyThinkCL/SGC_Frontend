@@ -80,7 +80,10 @@
                        step="1"
                        [(ngModel)]="nota.valor"
                        [disabled]="alumno.alumno.desiste"
-                       (ngModelChange)="notaEspecialChanged(nota,$event)"
+                       (keypress)="restrictValue(nota)"
+                       (keydown)="restrictValue(nota); checkTab($event,alumnoIdx,notaIdx)"
+                       (keyup)="restrictValue(nota)"
+                       (ngModelChange)="restrictValue(nota)"
                        (change)="onChange(nota)"/>
 
                 <select class="form-control"
