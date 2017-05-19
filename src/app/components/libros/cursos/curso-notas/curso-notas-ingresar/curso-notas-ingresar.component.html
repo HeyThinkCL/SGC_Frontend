@@ -57,7 +57,7 @@
               <td *ngFor="let nota of alumno.notas; let notaIdx = index"
                   [ngClass]="{'has-warning':(nota.valor == null),
                               'has-error': !((nota.valor < 7.0)||(nota.valor > 1.0))}">
-                <input class="form-control" id="{{nota.id}}"
+                <input class="form-control" id="{{nota.id}}" *ngIf="!(selectedAsignatura.eval)"
                        style="width:50px"
                        type="number"
                        min="1.0"
@@ -71,8 +71,64 @@
                        (keyup)="restrictValue(nota)"
                        (ngModelChange)="restrictValue(nota)"
                        (change)="onChange(nota)"/>
+
+                <input class="form-control" id="{{nota.id}}" *ngIf="selectedAsignatura.eval==1"
+                       style="width:50px"
+                       type="number"
+                       min="0.0"
+                       max="100.0"
+                       step="1"
+                       [(ngModel)]="nota.valor"
+                       [disabled]="alumno.alumno.desiste"
+                       (ngModelChange)="notaEspecialChanged(nota,$event)"
+                       (change)="onChange(nota)"/>
+
+                <select class="form-control"
+                        id="{{nota.id}}"
+                        [disabled]="alumno.alumno.desiste"
+                        *ngIf="selectedAsignatura.eval==2"
+                        type="number"
+                        [(ngModel)]="nota.valor"
+                        (keydown)="checkTab($event,alumnoIdx,notaIdx)"
+                        (ngModelChange)="discreteValue(nota);onChange(nota)">
+                  <option [value]="null" selected>SE</option>
+                  <option [value]="3">NL</option>
+                  <option [value]="4">LCD</option>
+                  <option [value]="5">LAE</option>
+                  <option [value]="7">LSE</option>
+                </select>
+
+                <select class="form-control"
+                        id="{{nota.id}}"
+                        [disabled]="alumno.alumno.desiste"
+                        *ngIf="selectedAsignatura.eval==3"
+                        type="number"
+                        [(ngModel)]="nota.valor"
+                        (keydown)="checkTab($event,alumnoIdx,notaIdx)"
+                        (ngModelChange)="discreteValue(nota);onChange(nota)">
+                  <option [value]="null" selected></option>
+                  <option [value]="3">NL</option>
+                  <option [value]="4">PL</option>
+                  <option [value]="5">ML</option>
+                  <option [value]="7">L</option>
+                </select>
+
+                <select class="form-control"
+                        id="{{nota.id}}"
+                        [disabled]="alumno.alumno.desiste"
+                        *ngIf="selectedAsignatura.eval==4"
+                        type="number"
+                        [(ngModel)]="nota.valor"
+                        (keydown)="checkTab($event,alumnoIdx,notaIdx)"
+                        (ngModelChange)="discreteValue(nota);onChange(nota)">
+                  <option [value]="null" selected></option>
+                  <option [value]="3">I</option>
+                  <option [value]="4">S</option>
+                  <option [value]="5">B</option>
+                  <option [value]="7">MB</option>
+                </select>
               </td>
-              <td>{{ alumno.notas | calcPromedio:selectedAsignatura.info_notas:notasCongif | number:decimals }}</td>
+              <td>{{ alumno.notas | calcPromedio:selectedAsignatura.info_notas:notasCongif | number:decimals | showEvalEspecial:selectedAsignatura.eval }}</td>
             </tr>
             </tbody>
           </table>

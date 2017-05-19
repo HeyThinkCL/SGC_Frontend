@@ -14,6 +14,7 @@ import './rxjs-extensions';
 //pipes
 import { FilterCursoProf } from './pipes/filter-curso-prof.pipe';
 import { CalcPromedio } from './pipes/calc-promedio.pipe';
+import {ShowEvalEspecialPipe } from './pipes/show-eval-especial.pipe'
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { AbbreviatePipe } from './pipes/abbreviate.pipe'
 import {FilterTablePipe} from "./pipes/filter-table.pipe";
@@ -226,6 +227,7 @@ import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/soste
     EditarFuncionarioComponent,
     FilterCursoProf,
     CalcPromedio,
+    ShowEvalEspecialPipe,
     TruncateTextPipe,
     AbbreviatePipe,
     FilterTablePipe,

@@ -25,7 +25,7 @@ export class CalcPromedio implements PipeTransform {
         }
         if(nota.valor){
           for(let i:number = 0;i<coef;i++){
-            sum += nota.valor;
+            sum += +nota.valor;
             total += 1;
           }
         }

@@ -33,8 +33,8 @@
               <td [ngClass]="{'desiste':alumno.alumno.desiste }">{{alumno.alumno.lista}}</td>
               <td [ngClass]="{'desiste':alumno.alumno.desiste }">{{alumno.alumno.nombre}}</td>
               <td [ngClass]="{'desiste':alumno.alumno.desiste }">{{alumno.alumno.apellido_paterno}} {{alumno.alumno.apellido_materno}}</td>
-              <td *ngFor="let nota of alumno.notas" style="width:60px">{{nota.valor | number:decimals }}</td>
-              <td>{{alumno.notas | calcPromedio:selectedAsignatura.info_notas:notasCongif | number:decimals }}</td>
+              <td *ngFor="let nota of alumno.notas" style="width:60px">{{nota.valor | number:decimals | showEvalEspecial:selectedAsignatura.eval }}</td>
+              <td>{{alumno.notas | calcPromedio:selectedAsignatura.info_notas:notasCongif | number:decimals | showEvalEspecial:selectedAsignatura.eval }}</td>
             </tr>
             </tbody>
           </table>

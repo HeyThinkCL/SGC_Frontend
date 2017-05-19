@@ -81,7 +81,6 @@ export class CursoNotasIngresarComponent implements OnInit {
       .subscribe((res) => {
         this.asignaturas = res.asignaturas;
         this.setAsignatura(this.asignaturas[0].asignatura.datos.id);
-
         this.configuracionService.getConfiguraciones().subscribe(configs => {
 
           let config = configs.find(c => c.glosa == 'Notas y Ponderaciones' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser')).colegioId);
@@ -126,6 +125,10 @@ export class CursoNotasIngresarComponent implements OnInit {
     }
   }
 
+  notaEspecialChanged(nota,event: any){
+    nota.valor=event;
+  }
+
   //template rendering
   createRange(n: number){
     let items: number[] = [];
@@ -154,6 +157,14 @@ export class CursoNotasIngresarComponent implements OnInit {
       nota.valor = null;
     } else if(nota.valor < 1.0 && nota.valor!=null){
       nota.valor=1.0;
+    } else{
+      nota.valor=null;
+    }
+  }
+
+  discreteValue(nota: any){
+    if(isNaN(nota.valor)){
+      nota.valor = null;
     }
   }
 
@@ -163,7 +174,11 @@ export class CursoNotasIngresarComponent implements OnInit {
 
   //../services
   saveNota(nota: any){
-    this.restrictValue(nota);
+    if(!this.selectedAsignatura.eval || +this.selectedAsignatura.eval==1){
+      this.restrictValue(nota);
+    } else {
+      this.discreteValue(nota);
+    }
     this.notasService.updateNota(nota,this.selectedAsignatura.datos.id).subscribe((res) =>{
       nota = res;
     });
