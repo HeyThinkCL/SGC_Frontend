@@ -106,6 +106,16 @@ import { AsignaturasComponent } from './components/libros/asignaturas/asignatura
 import { VerAsignaturasComponent } from './components/libros/asignaturas/ver-asignaturas/ver-asignaturas.component';
 import { ModificarAsignaturaComponent } from './components/libros/asignaturas/modificar-asignatura/modificar-asignatura.component';
 
+//Electivos
+import { ElectivosComponent } from './components/libros/electivos/electivos.component';
+import { CrearElectivoComponent } from './components/libros/electivos/crear-electivo/crear-electivo.component';
+import { ModificarElectivoComponent } from './components/libros/electivos/modificar-electivo/modificar-electivo.component';
+import { VerElectivosComponent } from './components/libros/electivos/ver-electivos/ver-electivos.component';
+import { NotasElectivoComponent } from './components/libros/electivos/notas-electivo/notas-electivo.component';
+import { NotasElectivoIngresarComponent } from './components/libros/electivos/notas-electivo/notas-electivo-ingresar/notas-electivo-ingresar.component';
+import { NotasElectivoVerComponent } from './components/libros/electivos/notas-electivo/notas-electivo-ver/notas-electivo-ver.component';
+import { ElectivoDetailComponent } from './components/libros/electivos/electivo-detail/electivo-detail.component';
+
 //Documentos
 import { DocumentosComponent } from './components/documentos/documentos.component';
 import { InformesComponent } from './components/documentos/informes/informes.component';
@@ -166,6 +176,7 @@ import {AdministradorGuard,AdministradorGuardChild} from './guards/sesion-guards
 import {ConfiguracionesGuard,ConfiguracionesGuardChild} from './guards/sesion-guards/configuraciones.guard';
 import {DigitadorGuard,DigitadorGuardChild} from './guards/sesion-guards/digitador.guard';
 import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/sostenedor.guard';
+
 
 
 @NgModule({
@@ -253,6 +264,14 @@ import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/soste
     AsignaturasComponent,
     VerAsignaturasComponent,
     ModificarAsignaturaComponent,
+    ElectivosComponent,
+    CrearElectivoComponent,
+    ModificarElectivoComponent,
+    VerElectivosComponent,
+    ElectivoDetailComponent,
+    NotasElectivoComponent,
+    NotasElectivoIngresarComponent,
+    NotasElectivoVerComponent,
     SpinnerComponent,
     PlanesEnsenanzaComponent,
     SostenedorAfterLoginComponent,

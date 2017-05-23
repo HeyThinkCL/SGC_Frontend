@@ -85,6 +85,16 @@ import { AsignaturasComponent } from './components/libros/asignaturas/asignatura
 import { VerAsignaturasComponent } from './components/libros/asignaturas/ver-asignaturas/ver-asignaturas.component';
 import { ModificarAsignaturaComponent } from './components/libros/asignaturas/modificar-asignatura/modificar-asignatura.component';
 
+//Electivos
+import { ElectivosComponent } from './components/libros/electivos/electivos.component';
+import { CrearElectivoComponent } from './components/libros/electivos/crear-electivo/crear-electivo.component';
+import { ModificarElectivoComponent } from './components/libros/electivos/modificar-electivo/modificar-electivo.component';
+import { VerElectivosComponent } from './components/libros/electivos/ver-electivos/ver-electivos.component';
+import { ElectivoDetailComponent } from './components/libros/electivos/electivo-detail/electivo-detail.component';
+import { NotasElectivoComponent } from './components/libros/electivos/notas-electivo/notas-electivo.component';
+import { NotasElectivoIngresarComponent } from './components/libros/electivos/notas-electivo/notas-electivo-ingresar/notas-electivo-ingresar.component';
+import { NotasElectivoVerComponent } from './components/libros/electivos/notas-electivo/notas-electivo-ver/notas-electivo-ver.component';
+
 //Funcionarios
 import { FuncionariosComponent } from './components/sistema/funcionarios/funcionarios.component';
 import { CrearFuncionarioComponent } from './components/sistema/funcionarios/crear-funcionario/crear-funcionario.component';
@@ -198,6 +208,28 @@ const routes: Routes = [
           {path: '', redirectTo:'ver', pathMatch: 'full'},
           {path:'ver', component: VerAsignaturasComponent },
           {path:'editar/:id',component:ModificarAsignaturaComponent}
+        ]
+      },
+      {
+        path: 'electivos', component: ElectivosComponent,
+        children:[
+          {path: '', redirectTo:'ver',pathMatch:'full'},
+          {path:'ver', component: VerElectivosComponent },
+          {path:'crear',component:CrearElectivoComponent},
+          {path:'editar/:id',component:ModificarElectivoComponent},
+          {
+            path:'ver/:id',component:ElectivoDetailComponent,
+            children:[
+              { path:'', redirectTo:'notas',pathMatch: 'full'},
+              { path: 'notas', component: NotasElectivoComponent,
+                children: [
+                  { path: '', redirectTo: 'ver' ,pathMatch: 'full' },
+                  { path:'ver', component: NotasElectivoVerComponent},
+                  { path:'ingresar', component: NotasElectivoIngresarComponent},
+                ]
+              },
+            ]
+          },
         ]
       }
     ]
