@@ -52,8 +52,6 @@ export class AsignaturasEspecialesComponent implements OnInit {
 
           this.selectPlanesRender = false;
           for (let plan of this.planesDeEstudio) {
-            if (this.selectPlanesData.length == 0) {
-            }
             this.selectPlanesData.push({
               id: plan.id,
               text: plan.decreto.length > 70 ? plan.decreto.substring(0, plan.decreto.length - 18) + '...' : plan.decreto,

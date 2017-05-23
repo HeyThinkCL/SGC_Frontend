@@ -138,4 +138,17 @@ export class CursosService {
       .map(()=> null )
       .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
+
+  ////Electivos
+  getElectivos(){
+
+  }
+
+  createElectivo(cursos: any[]){
+
+  }
+
+  addAlumnosToElectivo(){
+
+  }
 }
