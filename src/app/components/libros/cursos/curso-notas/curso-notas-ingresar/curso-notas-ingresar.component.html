@@ -14,7 +14,7 @@
               </div>
             </div>
           </div>
-          <div clasS="col-md-4">
+          <div class="col-md-4">
             <button class="btn btn-block btn-success" (click)="saveNotas()">
               <span class="icon icon-fw icon-paper-plane-o"></span>
               Guardar
@@ -37,7 +37,7 @@
                 </div>
                 Notas
                 <div class="btn-group pull-left">
-                  <button class="btn btn-info btn-sm" (click)="modalDeleteOpen()"><span class="icon icon-fw icon-minus"></span></button>
+                  <button class="btn btn-info btn-sm" (click)="modalDeleteOpen()" [disabled]="selectedAsignatura.datos.electivo"><span class="icon icon-fw icon-minus"></span></button>
                 </div>
               </th>
             </tr>

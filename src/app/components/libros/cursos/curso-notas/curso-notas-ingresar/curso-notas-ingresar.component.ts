@@ -210,20 +210,38 @@ export class CursoNotasIngresarComponent implements OnInit {
   }
 
   createNota(){
-    this.notasService.createNota(this.id,this.selectedAsignatura.datos.id, this.createdNota).subscribe((res) => {
-      this.createdNota = {
-        'contenido':'',
-        'fecha':'',
-        'coeficiente':null,
-      };
-      this.route.parent.parent.params
-        .switchMap((params: Params) => this.cursosService.getAsignaturasByCursoId(params['id']))
-        .subscribe((res) => {
-          this.asignaturas = res.asignaturas;
-          this.setAsignatura(this.selectedAsignatura.datos.id);
-          this.modalCreate.close();
-        });
-    });
+    if(this.selectedAsignatura.datos.electivo){
+      this.cursosService.createElectivoNota(this.id,this.selectedAsignatura.datos.id, this.createdNota).subscribe((res) => {
+        this.createdNota = {
+          'contenido':'',
+          'fecha':'',
+          'coeficiente':null,
+        };
+        this.route.parent.parent.params
+          .switchMap((params: Params) => this.cursosService.getAsignaturasByCursoId(params['id']))
+          .subscribe((res) => {
+            this.asignaturas = res.asignaturas;
+            this.setAsignatura(this.selectedAsignatura.datos.id);
+            this.modalCreate.close();
+          });
+      });
+    } else {
+      this.notasService.createNota(this.id,this.selectedAsignatura.datos.id, this.createdNota).subscribe((res) => {
+        this.createdNota = {
+          'contenido':'',
+          'fecha':'',
+          'coeficiente':null,
+        };
+        this.route.parent.parent.params
+          .switchMap((params: Params) => this.cursosService.getAsignaturasByCursoId(params['id']))
+          .subscribe((res) => {
+            this.asignaturas = res.asignaturas;
+            this.setAsignatura(this.selectedAsignatura.datos.id);
+            this.modalCreate.close();
+          });
+      });
+    }
+
   }
 
   deleteNota(){

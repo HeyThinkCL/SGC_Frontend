@@ -199,4 +199,21 @@ export class CursosService {
       .map(res => res.json())
       .catch((error: any) => Observable.throw(error.json().error || error.status));
   }
+
+  //POST
+  createElectivoNota(curso_id:number, asignatura_id: number, nota: any){
+    let options = new RequestOptions({headers: this.headers});
+    let payload = {'nota':{
+      'curso_id':curso_id,
+      'asignatura_id':asignatura_id,
+      'contenido':nota.contenido,
+      'fecha':nota.fecha,
+      'coeficiente':nota.coeficiente,
+    },
+      'colegio_id':this.getColegioId(),
+    };
+    return this.http.post(`${this.cursosUrl}/electivos/notas`, JSON.stringify(payload), options)
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
+  }
 }
