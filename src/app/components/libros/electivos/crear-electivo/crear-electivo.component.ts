@@ -102,11 +102,15 @@ export class CrearElectivoComponent implements OnInit {
   }
 
   saveElectivo(){
-    let cursosToAssign = []
+    let cursosToAssign = [];
     for(let curso of this.selectedCursos){
       cursosToAssign.push(curso.curso.id);
     }
-    this.cursosService.createElectivo(cursosToAssign);
+    this.cursosService.createElectivo(this.electivo, cursosToAssign).subscribe(asignatura => {
+      this.cursosService.addAlumnosToElectivo(asignatura.id,this.selectedAlumnos).subscribe(res => {
+        this.goBack();
+      });
+    });
   }
 
   goBack(): void {

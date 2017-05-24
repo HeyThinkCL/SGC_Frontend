@@ -140,15 +140,63 @@ export class CursosService {
   }
 
   ////Electivos
-  getElectivos(){
 
+  //GET
+  getElectivoById(electivoId: number){
+    let url = `${this.cursosUrl}/electivos/asignaturas/${electivoId}?colegio_id=${this.getColegioId()}`;
+    return this.http.get(url,{headers:this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ));
   }
 
-  createElectivo(cursos: any[]){
+  //POST
+  createElectivo(electivo, cursos: any[]): Observable<any>{
+    let payload = {
+      'electivo':electivo,
+      'cursos':cursos,
+      'colegio_id':this.getColegioId(),
+    };
 
+    let url = `${this.cursosUrl}/electivos/asignaturas`;
+    return this.http.post(url, JSON.stringify(payload), {headers: this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status));
   }
 
-  addAlumnosToElectivo(){
+  //POST
+  addAlumnosToElectivo(asignaturaId,alumnos: any[]): Observable<any>{
+    let payload = {
+      'asignatura_id':asignaturaId,
+      'alumnos':alumnos,
+      'colegio_id':this.getColegioId(),
+    };
 
+    let url = `${this.cursosUrl}/electivos/alumnos`;
+    return this.http.post(url, JSON.stringify(payload), {headers: this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status));
+  }
+
+  //PUT
+  updateElectivo(asignaturaId: number, selectedAlumnos: number[], sacarAlumnos: number[]){
+    let payload = {
+      'id':asignaturaId,
+      'alumnos':selectedAlumnos,
+      'alumnos_out':sacarAlumnos,
+      'colegio_id':this.getColegioId(),
+    };
+
+    let url = `${this.cursosUrl}/electivos/alumnos/${asignaturaId}`;
+    return this.http.put(url, JSON.stringify(payload), {headers: this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status));
+  }
+
+  //GET
+  getNotasAlumnosByElectivoId(id,asignatura): Observable<any> {
+    const url = `${this.cursosUrl}/electivos/notas/${id}?asignatura_id=${asignatura}&colegio_id=${this.getColegioId()}`;
+    return this.http.get(url, {headers: this.headers})
+      .map(res => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || error.status));
   }
 }

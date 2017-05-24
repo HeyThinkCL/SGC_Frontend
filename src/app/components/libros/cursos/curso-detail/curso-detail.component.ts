@@ -49,7 +49,6 @@ export class CursoDetailComponent implements OnInit {
       .switchMap((params: Params) => this.cursosService.getCurso(+params['id']))
       .subscribe((curso) => {
         this.curso = curso;
-
       });
 
     this.cursosService.getCursos().subscribe(cursos => {

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+
+import {ColegiosService} from "../../../../services/sistema/colegios.service";
 import {ConfiguracionService} from "../../../../services/sistema/configuracion.service";
 import {PlanDeEstudiosService} from "../../../../services/sistema/configuraciones/plan-de-estudios.service";
 
@@ -13,24 +15,28 @@ export class VerElectivosComponent implements OnInit {
   filterData:string  = '';
   filterKeys = ['nombre'];
 
-  private electivos = [
-    {
-      id:1,
-      nombre:'Matemáticas [Electivo]',
-      electivo:true,
-      plan_id:1,
-    }
-  ];
+  private electivos = [];
   private planesDeEstudio = [];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private colegioService: ColegiosService,
     private configuracionService: ConfiguracionService,
     private planesDeEstudiosService: PlanDeEstudiosService,
   ) { }
 
   ngOnInit() {
+
+    this.colegioService.getAsignaturasByColegioId().subscribe(asigns => {
+      if(asigns && asigns.length>0){
+        for(let a of asigns){
+          if(a.electivo){
+            this.electivos.push(a);
+          }
+        }
+      }
+    });
 
     this.configuracionService.getConfiguraciones().subscribe(configs => {
       let configId = configs.find(c => c.glosa == 'Planes de Estudio y Tipos de Enseñanza' && c.colegio_id == +JSON.parse(localStorage.getItem('currentUser')).colegioId).id;
