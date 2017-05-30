@@ -108,8 +108,8 @@
               </div>
             </div>
 
-            <div class="col-sm-12 p-b-md" *ngIf="rolesDocentesCheck && funcionario.horas_profesor">
-              <div class="form group" *ngIf="false | includeProfesor:rolesDocentes">
+            <div class="col-sm-12 p-b-md" *ngIf="rolesDocentesCheck && funcionario && funcionario.profesor">
+              <div class="form group">
                 <label class="col-sm-4 control-label" for="form-control-30">Horas Profesor</label>
                 <div class="col-sm-2 col-sm-offset-1">
                   <input id="form-control-30" class="form-control" type="number" [value]="funcionario.horas_profesor" [(ngModel)]="funcionario.horas_profesor" readonly>

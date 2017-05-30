@@ -1,3 +1,28 @@
+<div class="row gutter-xs" *ngIf="electivo">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="card">
+      <div class="card-body">
+        <div class="media">
+          <div class="media-middle media-left">
+            <div class="btn-group">
+              <button class="btn btn-default btn-block" (click)="goBack()"><span class="icon icon-chevron-left"></span> Volver</button>
+            </div>
+          </div>
+          <div class="media-middle media-body p-l-md">
+            <p class="card-text">
+              <strong>{{electivo.nombre}} </strong>
+            </p>
+          </div>
+          <div class="media-middle media-body">
+            <p class="card-text">
+              <strong>Plan de Estudios:</strong> {{getPlanEstudiosByPlanId(electivo.plan_id) }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-md-offset-1 col-md-10">
     <div class="card">
