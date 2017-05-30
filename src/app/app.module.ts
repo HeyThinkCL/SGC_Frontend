@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { ChartsModule } from 'ng2-charts';
 
 import { Select2Module } from 'ng2-select2';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
@@ -176,6 +177,8 @@ import {AdministradorGuard,AdministradorGuardChild} from './guards/sesion-guards
 import {ConfiguracionesGuard,ConfiguracionesGuardChild} from './guards/sesion-guards/configuraciones.guard';
 import {DigitadorGuard,DigitadorGuardChild} from './guards/sesion-guards/digitador.guard';
 import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/sostenedor.guard';
+import { AsistenciaColegioComponent } from './components/dashboard/charts/asistencia-colegio/asistencia-colegio.component';
+
 
 
 
@@ -281,6 +284,7 @@ import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/soste
     ByPlanesEstudioComponent,
     AlertaConfigComponent,
     RedirectComponent,
+    AsistenciaColegioComponent,
   ],
   imports: [
     BrowserModule,
@@ -290,7 +294,8 @@ import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/soste
     Ng2Bs3ModalModule,
     Select2Module,
     Ng2DatetimePickerModule,
-    MomentModule
+    MomentModule,
+    ChartsModule
   ],
   providers: [
     AuthGuard,
