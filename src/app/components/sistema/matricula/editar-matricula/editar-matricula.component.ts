@@ -102,6 +102,10 @@ export class EditarMatriculaComponent implements OnInit {
         }
         this.matricula = postulante;
 
+        this.cursosService.getCursos().subscribe(c => {
+          this.curso = c.find(curso => curso.curso.id == this.matricula.curso_id);
+        });
+
         this.selectedMatricula = JSON.parse(JSON.stringify(this.matricula));
 
         if(postulante.padre_id && postulante.madre_id){
@@ -263,7 +267,7 @@ export class EditarMatriculaComponent implements OnInit {
           text:curso.curso.grado+' '+curso.curso.curso,
         });
       }
-    })
+    });
 
   }
 

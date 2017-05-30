@@ -4,6 +4,7 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { connectionErrorMsg, emptyArrayMsg } from '../../../spinner/spinner.component';
 
 import { MatriculaService } from '../../../../services/sistema/matricula.service';
+import { CursosService } from '../../../../services/libros/cursos.service';
 
 @Component({
   selector: 'app-ver-matricula',
@@ -19,6 +20,7 @@ export class VerMatriculaComponent implements OnInit {
   filterKeys = ['nombre', 'apellido_paterno', 'apellido-materno', 'rut'];
 
   private matriculas = [];
+  private cursos = [];
 
   selectedMatricula_id: number;
   selectedMatricula: any;
@@ -27,6 +29,7 @@ export class VerMatriculaComponent implements OnInit {
 
   constructor(
     private matriculaService: MatriculaService,
+    private cursosService: CursosService,
   ) { }
 
   getMatriculas() {
@@ -35,6 +38,10 @@ export class VerMatriculaComponent implements OnInit {
       if(response.length>0){
         this.timeoutMessage = emptyArrayMsg("Matriculas");
       }
+
+      this.cursosService.getCursos().subscribe((res) => {
+        this.cursos = res;
+      });
     })
   }
 
@@ -50,6 +57,15 @@ export class VerMatriculaComponent implements OnInit {
       }
     }
     return -1;
+  }
+
+  getCursoNameByCursoId(id: number){
+    let curso = this.cursos.find(c => c.curso.id == id).curso;
+    if(curso){
+      return `${curso.grado} ${curso.curso}`
+    }else{
+      return '';
+    }
   }
 
   modalOpen(id: number): void {

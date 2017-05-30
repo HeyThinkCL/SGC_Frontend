@@ -536,7 +536,7 @@
 
 <div class="row">
   <div class="col-md-9 col-md-offset-1">
-    <div class="card" *ngIf="matricula" [@fade]="matricula">
+    <div class="card" *ngIf="matricula && curso" [@fade]="matricula">
       <div class="card-header">
         <h3 class="card-title fw-l">
           Curso
@@ -549,8 +549,8 @@
                      [data]="selectCursoData"
                      [width]="520 | select2WidthFix:'select-form-2-wrapper'"
                      [options]="selectCursoOptions"
-                     [value]="curso"
-                     (valueChanged)="selectNivelChanged($event)"></select2>
+                     [value]="curso.curso.id"
+                     (valueChanged)="selectNivelChanged($event)" [disabled]="true"></select2>
           </div>
         </div>
       </div>

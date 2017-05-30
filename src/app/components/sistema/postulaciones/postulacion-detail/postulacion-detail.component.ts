@@ -5,8 +5,9 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import { invalidRequestMsg, connectionErrorMsg } from '../../../spinner/spinner.component';
 
-import { PostulacionesService } from '../../../../services/sistema/postulaciones.service'
-import { ApoderadosService } from '../../../../services/sistema/apoderados.service'
+import { PostulacionesService } from '../../../../services/sistema/postulaciones.service';
+import { ApoderadosService } from '../../../../services/sistema/apoderados.service';
+import { CursosService } from '../../../../services/libros/cursos.service';
 
 @Component({
   selector: 'app-postulacion-detail',
@@ -23,6 +24,8 @@ export class PostulacionDetailComponent implements OnInit {
   private madre: any;
   private apoderado: any;
 
+  private grados = [];
+
   timeoutMessage: string;
 
   constructor(
@@ -31,6 +34,7 @@ export class PostulacionDetailComponent implements OnInit {
     private location: Location,
     private postulacionesService: PostulacionesService,
     private apoderadosService: ApoderadosService,
+    private cursosService: CursosService,
   ) { }
 
   ngOnInit() {
@@ -45,6 +49,14 @@ export class PostulacionDetailComponent implements OnInit {
       .switchMap((params: Params) => this.postulacionesService.getPostulante(+params['id']))
       .subscribe((postulante) => {
         this.postulante = postulante;
+
+        this.cursosService.getCursos().subscribe(cursos => {
+          for(let c of cursos){
+            if(this.grados.length<1 || this.grados.indexOf(c.curso.grado)==-1){
+              this.grados.push(c.curso.grado);
+            }
+          }
+        })
 
         if(!(postulante)){
           this.timeoutMessage = invalidRequestMsg();

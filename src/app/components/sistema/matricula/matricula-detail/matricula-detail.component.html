@@ -437,7 +437,7 @@
 
 <div class="row">
   <div class="col-md-9 col-md-offset-1">
-    <div class="card" *ngIf="alumno">
+    <div class="card" *ngIf="alumno && curso">
       <div class="card-header">
         <h3 class="card-title fw-l">
           Curso
@@ -445,13 +445,11 @@
       </div>
       <div class="card-body">
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="form-control-57">Grado</label>
           <div class="col-sm-4">
-            <input id="form-control-57" class="form-control" type="text" readonly>
+            <input id="form-control-57" class="form-control" [(ngModel)]="curso.curso.grado" type="text" readonly>
           </div>
-          <label class="col-sm-2 control-label" for="form-control-58">Letra</label>
-          <div class="col-sm-4">
-            <input id="form-control-58" class="form-control" type="text" readonly>
+          <div class="col-sm-2">
+            <input id="form-control-58" class="form-control" [(ngModel)]="curso.curso.curso" type="text" readonly>
           </div>
         </div>
       </div>

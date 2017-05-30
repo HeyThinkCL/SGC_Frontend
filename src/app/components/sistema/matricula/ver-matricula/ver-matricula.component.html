@@ -21,7 +21,7 @@
 <div class="row">
   <div class="col-xs-12">
     <app-spinner [timeoutMessage]="timeoutMessage" *ngIf="!(matriculas.length>0)"></app-spinner>
-    <div class="panel" *ngIf="matriculas.length>0">
+    <div class="panel" *ngIf="matriculas.length>0 && cursos.length>0">
       <div class="panel-body">
         <div class="table-responsive">
           <table class="table table-middle table-hover">
@@ -30,6 +30,7 @@
               <th>Nombre</th>
               <th>Apellidos</th>
               <th>Rut</th>
+              <th>Curso</th>
               <th>Fecha de Nacimiento</th>
               <th>Sexo</th>
               <th>Telefono</th>
@@ -52,6 +53,9 @@
               </td>
               <td>
                 {{matricula.rut}}-{{matricula.dv}}
+              </td>
+              <td>
+                {{getCursoNameByCursoId(matricula.curso_id)}}
               </td>
               <td>
                 {{matricula.fecha_nac}}

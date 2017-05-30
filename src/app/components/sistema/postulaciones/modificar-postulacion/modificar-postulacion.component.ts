@@ -4,10 +4,11 @@ import { Location }       from '@angular/common';
 import { Select2OptionData } from 'ng2-select2';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
-import { PostulacionesService } from '../../../../services/sistema/postulaciones.service'
-import { ApoderadosService } from '../../../../services/sistema/apoderados.service'
-import { EtniasService } from '../../../../services/sistema/etnias.service'
-import { EstadosCivilesService } from '../../../../services/sistema/estados-civiles.service'
+import { PostulacionesService } from '../../../../services/sistema/postulaciones.service';
+import { ApoderadosService } from '../../../../services/sistema/apoderados.service';
+import { EtniasService } from '../../../../services/sistema/etnias.service';
+import { EstadosCivilesService } from '../../../../services/sistema/estados-civiles.service';
+import { CursosService } from '../../../../services/libros/cursos.service';
 
 import * as globalVars from '../../../../globals';
 
@@ -34,7 +35,6 @@ export class ModificarPostulacionComponent implements OnInit {
   @ViewChild('modal')
   modal: ModalComponent;
 
-
   id: number;
   private sub: any;
 
@@ -49,6 +49,8 @@ export class ModificarPostulacionComponent implements OnInit {
   //estados civiles select2
   public selectEstadoCivilData: Array<Select2OptionData> = [];
   public selectEstadoCivilOptions: Select2Options;
+
+  private grados = [];
 
   private postulante:any;
   private padre:any;
@@ -68,6 +70,7 @@ export class ModificarPostulacionComponent implements OnInit {
     private estadosCivilesService: EstadosCivilesService,
     private postulacionesService: PostulacionesService,
     private apoderadosService: ApoderadosService,
+    private cursosService: CursosService,
   ) { }
 
   ngOnInit() {
@@ -93,6 +96,14 @@ export class ModificarPostulacionComponent implements OnInit {
         }
         this.postulante = postulante;
         this.selectedPostulante = JSON.parse(JSON.stringify(this.postulante));
+
+        this.cursosService.getCursos().subscribe(cursos => {
+          for(let c of cursos){
+            if(this.grados.length<1 || this.grados.indexOf(c.curso.grado)==-1){
+              this.grados.push(c.curso.grado);
+            }
+          }
+        });
 
         if(postulante.padre_id && postulante.madre_id){
           let pCheck = false;

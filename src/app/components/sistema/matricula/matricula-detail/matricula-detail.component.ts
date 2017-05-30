@@ -54,7 +54,7 @@ export class MatriculaDetailComponent implements OnInit {
         this.alumno = postulante;
 
         this.cursosService.getCursos().subscribe(c => {
-          this.curso = c.find(curso => curso.curso.id == this.alumno);
+          this.curso = c.find(curso => curso.curso.id == this.alumno.curso_id);
         });
 
         if(!(postulante)){

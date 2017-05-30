@@ -180,6 +180,22 @@
         </div>
       </div>-->
     </div>
+    <div class="card" *ngIf="grados.length>0">
+      <div class="card-body">
+        <div class="demo-form-wrapper">
+          <div class="form form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="form-control-130">Nivel a Postular</label>
+              <div class="col-sm-5">
+                <select class="form-control no-arrows" type="text" id="form-control-130" [(ngModel)]="postulante.grado">
+                  <option *ngFor="let grado of grados" [value]="grado">{{grado}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
