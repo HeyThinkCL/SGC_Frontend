@@ -8,7 +8,7 @@
           </div>
           <div class="media-body media-middle">
             <p>Plan de Estudios <strong>{{getPlanEstudiosByPlanId(asignatura.plan_id)}}</strong></p>
-            <p>Detalles <span *ngIf="asignatura.formacion" class="label label-outline-info label-pill">{{asignatura.formacion}}</span><span class="label label-outline-info label-pill" *ngIf="asignatura.obligatoria">Obligatoria</span><span class="label label-outline-info label-pill" *ngIf="asignatura.especial">Especial</span></p>
+            <p>Detalles <span *ngIf="asignatura.formacion" class="label label-outline-info label-pill">{{asignatura.formacion}}</span><span class="label label-outline-info label-pill" *ngIf="asignatura.obligatoria">Obligatoria</span><span class="label label-outline-info label-pill" *ngIf="asignatura.especial">Especial</span><span class="label label-outline-info label-pill" *ngIf="asignatura.electivo">Electivo</span></p>
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ export class FilterAsignaturas implements PipeTransform {
       return data.filter(item => {
         if(item.plan_id==planId){
           for (let asignatura of asignaturas){
-            if(asignatura.id==item.id){
+            if(asignatura.id==item.asignatura_id){
               return false;
             }
           }

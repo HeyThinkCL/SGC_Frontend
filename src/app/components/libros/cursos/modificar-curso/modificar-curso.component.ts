@@ -116,6 +116,8 @@ export class ModificarCursoComponent implements OnInit {
     if(asignatura){
       if(asignatura.especial){
         return '[Especial]'
+      } else if(asignatura.electivo){
+        return '[Electivo]'
       }
     } else return '';
   }
@@ -125,7 +127,6 @@ export class ModificarCursoComponent implements OnInit {
   saveCurso() {
     let asignaturasCheck: boolean = false;
     let profesorCheck: boolean = false;
-    console.log(this.asignaturasCurso);
     this.cursosService.updateAsignaturasByCursoId(this.id, this.asignaturasCurso).subscribe(asigns => {
       asignaturasCheck = true;
       if(asignaturasCheck&&profesorCheck){

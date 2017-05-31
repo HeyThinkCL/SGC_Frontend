@@ -168,6 +168,7 @@ import {RedirectService} from './services/redirect.service';
 import {CertificadosService} from './services/documentos/certificados.service';
 import {CitacionesService} from './services/documentos/citaciones.service';
 import {InformesService} from './services/documentos/informes.service';
+import {DashboardService} from './services/dashboard.service'
 
 //Guards
 import {AuthGuard,AuthGuardChild} from './guards/auth.guard';
@@ -178,6 +179,7 @@ import {ConfiguracionesGuard,ConfiguracionesGuardChild} from './guards/sesion-gu
 import {DigitadorGuard,DigitadorGuardChild} from './guards/sesion-guards/digitador.guard';
 import {SostenedorGuard,SostenedorGuardChild} from './guards/sesion-guards/sostenedor.guard';
 import { AsistenciaColegioComponent } from './components/dashboard/charts/asistencia-colegio/asistencia-colegio.component';
+import { AlumnosColegioComponent } from './components/dashboard/charts/alumnos-colegio/alumnos-colegio.component';
 
 
 
@@ -285,6 +287,7 @@ import { AsistenciaColegioComponent } from './components/dashboard/charts/asiste
     AlertaConfigComponent,
     RedirectComponent,
     AsistenciaColegioComponent,
+    AlumnosColegioComponent,
   ],
   imports: [
     BrowserModule,
@@ -302,6 +305,7 @@ import { AsistenciaColegioComponent } from './components/dashboard/charts/asiste
     AuthGuardChild,
     ScriptsGuard,
     ScriptsGuardChild,
+    DashboardService,
     ConfigCalendarioAcademicoGuard,
     SostenedorGuard,
     SostenedorGuardChild,

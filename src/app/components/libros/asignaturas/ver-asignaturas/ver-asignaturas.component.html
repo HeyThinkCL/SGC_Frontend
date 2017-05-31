@@ -38,6 +38,7 @@
               <td>
                 <span class="label label-outline-info label-pill" *ngIf="asignatura.obligatoria">Obligatoria</span>
                 <span class="label label-outline-info label-pill" *ngIf="asignatura.especial">Especial</span>
+                <span class="label label-outline-info label-pill" *ngIf="asignatura.electivo">Electivo</span>
               </td>
               <td>
                 {{getPlanEstudiosByPlanId(asignatura.plan_id)}}

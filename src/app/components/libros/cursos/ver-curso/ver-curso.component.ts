@@ -50,6 +50,7 @@ export class VerCursoComponent implements OnInit {
   getCursos() {
     this.cursosService.getCursos().subscribe((res) => {
       this.cursos = res;
+      console.log(this.cursos);
       if(!(res.length>0)){
         this.timeoutMessage = emptyArrayMsg("Cursos");
       }
