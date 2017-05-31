@@ -1,8 +1,9 @@
 
 <div class="card">
   <div class="card-header">
-    Asistencia del Colegio
+    Asistencia Porcentual del Colegio
   </div>
+  <app-spinner *ngIf="!renderChart"></app-spinner>
   <div class="card-body" *ngIf="renderChart">
     <div style="display: block;">
       <canvas baseChart

@@ -31,7 +31,7 @@ export class SostenedorAfterLoginComponent implements OnInit {
 
   ngOnInit() {
 
-    this.colegiosService.getColegios().retry(1)
+    this.colegiosService.getColegios()
       .catch(initError => {
         if(initError && initError.satus==401){
           //refresh token && retry request (return this.colegioService.getcolegios())

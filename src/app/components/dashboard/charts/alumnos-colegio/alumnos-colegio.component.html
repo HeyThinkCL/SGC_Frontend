@@ -1,7 +1,7 @@
 
 <div class="card">
   <div class="card-header">
-    Alumnos del Colegio <span class="pull-right" *ngIf="renderChart">Total <span class="text-primary">{{getTotalAlumnos()}}</span></span>
+    Alumnos del Colegio por Curso<span class="pull-right" *ngIf="renderChart">Total <span class="text-primary">{{getTotalAlumnos()}}</span></span>
   </div>
   <app-spinner *ngIf="!renderChart"></app-spinner>
   <div class="card-body" *ngIf="renderChart">
