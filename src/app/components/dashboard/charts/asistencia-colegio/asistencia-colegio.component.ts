@@ -20,6 +20,7 @@ export class AsistenciaColegioComponent implements OnInit {
   public barChartLabels:string[] = [];
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
+  public barChartColors:any[] = [];
 
   public barChartData:any[] = [
     // {data: [65, 59, 80], label: 'Series A'},
@@ -53,9 +54,25 @@ export class AsistenciaColegioComponent implements OnInit {
             data:d,label:l
           })
         }
-        this.renderChart = true;
+        this.generateColors();
       }
     })
+  }
+
+  generateColors(){
+    let total = this.barChartData.length;
+    if(total>0){
+      for(let d in this.barChartData){
+        let rgba = `rgba(${52 + Math.trunc((231-52)*(+d/total))},${152 - Math.trunc((152-76)*(+d/total))},${219 - Math.trunc((219-60)*(+d/total))}`;
+        this.barChartColors.push({
+          backgroundColor:`${rgba},0.65)`,
+          borderColor:`${rgba},0.8)`,
+          hoverBackgroundColor:`${rgba},0.75)`,
+          hoverBorderColor:`${rgba},1)`,
+        })
+      }
+    }
+    this.renderChart = true;
   }
 
   // events
