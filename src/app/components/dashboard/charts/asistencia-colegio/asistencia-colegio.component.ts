@@ -9,52 +9,54 @@ import {DashboardService} from '../../../../services/dashboard.service'
 })
 export class AsistenciaColegioComponent implements OnInit {
 
+  private data: any;
+
+  private renderChart:boolean = false;
+
+  public barChartOptions:any = {
+    scaleShowVerticalLines: false,
+    responsive: true
+  };
+  public barChartLabels:string[] = [];
+  public barChartType:string = 'bar';
+  public barChartLegend:boolean = true;
+
+  public barChartData:any[] = [
+    // {data: [65, 59, 80], label: 'Series A'},
+  ];
+
   constructor(
     private dashboardService: DashboardService,
   ) { }
 
   ngOnInit() {
+    this.dashboardService.getAsistenciasColegio().subscribe(res => {
+      this.data = res;
+      console.log(this.data);
+      if(this.data && this.data.length>0){
+        let meses = JSON.parse(JSON.stringify(this.data[0].asistencia));
+        meses.reverse();
+        for(let mes of meses){
+          if(this.barChartLabels.length<4){
+            this.barChartLabels.push(mes.mes)
+          }
+        }
+        this.barChartLabels.reverse();
+
+        for(let dat of this.data){
+          let l = `${dat.curso.grado} ${dat.curso.curso}`;
+          let d = [];
+          for(let mes of this.barChartLabels){
+            d.push(dat.asistencia.find(m => m.mes==mes).porcentaje);
+          }
+          this.barChartData.push({
+            data:d,label:l
+          })
+        }
+        this.renderChart = true;
+      }
+    })
   }
-
-  // lineChart
-  public lineChartData:Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
-    {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
-  ];
-  public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChartOptions:any = {
-    responsive: true
-  };
-  public lineChartColors:Array<any> = [
-    { // lighter primary blue
-      backgroundColor: 'rgba(86,121,156,0.2)',
-      borderColor: 'rgba(86,121,156,1)',
-      pointBackgroundColor: 'rgba(86,121,156,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(86,121,156,0.8)'
-    },
-    { // primary blue
-      backgroundColor: 'rgba(17,24,31,0.2)',
-      borderColor: 'rgba(17,24,31,1)',
-      pointBackgroundColor: 'rgba(17,24,31,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(17,24,31,1)'
-    },
-    { // lighter primary blue
-      backgroundColor: 'rgba(65,91,118,0.2)',
-      borderColor: 'rgba(65,91,118,1)',
-      pointBackgroundColor: 'rgba(65,91,118,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(65,91,118,0.8)'
-    }
-  ];
-  public lineChartLegend:boolean = true;
-  public lineChartType:string = 'line';
-
 
   // events
   public chartClicked(e:any):void {

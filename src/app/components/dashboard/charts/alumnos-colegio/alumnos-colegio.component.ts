@@ -17,7 +17,8 @@ export class AlumnosColegioComponent implements OnInit {
   // Doughnut
   public doughnutChartLabels:string[] = [];
   public doughnutChartData:number[] = [];
-  public doughnutChartType:string = 'doughnut';
+  // public doughnutChartType:string = 'doughnut';
+  public doughnutChartType:string = 'pie';
   public doughnutChartOptions:any = {
     responsive: true
   };
@@ -84,9 +85,15 @@ export class AlumnosColegioComponent implements OnInit {
         this.doughnutChartColors[0].hoverBackgroundColor.push(`${rgba},1)`);
       }
     }
-    console.log(this.doughnutChartColors);
     this.renderChart = true;
+  }
 
+  getTotalAlumnos(): number{
+    let _total: number = 0;
+    for(let d of this.doughnutChartData){
+      _total = _total + d;
+    }
+    return _total;
   }
 
   // events

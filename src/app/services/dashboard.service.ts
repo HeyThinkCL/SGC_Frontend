@@ -24,4 +24,11 @@ export class DashboardService {
     return JSON.parse(localStorage.getItem('currentUser')).userRol;
   }
 
+  //GET
+  getAsistenciasColegio(): Observable<any>{
+    return this.http.get(`${this.dashboardUrl}/asistencias?colegio_id=${this.getColegioId()}`,{headers:this.headers})
+      .map(res => res.json())
+      .catch((error:any) => Observable.throw(error.json().error || error.status ))
+  }
+
 }
