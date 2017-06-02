@@ -227,6 +227,29 @@ export class CrearColegioComponent implements OnInit {
     }
   }
 
+  lock(){
+    if(!this.colegio.name){
+      return true;
+    }
+    if(!this.colegio.rbn){
+      return true;
+    }
+    if(!this.colegio.region){
+      return true;
+    }
+    if(!this.colegio.provincia){
+      return true;
+    }
+    if(!this.colegio.comuna){
+      return true;
+    }
+    if(!this.colegio.depto_prov){
+      return true;
+    }
+
+    return false;
+  }
+
   saveColegio(): void {
     this.colegiosService.createColegio(this.colegio).subscribe(res => {
       this.colegio = res;

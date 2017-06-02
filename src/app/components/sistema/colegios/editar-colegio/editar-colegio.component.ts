@@ -58,26 +58,31 @@ export class EditarColegioComponent implements OnInit {
       .subscribe((colegio) => {
 
         this.colegio = colegio;
+
         this.selectedColegio = JSON.parse(JSON.stringify(colegio));
-        console.log(this.colegio);
         if(!(colegio)){
           this.timeoutMessage = invalidRequestMsg();
         }
-
         this.dpaService.getRegiones().subscribe(res => {
           this.regiones = res;
           this.selectedRegion = this.regiones.find(reg => reg.nombre == this.selectedColegio.region);
-          this.dpaService.getProvinciasByRegionId(this.selectedRegion.codigo).subscribe(res => {
-            this.provincias = res;
-            this.selectedProvincia = this.provincias.find(prov => prov.nombre == this.selectedColegio.provincia);
-            this.dpaService.getComunasByProvinciaIdRegionId(this.selectedProvincia.codigo).subscribe(res => {
-              this.comunas = res;
-              this.selectedComuna = this.comunas.find(com => com.nombre == this.selectedColegio.comuna);
-              this.dpaService.getDeptoProvincialbyComunaId(this.selectedComuna.codigo).subscribe(res => {
-                this.colegio.depto_prov = res.depto;
-              });
+          if(this.selectedRegion){
+            this.dpaService.getProvinciasByRegionId(this.selectedRegion.codigo).subscribe(subres => {
+              this.provincias = subres;
+              this.selectedProvincia = this.provincias.find(prov => prov.nombre == this.selectedColegio.provincia);
+              if(this.selectedProvincia){
+                this.dpaService.getComunasByProvinciaIdRegionId(this.selectedProvincia.codigo).subscribe(ssubres => {
+                  this.comunas = ssubres;
+                  this.selectedComuna = this.comunas.find(com => com.nombre == this.selectedColegio.comuna);
+                  if(this.selectedComuna){
+                    this.dpaService.getDeptoProvincialbyComunaId(this.selectedComuna.codigo).subscribe(sssubres => {
+                      this.colegio.depto_prov = sssubres.depto;
+                    });
+                  }
+                });
+              }
             });
-          });
+          }
         });
     });
   }
