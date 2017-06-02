@@ -204,8 +204,8 @@
       </div>
       <div class="media-body media-middle">
         <div class="row">
-          <div class="col-md-4">
-            <div class="media-left" *ngIf="colegio.img">
+          <div class="col-md-4" *ngIf="colegio.img">
+            <div class="media-left">
               <img class="img-responsive" [src]="colegio.img" alt="Red dot" />
             </div>
           </div>
@@ -213,9 +213,10 @@
             <div class="demo-md-form-wrapper" *ngIf="selectedColegio">
               <div class="form form-horizontal">
                 <div class="form-group">
-                  <label class="file-upload-btn btn btn-primary" for="form-control-22">Subir Insignia
+                  <label class="file-upload-btn btn btn-primary" for="form-control-22"><span class="m-a-sm">Subir Insignia</span>
                     <input class="file-upload-input" id="form-control-22" type="file" (change)="imgUpload($event)" accept=".png,.gif,.jpg">
                   </label>
+                  <button class="btn btn-danger" [disabled]="!colegio.img" (click)="colegio.img=null"><span class="icon icon-trash"></span></button>
                 </div>
               </div>
             </div>
