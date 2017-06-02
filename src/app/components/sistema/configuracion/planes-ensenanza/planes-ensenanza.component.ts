@@ -232,7 +232,7 @@ export class PlanesEnsenanzaComponent implements OnInit {
   }
 
   modalOpen(){
-    this.modal.open('sm');
+    this.modal.open();
   }
 
   modalClose(){

@@ -108,13 +108,21 @@ export class CrearElectivoComponent implements OnInit {
     }
     this.cursosService.createElectivo(this.electivo, cursosToAssign).subscribe(asignatura => {
       this.cursosService.addAlumnosToElectivo(asignatura.id,this.selectedAlumnos).subscribe(res => {
-        this.goBack();
+        this.modalOpen();
       });
     });
   }
 
   goBack(): void {
     this.location.back();
+  }
+
+  modalOpen(): void {
+    this.modal.open();
+  }
+
+  modalClose(): void {
+    this.modal.close();
   }
 
 }

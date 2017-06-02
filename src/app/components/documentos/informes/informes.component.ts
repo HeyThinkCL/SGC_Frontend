@@ -11,8 +11,7 @@ import * as globalVar from '../../../globals';
   styleUrls: ['./informes.component.css']
 })
 export class InformesComponent implements OnInit {
-  @ViewChild('modal')
-  modal: ModalComponent;
+  @ViewChild('modal') modal: ModalComponent;
 
   docs = [
     {'id':1,'nombre':'Informe de Notas'},
@@ -126,67 +125,119 @@ export class InformesComponent implements OnInit {
       'sujetos':this.subjectsId,
     };
 
+    let _wait:boolean[] = [];
+
+    if(this.docsId.length>0){
+      this.modalOpen();
+    }
+
     for(let docId of this.docsId){
       if(docId==1){
-        this.modalOpen();
+        _wait.push(false);
         this.informesService.generateInformeNotas(this.optionId,this.subjectsId).subscribe(res => {
-
           if(res && res.status){
             let url: string = globalVar.apiUrl+'/'+res.status;
             window.open(url);
-            this.modalClose();
+
+            let docIdx = this.docsId.findIndex(d => d==docId);
+            _wait[docIdx] = true;
+            if(!_wait.find(w => w==false)){
+              this.modalClose();
+            }
           }
         })
 
       }
       if(docId==2){
+        _wait.push(false);
         this.informesService.generateListaDeCurso(this.optionId,this.subjectsId).subscribe(res => {
           if(res && res.status){
             let url: string = globalVar.apiUrl+'/'+res.status;
             window.open(url);
+
+            let docIdx = this.docsId.findIndex(d => d==docId);
+            _wait[docIdx] = true;
+            if(!_wait.find(w => w==false)){
+              this.modalClose();
+            }
           }
         })
 
       }
       if(docId==3){
+        _wait.push(false);
         this.informesService.generateInasistenciaCurso(this.optionId,this.subjectsId).subscribe(res => {
           if(res && res.status){
             let url: string = globalVar.apiUrl+'/'+res.status;
             window.open(url);
+
+            let docIdx = this.docsId.findIndex(d => d==docId);
+            _wait[docIdx] = true;
+            if(!_wait.find(w => w==false)){
+              this.modalClose();
+            }
           }
         })
 
       }
       if(docId==4){
+        _wait.push(false);
         this.informesService.generateResumenCurso(this.optionId,this.subjectsId).subscribe(res => {
           if(res && res.status){
             let url: string = globalVar.apiUrl+'/'+res.status;
             window.open(url);
+
+            let docIdx = this.docsId.findIndex(d => d==docId);
+            _wait[docIdx] = true;
+            if(!_wait.find(w => w==false)){
+              this.modalClose();
+            }
           }
         })
 
       }
       if(docId==5){
+        _wait.push(false);
         this.informesService.generateAsistenciaColegio(this.optionId,this.subjectsId).subscribe(res => {
           if(res && res.status){
             let url: string = globalVar.apiUrl+'/'+res.status;
             window.open(url);
+
+            let docIdx = this.docsId.findIndex(d => d==docId);
+            _wait[docIdx] = true;
+            if(!_wait.find(w => w==false)){
+              this.modalClose();
+            }
           }
         })
       }
       if(docId==6){
+        _wait.push(false);
         this.informesService.generateInformeExtranjeros(this.optionId,this.subjectsId).subscribe(res => {
           if(res && res.status){
             let url: string = globalVar.apiUrl+'/'+res.status;
             window.open(url);
+
+            let docIdx = this.docsId.findIndex(d => d==docId);
+            _wait[docIdx] = true;
+            if(!_wait.find(w => w==false)){
+              this.modalClose();
+            }
           }
         })
       }
       if(docId==7){
+        _wait.push(false);
         this.informesService.generateInformeIndigenas(this.optionId,this.subjectsId).subscribe(res => {
           if(res && res.status){
             let url: string = globalVar.apiUrl+'/'+res.status;
             window.open(url);
+
+            let docIdx = this.docsId.findIndex(d => d==docId);
+            _wait[docIdx] = true;
+            if(!_wait.find(w => w==false)){
+              this.modalClose();
+            }
           }
         })
       }

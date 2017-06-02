@@ -72,12 +72,23 @@ export class ModificarElectivoComponent implements OnInit {
 
         this.selectedAlumnos = response.alumnos;
         this.initSelectedAlumnos = JSON.parse(JSON.stringify(response.alumnos));
+        this.modalOpen();
       })
     });
   }
 
   goBack(): void {
     this.location.back();
+  }
+
+  //modal
+  modalOpen(): void {
+    this.modal.open();
+  }
+
+  modalClose(): void {
+    this.modal.close();
+    this.goBack();
   }
 
 }

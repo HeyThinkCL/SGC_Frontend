@@ -63,23 +63,20 @@
         <div class="col-sm-8">
           <button class="btn btn-info btn-block" (click)="saveElectivo()">Guardar Electivo</button>
         </div>
-        <!--<div class="col-sm-8">
-          <button class="btn btn-primary btn-block" (click)="modalOpen()">Guardar</button>
 
-          <modal [animation]="true" #modal>
-            <modal-header [show-close]="true">
-              <h4 class="modal-title">Guardar Asignatura.</h4>
-            </modal-header>
-            <modal-body>
-              Presione Ok para continuar guardando la asignatura.
-            </modal-body>
-            <modal-footer>
-              <button type="button" class="btn btn-primary" (click)="saveAsignatura()">Ok</button>
-            </modal-footer>
-          </modal>
-
-        </div>-->
       </div>
     </div>
   </div>
 </div>
+
+<modal [animation]="true" #modal>
+  <modal-header [show-close]="true">
+    <h4 class="modal-title">Guardar Asignatura Electiva.</h4>
+  </modal-header>
+  <modal-body>
+    Presione Ok para continuar guardando la asignatura.
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-primary" (click)="saveAsignatura()">Ok</button>
+  </modal-footer>
+</modal>

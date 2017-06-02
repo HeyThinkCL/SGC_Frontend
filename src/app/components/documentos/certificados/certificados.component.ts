@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {CertificadosService} from '../../../services/documentos/certificados.service';
 
 import * as globalVar from '../../../globals';
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 
 @Component({
   selector: 'app-certificados',
@@ -10,6 +11,7 @@ import * as globalVar from '../../../globals';
   styleUrls: ['./certificados.component.css']
 })
 export class CertificadosComponent implements OnInit {
+  @ViewChild('modal') modal: ModalComponent;
 
   docs = [
     {'id':1,'nombre':'Certificado Matricula'},
@@ -79,50 +81,98 @@ export class CertificadosComponent implements OnInit {
       'filtro': this.optionId,
       'sujetos':this.subjectsId,
     };
+    let _wait:boolean[] = [];
+
+    if(this.docsId.length>0){
+      this.modalOpen();
+    }
 
     for(let docId of this.docsId){
       if(docId==1){
+        _wait.push(false);
         this.certificadosService.generateMatricula(this.optionId,this.subjectsId).subscribe(res => {
           if(res && res.status){
             let url: string = globalVar.apiUrl+'/'+res.status;
-            window.open(url)
+            window.open(url);
+
+            let docIdx = this.docsId.findIndex(d => d==docId);
+            _wait[docIdx] = true;
+            if(!_wait.find(w => w==false)){
+              this.modalClose();
+            }
           }
         })
       }
       if(docId==2){
+        _wait.push(false);
         this.certificadosService.generateAlumnoRegular(this.optionId,this.subjectsId).subscribe(res => {
           if(res && res.status){
             let url: string = globalVar.apiUrl+'/'+res.status;
-            window.open(url)
+            window.open(url);
+
+            let docIdx = this.docsId.findIndex(d => d==docId);
+            _wait[docIdx] = true;
+            if(!_wait.find(w => w==false)){
+              this.modalClose();
+            }
           }
         })
       }
       if(docId==3){
+        _wait.push(false);
         this.certificadosService.generateInscripcion(this.optionId,this.subjectsId).subscribe(res => {
           if(res && res.status){
             let url: string = globalVar.apiUrl+'/'+res.status;
-            window.open(url)
+            window.open(url);
+
+            let docIdx = this.docsId.findIndex(d => d==docId);
+            _wait[docIdx] = true;
+            if(!_wait.find(w => w==false)){
+              this.modalClose();
+            }
           }
         })
       }
       if(docId==4){
+        _wait.push(false);
         this.certificadosService.generateAsistencia(this.optionId,this.subjectsId).subscribe(res => {
           if(res && res.status){
             let url: string = globalVar.apiUrl+'/'+res.status;
-            window.open(url)
+            window.open(url);
+
+            let docIdx = this.docsId.findIndex(d => d==docId);
+            _wait[docIdx] = true;
+            if(!_wait.find(w => w==false)){
+              this.modalClose();
+            }
           }
         })
       }
       if(docId==5){
+        _wait.push(false);
         this.certificadosService.generateTraslado(this.optionId,this.subjectsId).subscribe(res => {
           if(res && res.status){
             let url: string = globalVar.apiUrl+'/'+res.status;
-            window.open(url)
+            window.open(url);
+
+            let docIdx = this.docsId.findIndex(d => d==docId);
+            _wait[docIdx] = true;
+            if(!_wait.find(w => w==false)){
+              this.modalClose();
+            }
           }
         })
       }
     }
 
+  }
+
+  modalOpen(): void {
+    this.modal.open();
+  }
+
+  modalClose(): void {
+    this.modal.close();
   }
 
 
