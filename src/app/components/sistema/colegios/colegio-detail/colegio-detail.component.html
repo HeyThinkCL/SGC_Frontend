@@ -129,6 +129,25 @@
   </div>
 </div>
 
+<div class="row" *ngIf="colegio">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="media">
+      <div class="media-heading">
+        <h4 class="card-title">Insignia del Establecimiento</h4>
+      </div>
+      <div class="media-body media-middle">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="media-left p-a-md m-a-md" *ngIf="colegio.img">
+              <img class="img-responsive" [src]="colegio.img" alt="Red dot" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-md-8 col-md-offset-1">
     <div class="form form-horizontal">

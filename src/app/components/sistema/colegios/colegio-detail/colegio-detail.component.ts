@@ -43,6 +43,7 @@ export class ColegioDetailComponent implements OnInit {
       .switchMap((params: Params) => this.colegiosService.getColegio(+params['id']))
       .subscribe((colegio) => {
         this.colegio = colegio;
+        console.log(this.colegio);
         if(!(colegio)){
           this.timeoutMessage = invalidRequestMsg();
         }

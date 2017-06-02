@@ -215,6 +215,18 @@ export class CrearColegioComponent implements OnInit {
     this.goBack();
   }
 
+  imgUpload(e){
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    if(file){
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        console.log(reader.result);
+        this.colegio.img=reader.result;
+      }
+    }
+  }
+
   saveColegio(): void {
     this.colegiosService.createColegio(this.colegio).subscribe(res => {
       this.colegio = res;

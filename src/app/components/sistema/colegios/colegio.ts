@@ -21,4 +21,5 @@ export class Colegio {
   sostenedor: string;
   rbd: string;
   dependencia: string;
+  img: string;
 }

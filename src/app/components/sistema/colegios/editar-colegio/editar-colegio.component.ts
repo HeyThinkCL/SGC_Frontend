@@ -56,28 +56,42 @@ export class EditarColegioComponent implements OnInit {
     this.route.params
       .switchMap((params: Params) => this.colegiosService.getColegio(+params['id']))
       .subscribe((colegio) => {
+
         this.colegio = colegio;
         this.selectedColegio = JSON.parse(JSON.stringify(colegio));
+        console.log(this.colegio);
         if(!(colegio)){
           this.timeoutMessage = invalidRequestMsg();
         }
-    });
 
-    this.dpaService.getRegiones().subscribe(res => {
-      this.regiones = res;
-      this.selectedRegion = this.regiones.find(reg => reg.nombre == this.selectedColegio.region);
-      this.dpaService.getProvinciasByRegionId(this.selectedRegion.codigo).subscribe(res => {
-        this.provincias = res;
-        this.selectedProvincia = this.provincias.find(prov => prov.nombre == this.selectedColegio.provincia);
-        this.dpaService.getComunasByProvinciaIdRegionId(this.selectedProvincia.codigo).subscribe(res => {
-          this.comunas = res;
-          this.selectedComuna = this.comunas.find(com => com.nombre == this.selectedColegio.comuna);
-          this.dpaService.getDeptoProvincialbyComunaId(this.selectedComuna.codigo).subscribe(res => {
-            this.colegio.depto_prov = res.depto;
+        this.dpaService.getRegiones().subscribe(res => {
+          this.regiones = res;
+          this.selectedRegion = this.regiones.find(reg => reg.nombre == this.selectedColegio.region);
+          this.dpaService.getProvinciasByRegionId(this.selectedRegion.codigo).subscribe(res => {
+            this.provincias = res;
+            this.selectedProvincia = this.provincias.find(prov => prov.nombre == this.selectedColegio.provincia);
+            this.dpaService.getComunasByProvinciaIdRegionId(this.selectedProvincia.codigo).subscribe(res => {
+              this.comunas = res;
+              this.selectedComuna = this.comunas.find(com => com.nombre == this.selectedColegio.comuna);
+              this.dpaService.getDeptoProvincialbyComunaId(this.selectedComuna.codigo).subscribe(res => {
+                this.colegio.depto_prov = res.depto;
+              });
+            });
           });
         });
-      });
     });
+  }
+
+  imgUpload(e){
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    if(file){
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        console.log(reader.result);
+        this.colegio.img=reader.result;
+      }
+    }
   }
 
   goBack(): void {

@@ -5,8 +5,8 @@
 </div>
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
-    <app-spinner [timeoutMessage]="timeoutMessage" *ngIf="!(selectedColegio)"></app-spinner>
-    <div class="demo-md-form-wrapper" *ngIf="selectedColegio">
+    <app-spinner [timeoutMessage]="timeoutMessage" *ngIf="!(selectedColegio && colegio)"></app-spinner>
+    <div class="demo-md-form-wrapper" *ngIf="colegio && selectedColegio && regiones.length>0 && provincias.length>0 && comunas.length>0">
       <div class="form form-horizontal">
         <div class="md-form-group md-label-static">
           <label class="col-sm-2 md-control-label" for="form-control-1"><b>Nombre del Establecimiento:</b> {{selectedColegio.nombre}}</label>
@@ -187,12 +187,43 @@
 
             <label class="col-sm-2  md-control-label" for="form-control-21"><b>Director:</b> {{selectedColegio.director}}</label>
             <div class="col-sm-10">
-              <input id="form-control-21" class="form-control" type="text" [(ngModel)]="colegio.director"  >
+              <input id="form-control-21" class="form-control" type="text" [(ngModel)]="colegio.director" readonly>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="media">
+      <div class="media-heading">
+        <h4 class="card-title">Insignia del Establecimiento</h4>
+      </div>
+      <div class="media-body media-middle">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="media-left" *ngIf="colegio.img">
+              <img class="img-responsive" [src]="colegio.img" alt="Red dot" />
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="demo-md-form-wrapper" *ngIf="selectedColegio">
+              <div class="form form-horizontal">
+                <div class="form-group">
+                  <label class="file-upload-btn btn btn-primary" for="form-control-22">Subir Insignia
+                    <input class="file-upload-input" id="form-control-22" type="file" (change)="imgUpload($event)" accept=".png,.gif,.jpg">
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
