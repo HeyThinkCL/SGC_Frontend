@@ -93,7 +93,7 @@ export class EditarColegioComponent implements OnInit {
     if(file){
       reader.readAsDataURL(file);
       reader.onload = (e) => {
-        console.log(reader.result);
+
         this.colegio.img=reader.result;
       }
     }

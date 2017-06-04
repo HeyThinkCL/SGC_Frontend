@@ -30,7 +30,6 @@ export class AnotacionesService {
     let payload = {};
     payload['anotaciones'] = JSON.parse(JSON.stringify(anotacion));
     payload['colegio_id'] = this.getColegioId();
-    console.log(payload);
 
     return this.http.post(this.anotacionessUrl, JSON.stringify(payload), options)
       .map(res => res.json())

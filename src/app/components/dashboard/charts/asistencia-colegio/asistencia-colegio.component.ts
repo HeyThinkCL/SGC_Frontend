@@ -33,7 +33,6 @@ export class AsistenciaColegioComponent implements OnInit {
   ngOnInit() {
     this.dashboardService.getAsistenciasColegio().subscribe(res => {
       this.data = res;
-      console.log(this.data);
       if(this.data && this.data.length>0){
         let meses = JSON.parse(JSON.stringify(this.data[0].asistencia));
         meses.reverse();

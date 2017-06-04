@@ -127,6 +127,11 @@ export class ModificarCursoComponent implements OnInit {
   saveCurso() {
     let asignaturasCheck: boolean = false;
     let profesorCheck: boolean = false;
+    for(let curso of this.asignaturasCurso){
+      if(curso.asignatura_id){
+        curso.id = curso.asignatura_id;
+      }
+    }
     this.cursosService.updateAsignaturasByCursoId(this.id, this.asignaturasCurso).subscribe(asigns => {
       asignaturasCheck = true;
       if(asignaturasCheck&&profesorCheck){
